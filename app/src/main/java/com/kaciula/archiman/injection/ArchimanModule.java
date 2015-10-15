@@ -3,6 +3,7 @@ package com.kaciula.archiman.injection;
 import android.app.Application;
 import android.support.annotation.NonNull;
 
+import com.kaciula.archiman.net.NetModule;
 import com.kaciula.archiman.persistence.PrefsModule;
 import com.kaciula.archiman.util.ArchimanApplication;
 import com.kaciula.archiman.util.GlobalStateManager;
@@ -19,6 +20,7 @@ import dagger.Provides;
 @Module(
         includes = {
                 PrefsModule.class,
+                NetModule.class,
                 MixerModule.class
         },
         injects = {

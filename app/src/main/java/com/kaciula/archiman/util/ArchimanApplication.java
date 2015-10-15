@@ -6,6 +6,8 @@ import com.crashlytics.android.Crashlytics;
 import com.kaciula.archiman.BuildConfig;
 import com.kaciula.archiman.injection.Modules;
 
+import net.danlew.android.joda.JodaTimeAndroid;
+
 import javax.inject.Inject;
 
 import dagger.ObjectGraph;
@@ -33,6 +35,7 @@ public class ArchimanApplication extends Application {
             Timber.plant(new CrashlyticsTree());
         }
 
+        JodaTimeAndroid.init(this);
         globalStateManager.initializeEveryColdStart();
     }
 
