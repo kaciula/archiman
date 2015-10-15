@@ -29,8 +29,12 @@ public class ArchimanApplication extends Application {
         return app;
     }
 
-    public void buildObjectGraphAndInject() {
+    private void buildObjectGraphAndInject() {
         graph = ObjectGraph.create(Modules.list(this));
         graph.inject(this);
+    }
+
+    public void inject(Object object) {
+        graph.inject(object);
     }
 }

@@ -22,6 +22,7 @@ import dagger.Provides;
         },
         injects = {
                 ArchimanApplication.class,
+                GlobalStateManager.class
         }
 )
 public final class ArchimanModule {

@@ -28,6 +28,7 @@ public class GlobalStateManager {
     public GlobalStateManager(Application app, ExecutorService executorService) {
         this.app = app;
         this.executorService = executorService;
+        ArchimanApplication.get().inject(this);
     }
 
     public void initializeEveryColdStart() {
