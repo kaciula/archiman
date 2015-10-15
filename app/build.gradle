@@ -23,7 +23,6 @@ def buildTime = new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
-
     defaultConfig {
         applicationId "com.kaciula.archiman"
         minSdkVersion 15
@@ -31,9 +30,19 @@ android {
         versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
     }
+    // FIXME: Create your own keystore with secret keys and passwords
+    signingConfigs {
+        release {
+            storeFile file("key/archiman.jks")
+            storePassword 'Archiman987'
+            keyAlias 'archiman.key'
+            keyPassword 'Archiman987'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
         }
         debug {
             applicationIdSuffix ".dev"
@@ -52,7 +61,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.1'
-
     compile 'com.jakewharton.timber:timber:4.0.1'
     compile 'com.squareup.dagger:dagger:1.2.2'
     provided 'com.squareup.dagger:dagger-compiler:1.2.2'
@@ -62,6 +70,5 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.5.0@aar') {
         transitive = true;
     }
-
     testCompile 'junit:junit:4.12'
 }
