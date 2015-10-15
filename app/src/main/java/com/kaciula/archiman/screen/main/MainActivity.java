@@ -12,4 +12,9 @@ public class MainActivity extends ArchimanActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_main);
     }
+
+    @Override
+    public Object getModule() {
+        return new MainModule(this);
+    }
 }

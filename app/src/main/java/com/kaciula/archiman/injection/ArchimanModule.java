@@ -18,7 +18,8 @@ import dagger.Provides;
 
 @Module(
         includes = {
-                PrefsModule.class
+                PrefsModule.class,
+                MixerModule.class
         },
         injects = {
                 ArchimanApplication.class,

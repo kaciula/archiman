@@ -49,6 +49,10 @@ public class ArchimanApplication extends Application {
         graph.inject(object);
     }
 
+    public ObjectGraph getObjectGraph() {
+        return graph;
+    }
+
     public void startCrashlytics() {
         Fabric.with(this, new Crashlytics());
         Crashlytics.setUserIdentifier(MiscUtils.getDeviceId());
