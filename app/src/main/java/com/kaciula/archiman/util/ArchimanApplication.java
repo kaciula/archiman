@@ -60,5 +60,6 @@ public class ArchimanApplication extends Application {
         Fabric.with(this, new Crashlytics());
         Crashlytics.setUserIdentifier(MiscUtils.getDeviceId());
         Crashlytics.setString("Installer", MiscUtils.getInstaller());
+        Crashlytics.setString("Git SHA", BuildConfig.GIT_SHA);
     }
 }

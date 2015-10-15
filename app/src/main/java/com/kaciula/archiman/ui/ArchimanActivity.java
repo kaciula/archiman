@@ -3,6 +3,8 @@ package com.kaciula.archiman.ui;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.crashlytics.android.Crashlytics;
+import com.kaciula.archiman.BuildConfig;
 import com.kaciula.archiman.util.ArchimanApplication;
 
 import dagger.ObjectGraph;
@@ -15,6 +17,8 @@ public abstract class ArchimanActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         buildGraphAndInject();
+        if (!BuildConfig.DEBUG)
+            Crashlytics.setString("current screen", getLocalClassName());
     }
 
     @Override
