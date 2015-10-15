@@ -2,11 +2,15 @@ package com.kaciula.archiman.util;
 
 import android.app.Application;
 
+import com.crashlytics.android.Crashlytics;
+import com.kaciula.archiman.BuildConfig;
 import com.kaciula.archiman.injection.Modules;
 
 import javax.inject.Inject;
 
 import dagger.ObjectGraph;
+import io.fabric.sdk.android.Fabric;
+import timber.log.Timber;
 
 public class ArchimanApplication extends Application {
 
@@ -22,6 +26,13 @@ public class ArchimanApplication extends Application {
         ArchimanApplication.app = this;
         buildObjectGraphAndInject();
 
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        } else {
+            startCrashlytics();
+            Timber.plant(new CrashlyticsTree());
+        }
+
         globalStateManager.initializeEveryColdStart();
     }
 
@@ -36,5 +47,11 @@ public class ArchimanApplication extends Application {
 
     public void inject(Object object) {
         graph.inject(object);
+    }
+
+    public void startCrashlytics() {
+        Fabric.with(this, new Crashlytics());
+        Crashlytics.setUserIdentifier(MiscUtils.getDeviceId());
+        Crashlytics.setString("Installer", MiscUtils.getInstaller());
     }
 }
