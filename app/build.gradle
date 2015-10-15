@@ -1,5 +1,11 @@
 apply plugin: 'com.android.application'
 
+def versionMajor = 4
+def versionMinor = 0
+def versionPatch = 11
+
+def buildTime = new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
@@ -8,19 +14,30 @@ android {
         applicationId "com.kaciula.archiman"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
     }
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-dev-" + buildTime
+        }
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def oldFile = output.outputFile
+            def newName = "Archiman-" + "${variant.versionName}.apk"
+            output.outputFile = new File(oldFile.parent, newName)
         }
     }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:22.2.1'
+
+    testCompile 'junit:junit:4.12'
 }
