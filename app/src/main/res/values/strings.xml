@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">archiman</string>
+    <string name="retry">Retry</string>
+    <string name="error">Some spooky error happened. Check your Internet connection.</string>
 </resources>

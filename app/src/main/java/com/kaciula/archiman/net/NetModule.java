@@ -5,6 +5,7 @@ import android.app.Application;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.kaciula.archiman.BuildConfig;
 import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.OkHttpClient;
 
@@ -15,12 +16,27 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import retrofit.RestAdapter;
+import retrofit.client.OkClient;
 
 @Module(
         complete = false,
         library = true
 )
 public class NetModule {
+
+    @Provides
+    @Singleton
+    GithubApi provideGithubApi(OkHttpClient okHttpClient, ObjectMapper mapper) {
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setEndpoint("https://api.github.com")
+                .setClient(new OkClient(okHttpClient))
+                .setConverter(new JacksonConverter(mapper))
+                .build();
+        restAdapter.setLogLevel(BuildConfig.DEBUG ? RestAdapter.LogLevel.FULL : RestAdapter
+                .LogLevel.NONE);
+        return restAdapter.create(GithubApi.class);
+    }
 
     @Provides
     @Singleton

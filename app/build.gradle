@@ -89,6 +89,8 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.6.0'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.6.0'
     compile 'net.danlew:android.joda:2.8.2'
+    compile 'io.reactivex:rxjava:1.0.14'
+    compile 'io.reactivex:rxandroid:1.0.1'
 
     testCompile 'junit:junit:4.12'
 }
