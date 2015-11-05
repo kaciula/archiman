@@ -4,13 +4,17 @@ import android.app.Application;
 
 import com.crashlytics.android.Crashlytics;
 import com.kaciula.archiman.BuildConfig;
-import com.kaciula.archiman.injection.Modules;
+import com.kaciula.archiman.injection.ArchimanComponent;
+import com.kaciula.archiman.injection.ArchimanModule;
+import com.kaciula.archiman.injection.DaggerArchimanComponent;
+import com.kaciula.archiman.injection.MixerModule;
+import com.kaciula.archiman.net.NetModule;
+import com.kaciula.archiman.persistence.PrefsModule;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
 import javax.inject.Inject;
 
-import dagger.ObjectGraph;
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
@@ -18,7 +22,7 @@ public class ArchimanApplication extends Application {
 
     private static ArchimanApplication app;
 
-    private ObjectGraph graph;
+    private ArchimanComponent component;
     @Inject
     protected GlobalStateManager globalStateManager;
 
@@ -44,16 +48,17 @@ public class ArchimanApplication extends Application {
     }
 
     private void buildObjectGraphAndInject() {
-        graph = ObjectGraph.create(Modules.list(this));
-        graph.inject(this);
+        component = DaggerArchimanComponent.builder()
+                .archimanModule(new ArchimanModule(this))
+                .prefsModule(new PrefsModule())
+                .netModule(new NetModule())
+                .mixerModule(new MixerModule())
+                .build();
+        component.inject(this);
     }
 
-    public void inject(Object object) {
-        graph.inject(object);
-    }
-
-    public ObjectGraph getObjectGraph() {
-        return graph;
+    public ArchimanComponent component() {
+        return component;
     }
 
     public void startCrashlytics() {

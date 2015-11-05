@@ -12,21 +12,15 @@ import com.squareup.okhttp.OkHttpClient;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
 
-@Module(
-        complete = false,
-        library = true
-)
+@Module
 public class NetModule {
 
     @Provides
-    @Singleton
     GithubApi provideGithubApi(OkHttpClient okHttpClient, ObjectMapper mapper) {
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint("https://api.github.com")
@@ -39,7 +33,6 @@ public class NetModule {
     }
 
     @Provides
-    @Singleton
     OkHttpClient provideOkHttpClient(Application app) {
         OkHttpClient okHttpClient = new OkHttpClient();
 //        okHttpClient.setSslSocketFactory(getTrustfulSocketFactory());
@@ -55,7 +48,6 @@ public class NetModule {
     }
 
     @Provides
-    @Singleton
     ObjectMapper provideMapper() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);

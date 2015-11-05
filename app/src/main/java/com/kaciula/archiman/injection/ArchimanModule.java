@@ -3,8 +3,6 @@ package com.kaciula.archiman.injection;
 import android.app.Application;
 import android.support.annotation.NonNull;
 
-import com.kaciula.archiman.net.NetModule;
-import com.kaciula.archiman.persistence.PrefsModule;
 import com.kaciula.archiman.util.ArchimanApplication;
 import com.kaciula.archiman.util.GlobalStateManager;
 
@@ -12,22 +10,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 
-@Module(
-        includes = {
-                PrefsModule.class,
-                NetModule.class,
-                MixerModule.class
-        },
-        injects = {
-                ArchimanApplication.class,
-                GlobalStateManager.class
-        }
-)
+@Module
 public final class ArchimanModule {
 
     private final ArchimanApplication app;
@@ -37,13 +23,11 @@ public final class ArchimanModule {
     }
 
     @Provides
-    @Singleton
     Application provideApplication() {
         return app;
     }
 
     @Provides
-    @Singleton
     ExecutorService provideExecutor() {
         return Executors.newCachedThreadPool(new ThreadFactory() {
             @Override
@@ -61,7 +45,6 @@ public final class ArchimanModule {
     }
 
     @Provides
-    @Singleton
     GlobalStateManager provideGlobalStateManager(Application app, ExecutorService executorService) {
         return new GlobalStateManager(app, executorService);
     }
