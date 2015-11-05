@@ -10,6 +10,7 @@ import dagger.Provides;
 public class MixerModule {
 
     @Provides
+    @ApplicationScope
     MainMixer provideMainMixer(GithubApi githubApi) {
         return new MainMixer(githubApi);
     }

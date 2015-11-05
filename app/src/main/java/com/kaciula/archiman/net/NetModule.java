@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.kaciula.archiman.BuildConfig;
+import com.kaciula.archiman.injection.ApplicationScope;
 import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.OkHttpClient;
 
@@ -21,6 +22,7 @@ import retrofit.client.OkClient;
 public class NetModule {
 
     @Provides
+    @ApplicationScope
     GithubApi provideGithubApi(OkHttpClient okHttpClient, ObjectMapper mapper) {
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint("https://api.github.com")
@@ -33,6 +35,7 @@ public class NetModule {
     }
 
     @Provides
+    @ApplicationScope
     OkHttpClient provideOkHttpClient(Application app) {
         OkHttpClient okHttpClient = new OkHttpClient();
 //        okHttpClient.setSslSocketFactory(getTrustfulSocketFactory());
@@ -48,6 +51,7 @@ public class NetModule {
     }
 
     @Provides
+    @ApplicationScope
     ObjectMapper provideMapper() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);

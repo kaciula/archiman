@@ -23,11 +23,13 @@ public final class ArchimanModule {
     }
 
     @Provides
+    @ApplicationScope
     Application provideApplication() {
         return app;
     }
 
     @Provides
+    @ApplicationScope
     ExecutorService provideExecutor() {
         return Executors.newCachedThreadPool(new ThreadFactory() {
             @Override
@@ -45,6 +47,7 @@ public final class ArchimanModule {
     }
 
     @Provides
+    @ApplicationScope
     GlobalStateManager provideGlobalStateManager(Application app, ExecutorService executorService) {
         return new GlobalStateManager(app, executorService);
     }

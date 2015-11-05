@@ -1,5 +1,7 @@
 package com.kaciula.archiman.screen.main;
 
+import com.kaciula.archiman.injection.ActivityScope;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -12,11 +14,13 @@ public class MainModule {
     }
 
     @Provides
+    @ActivityScope
     MainActivity provideActivity() {
         return activity;
     }
 
     @Provides
+    @ActivityScope
     MainPresenter providePresenter(MainMixer mainMixer) {
         return new MainPresenter(activity, mainMixer);
     }

@@ -10,6 +10,7 @@ import com.kaciula.archiman.injection.DaggerArchimanComponent;
 import com.kaciula.archiman.injection.MixerModule;
 import com.kaciula.archiman.net.NetModule;
 import com.kaciula.archiman.persistence.PrefsModule;
+import com.squareup.leakcanary.LeakCanary;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
@@ -34,6 +35,7 @@ public class ArchimanApplication extends Application {
 
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
+            LeakCanary.install(this);
         } else {
             startCrashlytics();
             Timber.plant(new CrashlyticsTree());
