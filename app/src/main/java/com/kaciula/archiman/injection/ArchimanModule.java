@@ -10,6 +10,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -23,13 +25,13 @@ public final class ArchimanModule {
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     Application provideApplication() {
         return app;
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     ExecutorService provideExecutor() {
         return Executors.newCachedThreadPool(new ThreadFactory() {
             @Override
@@ -47,7 +49,7 @@ public final class ArchimanModule {
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     GlobalStateManager provideGlobalStateManager(Application app, ExecutorService executorService) {
         return new GlobalStateManager(app, executorService);
     }

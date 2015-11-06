@@ -3,6 +3,8 @@ package com.kaciula.archiman.injection;
 import com.kaciula.archiman.net.GithubApi;
 import com.kaciula.archiman.screen.main.MainMixer;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -10,7 +12,7 @@ import dagger.Provides;
 public class MixerModule {
 
     @Provides
-    @ApplicationScope
+    @Singleton
     MainMixer provideMainMixer(GithubApi githubApi) {
         return new MainMixer(githubApi);
     }

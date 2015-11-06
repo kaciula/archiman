@@ -6,9 +6,11 @@ import com.kaciula.archiman.screen.main.MainMixer;
 import com.kaciula.archiman.util.ArchimanApplication;
 import com.kaciula.archiman.util.GlobalStateManager;
 
+import javax.inject.Singleton;
+
 import dagger.Component;
 
-@ApplicationScope
+@Singleton
 @Component(
         modules = {
                 ArchimanModule.class,
