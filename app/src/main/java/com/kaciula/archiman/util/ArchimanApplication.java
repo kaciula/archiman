@@ -7,9 +7,6 @@ import com.kaciula.archiman.BuildConfig;
 import com.kaciula.archiman.injection.ArchimanComponent;
 import com.kaciula.archiman.injection.ArchimanModule;
 import com.kaciula.archiman.injection.DaggerArchimanComponent;
-import com.kaciula.archiman.injection.MixerModule;
-import com.kaciula.archiman.net.NetModule;
-import com.kaciula.archiman.persistence.PrefsModule;
 import com.squareup.leakcanary.LeakCanary;
 
 import net.danlew.android.joda.JodaTimeAndroid;
@@ -52,9 +49,6 @@ public class ArchimanApplication extends Application {
     private void buildObjectGraphAndInject() {
         component = DaggerArchimanComponent.builder()
                 .archimanModule(new ArchimanModule(this))
-                .prefsModule(new PrefsModule())
-                .netModule(new NetModule())
-                .mixerModule(new MixerModule())
                 .build();
         component.inject(this);
     }
