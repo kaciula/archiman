@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import timber.log.Timber;
@@ -29,7 +29,7 @@ public class MainView extends ViewFlipper implements AdapterView.OnItemClickList
     @Inject
     MainPresenter presenter;
 
-    @Bind(R.id.list)
+    @BindView(R.id.list)
     ListView listView;
 
     private UserAdapter adapter;

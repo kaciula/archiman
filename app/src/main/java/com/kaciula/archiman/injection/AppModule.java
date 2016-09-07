@@ -16,11 +16,11 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public final class ArchimanModule {
+public final class AppModule {
 
     private final ArchimanApplication app;
 
-    public ArchimanModule(ArchimanApplication app) {
+    public AppModule(ArchimanApplication app) {
         this.app = app;
     }
 

@@ -12,7 +12,7 @@ import com.kaciula.archiman.ui.GenericListAdapter;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class UserAdapter extends GenericListAdapter<User> {
@@ -37,7 +37,7 @@ public class UserAdapter extends GenericListAdapter<User> {
     }
 
     static class ViewHolder {
-        @Bind(R.id.username)
+        @BindView(R.id.username)
         TextView username;
 
         public ViewHolder(View view) {

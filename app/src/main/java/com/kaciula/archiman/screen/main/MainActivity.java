@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.kaciula.archiman.R;
-import com.kaciula.archiman.injection.ArchimanComponent;
+import com.kaciula.archiman.injection.AppComponent;
 import com.kaciula.archiman.ui.ArchimanActivity;
 
 public class MainActivity extends ArchimanActivity {
@@ -18,9 +18,9 @@ public class MainActivity extends ArchimanActivity {
     }
 
     @Override
-    protected void setupComponent(ArchimanComponent archimanComponent) {
+    protected void setupComponent(AppComponent appComponent) {
         component = DaggerMainComponent.builder()
-                .archimanComponent(archimanComponent)
+                .appComponent(appComponent)
                 .mainModule(new MainModule(this))
                 .build();
         component.inject(this);

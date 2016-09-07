@@ -4,9 +4,9 @@ import android.app.Application;
 
 import com.crashlytics.android.Crashlytics;
 import com.kaciula.archiman.BuildConfig;
-import com.kaciula.archiman.injection.ArchimanComponent;
-import com.kaciula.archiman.injection.ArchimanModule;
-import com.kaciula.archiman.injection.DaggerArchimanComponent;
+import com.kaciula.archiman.injection.AppComponent;
+import com.kaciula.archiman.injection.AppModule;
+import com.kaciula.archiman.injection.DaggerAppComponent;
 import com.squareup.leakcanary.LeakCanary;
 
 import net.danlew.android.joda.JodaTimeAndroid;
@@ -20,7 +20,7 @@ public class ArchimanApplication extends Application {
 
     private static ArchimanApplication app;
 
-    private ArchimanComponent component;
+    private AppComponent component;
     @Inject
     protected GlobalStateManager globalStateManager;
 
@@ -47,13 +47,13 @@ public class ArchimanApplication extends Application {
     }
 
     private void buildObjectGraphAndInject() {
-        component = DaggerArchimanComponent.builder()
-                .archimanModule(new ArchimanModule(this))
+        component = DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
                 .build();
         component.inject(this);
     }
 
-    public ArchimanComponent component() {
+    public AppComponent component() {
         return component;
     }
 

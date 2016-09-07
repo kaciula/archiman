@@ -1,13 +1,13 @@
 package com.kaciula.archiman.screen.main;
 
 import com.kaciula.archiman.injection.ActivityScope;
-import com.kaciula.archiman.injection.ArchimanComponent;
+import com.kaciula.archiman.injection.AppComponent;
 
 import dagger.Component;
 
 @ActivityScope
 @Component(
-        dependencies = ArchimanComponent.class,
+        dependencies = AppComponent.class,
         modules = MainModule.class
 )
 public interface MainComponent {

@@ -26,16 +26,19 @@ def buildTime = new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
     defaultConfig {
+        // FIXME Replace with your app's package name
         applicationId "com.kaciula.archiman"
         minSdkVersion 15
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
 
         buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
+        buildConfigField "String", "BUILD_TIME", "\"${buildTime}\""
     }
     // FIXME: Create your own keystore with secret keys and passwords
     signingConfigs {
@@ -49,6 +52,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
         debug {
@@ -71,6 +75,7 @@ android {
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             def oldFile = output.outputFile
+            // FIXME Replace with your app's name
             def newName = "Archiman-" + "${variant.versionName}.apk"
             output.outputFile = new File(oldFile.parent, newName)
         }
@@ -78,28 +83,43 @@ android {
 }
 
 dependencies {
+    final SUPPORT_LIBRARY_VERSION = '23.4.0'
+    final DAGGER_VERSION = '2.5'
+    final LEAK_CANARY_VERSION = '1.4-beta2'
+    final BUTTER_KNIFE_VERSION = '8.1.0'
+    final RETROFIT_VERSION = '2.1.0'
+    final OKHTTP_VERSION = '3.4.1'
+
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.2.1'
-    compile 'com.jakewharton.timber:timber:4.0.1'
 
-    compile 'com.google.dagger:dagger:2.0.2'
-    provided 'javax.annotation:jsr250-api:1.0'
-    apt 'com.google.dagger:dagger-compiler:2.0.1'
+    compile "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
 
-    compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.squareup.retrofit:retrofit:1.9.0'
-    compile 'com.squareup.okhttp:okhttp-urlconnection:2.5.0'
-    compile('com.crashlytics.sdk.android:crashlytics:2.5.0@aar') {
+    compile 'com.jakewharton.timber:timber:4.1.2'
+    compile "com.jakewharton:butterknife:$BUTTER_KNIFE_VERSION"
+    apt "com.jakewharton:butterknife-compiler:$BUTTER_KNIFE_VERSION"
+    compile "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
+    compile "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
+    compile "com.squareup.retrofit2:adapter-rxjava:$RETROFIT_VERSION"
+    compile "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
+    compile "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
+    debugCompile "com.squareup.leakcanary:leakcanary-android:$LEAK_CANARY_VERSION"
+    debugCompile 'com.squareup.haha:haha:2.0.3'
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$LEAK_CANARY_VERSION"
+
+    compile "com.google.dagger:dagger:$DAGGER_VERSION"
+    provided 'org.glassfish:javax.annotation:10.0-b28' //Required by Dagger2
+    apt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
+
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.0@aar') {
         transitive = true;
     }
-    compile 'com.fasterxml.jackson.core:jackson-core:2.6.0'
-    compile 'com.fasterxml.jackson.core:jackson-annotations:2.6.0'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.6.0'
-    compile 'net.danlew:android.joda:2.8.2'
-    compile 'io.reactivex:rxjava:1.0.14'
-    compile 'io.reactivex:rxandroid:1.0.1'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3.1'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3.1'
+    compile 'com.google.code.gson:gson:2.7'
+    compile 'net.danlew:android.joda:2.9.3.1'
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'io.reactivex:rxandroid:1.2.1'
 
+    // Unit testing dependencies.
     testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-all:1.10.19'
+    testCompile 'org.hamcrest:hamcrest-all:1.3'
 }

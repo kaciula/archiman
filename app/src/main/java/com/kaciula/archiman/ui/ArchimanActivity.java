@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.crashlytics.android.Crashlytics;
 import com.kaciula.archiman.BuildConfig;
-import com.kaciula.archiman.injection.ArchimanComponent;
+import com.kaciula.archiman.injection.AppComponent;
 import com.kaciula.archiman.util.ArchimanApplication;
 
 public abstract class ArchimanActivity extends AppCompatActivity {
@@ -19,7 +19,7 @@ public abstract class ArchimanActivity extends AppCompatActivity {
             Crashlytics.setString("current screen", getLocalClassName());
     }
 
-    protected abstract void setupComponent(ArchimanComponent component);
+    protected abstract void setupComponent(AppComponent component);
 
     protected abstract void inject(View view);
 }
