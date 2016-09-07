@@ -6,8 +6,8 @@ import android.view.View;
 
 import com.crashlytics.android.Crashlytics;
 import com.kaciula.archiman.BuildConfig;
+import com.kaciula.archiman.component.ArchimanApplication;
 import com.kaciula.archiman.injection.AppComponent;
-import com.kaciula.archiman.util.ArchimanApplication;
 
 public abstract class ArchimanActivity extends AppCompatActivity {
 

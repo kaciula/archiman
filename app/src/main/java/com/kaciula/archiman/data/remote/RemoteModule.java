@@ -1,4 +1,4 @@
-package com.kaciula.archiman.net;
+package com.kaciula.archiman.data.remote;
 
 import com.google.gson.Gson;
 

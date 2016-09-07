@@ -1,4 +1,4 @@
-package com.kaciula.archiman.util;
+package com.kaciula.archiman.component;
 
 import android.app.Application;
 
@@ -7,6 +7,9 @@ import com.kaciula.archiman.BuildConfig;
 import com.kaciula.archiman.injection.AppComponent;
 import com.kaciula.archiman.injection.AppModule;
 import com.kaciula.archiman.injection.DaggerAppComponent;
+import com.kaciula.archiman.util.AppManager;
+import com.kaciula.archiman.util.CrashlyticsTree;
+import com.kaciula.archiman.util.MiscUtils;
 import com.squareup.leakcanary.LeakCanary;
 
 import net.danlew.android.joda.JodaTimeAndroid;
@@ -22,7 +25,7 @@ public class ArchimanApplication extends Application {
 
     private AppComponent component;
     @Inject
-    protected GlobalStateManager globalStateManager;
+    protected AppManager appManager;
 
     @Override
     public void onCreate() {
@@ -39,7 +42,7 @@ public class ArchimanApplication extends Application {
         }
 
         JodaTimeAndroid.init(this);
-        globalStateManager.initializeEveryColdStart();
+        appManager.initializeEveryColdStart();
     }
 
     public static ArchimanApplication get() {

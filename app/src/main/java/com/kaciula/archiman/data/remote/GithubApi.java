@@ -1,6 +1,6 @@
-package com.kaciula.archiman.net;
+package com.kaciula.archiman.data.remote;
 
-import com.kaciula.archiman.net.response.UserResponse;
+import com.kaciula.archiman.data.remote.response.UserResponse;
 
 import java.util.List;
 

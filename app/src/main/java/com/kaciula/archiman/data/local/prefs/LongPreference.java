@@ -1,4 +1,4 @@
-package com.kaciula.archiman.persistence.prefs;
+package com.kaciula.archiman.data.local.prefs;
 
 import android.content.SharedPreferences;
 

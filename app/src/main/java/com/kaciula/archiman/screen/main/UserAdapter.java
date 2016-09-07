@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kaciula.archiman.R;
-import com.kaciula.archiman.model.User;
+import com.kaciula.archiman.data.model.User;
 import com.kaciula.archiman.ui.GenericListAdapter;
 
 import java.util.List;

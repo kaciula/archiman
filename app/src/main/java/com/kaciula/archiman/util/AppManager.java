@@ -3,8 +3,9 @@ package com.kaciula.archiman.util;
 import android.app.Application;
 
 import com.kaciula.archiman.BuildConfig;
-import com.kaciula.archiman.persistence.prefs.BooleanPreference;
-import com.kaciula.archiman.persistence.prefs.IntPreference;
+import com.kaciula.archiman.component.ArchimanApplication;
+import com.kaciula.archiman.data.local.prefs.BooleanPreference;
+import com.kaciula.archiman.data.local.prefs.IntPreference;
 
 import java.util.concurrent.ExecutorService;
 
@@ -13,7 +14,7 @@ import javax.inject.Named;
 
 import timber.log.Timber;
 
-public class GlobalStateManager {
+public class AppManager {
 
     private Application app;
     private ExecutorService executorService;
@@ -25,7 +26,7 @@ public class GlobalStateManager {
     @Named("version_code")
     protected IntPreference versionCodePref;
 
-    public GlobalStateManager(Application app, ExecutorService executorService) {
+    public AppManager(Application app, ExecutorService executorService) {
         this.app = app;
         this.executorService = executorService;
         ArchimanApplication.get().component().inject(this);

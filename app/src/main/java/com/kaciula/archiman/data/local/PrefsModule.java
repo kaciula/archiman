@@ -1,11 +1,11 @@
-package com.kaciula.archiman.persistence;
+package com.kaciula.archiman.data.local;
 
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.kaciula.archiman.persistence.prefs.BooleanPreference;
-import com.kaciula.archiman.persistence.prefs.IntPreference;
+import com.kaciula.archiman.data.local.prefs.BooleanPreference;
+import com.kaciula.archiman.data.local.prefs.IntPreference;
 
 import javax.inject.Named;
 import javax.inject.Singleton;

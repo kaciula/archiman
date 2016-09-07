@@ -3,6 +3,8 @@ package com.kaciula.archiman.util;
 import android.content.Context;
 import android.provider.Settings;
 
+import com.kaciula.archiman.component.ArchimanApplication;
+
 public class MiscUtils {
 
     public static String getDeviceId() {

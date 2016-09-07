@@ -1,6 +1,6 @@
 package com.kaciula.archiman.injection;
 
-import com.kaciula.archiman.net.GithubApi;
+import com.kaciula.archiman.data.remote.GithubApi;
 import com.kaciula.archiman.screen.main.MainMixer;
 
 import javax.inject.Singleton;

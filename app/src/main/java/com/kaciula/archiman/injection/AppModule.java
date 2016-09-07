@@ -3,8 +3,8 @@ package com.kaciula.archiman.injection;
 import android.app.Application;
 import android.support.annotation.NonNull;
 
-import com.kaciula.archiman.util.ArchimanApplication;
-import com.kaciula.archiman.util.GlobalStateManager;
+import com.kaciula.archiman.component.ArchimanApplication;
+import com.kaciula.archiman.util.AppManager;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -50,7 +50,7 @@ public final class AppModule {
 
     @Provides
     @Singleton
-    GlobalStateManager provideGlobalStateManager(Application app, ExecutorService executorService) {
-        return new GlobalStateManager(app, executorService);
+    AppManager provideGlobalStateManager(Application app, ExecutorService executorService) {
+        return new AppManager(app, executorService);
     }
 }

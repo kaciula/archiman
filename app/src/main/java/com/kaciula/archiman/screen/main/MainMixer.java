@@ -1,8 +1,8 @@
 package com.kaciula.archiman.screen.main;
 
-import com.kaciula.archiman.model.User;
-import com.kaciula.archiman.net.GithubApi;
-import com.kaciula.archiman.net.converter.UserResponseListConverter;
+import com.kaciula.archiman.data.model.User;
+import com.kaciula.archiman.data.remote.GithubApi;
+import com.kaciula.archiman.data.remote.converter.UserResponseListConverter;
 
 import java.util.List;
 

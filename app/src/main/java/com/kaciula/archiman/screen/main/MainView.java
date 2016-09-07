@@ -9,7 +9,7 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.kaciula.archiman.R;
-import com.kaciula.archiman.model.User;
+import com.kaciula.archiman.data.model.User;
 
 import java.util.ArrayList;
 

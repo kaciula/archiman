@@ -4,7 +4,7 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.19.2'
+        classpath 'io.fabric.tools:gradle:1.+'
         // Assists in working with annotation processors for Android Studio.
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     }
@@ -40,8 +40,8 @@ android {
         buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
         buildConfigField "String", "BUILD_TIME", "\"${buildTime}\""
     }
-    // FIXME: Create your own keystore with secret keys and passwords
     signingConfigs {
+        // FIXME: Create your own keystore with secret keys and passwords
         release {
             storeFile file("key/archiman.jks")
             storePassword 'Archiman987'
