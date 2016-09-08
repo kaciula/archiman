@@ -1,6 +1,5 @@
 package com.kaciula.archiman.data.local;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -18,8 +17,8 @@ public class PrefsModule {
 
     @Provides
     @Singleton
-    SharedPreferences provideSharedPreferences(Application app) {
-        return app.getSharedPreferences("prefs_utils", Context.MODE_PRIVATE);
+    SharedPreferences provideSharedPreferences(Context ctx) {
+        return ctx.getSharedPreferences("prefs_utils", Context.MODE_PRIVATE);
     }
 
     @Provides

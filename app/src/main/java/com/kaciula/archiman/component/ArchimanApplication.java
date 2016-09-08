@@ -35,7 +35,7 @@ public class ArchimanApplication extends BaseApplication {
         }
 
         appComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule(this))
+                .appModule(new AppModule())
                 .build();
         appComponent.inject(this);
 

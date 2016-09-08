@@ -1,8 +1,8 @@
 package com.kaciula.archiman.injection;
 
-import android.app.Application;
+import android.content.Context;
 
-import com.kaciula.archiman.component.ArchimanApplication;
+import com.kaciula.archiman.component.BaseApplication;
 import com.kaciula.archiman.util.AppManager;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 import com.kaciula.archiman.util.scheduler.SchedulerProvider;
@@ -15,16 +15,10 @@ import dagger.Provides;
 @Module
 public final class AppModule {
 
-    private final ArchimanApplication app;
-
-    public AppModule(ArchimanApplication app) {
-        this.app = app;
-    }
-
     @Provides
     @Singleton
-    Application provideApplication() {
-        return app;
+    Context provideContext() {
+        return BaseApplication.getContext();
     }
 
     @Provides
