@@ -1,5 +1,6 @@
 package com.kaciula.archiman.screen.main;
 
+import com.kaciula.archiman.data.model.User;
 import com.kaciula.archiman.ui.BasePresenter;
 import com.kaciula.archiman.ui.BaseView;
 
@@ -14,6 +15,8 @@ public interface MainContract {
         void showProgress();
 
         void showError();
+
+        void showMessageOnClick(User user);
     }
 
     interface Container {
@@ -22,5 +25,7 @@ public interface MainContract {
 
     interface Presenter extends BasePresenter {
         void onClickRetry();
+
+        void onClickUser(User user);
     }
 }

@@ -2,30 +2,30 @@ package com.kaciula.archiman.ui;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 
 import java.util.List;
 
-public abstract class GenericListAdapter<T> extends BindableAdapter {
+public abstract class GenericRecyclerAdapter<T, S extends RecyclerView.ViewHolder> extends
+        RecyclerView.Adapter<S> {
 
     protected List<T> items;
     protected LayoutInflater inflater;
     protected Resources res;
 
-    public GenericListAdapter(Context context, List<T> items) {
-        super(context);
+    public GenericRecyclerAdapter(Context context, List<T> items) {
         this.items = items;
         inflater = LayoutInflater.from(context);
         res = context.getResources();
     }
 
-    @Override
     public T getItem(int position) {
         return items.get(position);
     }
 
     @Override
-    public int getCount() {
+    public int getItemCount() {
         return items.size();
     }
 

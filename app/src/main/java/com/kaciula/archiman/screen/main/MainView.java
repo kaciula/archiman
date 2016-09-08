@@ -1,15 +1,14 @@
 package com.kaciula.archiman.screen.main;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.kaciula.archiman.R;
 import com.kaciula.archiman.data.model.User;
+import com.kaciula.archiman.ui.Toasts;
 
 import java.util.ArrayList;
 
@@ -18,15 +17,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import timber.log.Timber;
 
-public class MainView extends ViewFlipper implements MainContract.View, AdapterView
-        .OnItemClickListener {
+public class MainView extends ViewFlipper implements MainContract.View {
 
     private static final int CHILD_CONTENT = 0;
     private static final int CHILD_PROGRESS = 1;
     private static final int CHILD_ERROR = 2;
 
-    @BindView(R.id.list)
-    ListView listView;
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
 
     private MainContract.Presenter presenter;
     private UserAdapter adapter;
@@ -44,15 +42,12 @@ public class MainView extends ViewFlipper implements MainContract.View, AdapterV
     private void init() {
         inflate(getContext(), R.layout.view_main, this);
         ButterKnife.bind(this);
-
-        adapter = new UserAdapter(getContext(), new ArrayList<User>());
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(this);
     }
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+        setup();
         if (!isInEditMode())
             presenter.attachView();
     }
@@ -69,12 +64,6 @@ public class MainView extends ViewFlipper implements MainContract.View, AdapterV
         this.presenter = presenter;
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        User user = adapter.getItem(position);
-        Toast.makeText(getContext(), user.username, Toast.LENGTH_SHORT).show();
-    }
-
     @OnClick(R.id.btn_retry)
     void onClickRetry() {
         presenter.onClickRetry();
@@ -83,6 +72,11 @@ public class MainView extends ViewFlipper implements MainContract.View, AdapterV
     @Override
     public void updateContent(MainData data) {
         adapter.setItems(data.users);
+    }
+
+    @Override
+    public void showMessageOnClick(User user) {
+        Toasts.show("Clicked on user " + user.username);
     }
 
     @Override
@@ -100,5 +94,12 @@ public class MainView extends ViewFlipper implements MainContract.View, AdapterV
     @Override
     public void showError() {
         setDisplayedChild(CHILD_ERROR);
+    }
+
+    private void setup() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager
+                .VERTICAL, false));
+        adapter = new UserAdapter(getContext(), new ArrayList<User>(), presenter);
+        recyclerView.setAdapter(adapter);
     }
 }

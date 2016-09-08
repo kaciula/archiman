@@ -1,47 +1,61 @@
 package com.kaciula.archiman.screen.main;
 
 import android.content.Context;
-import android.view.LayoutInflater;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kaciula.archiman.R;
 import com.kaciula.archiman.data.model.User;
-import com.kaciula.archiman.ui.GenericListAdapter;
+import com.kaciula.archiman.ui.GenericRecyclerAdapter;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class UserAdapter extends GenericListAdapter<User> {
+public class UserAdapter extends GenericRecyclerAdapter<User, UserAdapter.ViewHolder> {
 
-    public UserAdapter(Context ctx, List<User> items) {
+    private final MainContract.Presenter presenter;
+
+    public UserAdapter(Context ctx, List<User> items, MainContract.Presenter presenter) {
         super(ctx, items);
+        this.presenter = presenter;
     }
 
     @Override
-    public View newView(LayoutInflater inflater, int position, ViewGroup container) {
-        View row = inflater.inflate(R.layout.item_user, container, false);
-        ViewHolder holder = new ViewHolder(row);
-        row.setTag(holder);
-        return row;
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View convertView = inflater.inflate(R.layout.item_user, parent, false);
+        return new ViewHolder(convertView);
     }
 
     @Override
-    public void bindView(Object item, int position, View view) {
-        ViewHolder holder = (ViewHolder) view.getTag();
+    public void onBindViewHolder(ViewHolder holder, int position) {
         User user = getItem(position);
         holder.username.setText(user.username);
+        holder.view.setOnClickListener(holder);
     }
 
-    static class ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.username)
         TextView username;
 
+        View view;
+
         public ViewHolder(View view) {
+            super(view);
+            this.view = view;
             ButterKnife.bind(this, view);
+        }
+
+        @Override
+        public void onClick(View view) {
+            int adapterPosition = getAdapterPosition();
+            if (adapterPosition != RecyclerView.NO_POSITION) {
+                User user = getItem(adapterPosition);
+                presenter.onClickUser(user);
+            }
         }
     }
 }

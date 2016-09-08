@@ -46,6 +46,11 @@ public class MainPresenter implements MainContract.Presenter {
         refresh();
     }
 
+    @Override
+    public void onClickUser(User user) {
+        view.showMessageOnClick(user);
+    }
+
     private void refresh() {
         Timber.d("Start refresh");
         view.showProgress();
