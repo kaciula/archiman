@@ -1,8 +1,5 @@
 package com.kaciula.archiman.data;
 
-import com.kaciula.archiman.data.remote.GithubApi;
-import com.kaciula.archiman.data.remote.UsersRemoteDataSource;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -13,7 +10,7 @@ public class DataRepositoryModule {
 
     @Singleton
     @Provides
-    DataRepository providerDataRepository(GithubApi githubApi) {
-        return new DataRepository(new UsersRemoteDataSource(githubApi));
+    DataRepository providerDataRepository() {
+        return new DataRepository(new FakeUsersDataSource());
     }
 }
