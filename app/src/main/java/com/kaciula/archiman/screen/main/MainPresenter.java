@@ -1,8 +1,7 @@
 package com.kaciula.archiman.screen.main;
 
+import com.kaciula.archiman.data.DataRepository;
 import com.kaciula.archiman.data.model.User;
-import com.kaciula.archiman.data.remote.GithubApi;
-import com.kaciula.archiman.data.remote.converter.UserResponseListConverter;
 import com.kaciula.archiman.util.DefaultSubscriber;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 
@@ -17,16 +16,16 @@ public class MainPresenter implements MainContract.Presenter {
     private MainContract.Container container;
     private MainContract.View view;
     private BaseSchedulerProvider schedulerProvider;
-    private GithubApi githubApi;
+    private DataRepository dataRepository;
 
     private final CompositeSubscription subscriptions = new CompositeSubscription();
 
     public MainPresenter(MainContract.Container container, MainContract.View view,
-                         BaseSchedulerProvider schedulerProvider, GithubApi githubApi) {
+                         BaseSchedulerProvider schedulerProvider, DataRepository dataRepository) {
         this.container = container;
         this.view = view;
         this.schedulerProvider = schedulerProvider;
-        this.githubApi = githubApi;
+        this.dataRepository = dataRepository;
         this.view.setPresenter(this);
     }
 
@@ -51,9 +50,7 @@ public class MainPresenter implements MainContract.Presenter {
         Timber.d("Start refresh");
         view.showProgress();
 
-        final String ORGANISATION_NAME = "square";
-        subscriptions.add(githubApi.getMembers(ORGANISATION_NAME)
-                .map(UserResponseListConverter.instance())
+        subscriptions.add(dataRepository.getMembersOfOrganisation("square")
                 .map(new Func1<List<User>, MainData>() {
                     @Override
                     public MainData call(List<User> users) {
