@@ -1,5 +1,6 @@
 package com.kaciula.archiman.screen.main;
 
+import com.kaciula.archiman.data.remote.GithubApi;
 import com.kaciula.archiman.injection.ActivityScope;
 
 import dagger.Module;
@@ -17,7 +18,7 @@ public class MainModule {
 
     @Provides
     @ActivityScope
-    MainPresenter providePresenter(MainMixer mainMixer) {
-        return new MainPresenter(container, view, mainMixer);
+    MainPresenter providePresenter(GithubApi githubApi) {
+        return new MainPresenter(container, view, githubApi);
     }
 }
