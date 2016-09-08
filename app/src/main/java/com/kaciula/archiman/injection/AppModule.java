@@ -1,14 +1,11 @@
 package com.kaciula.archiman.injection;
 
 import android.app.Application;
-import android.support.annotation.NonNull;
 
 import com.kaciula.archiman.component.ArchimanApplication;
 import com.kaciula.archiman.util.AppManager;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
+import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
+import com.kaciula.archiman.util.scheduler.SchedulerProvider;
 
 import javax.inject.Singleton;
 
@@ -32,25 +29,13 @@ public final class AppModule {
 
     @Provides
     @Singleton
-    ExecutorService provideExecutor() {
-        return Executors.newCachedThreadPool(new ThreadFactory() {
-            @Override
-            public Thread newThread(@NonNull final Runnable r) {
-                return new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        android.os.Process.setThreadPriority(android.os.Process
-                                .THREAD_PRIORITY_BACKGROUND);
-                        r.run();
-                    }
-                });
-            }
-        });
+    AppManager provideAppManager() {
+        return new AppManager();
     }
 
     @Provides
     @Singleton
-    AppManager provideAppManager(Application app, ExecutorService executorService) {
-        return new AppManager(app, executorService);
+    BaseSchedulerProvider provideSchedulerProvider() {
+        return new SchedulerProvider();
     }
 }

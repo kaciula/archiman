@@ -2,6 +2,7 @@ package com.kaciula.archiman.screen.main;
 
 import com.kaciula.archiman.data.remote.GithubApi;
 import com.kaciula.archiman.injection.ActivityScope;
+import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 
 import dagger.Module;
 import dagger.Provides;
@@ -18,7 +19,7 @@ public class MainModule {
 
     @Provides
     @ActivityScope
-    MainPresenter providePresenter(GithubApi githubApi) {
-        return new MainPresenter(container, view, githubApi);
+    MainPresenter providePresenter(BaseSchedulerProvider schedulerProvider, GithubApi githubApi) {
+        return new MainPresenter(container, view, schedulerProvider, githubApi);
     }
 }

@@ -4,12 +4,11 @@ import com.kaciula.archiman.data.model.User;
 import com.kaciula.archiman.data.remote.GithubApi;
 import com.kaciula.archiman.data.remote.converter.UserResponseListConverter;
 import com.kaciula.archiman.util.DefaultSubscriber;
+import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 
 import java.util.List;
 
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 import timber.log.Timber;
 
@@ -17,14 +16,16 @@ public class MainPresenter implements MainContract.Presenter {
 
     private MainContract.Container container;
     private MainContract.View view;
+    private BaseSchedulerProvider schedulerProvider;
     private GithubApi githubApi;
 
     private final CompositeSubscription subscriptions = new CompositeSubscription();
 
-    public MainPresenter(MainContract.Container container, MainContract.View view, GithubApi
-            githubApi) {
+    public MainPresenter(MainContract.Container container, MainContract.View view,
+                         BaseSchedulerProvider schedulerProvider, GithubApi githubApi) {
         this.container = container;
         this.view = view;
+        this.schedulerProvider = schedulerProvider;
         this.githubApi = githubApi;
         this.view.setPresenter(this);
     }
@@ -61,8 +62,8 @@ public class MainPresenter implements MainContract.Presenter {
                         return data;
                     }
                 })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.ui())
                 .subscribe(new RefreshSubscriber()));
     }
 
