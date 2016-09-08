@@ -9,6 +9,7 @@ import android.widget.ViewFlipper;
 import com.kaciula.archiman.R;
 import com.kaciula.archiman.data.model.User;
 import com.kaciula.archiman.ui.Toasts;
+import com.kaciula.archiman.ui.widget.DividerItemDecoration;
 
 import java.util.ArrayList;
 
@@ -97,6 +98,7 @@ public class MainView extends ViewFlipper implements MainContract.View {
     }
 
     private void setup() {
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager
                 .VERTICAL, false));
         adapter = new UserAdapter(getContext(), new ArrayList<User>(), presenter);
