@@ -28,7 +28,7 @@ public class MainView extends ViewFlipper implements MainContract.View, AdapterV
     @BindView(R.id.list)
     ListView listView;
 
-    private MainPresenter presenter;
+    private MainContract.Presenter presenter;
     private UserAdapter adapter;
 
     public MainView(Context context) {
@@ -65,7 +65,7 @@ public class MainView extends ViewFlipper implements MainContract.View, AdapterV
     }
 
     @Override
-    public void setPresenter(MainPresenter presenter) {
+    public void setPresenter(MainContract.Presenter presenter) {
         this.presenter = presenter;
     }
 

@@ -5,7 +5,7 @@ import com.kaciula.archiman.ui.BaseView;
 
 public interface MainContract {
 
-    interface View extends BaseView<MainPresenter> {
+    interface View extends BaseView<Presenter> {
 
         void updateContent(MainData data);
 
@@ -16,7 +16,11 @@ public interface MainContract {
         void showError();
     }
 
-    interface Presenter extends BasePresenter {
+    interface Container {
 
+    }
+
+    interface Presenter extends BasePresenter {
+        void onClickRetry();
     }
 }

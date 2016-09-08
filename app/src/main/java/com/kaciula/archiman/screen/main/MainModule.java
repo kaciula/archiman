@@ -7,17 +7,17 @@ import dagger.Provides;
 
 @Module
 public class MainModule {
-    private MainActivity activity;
+    private MainContract.Container container;
     private MainContract.View view;
 
-    public MainModule(MainActivity activity, MainContract.View view) {
-        this.activity = activity;
+    public MainModule(MainContract.Container container, MainContract.View view) {
+        this.container = container;
         this.view = view;
     }
 
     @Provides
     @ActivityScope
     MainPresenter providePresenter(MainMixer mainMixer) {
-        return new MainPresenter(activity, view, mainMixer);
+        return new MainPresenter(container, view, mainMixer);
     }
 }

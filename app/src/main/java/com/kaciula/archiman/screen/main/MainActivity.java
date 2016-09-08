@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends ArchimanActivity {
+public class MainActivity extends ArchimanActivity implements MainContract.Container {
 
     @Inject
     MainPresenter presenter;

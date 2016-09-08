@@ -7,14 +7,15 @@ import timber.log.Timber;
 
 public class MainPresenter implements MainContract.Presenter {
 
-    private MainActivity activity;
+    private MainContract.Container container;
     private MainContract.View view;
     private MainMixer mainMixer;
 
     private final CompositeSubscription subscriptions = new CompositeSubscription();
 
-    public MainPresenter(MainActivity activity, MainContract.View view, MainMixer mainMixer) {
-        this.activity = activity;
+    public MainPresenter(MainContract.Container container, MainContract.View view, MainMixer
+            mainMixer) {
+        this.container = container;
         this.view = view;
         this.mainMixer = mainMixer;
         this.view.setPresenter(this);
@@ -32,7 +33,8 @@ public class MainPresenter implements MainContract.Presenter {
         subscriptions.unsubscribe();
     }
 
-    void onClickRetry() {
+    @Override
+    public void onClickRetry() {
         refresh();
     }
 
