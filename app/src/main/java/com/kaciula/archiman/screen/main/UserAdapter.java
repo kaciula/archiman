@@ -23,7 +23,7 @@ public class UserAdapter extends GenericListAdapter<User> {
 
     @Override
     public View newView(LayoutInflater inflater, int position, ViewGroup container) {
-        View row = inflater.inflate(R.layout.row_user, container, false);
+        View row = inflater.inflate(R.layout.item_user, container, false);
         ViewHolder holder = new ViewHolder(row);
         row.setTag(holder);
         return row;

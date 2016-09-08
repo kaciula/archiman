@@ -8,20 +8,16 @@ import dagger.Provides;
 @Module
 public class MainModule {
     private MainActivity activity;
+    private MainContract.View view;
 
-    public MainModule(MainActivity activity) {
+    public MainModule(MainActivity activity, MainContract.View view) {
         this.activity = activity;
-    }
-
-    @Provides
-    @ActivityScope
-    MainActivity provideActivity() {
-        return activity;
+        this.view = view;
     }
 
     @Provides
     @ActivityScope
     MainPresenter providePresenter(MainMixer mainMixer) {
-        return new MainPresenter(activity, mainMixer);
+        return new MainPresenter(activity, view, mainMixer);
     }
 }

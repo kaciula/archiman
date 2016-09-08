@@ -1,33 +1,44 @@
 package com.kaciula.archiman.screen.main;
 
 import android.os.Bundle;
-import android.view.View;
 
 import com.kaciula.archiman.R;
-import com.kaciula.archiman.injection.AppComponent;
+import com.kaciula.archiman.component.ArchimanApplication;
 import com.kaciula.archiman.ui.ArchimanActivity;
 
+import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends ArchimanActivity {
+
+    @Inject
+    MainPresenter presenter;
+
+    @BindView(R.id.view_main)
+    MainView mainView;
 
     private MainComponent component;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_main);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+
+        setupComponent();
     }
 
-    @Override
-    protected void setupComponent(AppComponent appComponent) {
+    private void setupComponent() {
         component = DaggerMainComponent.builder()
-                .appComponent(appComponent)
-                .mainModule(new MainModule(this))
+                .appComponent(ArchimanApplication.get().component())
+                .mainModule(new MainModule(this, mainView))
                 .build();
         component.inject(this);
     }
 
-    @Override
-    protected void inject(View view) {
-        component.inject((MainView) view);
+    public MainComponent component() {
+        return component;
     }
 }

@@ -1,46 +1,34 @@
 package com.kaciula.archiman.screen.main;
 
-import android.view.View;
-
-import com.kaciula.archiman.ui.BasePresenter;
 import com.kaciula.archiman.util.DefaultSubscriber;
 
 import rx.subscriptions.CompositeSubscription;
 import timber.log.Timber;
 
-public class MainPresenter extends BasePresenter {
+public class MainPresenter implements MainContract.Presenter {
 
     private MainActivity activity;
-    private MainView view;
+    private MainContract.View view;
     private MainMixer mainMixer;
 
     private final CompositeSubscription subscriptions = new CompositeSubscription();
 
-    public MainPresenter(MainActivity activity, MainMixer mainMixer) {
+    public MainPresenter(MainActivity activity, MainContract.View view, MainMixer mainMixer) {
         this.activity = activity;
+        this.view = view;
         this.mainMixer = mainMixer;
+        this.view.setPresenter(this);
     }
 
     @Override
-    public void setView(View view) {
-        this.view = (MainView) view;
-    }
-
-    @Override
-    public void onInit() {
-        Timber.d("onInit");
-        view.setup();
-    }
-
-    @Override
-    public void onAttached() {
-        Timber.d("onAttached");
+    public void attachView() {
+        Timber.d("attachView");
         refresh();
     }
 
     @Override
-    public void onDetached() {
-        Timber.d("onDetached");
+    public void detachView() {
+        Timber.d("detachView");
         subscriptions.unsubscribe();
     }
 

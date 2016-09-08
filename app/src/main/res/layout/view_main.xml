@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.kaciula.archiman.screen.main.MainView xmlns:android="http://schemas.android.com/apk/res/android"
-                                           xmlns:tools="http://schemas.android.com/tools"
-                                           android:layout_width="match_parent"
-                                           android:layout_height="match_parent"
-                                           android:orientation="vertical"
-                                           tools:context=".screen.main.MainActivity">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="@layout/activity_main">
 
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
-    <include layout="@layout/widget_progress"/>
+    <include layout="@layout/widget_progress" />
 
-    <include layout="@layout/widget_error"/>
-</com.kaciula.archiman.screen.main.MainView>
+    <include layout="@layout/widget_error" />
+</merge>

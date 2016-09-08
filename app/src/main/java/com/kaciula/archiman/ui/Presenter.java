@@ -8,11 +8,7 @@ public interface Presenter {
 
     void onInit();
 
-    void onAttached();
+    void attachView();
 
-    void onResume();
-
-    void onPause();
-
-    void onDetached();
+    void detachView();
 }
