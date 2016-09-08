@@ -32,7 +32,7 @@ public class MainActivity extends ArchimanActivity {
 
     private void setupComponent() {
         component = DaggerMainComponent.builder()
-                .appComponent(ArchimanApplication.get().component())
+                .appComponent(ArchimanApplication.component())
                 .mainModule(new MainModule(this, mainView))
                 .build();
         component.inject(this);

@@ -1,7 +1,5 @@
 package com.kaciula.archiman.component;
 
-import android.app.Application;
-
 import com.crashlytics.android.Crashlytics;
 import com.kaciula.archiman.BuildConfig;
 import com.kaciula.archiman.injection.AppComponent;
@@ -12,26 +10,21 @@ import com.kaciula.archiman.util.CrashlyticsTree;
 import com.kaciula.archiman.util.MiscUtils;
 import com.squareup.leakcanary.LeakCanary;
 
-import net.danlew.android.joda.JodaTimeAndroid;
-
 import javax.inject.Inject;
 
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
-public class ArchimanApplication extends Application {
+public class ArchimanApplication extends BaseApplication {
 
-    private static ArchimanApplication app;
+    private AppComponent appComponent;
 
-    private AppComponent component;
     @Inject
-    protected AppManager appManager;
+    AppManager appManager;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        ArchimanApplication.app = this;
-        buildObjectGraphAndInject();
 
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
@@ -41,23 +34,16 @@ public class ArchimanApplication extends Application {
             Timber.plant(new CrashlyticsTree());
         }
 
-        JodaTimeAndroid.init(this);
+        appComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
+                .build();
+        appComponent.inject(this);
+
         appManager.initializeEveryColdStart();
     }
 
-    public static ArchimanApplication get() {
-        return app;
-    }
-
-    private void buildObjectGraphAndInject() {
-        component = DaggerAppComponent.builder()
-                .appModule(new AppModule(this))
-                .build();
-        component.inject(this);
-    }
-
-    public AppComponent component() {
-        return component;
+    public static AppComponent component() {
+        return ((ArchimanApplication) getContext()).appComponent;
     }
 
     public void startCrashlytics() {

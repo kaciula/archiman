@@ -50,7 +50,7 @@ public final class AppModule {
 
     @Provides
     @Singleton
-    AppManager provideGlobalStateManager(Application app, ExecutorService executorService) {
+    AppManager provideAppManager(Application app, ExecutorService executorService) {
         return new AppManager(app, executorService);
     }
 }

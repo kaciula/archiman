@@ -29,7 +29,7 @@ public class AppManager {
     public AppManager(Application app, ExecutorService executorService) {
         this.app = app;
         this.executorService = executorService;
-        ArchimanApplication.get().component().inject(this);
+        ArchimanApplication.component().inject(this);
     }
 
     public void initializeEveryColdStart() {

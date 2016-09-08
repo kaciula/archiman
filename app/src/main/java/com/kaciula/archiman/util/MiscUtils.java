@@ -3,20 +3,21 @@ package com.kaciula.archiman.util;
 import android.content.Context;
 import android.provider.Settings;
 
-import com.kaciula.archiman.component.ArchimanApplication;
+import com.kaciula.archiman.component.BaseApplication;
 
 public class MiscUtils {
 
     public static String getDeviceId() {
-        String deviceId = Settings.Secure.getString(ArchimanApplication.get().getContentResolver
-                (), Settings.Secure.ANDROID_ID);
+        Context ctx = BaseApplication.getContext();
+        String deviceId = Settings.Secure.getString(ctx.getContentResolver(), Settings.Secure
+                .ANDROID_ID);
         if (!Strings.isBlank(deviceId))
             return deviceId;
         return "THISISASTATICID";
     }
 
     public static String getInstaller() {
-        Context ctx = ArchimanApplication.get();
+        Context ctx = BaseApplication.getContext();
         String installer = ctx.getPackageManager().getInstallerPackageName(ctx.getPackageName());
         if ("com.android.vending".equals(installer) || "com.google.android.feedback".equals
                 (installer))

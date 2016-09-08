@@ -6,10 +6,7 @@ import com.kaciula.archiman.injection.AppComponent;
 import dagger.Component;
 
 @ActivityScope
-@Component(
-        dependencies = AppComponent.class,
-        modules = MainModule.class
-)
+@Component(dependencies = AppComponent.class, modules = MainModule.class)
 public interface MainComponent {
 
     void inject(MainActivity activity);
