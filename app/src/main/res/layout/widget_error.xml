@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_gravity="center_vertical"
-              android:gravity="center"
-              android:orientation="vertical"
-              android:paddingLeft="@dimen/padding_medium"
-              android:paddingRight="@dimen/padding_medium">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/material_layout_keylines_screen_edge_margin"
+    android:paddingRight="@dimen/material_layout_keylines_screen_edge_margin">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/all_error"
-        android:textSize="@dimen/text_larger"/>
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btn_retry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_large"
+        android:layout_marginTop="16dp"
         android:text="@string/all_retry"
-        android:textSize="@dimen/text_larger"/>
+        android:textSize="18sp" />
 
 </LinearLayout>

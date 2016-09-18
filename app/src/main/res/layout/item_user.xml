@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
-    android:id="@+id/username"
+<TextView android:id="@+id/username"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:minHeight="64dp"
-    android:paddingBottom="@dimen/padding_medium"
-    android:paddingLeft="@dimen/padding_medium"
-    android:paddingRight="@dimen/padding_medium"
-    android:paddingTop="@dimen/padding_medium"
-    android:textSize="@dimen/text_large"/>
+    android:minHeight="@dimen/material_component_lists_single_line_height"
+    android:paddingLeft="@dimen/material_layout_keylines_screen_edge_margin"
+    android:paddingRight="@dimen/material_layout_keylines_screen_edge_margin"
+    android:textSize="@dimen/material_component_lists_single_line_text_size" />
