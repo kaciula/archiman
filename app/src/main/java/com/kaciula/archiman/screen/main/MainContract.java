@@ -24,6 +24,7 @@ public interface MainContract {
     }
 
     interface Presenter extends BasePresenter {
+
         void onClickRetry();
 
         void onClickUser(User user);

@@ -50,14 +50,14 @@ public class MainView extends ViewFlipper implements MainContract.View {
         super.onAttachedToWindow();
         setup();
         if (!isInEditMode())
-            presenter.attachView();
+            presenter.start();
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         if (!isInEditMode())
-            presenter.detachView();
+            presenter.stop();
     }
 
     @Override

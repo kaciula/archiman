@@ -30,14 +30,14 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void attachView() {
-        Timber.d("attachView");
+    public void start() {
+        Timber.d("start");
         refresh();
     }
 
     @Override
-    public void detachView() {
-        Timber.d("detachView");
+    public void stop() {
+        Timber.d("stop");
         subscriptions.unsubscribe();
     }
 

@@ -2,7 +2,7 @@ package com.kaciula.archiman.ui;
 
 public interface BasePresenter {
 
-    void attachView();
+    void start();
 
-    void detachView();
+    void stop();
 }
