@@ -59,9 +59,7 @@ public class MainPresenter implements MainContract.Presenter {
                 .map(new Func1<List<User>, MainData>() {
                     @Override
                     public MainData call(List<User> users) {
-                        MainData data = new MainData();
-                        data.users = users;
-                        return data;
+                        return MainData.create(users);
                     }
                 })
                 .subscribeOn(schedulerProvider.io())
