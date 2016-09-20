@@ -56,6 +56,8 @@ android {
             signingConfig signingConfigs.release
         }
         debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             versionNameSuffix "-dev-" + buildTime
         }
     }
