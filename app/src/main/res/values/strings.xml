@@ -3,4 +3,5 @@
     <string name="all_app_name">archiman</string>
     <string name="all_retry">Retry</string>
     <string name="all_error">Some spooky error happened. Check your Internet connection.</string>
+    <string name="all_ok">OK</string>
 </resources>

@@ -2,6 +2,7 @@ package com.kaciula.archiman.screen.main;
 
 import com.kaciula.archiman.data.DataRepository;
 import com.kaciula.archiman.data.model.User;
+import com.kaciula.archiman.ui.Toasts;
 import com.kaciula.archiman.util.DefaultSubscriber;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 
@@ -48,7 +49,12 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void onClickUser(User user) {
-        view.showMessageOnClick(user);
+        container.showUserDialog(user);
+    }
+
+    @Override
+    public void onClickOkUserDialog(User user) {
+        Toasts.show("Clicked OK on user dialog for user " + user.username());
     }
 
     private void refresh() {

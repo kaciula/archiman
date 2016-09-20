@@ -8,7 +8,6 @@ import android.widget.ViewFlipper;
 
 import com.kaciula.archiman.R;
 import com.kaciula.archiman.data.model.User;
-import com.kaciula.archiman.ui.Toasts;
 import com.kaciula.archiman.ui.widget.DividerItemDecoration;
 
 import java.util.ArrayList;
@@ -73,11 +72,6 @@ public class MainView extends ViewFlipper implements MainContract.View {
     @Override
     public void updateContent(MainData data) {
         adapter.setItems(data.users());
-    }
-
-    @Override
-    public void showMessageOnClick(User user) {
-        Toasts.show("Clicked on user " + user.toString());
     }
 
     @Override

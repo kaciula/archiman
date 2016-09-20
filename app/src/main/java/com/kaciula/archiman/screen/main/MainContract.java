@@ -15,12 +15,10 @@ public interface MainContract {
         void showProgress();
 
         void showError();
-
-        void showMessageOnClick(User user);
     }
 
     interface Container {
-
+        void showUserDialog(User user);
     }
 
     interface Presenter extends BasePresenter {
@@ -28,5 +26,7 @@ public interface MainContract {
         void onClickRetry();
 
         void onClickUser(User user);
+
+        void onClickOkUserDialog(User user);
     }
 }

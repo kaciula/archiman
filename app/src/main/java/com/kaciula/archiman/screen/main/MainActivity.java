@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.kaciula.archiman.R;
 import com.kaciula.archiman.component.ArchimanApplication;
+import com.kaciula.archiman.data.model.User;
 import com.kaciula.archiman.ui.ArchimanActivity;
 
 import javax.inject.Inject;
@@ -40,5 +41,13 @@ public class MainActivity extends ArchimanActivity implements MainContract.Conta
 
     public MainComponent component() {
         return component;
+    }
+
+    @Override
+    public void showUserDialog(User user) {
+        if (canShowDialogs()) {
+            UserDialogFragment.newInstance(user)
+                    .show(getSupportFragmentManager(), "UserDialogFragment");
+        }
     }
 }

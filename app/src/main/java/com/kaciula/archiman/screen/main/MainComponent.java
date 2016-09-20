@@ -12,4 +12,6 @@ public interface MainComponent {
     void inject(MainActivity activity);
 
     void inject(MainView view);
+
+    void inject(UserDialogFragment dialogFragment);
 }
