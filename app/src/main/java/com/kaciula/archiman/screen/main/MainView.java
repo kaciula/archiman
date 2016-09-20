@@ -77,7 +77,7 @@ public class MainView extends ViewFlipper implements MainContract.View {
 
     @Override
     public void showMessageOnClick(User user) {
-        Toasts.show("Clicked on user " + user.username);
+        Toasts.show("Clicked on user " + user.toString());
     }
 
     @Override

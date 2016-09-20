@@ -33,7 +33,7 @@ public class UserAdapter extends GenericRecyclerAdapter<User, UserAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         User user = getItem(position);
-        holder.username.setText(user.username);
+        holder.username.setText(user.username());
         holder.view.setOnClickListener(holder);
     }
 

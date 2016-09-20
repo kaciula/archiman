@@ -25,9 +25,7 @@ public class UserResponseListConverter implements Func1<List<UserResponse>, List
     public List<User> call(List<UserResponse> userResponseList) {
         List<User> users = new ArrayList<>(userResponseList.size());
         for (UserResponse userResponse : userResponseList) {
-            User user = new User();
-            user.username = userResponse.login;
-            users.add(user);
+            users.add(User.create(userResponse.login));
         }
         return users;
     }
