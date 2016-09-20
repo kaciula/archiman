@@ -29,6 +29,11 @@ public class IntPreference {
         preferences.edit().putInt(key, value).apply();
     }
 
+    public void increment() {
+        int value = get();
+        preferences.edit().putInt(key, value + 1).apply();
+    }
+
     public void delete() {
         preferences.edit().remove(key).apply();
     }
