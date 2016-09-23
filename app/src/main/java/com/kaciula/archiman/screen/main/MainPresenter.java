@@ -62,10 +62,10 @@ public class MainPresenter implements MainContract.Presenter {
         view.showProgress();
 
         subscriptions.add(dataRepository.getMembersOfOrganisation("square")
-                .map(new Func1<List<User>, MainData>() {
+                .map(new Func1<List<User>, MainViewModel>() {
                     @Override
-                    public MainData call(List<User> users) {
-                        return MainData.create(users);
+                    public MainViewModel call(List<User> users) {
+                        return MainViewModel.create(users);
                     }
                 })
                 .subscribeOn(schedulerProvider.io())
@@ -73,7 +73,7 @@ public class MainPresenter implements MainContract.Presenter {
                 .subscribe(new RefreshSubscriber()));
     }
 
-    private final class RefreshSubscriber extends DefaultSubscriber<MainData> {
+    private final class RefreshSubscriber extends DefaultSubscriber<MainViewModel> {
 
         @Override
         public void onError(Throwable e) {
@@ -82,7 +82,7 @@ public class MainPresenter implements MainContract.Presenter {
         }
 
         @Override
-        public void onNext(MainData data) {
+        public void onNext(MainViewModel data) {
             Timber.d("Received next data");
             view.updateContent(data);
             view.showContent();

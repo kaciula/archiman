@@ -70,7 +70,7 @@ public class MainView extends ViewFlipper implements MainContract.View {
     }
 
     @Override
-    public void updateContent(MainData data) {
+    public void updateContent(MainViewModel data) {
         adapter.setItems(data.users());
     }
 

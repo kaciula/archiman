@@ -8,7 +8,7 @@ public interface MainContract {
 
     interface View extends BaseView<Presenter> {
 
-        void updateContent(MainData data);
+        void updateContent(MainViewModel data);
 
         void showContent();
 
