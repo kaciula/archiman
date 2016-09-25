@@ -1,5 +1,8 @@
 package com.kaciula.archiman.screen.main;
 
+import android.support.annotation.NonNull;
+
+import com.google.auto.value.AutoValue;
 import com.kaciula.archiman.data.DataRepository;
 import com.kaciula.archiman.data.model.User;
 import com.kaciula.archiman.ui.Toasts;
@@ -19,7 +22,8 @@ public class MainPresenter implements MainContract.Presenter {
     private BaseSchedulerProvider schedulerProvider;
     private DataRepository dataRepository;
 
-    private final CompositeSubscription subscriptions = new CompositeSubscription();
+    private final CompositeSubscription subscriptions;
+    private User lastClickedUser;
 
     public MainPresenter(MainContract.Container container, MainContract.View view,
                          BaseSchedulerProvider schedulerProvider, DataRepository dataRepository) {
@@ -27,12 +31,18 @@ public class MainPresenter implements MainContract.Presenter {
         this.view = view;
         this.schedulerProvider = schedulerProvider;
         this.dataRepository = dataRepository;
+        subscriptions = new CompositeSubscription();
         this.view.setPresenter(this);
     }
 
     @Override
     public void start() {
         Timber.d("start");
+        // Do stuff if we have retained state
+        if (lastClickedUser != null) {
+            Toasts.show("Before orientation change, last user clicked was " + lastClickedUser
+                    .toString());
+        }
         refresh();
     }
 
@@ -43,6 +53,17 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
+    public Object getRetainedState() {
+        return State.create(lastClickedUser);
+    }
+
+    @Override
+    public void setRetainedState(@NonNull Object object) {
+        State state = (State) object;
+        lastClickedUser = state.lastClickedUser();
+    }
+
+    @Override
     public void onClickRetry() {
         refresh();
     }
@@ -50,6 +71,7 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void onClickUser(User user) {
         container.showUserDialog(user);
+        lastClickedUser = user;
     }
 
     @Override
@@ -86,6 +108,15 @@ public class MainPresenter implements MainContract.Presenter {
             Timber.d("Received next data");
             view.updateContent(data);
             view.showContent();
+        }
+    }
+
+    @AutoValue
+    static abstract class State {
+        public abstract User lastClickedUser();
+
+        public static State create(User lastClickedUser) {
+            return new AutoValue_MainPresenter_State(lastClickedUser);
         }
     }
 }

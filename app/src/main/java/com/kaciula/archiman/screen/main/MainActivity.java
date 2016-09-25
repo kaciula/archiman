@@ -37,10 +37,18 @@ public class MainActivity extends ArchimanActivity implements MainContract.Conta
                 .mainModule(new MainModule(this, mainView))
                 .build();
         component.inject(this);
+        if (getLastCustomNonConfigurationInstance() != null) {
+            presenter.setRetainedState(getLastCustomNonConfigurationInstance());
+        }
     }
 
     public MainComponent component() {
         return component;
+    }
+
+    @Override
+    public Object onRetainCustomNonConfigurationInstance() {
+        return presenter.getRetainedState();
     }
 
     @Override
