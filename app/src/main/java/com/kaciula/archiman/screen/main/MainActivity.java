@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends ArchimanActivity implements MainContract.Container {
 
     @Inject
-    MainPresenter presenter;
+    MainContract.Presenter presenter;
 
     @BindView(R.id.view_main)
     MainView mainView;

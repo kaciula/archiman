@@ -19,7 +19,7 @@ public class MainModule {
 
     @Provides
     @ActivityScope
-    MainPresenter providePresenter(BaseSchedulerProvider schedulerProvider, DataRepository
+    MainContract.Presenter providePresenter(BaseSchedulerProvider schedulerProvider, DataRepository
             dataRepository) {
         return new MainPresenter(container, view, schedulerProvider, dataRepository);
     }

@@ -1,6 +1,7 @@
 package com.kaciula.archiman.screen.main;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
 import com.kaciula.archiman.data.DataRepository;
@@ -113,9 +114,10 @@ public class MainPresenter implements MainContract.Presenter {
 
     @AutoValue
     static abstract class State {
+        @Nullable
         public abstract User lastClickedUser();
 
-        public static State create(User lastClickedUser) {
+        public static State create(@Nullable User lastClickedUser) {
             return new AutoValue_MainPresenter_State(lastClickedUser);
         }
     }

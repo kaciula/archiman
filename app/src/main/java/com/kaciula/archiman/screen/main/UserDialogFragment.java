@@ -23,7 +23,7 @@ public class UserDialogFragment extends AppCompatDialogFragment {
     private static String EXTRA_USER = "user";
 
     @Inject
-    MainPresenter presenter;
+    MainContract.Presenter presenter;
 
     @BindView(R.id.tv_user_name)
     TextView tvUserName;
