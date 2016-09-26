@@ -1,4 +1,4 @@
-package com.kaciula.archiman.data.remote.converter;
+package com.kaciula.archiman.data.remote.mapper;
 
 import com.kaciula.archiman.domain.model.User;
 import com.kaciula.archiman.data.remote.response.UserResponse;
@@ -8,16 +8,16 @@ import java.util.List;
 
 import rx.functions.Func1;
 
-public class UserResponseListConverter implements Func1<List<UserResponse>, List<User>> {
+public class UserResponseListMapper implements Func1<List<UserResponse>, List<User>> {
 
-    private static volatile UserResponseListConverter instance;
+    private static volatile UserResponseListMapper instance;
 
-    private UserResponseListConverter() {
+    private UserResponseListMapper() {
     }
 
-    public static UserResponseListConverter instance() {
+    public static UserResponseListMapper instance() {
         if (instance == null)
-            instance = new UserResponseListConverter();
+            instance = new UserResponseListMapper();
         return instance;
     }
 
