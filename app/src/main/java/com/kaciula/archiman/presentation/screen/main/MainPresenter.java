@@ -1,12 +1,12 @@
-package com.kaciula.archiman.screen.main;
+package com.kaciula.archiman.presentation.screen.main;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
 import com.kaciula.archiman.data.DataRepository;
-import com.kaciula.archiman.data.model.User;
-import com.kaciula.archiman.ui.Toasts;
+import com.kaciula.archiman.domain.model.User;
+import com.kaciula.archiman.presentation.util.Toasts;
 import com.kaciula.archiman.util.DefaultSubscriber;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 

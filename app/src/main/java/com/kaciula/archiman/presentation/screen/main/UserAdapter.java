@@ -1,4 +1,4 @@
-package com.kaciula.archiman.screen.main;
+package com.kaciula.archiman.presentation.screen.main;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kaciula.archiman.R;
-import com.kaciula.archiman.data.model.User;
-import com.kaciula.archiman.ui.GenericRecyclerAdapter;
+import com.kaciula.archiman.domain.model.User;
+import com.kaciula.archiman.presentation.util.GenericRecyclerAdapter;
 
 import java.util.List;
 

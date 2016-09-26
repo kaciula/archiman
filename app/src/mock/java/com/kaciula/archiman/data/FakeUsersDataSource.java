@@ -1,6 +1,6 @@
 package com.kaciula.archiman.data;
 
-import com.kaciula.archiman.data.model.User;
+import com.kaciula.archiman.domain.model.User;
 
 import java.util.ArrayList;
 import java.util.List;

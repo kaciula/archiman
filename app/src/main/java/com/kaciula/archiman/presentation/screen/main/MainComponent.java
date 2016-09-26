@@ -1,4 +1,4 @@
-package com.kaciula.archiman.screen.main;
+package com.kaciula.archiman.presentation.screen.main;
 
 import com.kaciula.archiman.injection.ActivityScope;
 import com.kaciula.archiman.injection.AppComponent;

@@ -2,8 +2,8 @@ package com.kaciula.archiman.util;
 
 import com.kaciula.archiman.BuildConfig;
 import com.kaciula.archiman.component.ArchimanApplication;
-import com.kaciula.archiman.data.local.prefs.BooleanPreference;
-import com.kaciula.archiman.data.local.prefs.IntPreference;
+import com.kaciula.archiman.data.local.prefs.util.BooleanPreference;
+import com.kaciula.archiman.data.local.prefs.util.IntPreference;
 
 import javax.inject.Inject;
 import javax.inject.Named;

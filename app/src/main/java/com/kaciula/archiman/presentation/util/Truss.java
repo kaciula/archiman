@@ -1,4 +1,4 @@
-package com.kaciula.archiman.ui;
+package com.kaciula.archiman.presentation.util;
 
 import android.text.SpannableStringBuilder;
 

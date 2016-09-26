@@ -1,6 +1,6 @@
 package com.kaciula.archiman.data.remote.converter;
 
-import com.kaciula.archiman.data.model.User;
+import com.kaciula.archiman.domain.model.User;
 import com.kaciula.archiman.data.remote.response.UserResponse;
 
 import java.util.ArrayList;

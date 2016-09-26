@@ -1,4 +1,4 @@
-package com.kaciula.archiman.data.model;
+package com.kaciula.archiman.domain.model;
 
 import android.os.Parcelable;
 

@@ -1,4 +1,4 @@
-package com.kaciula.archiman.screen.main;
+package com.kaciula.archiman.presentation.screen.main;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,8 +7,8 @@ import android.util.AttributeSet;
 import android.widget.ViewFlipper;
 
 import com.kaciula.archiman.R;
-import com.kaciula.archiman.data.model.User;
-import com.kaciula.archiman.ui.widget.DividerItemDecoration;
+import com.kaciula.archiman.domain.model.User;
+import com.kaciula.archiman.presentation.widget.DividerItemDecoration;
 
 import java.util.ArrayList;
 

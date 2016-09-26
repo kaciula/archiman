@@ -2,7 +2,7 @@ package com.kaciula.archiman.injection;
 
 import com.kaciula.archiman.data.DataModule;
 import com.kaciula.archiman.data.DataRepositoryModule;
-import com.kaciula.archiman.data.local.PrefsModule;
+import com.kaciula.archiman.data.local.prefs.PrefsModule;
 import com.kaciula.archiman.data.remote.RemoteModule;
 
 import javax.inject.Singleton;

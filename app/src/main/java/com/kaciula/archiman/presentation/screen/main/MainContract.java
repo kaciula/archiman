@@ -1,8 +1,8 @@
-package com.kaciula.archiman.screen.main;
+package com.kaciula.archiman.presentation.screen.main;
 
-import com.kaciula.archiman.data.model.User;
-import com.kaciula.archiman.ui.BasePresenter;
-import com.kaciula.archiman.ui.BaseView;
+import com.kaciula.archiman.domain.model.User;
+import com.kaciula.archiman.presentation.util.BasePresenter;
+import com.kaciula.archiman.presentation.util.BaseView;
 
 public interface MainContract {
 

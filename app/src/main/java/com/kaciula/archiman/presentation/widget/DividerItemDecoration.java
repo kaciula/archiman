@@ -1,4 +1,4 @@
-package com.kaciula.archiman.ui.widget;
+package com.kaciula.archiman.presentation.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;

@@ -1,4 +1,4 @@
-package com.kaciula.archiman.screen.main;
+package com.kaciula.archiman.presentation.screen.main;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.kaciula.archiman.R;
-import com.kaciula.archiman.data.model.User;
+import com.kaciula.archiman.domain.model.User;
 
 import javax.inject.Inject;
 

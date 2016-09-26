@@ -1,7 +1,7 @@
-package com.kaciula.archiman.screen.main;
+package com.kaciula.archiman.presentation.screen.main;
 
 import com.google.auto.value.AutoValue;
-import com.kaciula.archiman.data.model.User;
+import com.kaciula.archiman.domain.model.User;
 
 import java.util.List;
 
