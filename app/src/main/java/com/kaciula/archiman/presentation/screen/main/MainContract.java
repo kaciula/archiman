@@ -15,6 +15,8 @@ public interface MainContract {
         void showProgress();
 
         void showError();
+
+        void setup();
     }
 
     interface Container {

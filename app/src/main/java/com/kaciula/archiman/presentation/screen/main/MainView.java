@@ -47,7 +47,6 @@ public class MainView extends ViewFlipper implements MainContract.View {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        setup();
         if (!isInEditMode())
             presenter.start();
     }
@@ -64,9 +63,13 @@ public class MainView extends ViewFlipper implements MainContract.View {
         this.presenter = presenter;
     }
 
-    @OnClick(R.id.btn_retry)
-    void onClickRetry() {
-        presenter.onClickRetry();
+    @Override
+    public void setup() {
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager
+                .VERTICAL, false));
+        adapter = new UserAdapter(getContext(), new ArrayList<User>(), presenter);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -91,11 +94,8 @@ public class MainView extends ViewFlipper implements MainContract.View {
         setDisplayedChild(CHILD_ERROR);
     }
 
-    private void setup() {
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager
-                .VERTICAL, false));
-        adapter = new UserAdapter(getContext(), new ArrayList<User>(), presenter);
-        recyclerView.setAdapter(adapter);
+    @OnClick(R.id.btn_retry)
+    void onClickRetry() {
+        presenter.onClickRetry();
     }
 }

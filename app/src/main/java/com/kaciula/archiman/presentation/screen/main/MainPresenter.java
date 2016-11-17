@@ -39,6 +39,7 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void start() {
         Timber.d("start");
+        view.setup();
         // Do stuff if we have retained state
         if (lastClickedUser != null) {
             Toasts.show("Before orientation change, last user clicked was " + lastClickedUser
