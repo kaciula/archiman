@@ -20,9 +20,7 @@
     <issue id="NewApi" severity="error" />
     <issue id="AppCompatMethod" severity="error" />
     <issue id="AppCompatResource" severity="error" />
-    <issue id="GoogleAppIndexingApiWarning" severity="error" />
     <issue id="GoogleAppIndexingUrlError" severity="error" />
-    <issue id="GoogleAppIndexingWarning" severity="error" />
     <issue id="AppLinksAutoVerifyError" severity="error" />
     <issue id="AppLinksAutoVerifyWarning" severity="error" />
     <issue id="InconsistentArrays" severity="error" />
@@ -261,6 +259,8 @@
     <issue id="ExportedService" severity="ignore" />
     <issue id="UseCompoundDrawables" severity="ignore" />
     <issue id="UselessParent" severity="ignore" />
+    <issue id="GoogleAppIndexingApiWarning" severity="ignore" />
+    <issue id="GoogleAppIndexingWarning" severity="ignore" />
 
     <!-- These issues can be completely ignored because we do not care about them -->
     <issue id="LabelFor" severity="ignore" />

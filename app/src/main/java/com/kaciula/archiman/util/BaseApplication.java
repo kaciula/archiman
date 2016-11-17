@@ -1,5 +1,6 @@
 package com.kaciula.archiman.util;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.os.StrictMode;
@@ -8,6 +9,7 @@ import net.danlew.android.joda.JodaTimeAndroid;
 
 public abstract class BaseApplication extends Application {
 
+    @SuppressLint("StaticFieldLeak")
     private static Context context;
 
     /* Get the context when you don't have access to it in any other way */
