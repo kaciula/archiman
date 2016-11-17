@@ -1,7 +1,6 @@
 package com.kaciula.archiman.util;
 
 import com.kaciula.archiman.BuildConfig;
-import com.kaciula.archiman.component.ArchimanApplication;
 import com.kaciula.archiman.data.local.prefs.util.BooleanPreference;
 import com.kaciula.archiman.data.local.prefs.util.IntPreference;
 

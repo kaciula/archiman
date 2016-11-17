@@ -3,9 +3,9 @@ package com.kaciula.archiman.presentation.screen.main;
 import android.os.Bundle;
 
 import com.kaciula.archiman.R;
-import com.kaciula.archiman.component.ArchimanApplication;
 import com.kaciula.archiman.domain.model.User;
 import com.kaciula.archiman.presentation.util.ArchimanActivity;
+import com.kaciula.archiman.util.ArchimanApplication;
 
 import javax.inject.Inject;
 

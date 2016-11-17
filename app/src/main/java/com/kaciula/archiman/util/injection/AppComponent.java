@@ -1,4 +1,4 @@
-package com.kaciula.archiman.injection;
+package com.kaciula.archiman.util.injection;
 
 import com.kaciula.archiman.data.DataModule;
 import com.kaciula.archiman.data.DataRepositoryModule;

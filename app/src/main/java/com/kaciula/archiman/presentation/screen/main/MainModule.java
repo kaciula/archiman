@@ -1,7 +1,7 @@
 package com.kaciula.archiman.presentation.screen.main;
 
 import com.kaciula.archiman.data.DataRepository;
-import com.kaciula.archiman.injection.ActivityScope;
+import com.kaciula.archiman.util.injection.ActivityScope;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 
 import dagger.Module;

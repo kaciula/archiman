@@ -5,7 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
 
-import com.kaciula.archiman.component.BaseApplication;
+import com.kaciula.archiman.util.BaseApplication;
 
 public class Toasts {
 

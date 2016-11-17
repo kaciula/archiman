@@ -1,4 +1,4 @@
-package com.kaciula.archiman.component;
+package com.kaciula.archiman.util;
 
 import android.app.Application;
 import android.content.Context;

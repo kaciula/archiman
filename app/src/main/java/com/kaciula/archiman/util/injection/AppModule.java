@@ -1,9 +1,9 @@
-package com.kaciula.archiman.injection;
+package com.kaciula.archiman.util.injection;
 
 import android.content.Context;
 
-import com.kaciula.archiman.component.BaseApplication;
 import com.kaciula.archiman.util.AppManager;
+import com.kaciula.archiman.util.BaseApplication;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 import com.kaciula.archiman.util.scheduler.SchedulerProvider;
 

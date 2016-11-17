@@ -1,13 +1,10 @@
-package com.kaciula.archiman.component;
+package com.kaciula.archiman.util;
 
 import com.crashlytics.android.Crashlytics;
 import com.kaciula.archiman.BuildConfig;
-import com.kaciula.archiman.injection.AppComponent;
-import com.kaciula.archiman.injection.AppModule;
-import com.kaciula.archiman.injection.DaggerAppComponent;
-import com.kaciula.archiman.util.AppManager;
-import com.kaciula.archiman.util.CrashlyticsTree;
-import com.kaciula.archiman.util.MiscUtils;
+import com.kaciula.archiman.util.injection.AppComponent;
+import com.kaciula.archiman.util.injection.AppModule;
+import com.kaciula.archiman.util.injection.DaggerAppComponent;
 import com.squareup.leakcanary.LeakCanary;
 
 import javax.inject.Inject;
