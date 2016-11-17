@@ -26,7 +26,7 @@ public class UsersRemoteDataSource implements UsersDataSource {
                     public List<User> apply(List<UserResponse> userResponses) throws Exception {
                         List<User> users = new ArrayList<>(userResponses.size());
                         for (UserResponse userResponse : userResponses) {
-                            users.add(User.create(userResponse.login));
+                            users.add(User.create(userResponse.login()));
                         }
                         return users;
                     }

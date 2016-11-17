@@ -108,7 +108,7 @@ public class MainPresenter implements MainContract.Presenter {
 
         @Override
         public void onError(Throwable t) {
-            Timber.d("Received error");
+            Timber.d(t, "Received error");
             view.showError();
 
         }
