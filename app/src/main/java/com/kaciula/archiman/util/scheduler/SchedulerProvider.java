@@ -2,9 +2,9 @@ package com.kaciula.archiman.util.scheduler;
 
 import android.support.annotation.NonNull;
 
-import rx.Scheduler;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Provides different types of schedulers.

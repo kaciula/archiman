@@ -4,7 +4,7 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.+'
+        classpath 'io.fabric.tools:gradle:1.22.0'
         // Assists in working with annotation processors for Android Studio.
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     }
@@ -104,6 +104,7 @@ dependencies {
     final BUTTER_KNIFE_VERSION = '8.1.0'
     final RETROFIT_VERSION = '2.1.0'
     final OKHTTP_VERSION = '3.4.1'
+    final RXJAVA_VERSION = '2.0.1'
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -114,9 +115,11 @@ dependencies {
     compile 'com.jakewharton.timber:timber:4.1.2'
     compile "com.jakewharton:butterknife:$BUTTER_KNIFE_VERSION"
     apt "com.jakewharton:butterknife-compiler:$BUTTER_KNIFE_VERSION"
+
     compile "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
     compile "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
-    compile "com.squareup.retrofit2:adapter-rxjava:$RETROFIT_VERSION"
+    compile "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0"
+
     compile "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
     compile "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
     debugCompile "com.squareup.leakcanary:leakcanary-android:$LEAK_CANARY_VERSION"
@@ -126,6 +129,9 @@ dependencies {
     compile "com.google.dagger:dagger:$DAGGER_VERSION"
     provided 'org.glassfish:javax.annotation:10.0-b28' //Required by Dagger2
     apt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
+
+    compile "io.reactivex.rxjava2:rxjava:$RXJAVA_VERSION"
+    compile "io.reactivex.rxjava2:rxandroid:$RXJAVA_VERSION"
 
     provided 'com.google.auto.value:auto-value:1.3'
     apt 'com.google.auto.value:auto-value:1.3'
@@ -137,8 +143,6 @@ dependencies {
     }
     compile 'com.google.code.gson:gson:2.7'
     compile 'net.danlew:android.joda:2.9.3.1'
-    compile 'io.reactivex:rxjava:1.1.6'
-    compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.dmitrymalkovich.android:material-design-dimens:1.2'
 
     // Unit testing dependencies.

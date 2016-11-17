@@ -2,7 +2,7 @@ package com.kaciula.archiman.util.scheduler;
 
 import android.support.annotation.NonNull;
 
-import rx.Scheduler;
+import io.reactivex.Scheduler;
 
 /**
  * Allow providing different types of {@link Scheduler}s.

@@ -7,13 +7,13 @@ import com.google.auto.value.AutoValue;
 import com.kaciula.archiman.data.DataRepository;
 import com.kaciula.archiman.domain.model.User;
 import com.kaciula.archiman.presentation.util.Toasts;
-import com.kaciula.archiman.util.DefaultSubscriber;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 
 import java.util.List;
 
-import rx.functions.Func1;
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Function;
+import io.reactivex.observers.DisposableObserver;
 import timber.log.Timber;
 
 public class MainPresenter implements MainContract.Presenter {
@@ -23,7 +23,7 @@ public class MainPresenter implements MainContract.Presenter {
     private BaseSchedulerProvider schedulerProvider;
     private DataRepository dataRepository;
 
-    private final CompositeSubscription subscriptions;
+    private final CompositeDisposable disposables;
     private User lastClickedUser;
 
     public MainPresenter(MainContract.Container container, MainContract.View view,
@@ -32,7 +32,7 @@ public class MainPresenter implements MainContract.Presenter {
         this.view = view;
         this.schedulerProvider = schedulerProvider;
         this.dataRepository = dataRepository;
-        subscriptions = new CompositeSubscription();
+        disposables = new CompositeDisposable();
         this.view.setPresenter(this);
     }
 
@@ -50,7 +50,7 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void stop() {
         Timber.d("stop");
-        subscriptions.unsubscribe();
+        disposables.dispose();
     }
 
     @Override
@@ -84,31 +84,37 @@ public class MainPresenter implements MainContract.Presenter {
         Timber.d("Start refresh");
         view.showProgress();
 
-        subscriptions.add(dataRepository.getMembersOfOrganisation("square")
-                .map(new Func1<List<User>, MainViewModel>() {
+        disposables.add(dataRepository.getMembersOfOrganisation("square")
+                .map(new Function<List<User>, MainViewModel>() {
                     @Override
-                    public MainViewModel call(List<User> users) {
+                    public MainViewModel apply(List<User> users) throws Exception {
                         return MainViewModel.create(users);
                     }
                 })
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.ui())
-                .subscribe(new RefreshSubscriber()));
+                .subscribeWith(new RefreshSubscriber()));
     }
 
-    private final class RefreshSubscriber extends DefaultSubscriber<MainViewModel> {
+    private final class RefreshSubscriber extends DisposableObserver<MainViewModel> {
 
         @Override
-        public void onError(Throwable e) {
-            Timber.d("Received error");
-            view.showError();
+        public void onNext(MainViewModel mainViewModel) {
+            Timber.d("Received next data");
+            view.updateContent(mainViewModel);
+            view.showContent();
         }
 
         @Override
-        public void onNext(MainViewModel data) {
-            Timber.d("Received next data");
-            view.updateContent(data);
-            view.showContent();
+        public void onError(Throwable t) {
+            Timber.d("Received error");
+            view.showError();
+
+        }
+
+        @Override
+        public void onComplete() {
+            // Do nothing
         }
     }
 

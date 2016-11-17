@@ -4,7 +4,7 @@ import com.kaciula.archiman.domain.model.User;
 
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 public class DataRepository implements UsersDataSource {
 
