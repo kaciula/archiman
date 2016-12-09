@@ -2,6 +2,7 @@ package com.kaciula.archiman.util.injection;
 
 import android.content.Context;
 
+import com.kaciula.archiman.data.local.prefs.PrefsRepository;
 import com.kaciula.archiman.util.AppManager;
 import com.kaciula.archiman.util.BaseApplication;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
@@ -23,8 +24,8 @@ public final class AppModule {
 
     @Provides
     @Singleton
-    AppManager provideAppManager() {
-        return new AppManager();
+    AppManager provideAppManager(PrefsRepository prefsRepository) {
+        return new AppManager(prefsRepository);
     }
 
     @Provides

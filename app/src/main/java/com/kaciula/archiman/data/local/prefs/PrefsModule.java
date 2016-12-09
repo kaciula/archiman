@@ -22,6 +22,12 @@ public class PrefsModule {
     }
 
     @Provides
+    @Singleton
+    PrefsRepository providePrefsRepository() {
+        return new PrefsRepository();
+    }
+
+    @Provides
     @Named("first_time")
     @Singleton
     BooleanPreference provideFirstTimePreference(SharedPreferences preferences) {
