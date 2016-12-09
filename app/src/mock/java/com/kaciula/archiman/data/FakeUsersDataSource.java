@@ -10,7 +10,7 @@ import io.reactivex.Observable;
 public class FakeUsersDataSource implements UsersDataSource {
 
     @Override
-    public Observable<List<User>> getMembersOfOrganisation(String organisationName) {
+    public Observable<List<User>> getUsers() {
         List<User> users = new ArrayList<>(6);
         users.add(User.create("ka"));
         users.add(User.create("andrei"));
