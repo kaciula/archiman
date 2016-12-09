@@ -1,7 +1,9 @@
 package com.kaciula.archiman.data.remote;
 
+import com.github.simonpercic.oklog3.OkLogInterceptor;
 import com.google.gson.Gson;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import com.kaciula.archiman.BuildConfig;
 
 import javax.inject.Singleton;
 
@@ -18,11 +20,15 @@ public class RemoteModule {
     @Provides
     @Singleton
     OkHttpClient provideOkHttpClient() {
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        return new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .build();
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            builder.addInterceptor(loggingInterceptor);
+            OkLogInterceptor okLogInterceptor = OkLogInterceptor.builder().build();
+            builder.addInterceptor(okLogInterceptor);
+        }
+        return builder.build();
     }
 
     @Provides

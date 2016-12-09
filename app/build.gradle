@@ -127,6 +127,7 @@ dependencies {
     debugCompile "com.squareup.leakcanary:leakcanary-android:$LEAK_CANARY_VERSION"
     debugCompile 'com.squareup.haha:haha:2.0.3'
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$LEAK_CANARY_VERSION"
+    compile 'com.github.simonpercic:oklog3:2.0.0'
 
     compile "com.google.dagger:dagger:$DAGGER_VERSION"
     provided 'org.glassfish:javax.annotation:10.0-b28' //Required by Dagger2
