@@ -10,15 +10,15 @@ import io.reactivex.Observable;
 
 public class UsersRemoteDataSource implements UsersDataSource {
 
-    private GithubApi githubApi;
+    private StackExchangeApi stackExchangeApi;
 
-    public UsersRemoteDataSource(GithubApi githubApi) {
-        this.githubApi = githubApi;
+    public UsersRemoteDataSource(StackExchangeApi stackExchangeApi) {
+        this.stackExchangeApi = stackExchangeApi;
     }
 
     @Override
-    public Observable<List<User>> getMembersOfOrganisation(String organisationName) {
-        return githubApi.getMembers(organisationName)
+    public Observable<List<User>> getUsers() {
+        return stackExchangeApi.getUsers()
                 .map(new UsersResponseMapper());
     }
 }

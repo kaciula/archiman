@@ -15,7 +15,7 @@ public class DataRepository implements UsersDataSource {
     }
 
     @Override
-    public Observable<List<User>> getMembersOfOrganisation(String organisationName) {
-        return usersRemoteDataSource.getMembersOfOrganisation(organisationName);
+    public Observable<List<User>> getUsers() {
+        return usersRemoteDataSource.getUsers();
     }
 }

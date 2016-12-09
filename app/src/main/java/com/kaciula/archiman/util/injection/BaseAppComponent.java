@@ -1,7 +1,7 @@
 package com.kaciula.archiman.util.injection;
 
 import com.kaciula.archiman.data.DataRepository;
-import com.kaciula.archiman.data.remote.GithubApi;
+import com.kaciula.archiman.data.remote.StackExchangeApi;
 import com.kaciula.archiman.util.AppManager;
 import com.kaciula.archiman.util.ArchimanApplication;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
@@ -12,7 +12,7 @@ public interface BaseAppComponent {
 
     void inject(AppManager appManager);
 
-    GithubApi githubApi();
+    StackExchangeApi githubApi();
 
     BaseSchedulerProvider schedulerProvider();
 

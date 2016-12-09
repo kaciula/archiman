@@ -8,5 +8,5 @@ import io.reactivex.Observable;
 
 public interface UsersDataSource {
 
-    Observable<List<User>> getMembersOfOrganisation(String organisationName);
+    Observable<List<User>> getUsers();
 }

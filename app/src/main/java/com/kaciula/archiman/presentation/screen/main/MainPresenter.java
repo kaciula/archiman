@@ -78,14 +78,14 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void onClickOkUserDialog(User user) {
-        Toasts.show("Clicked OK on user dialog for user " + user.username());
+        Toasts.show("Clicked OK on user dialog for user " + user.name());
     }
 
     private void refresh() {
         Timber.d("Start refresh");
         view.showProgress();
 
-        disposables.add(dataRepository.getMembersOfOrganisation("square")
+        disposables.add(dataRepository.getUsers()
                 .map(new Function<List<User>, MainViewModel>() {
                     @Override
                     public MainViewModel apply(List<User> users) throws Exception {

@@ -6,9 +6,9 @@ import com.google.auto.value.AutoValue;
 
 @AutoValue
 public abstract class User implements Parcelable {
-    public abstract String username();
+    public abstract String name();
 
-    public static User create(String username) {
-        return new AutoValue_User(username);
+    public static User create(String name) {
+        return new AutoValue_User(name);
     }
 }

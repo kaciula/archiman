@@ -33,14 +33,14 @@ public class RemoteModule {
 
     @Provides
     @Singleton
-    GithubApi provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
+    StackExchangeApi provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl("https://api.github.com")
+                .baseUrl("https://api.stackexchange.com/2.2/")
                 .client(okHttpClient)
                 .build()
-                .create(GithubApi.class);
+                .create(StackExchangeApi.class);
     }
 
 /*

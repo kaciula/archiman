@@ -46,7 +46,7 @@ public class UserDialogFragment extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(user().username());
+        builder.setTitle(user().name());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_user, null, false);
@@ -62,7 +62,7 @@ public class UserDialogFragment extends AppCompatDialogFragment {
     }
 
     private void setup() {
-        tvUserName.setText(user().username());
+        tvUserName.setText(user().name());
     }
 
     private User user() {
