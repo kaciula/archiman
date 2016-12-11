@@ -22,6 +22,8 @@ public interface MainContract {
 
   interface Container {
     void showUserDialog(User user);
+
+    void showUserMessage(User user);
   }
 
 

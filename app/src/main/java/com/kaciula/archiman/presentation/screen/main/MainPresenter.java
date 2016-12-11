@@ -39,7 +39,7 @@ public class MainPresenter implements MainContract.Presenter {
     view.setup();
     // Do stuff if we have retained state
     if (lastClickedUser != null) {
-      Toasts.show("Before orientation change, last user clicked was " + lastClickedUser.toString());
+      container.showUserMessage(lastClickedUser);
     }
     refresh();
   }
