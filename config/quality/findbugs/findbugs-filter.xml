@@ -14,8 +14,4 @@
             <Bug code="IJU" />
         </Not>
     </Match>
-    <Match>
-        <Bug code="RCN,ST" />
-    </Match>
-
 </FindBugsFilter>

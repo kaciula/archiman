@@ -14,10 +14,8 @@ public class CrashlyticsTree extends Timber.Tree {
 
     Crashlytics.log(message);
 
-    if (t != null) {
-      if (priority == Log.ERROR) {
-        Crashlytics.logException(t);
-      }
+    if (t != null && priority == Log.ERROR) {
+      Crashlytics.logException(t);
     }
   }
 }

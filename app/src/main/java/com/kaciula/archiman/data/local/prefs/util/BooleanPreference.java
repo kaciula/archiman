@@ -17,6 +17,7 @@ public class BooleanPreference {
     this.defaultValue = defaultValue;
   }
 
+  @SuppressWarnings("PMD.BooleanGetMethodName")
   public boolean get() {
     return preferences.getBoolean(key, defaultValue);
   }

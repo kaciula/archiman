@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.os.StrictMode;
+import edu.umd.cs.findbugs.annotations.SuppressWarnings;
 import net.danlew.android.joda.JodaTimeAndroid;
 
 public abstract class BaseApplication extends Application {
@@ -15,6 +16,7 @@ public abstract class BaseApplication extends Application {
     return context;
   }
 
+  @SuppressWarnings("ST")
   @Override
   public void onCreate() {
     super.onCreate();

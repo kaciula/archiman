@@ -89,3 +89,7 @@
 #------- RxJava START -------
 -dontwarn rx.internal.util.**
 #------- RxJava END -------
+
+-dontwarn javax.annotation.**
+-dontwarn javax.inject.**
+-dontwarn sun.misc.Unsafe

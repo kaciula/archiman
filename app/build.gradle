@@ -151,6 +151,8 @@ dependencies {
     compile 'com.dmitrymalkovich.android:material-design-dimens:1.2'
     debugCompile 'com.amitshekhar.android:debug-db:0.4.0'
 
+    compile 'net.sourceforge.findbugs:annotations:1.3.2'
+
     // Unit testing dependencies.
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:1.10.19'

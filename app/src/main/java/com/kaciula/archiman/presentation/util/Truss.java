@@ -51,7 +51,7 @@ public class Truss {
    */
   public Truss popSpan() {
     Span span = stack.removeLast();
-    builder.setSpan(span.span, span.start, builder.length(), SPAN_INCLUSIVE_EXCLUSIVE);
+    builder.setSpan(span.theSpan, span.start, builder.length(), SPAN_INCLUSIVE_EXCLUSIVE);
     return this;
   }
 
@@ -67,11 +67,11 @@ public class Truss {
 
   private static final class Span {
     final int start;
-    final Object span;
+    final Object theSpan;
 
-    public Span(int start, Object span) {
+    public Span(int start, Object theSpan) {
       this.start = start;
-      this.span = span;
+      this.theSpan = theSpan;
     }
   }
 }

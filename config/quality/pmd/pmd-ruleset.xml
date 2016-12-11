@@ -14,8 +14,8 @@
   ~ limitations under the License.
   -->
 
-<ruleset name="Android Application Rules" xmlns="http://pmd.sf.net/ruleset/1.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Android Application Rules"
+    xmlns="http://pmd.sf.net/ruleset/1.0.0"
     xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd"
     xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd">
 
@@ -24,9 +24,7 @@
     <exclude-pattern>.*/R.java</exclude-pattern>
     <exclude-pattern>.*/gen/.*</exclude-pattern>
 
-    <rule ref="rulesets/java/android.xml">
-        <exclude name="CallSuperLast" />
-    </rule>
+    <rule ref="rulesets/java/android.xml" />
     <rule ref="rulesets/java/clone.xml" />
     <rule ref="rulesets/java/finalizers.xml" />
     <rule ref="rulesets/java/imports.xml">
@@ -34,18 +32,9 @@
         <exclude name="TooManyStaticImports" />
     </rule>
     <rule ref="rulesets/java/logging-java.xml" />
-    <rule ref="rulesets/java/braces.xml">
-        <exclude name="IfStmtsMustUseBraces" />
-        <exclude name="IfElseStmtsMustUseBraces" />
-        <exclude name="ForLoopsMustUseBraces" />
-        <exclude name="WhileLoopsMustUseBraces" />
-    </rule>
-    <rule ref="rulesets/java/strings.xml">
-        <exclude name="AvoidDuplicateLiterals" />
-    </rule>
-    <rule ref="rulesets/java/basic.xml">
-        <exclude name="CollapsibleIfStatements" />
-    </rule>
+    <rule ref="rulesets/java/braces.xml" />
+    <rule ref="rulesets/java/strings.xml" />
+    <rule ref="rulesets/java/basic.xml" />
     <rule ref="rulesets/java/naming.xml">
         <exclude name="AbstractNaming" />
         <exclude name="LongVariable" />
@@ -53,10 +42,6 @@
         <exclude name="ShortVariable" />
         <exclude name="VariableNamingConventions" />
         <exclude name="AvoidFieldNameMatchingMethodName" />
-        <exclude name="BooleanGetMethodName" />
-        <exclude name="MethodNamingConventions" />
-        <exclude name="SuspiciousConstantFieldName" />
         <exclude name="ShortClassName" />
-        <exclude name="AvoidFieldNameMatchingTypeName" />
     </rule>
 </ruleset>

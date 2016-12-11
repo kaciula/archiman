@@ -17,7 +17,7 @@ import javax.inject.Inject;
 
 public class UserDialogFragment extends AppCompatDialogFragment {
 
-  private static String EXTRA_USER = "user";
+  private static final String EXTRA_USER = "user";
 
   @Inject MainContract.Presenter presenter;
 
