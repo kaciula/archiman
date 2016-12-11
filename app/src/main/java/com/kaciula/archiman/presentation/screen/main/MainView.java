@@ -78,13 +78,13 @@ public class MainView extends ViewFlipper implements MainContract.View {
   @Override
   public void showContent() {
     setDisplayedChild(CHILD_CONTENT);
-    Timber.d("child content ? " + getDisplayedChild());
+    Timber.d("child content ? %d", getDisplayedChild());
   }
 
   @Override
   public void showProgress() {
     setDisplayedChild(CHILD_PROGRESS);
-    Timber.d("child progress ? " + getDisplayedChild());
+    Timber.d("child progress ? %d", getDisplayedChild());
   }
 
   @Override

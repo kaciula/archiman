@@ -21,8 +21,8 @@ public class AppManager {
       prefsRepository.saveVersionCode(currentVersionCode);
     } else {
       if (prefsRepository.versionCode() < currentVersionCode) {
-        Timber.d("Old version code " + prefsRepository.versionCode()
-            + " is replaced with new version code " + currentVersionCode);
+        Timber.d("Old version code %d is replaced with new version code %d",
+            prefsRepository.versionCode(), currentVersionCode);
         prefsRepository.saveVersionCode(currentVersionCode);
       } else {
         Timber.d("Just a basic cold start");

@@ -6,6 +6,7 @@
     <application
         android:name=".util.ArchimanApplication"
         android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/all_app_name"
         android:supportsRtl="true"

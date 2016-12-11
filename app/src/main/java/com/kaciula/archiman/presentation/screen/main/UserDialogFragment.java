@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import butterknife.BindView;
@@ -43,8 +42,7 @@ public class UserDialogFragment extends AppCompatDialogFragment {
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
     builder.setTitle(user().name());
 
-    LayoutInflater inflater = getActivity().getLayoutInflater();
-    View view = inflater.inflate(R.layout.dialog_user, null, false);
+    View view = View.inflate(getActivity(), R.layout.dialog_user, null);
     ButterKnife.bind(this, view);
     setup();
     builder.setView(view);
