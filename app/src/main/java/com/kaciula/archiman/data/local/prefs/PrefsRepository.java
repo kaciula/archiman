@@ -1,6 +1,5 @@
 package com.kaciula.archiman.data.local.prefs;
 
-
 import com.kaciula.archiman.data.local.prefs.util.BooleanPreference;
 import com.kaciula.archiman.data.local.prefs.util.IntPreference;
 import com.kaciula.archiman.util.ArchimanApplication;

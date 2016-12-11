@@ -11,8 +11,10 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {AppModule.class, DataModule.class, PrefsModule.class, RemoteModule.class,
-        DataRepositoryModule.class})
+@Component(modules = {
+        AppModule.class, DataModule.class, PrefsModule.class, RemoteModule.class,
+        DataRepositoryModule.class
+})
 public interface AppComponent extends BaseAppComponent {
 
     void inject(PrefsRepository prefsRepository);

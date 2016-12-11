@@ -31,9 +31,7 @@ public class ArchimanApplication extends BaseApplication {
             Timber.plant(new CrashlyticsTree());
         }
 
-        appComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule())
-                .build();
+        appComponent = DaggerAppComponent.builder().appModule(new AppModule()).build();
         appComponent.inject(this);
 
         appManager.initializeEveryColdStart();

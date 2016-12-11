@@ -1,9 +1,10 @@
 package com.kaciula.archiman.presentation.screen.main;
 
+import com.google.auto.value.AutoValue;
+
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.google.auto.value.AutoValue;
 import com.kaciula.archiman.data.DataRepository;
 import com.kaciula.archiman.domain.model.User;
 import com.kaciula.archiman.presentation.util.Toasts;
@@ -42,8 +43,7 @@ public class MainPresenter implements MainContract.Presenter {
         view.setup();
         // Do stuff if we have retained state
         if (lastClickedUser != null) {
-            Toasts.show("Before orientation change, last user clicked was " + lastClickedUser
-                    .toString());
+            Toasts.show("Before orientation change, last user clicked was " + lastClickedUser.toString());
         }
         refresh();
     }
@@ -110,7 +110,6 @@ public class MainPresenter implements MainContract.Presenter {
         public void onError(Throwable t) {
             Timber.d(t, "Received error");
             view.showError();
-
         }
 
         @Override

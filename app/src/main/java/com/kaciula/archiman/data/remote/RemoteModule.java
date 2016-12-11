@@ -1,7 +1,8 @@
 package com.kaciula.archiman.data.remote;
 
-import com.github.simonpercic.oklog3.OkLogInterceptor;
 import com.google.gson.Gson;
+
+import com.github.simonpercic.oklog3.OkLogInterceptor;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.kaciula.archiman.BuildConfig;
 
@@ -34,8 +35,7 @@ public class RemoteModule {
     @Provides
     @Singleton
     StackExchangeApi provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
-        return new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create(gson))
+        return new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .baseUrl("https://api.stackexchange.com/2.2/")
                 .client(okHttpClient)

@@ -18,7 +18,6 @@ public class UsersRemoteDataSource implements UsersDataSource {
 
     @Override
     public Observable<List<User>> getUsers() {
-        return stackExchangeApi.getUsers()
-                .map(new UsersResponseMapper());
+        return stackExchangeApi.getUsers().map(new UsersResponseMapper());
     }
 }

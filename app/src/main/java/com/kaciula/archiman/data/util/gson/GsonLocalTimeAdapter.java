@@ -18,10 +18,11 @@ public class GsonLocalTimeAdapter extends TypeAdapter<LocalTime> {
 
     @Override
     public void write(JsonWriter out, LocalTime value) throws IOException {
-        if (value != null)
+        if (value != null) {
             out.value(value.toString(TIME_FORMAT));
-        else
+        } else {
             out.nullValue();
+        }
     }
 
     @Override

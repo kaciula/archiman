@@ -14,15 +14,16 @@ import java.io.IOException;
 public class GsonLocalDateAdapter extends TypeAdapter<LocalDate> {
 
     private static final String DATE_FORMAT = "yyyy-MM-dd";
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern
-            (DATE_FORMAT);
+    private static final DateTimeFormatter DATE_TIME_FORMATTER =
+            DateTimeFormat.forPattern(DATE_FORMAT);
 
     @Override
     public void write(JsonWriter out, LocalDate value) throws IOException {
-        if (value != null)
+        if (value != null) {
             out.value(value.toString(DATE_FORMAT));
-        else
+        } else {
             out.nullValue();
+        }
     }
 
     @Override

@@ -23,7 +23,7 @@ public final class Strings {
 
     public static String withoutDiacriticals(@NonNull String s) {
         Preconditions.checkNotNull(s);
-        return Normalizer.normalize(s, Normalizer.Form.NFD).replaceAll
-                ("\\p{InCombiningDiacriticalMarks}+", "");
+        return Normalizer.normalize(s, Normalizer.Form.NFD)
+                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
     }
 }

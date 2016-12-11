@@ -7,8 +7,8 @@ import android.view.LayoutInflater;
 
 import java.util.List;
 
-public abstract class GenericRecyclerAdapter<T, S extends RecyclerView.ViewHolder> extends
-        RecyclerView.Adapter<S> {
+public abstract class GenericRecyclerAdapter<T, S extends RecyclerView.ViewHolder>
+        extends RecyclerView.Adapter<S> {
 
     protected List<T> items;
     protected LayoutInflater inflater;

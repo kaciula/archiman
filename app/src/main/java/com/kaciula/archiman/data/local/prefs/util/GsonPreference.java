@@ -1,8 +1,9 @@
 package com.kaciula.archiman.data.local.prefs.util;
 
+import com.google.gson.Gson;
+
 import android.content.SharedPreferences;
 
-import com.google.gson.Gson;
 import com.kaciula.archiman.util.Strings;
 
 public class GsonPreference<T> {
@@ -16,8 +17,8 @@ public class GsonPreference<T> {
         this(preferences, key, null, type, gson);
     }
 
-    public GsonPreference(SharedPreferences preferences, String key, T defaultValue, Class<T>
-            type, Gson gson) {
+    public GsonPreference(SharedPreferences preferences, String key, T defaultValue, Class<T> type,
+                          Gson gson) {
         this.preferences = preferences;
         this.key = key;
         this.defaultValue = defaultValue;

@@ -15,8 +15,9 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     private boolean drawLastDivider;
 
     public DividerItemDecoration(Context context) {
-        final TypedArray a = context.obtainStyledAttributes(null, new int[]{android.R.attr
-                .listDivider});
+        final TypedArray a = context.obtainStyledAttributes(null, new int[]{
+                android.R.attr.listDivider
+        });
         divider = a.getDrawable(0);
         a.recycle();
         drawLastDivider = true;
@@ -33,13 +34,15 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State
-            state) {
+    public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
+                               RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
         if (divider == null) return;
         if (getOrientation(parent) == LinearLayoutManager.VERTICAL) {
             outRect.bottom = divider.getIntrinsicHeight();
-        } else outRect.right = divider.getIntrinsicWidth();
+        } else {
+            outRect.right = divider.getIntrinsicWidth();
+        }
     }
 
     @Override
@@ -57,8 +60,8 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             final int count = drawLastDivider ? childCount : childCount - 1;
             for (int i = 0; i < count; i++) {
                 final View child = parent.getChildAt(i);
-                final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
-                        .getLayoutParams();
+                final RecyclerView.LayoutParams params =
+                        (RecyclerView.LayoutParams) child.getLayoutParams();
                 final int size = divider.getIntrinsicHeight();
                 final int top = child.getBottom() + params.bottomMargin;
                 final int bottom = top + size;
@@ -73,8 +76,8 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
             final int count = drawLastDivider ? childCount : childCount - 1;
             for (int i = 0; i < count; i++) {
                 final View child = parent.getChildAt(i);
-                final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
-                        .getLayoutParams();
+                final RecyclerView.LayoutParams params =
+                        (RecyclerView.LayoutParams) child.getLayoutParams();
                 final int size = divider.getIntrinsicWidth();
                 final int left = child.getRight() + params.rightMargin;
                 final int right = left + size;
@@ -88,8 +91,9 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
         if (parent.getLayoutManager() instanceof LinearLayoutManager) {
             LinearLayoutManager layoutManager = (LinearLayoutManager) parent.getLayoutManager();
             return layoutManager.getOrientation();
-        } else
-            throw new IllegalStateException("DividerItemDecorationOld can only be used with a " +
-                    "LinearLayoutManager.");
+        } else {
+            throw new IllegalStateException(
+                    "DividerItemDecorationOld can only be used with a " + "LinearLayoutManager.");
+        }
     }
 }

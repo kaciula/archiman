@@ -1,8 +1,8 @@
 package com.kaciula.archiman.domain.model;
 
-import android.os.Parcelable;
-
 import com.google.auto.value.AutoValue;
+
+import android.os.Parcelable;
 
 @AutoValue
 public abstract class User implements Parcelable {

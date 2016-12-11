@@ -2,6 +2,7 @@ package com.kaciula.archiman.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import com.kaciula.archiman.data.util.gson.ApiGsonAdapterFactory;
 import com.kaciula.archiman.data.util.gson.GsonIntegerTypeAdapter;
 import com.kaciula.archiman.data.util.gson.GsonLocalDateAdapter;

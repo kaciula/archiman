@@ -54,8 +54,7 @@ public class MainActivity extends ArchimanActivity implements MainContract.Conta
     @Override
     public void showUserDialog(User user) {
         if (canShowDialogs()) {
-            UserDialogFragment.newInstance(user)
-                    .show(getSupportFragmentManager(), "UserDialogFragment");
+            UserDialogFragment.newInstance(user).show(getSupportFragmentManager(), "UserDialogFragment");
         }
     }
 }

@@ -30,19 +30,15 @@ public abstract class BaseApplication extends Application {
      * disk/network access on the application's main thread
      */
     protected void enableFullStrictMode() {
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll()
-                .penaltyLog()
-                .build());
-        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog()
-                .build());
+        StrictMode.setThreadPolicy(
+                new StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build());
     }
 
     protected void enableFullStrictModePenaltyDeath() {
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll()
-                .penaltyDeath()
-                .build());
-        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyDeath()
-                .build());
+        StrictMode.setThreadPolicy(
+                new StrictMode.ThreadPolicy.Builder().detectAll().penaltyDeath().build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyDeath().build());
     }
 
     protected void allowThreadDiskReads() {

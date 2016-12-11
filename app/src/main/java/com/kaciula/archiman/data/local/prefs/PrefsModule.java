@@ -30,14 +30,16 @@ public class PrefsModule {
     @Provides
     @Named("first_time")
     @Singleton
-    BooleanPreference provideFirstTimePreference(SharedPreferences preferences) {
+    BooleanPreference provideFirstTimePreference(
+            SharedPreferences preferences) {
         return new BooleanPreference(preferences, "first_time", true);
     }
 
     @Provides
     @Named("version_code")
     @Singleton
-    IntPreference provideVersionCodePreference(SharedPreferences preferences) {
+    IntPreference provideVersionCodePreference(
+            SharedPreferences preferences) {
         return new IntPreference(preferences, "version_code", 0);
     }
 }

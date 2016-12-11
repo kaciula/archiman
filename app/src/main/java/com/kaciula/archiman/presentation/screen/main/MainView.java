@@ -47,15 +47,13 @@ public class MainView extends ViewFlipper implements MainContract.View {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        if (!isInEditMode())
-            presenter.start();
+        if (!isInEditMode()) presenter.start();
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        if (!isInEditMode())
-            presenter.stop();
+        if (!isInEditMode()) presenter.stop();
     }
 
     @Override
@@ -66,8 +64,8 @@ public class MainView extends ViewFlipper implements MainContract.View {
     @Override
     public void setup() {
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager
-                .VERTICAL, false));
+        recyclerView.setLayoutManager(
+                new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         adapter = new UserAdapter(getContext(), new ArrayList<User>(), presenter);
         recyclerView.setAdapter(adapter);
     }
