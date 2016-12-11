@@ -6,29 +6,31 @@ import com.kaciula.archiman.presentation.util.BaseView;
 
 public interface MainContract {
 
-    interface View extends BaseView<Presenter> {
+  interface View extends BaseView<Presenter> {
 
-        void updateContent(MainViewModel data);
+    void updateContent(MainViewModel data);
 
-        void showContent();
+    void showContent();
 
-        void showProgress();
+    void showProgress();
 
-        void showError();
+    void showError();
 
-        void setup();
-    }
+    void setup();
+  }
 
-    interface Container {
-        void showUserDialog(User user);
-    }
 
-    interface Presenter extends BasePresenter {
+  interface Container {
+    void showUserDialog(User user);
+  }
 
-        void onClickRetry();
 
-        void onClickUser(User user);
+  interface Presenter extends BasePresenter {
 
-        void onClickOkUserDialog(User user);
-    }
+    void onClickRetry();
+
+    void onClickUser(User user);
+
+    void onClickOkUserDialog(User user);
+  }
 }

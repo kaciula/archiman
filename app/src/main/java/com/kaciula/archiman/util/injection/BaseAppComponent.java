@@ -8,13 +8,13 @@ import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 
 public interface BaseAppComponent {
 
-    void inject(ArchimanApplication application);
+  void inject(ArchimanApplication application);
 
-    void inject(AppManager appManager);
+  void inject(AppManager appManager);
 
-    StackExchangeApi githubApi();
+  StackExchangeApi githubApi();
 
-    BaseSchedulerProvider schedulerProvider();
+  BaseSchedulerProvider schedulerProvider();
 
-    DataRepository dataRepository();
+  DataRepository dataRepository();
 }

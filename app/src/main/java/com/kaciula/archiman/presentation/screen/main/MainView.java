@@ -5,95 +5,95 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.widget.ViewFlipper;
-
-import com.kaciula.archiman.R;
-import com.kaciula.archiman.domain.model.User;
-import com.kaciula.archiman.presentation.widget.DividerItemDecoration;
-
-import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.kaciula.archiman.R;
+import com.kaciula.archiman.domain.model.User;
+import com.kaciula.archiman.presentation.widget.DividerItemDecoration;
+import java.util.ArrayList;
 import timber.log.Timber;
 
 public class MainView extends ViewFlipper implements MainContract.View {
 
-    private static final int CHILD_CONTENT = 0;
-    private static final int CHILD_PROGRESS = 1;
-    private static final int CHILD_ERROR = 2;
+  private static final int CHILD_CONTENT = 0;
+  private static final int CHILD_PROGRESS = 1;
+  private static final int CHILD_ERROR = 2;
 
-    @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
+  @BindView(R.id.recycler_view) RecyclerView recyclerView;
 
-    private MainContract.Presenter presenter;
-    private UserAdapter adapter;
+  private MainContract.Presenter presenter;
+  private UserAdapter adapter;
 
-    public MainView(Context context) {
-        super(context);
-        init();
+  public MainView(Context context) {
+    super(context);
+    init();
+  }
+
+  public MainView(Context context, AttributeSet attrs) {
+    super(context, attrs);
+    init();
+  }
+
+  private void init() {
+    inflate(getContext(), R.layout.view_main, this);
+    ButterKnife.bind(this);
+  }
+
+  @Override
+  protected void onAttachedToWindow() {
+    super.onAttachedToWindow();
+    if (!isInEditMode()) {
+      presenter.start();
     }
+  }
 
-    public MainView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
+  @Override
+  protected void onDetachedFromWindow() {
+    super.onDetachedFromWindow();
+    if (!isInEditMode()) {
+      presenter.stop();
     }
+  }
 
-    private void init() {
-        inflate(getContext(), R.layout.view_main, this);
-        ButterKnife.bind(this);
-    }
+  @Override
+  public void setPresenter(MainContract.Presenter presenter) {
+    this.presenter = presenter;
+  }
 
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        if (!isInEditMode()) presenter.start();
-    }
+  @Override
+  public void setup() {
+    recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
+    recyclerView.setLayoutManager(
+        new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+    adapter = new UserAdapter(getContext(), new ArrayList<User>(), presenter);
+    recyclerView.setAdapter(adapter);
+  }
 
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        if (!isInEditMode()) presenter.stop();
-    }
+  @Override
+  public void updateContent(MainViewModel data) {
+    adapter.setItems(data.users());
+  }
 
-    @Override
-    public void setPresenter(MainContract.Presenter presenter) {
-        this.presenter = presenter;
-    }
+  @Override
+  public void showContent() {
+    setDisplayedChild(CHILD_CONTENT);
+    Timber.d("child content ? " + getDisplayedChild());
+  }
 
-    @Override
-    public void setup() {
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
-        recyclerView.setLayoutManager(
-                new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        adapter = new UserAdapter(getContext(), new ArrayList<User>(), presenter);
-        recyclerView.setAdapter(adapter);
-    }
+  @Override
+  public void showProgress() {
+    setDisplayedChild(CHILD_PROGRESS);
+    Timber.d("child progress ? " + getDisplayedChild());
+  }
 
-    @Override
-    public void updateContent(MainViewModel data) {
-        adapter.setItems(data.users());
-    }
+  @Override
+  public void showError() {
+    setDisplayedChild(CHILD_ERROR);
+  }
 
-    @Override
-    public void showContent() {
-        setDisplayedChild(CHILD_CONTENT);
-        Timber.d("child content ? " + getDisplayedChild());
-    }
-
-    @Override
-    public void showProgress() {
-        setDisplayedChild(CHILD_PROGRESS);
-        Timber.d("child progress ? " + getDisplayedChild());
-    }
-
-    @Override
-    public void showError() {
-        setDisplayedChild(CHILD_ERROR);
-    }
-
-    @OnClick(R.id.btn_retry)
-    void onClickRetry() {
-        presenter.onClickRetry();
-    }
+  @OnClick(R.id.btn_retry)
+  void onClickRetry() {
+    presenter.onClickRetry();
+  }
 }

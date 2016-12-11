@@ -2,11 +2,11 @@ package com.kaciula.archiman.presentation.util;
 
 public interface BasePresenter {
 
-    void start();
+  void start();
 
-    void stop();
+  void stop();
 
-    Object getRetainedState();
+  Object getRetainedState();
 
-    void setRetainedState(Object state);
+  void setRetainedState(Object state);
 }

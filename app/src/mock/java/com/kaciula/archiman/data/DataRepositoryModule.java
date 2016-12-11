@@ -1,16 +1,15 @@
 package com.kaciula.archiman.data;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
+import javax.inject.Singleton;
 
 @Module
 public class DataRepositoryModule {
 
-    @Singleton
-    @Provides
-    DataRepository providerDataRepository() {
-        return new DataRepository(new FakeUsersDataSource());
-    }
+  @Singleton
+  @Provides
+  DataRepository providerDataRepository() {
+    return new DataRepository(new FakeUsersDataSource());
+  }
 }
