@@ -17,6 +17,10 @@ task checkstyle(type: Checkstyle) {
     classpath = files()
 }
 
+checkstyle {
+    toolVersion = '7.3'
+}
+
 task findbugs(type: FindBugs, dependsOn: "assembleDebug") {
     ignoreFailures = false
     effort = "max"
