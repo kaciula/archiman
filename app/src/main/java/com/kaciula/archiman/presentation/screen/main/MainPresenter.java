@@ -15,10 +15,10 @@ import timber.log.Timber;
 
 public class MainPresenter implements MainContract.Presenter {
 
-  private MainContract.Container container;
-  private MainContract.View view;
-  private BaseSchedulerProvider schedulerProvider;
-  private UsersRepository usersRepository;
+  private final MainContract.Container container;
+  private final MainContract.View view;
+  private final BaseSchedulerProvider schedulerProvider;
+  private final UsersRepository usersRepository;
 
   private final CompositeDisposable disposables;
   private User lastClickedUser;
