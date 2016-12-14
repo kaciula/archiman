@@ -1,6 +1,6 @@
 package com.kaciula.archiman.presentation.screen.main;
 
-import com.kaciula.archiman.data.DataRepository;
+import com.kaciula.archiman.data.UsersRepository;
 import com.kaciula.archiman.util.injection.ActivityScope;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 import dagger.Module;
@@ -19,7 +19,7 @@ public class MainModule {
   @Provides
   @ActivityScope
   MainContract.Presenter providePresenter(BaseSchedulerProvider schedulerProvider,
-      DataRepository dataRepository) {
-    return new MainPresenter(container, view, schedulerProvider, dataRepository);
+      UsersRepository usersRepository) {
+    return new MainPresenter(container, view, schedulerProvider, usersRepository);
   }
 }

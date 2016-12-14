@@ -4,7 +4,7 @@ package com.kaciula.archiman.presentation.screen.main;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.kaciula.archiman.data.DataRepository;
+import com.kaciula.archiman.data.UsersRepository;
 import com.kaciula.archiman.domain.model.User;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 import com.kaciula.archiman.util.scheduler.TrampolineSchedulerProvider;
@@ -20,7 +20,7 @@ public class MainPresenterTest {
 
   @Mock MainContract.Container container;
   @Mock MainContract.View view;
-  @Mock DataRepository dataRepository;
+  @Mock UsersRepository usersRepository;
 
   private MainPresenter presenter;
 
@@ -29,12 +29,12 @@ public class MainPresenterTest {
     MockitoAnnotations.initMocks(this);
 
     BaseSchedulerProvider schedulerProvider = new TrampolineSchedulerProvider();
-    presenter = new MainPresenter(container, view, schedulerProvider, dataRepository);
+    presenter = new MainPresenter(container, view, schedulerProvider, usersRepository);
   }
 
   @Test
   public void startCallSetup() {
-    when(dataRepository.getUsers()).thenReturn(Observable.<List<User>>empty());
+    when(usersRepository.getUsers()).thenReturn(Observable.<List<User>>empty());
 
     presenter.start();
 
@@ -45,7 +45,7 @@ public class MainPresenterTest {
   public void loadUsersCallViewToShowContent() {
     List<User> users = new ArrayList<>();
     users.add(User.create("Bob Sacamano"));
-    when(dataRepository.getUsers()).thenReturn(Observable.just(users));
+    when(usersRepository.getUsers()).thenReturn(Observable.just(users));
 
     presenter.start();
 
@@ -55,7 +55,7 @@ public class MainPresenterTest {
 
   @Test
   public void loadUsersErrorCallViewToShowError() {
-    when(dataRepository.getUsers()).thenReturn(Observable.<List<User>>error(new Exception()));
+    when(usersRepository.getUsers()).thenReturn(Observable.<List<User>>error(new Exception()));
 
     presenter.start();
 

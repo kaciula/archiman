@@ -1,6 +1,6 @@
 package com.kaciula.archiman.util.injection;
 
-import com.kaciula.archiman.data.DataRepository;
+import com.kaciula.archiman.data.UsersRepository;
 import com.kaciula.archiman.data.remote.StackExchangeApi;
 import com.kaciula.archiman.util.AppManager;
 import com.kaciula.archiman.util.ArchimanApplication;
@@ -16,5 +16,5 @@ public interface BaseAppComponent {
 
   BaseSchedulerProvider schedulerProvider();
 
-  DataRepository dataRepository();
+  UsersRepository usersRepository();
 }

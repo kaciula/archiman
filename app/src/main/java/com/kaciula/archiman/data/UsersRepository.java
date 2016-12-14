@@ -4,11 +4,11 @@ import com.kaciula.archiman.domain.model.User;
 import io.reactivex.Observable;
 import java.util.List;
 
-public class DataRepository implements UsersDataSource {
+public class UsersRepository implements UsersDataSource {
 
   private UsersDataSource usersRemoteDataSource;
 
-  public DataRepository(UsersDataSource usersRemoteDataSource) {
+  public UsersRepository(UsersDataSource usersRemoteDataSource) {
     this.usersRemoteDataSource = usersRemoteDataSource;
   }
 

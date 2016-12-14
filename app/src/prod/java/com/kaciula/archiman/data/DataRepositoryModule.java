@@ -11,7 +11,7 @@ public class DataRepositoryModule {
 
   @Singleton
   @Provides
-  DataRepository providerDataRepository(StackExchangeApi stackExchangeApi) {
-    return new DataRepository(new UsersRemoteDataSource(stackExchangeApi));
+  UsersRepository providerUsersRepository(StackExchangeApi stackExchangeApi) {
+    return new UsersRepository(new UsersRemoteDataSource(stackExchangeApi));
   }
 }

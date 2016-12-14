@@ -9,7 +9,7 @@ public class DataRepositoryModule {
 
   @Singleton
   @Provides
-  DataRepository providerDataRepository() {
-    return new DataRepository(new FakeUsersDataSource());
+  UsersRepository providerUsersRepository() {
+    return new UsersRepository(new FakeUsersDataSource());
   }
 }
