@@ -3,32 +3,31 @@ package com.kaciula.archiman.presentation.screen.main;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import com.google.auto.value.AutoValue;
-import com.kaciula.archiman.data.UsersRepository;
 import com.kaciula.archiman.domain.model.User;
+import com.kaciula.archiman.domain.usecase.FetchUsersUsecase;
 import com.kaciula.archiman.presentation.util.Toasts;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableObserver;
-import java.util.List;
 import timber.log.Timber;
 
-public class MainPresenter implements MainContract.Presenter {
+class MainPresenter implements MainContract.Presenter {
 
   private final MainContract.Container container;
   private final MainContract.View view;
   private final BaseSchedulerProvider schedulerProvider;
-  private final UsersRepository usersRepository;
+  private final FetchUsersUsecase fetchUsersUsecase;
 
   private final CompositeDisposable disposables;
   private User lastClickedUser;
 
-  public MainPresenter(MainContract.Container container, MainContract.View view,
-      BaseSchedulerProvider schedulerProvider, UsersRepository usersRepository) {
+  MainPresenter(MainContract.Container container, MainContract.View view,
+      BaseSchedulerProvider schedulerProvider, FetchUsersUsecase fetchUsersUsecase) {
     this.container = container;
     this.view = view;
     this.schedulerProvider = schedulerProvider;
-    this.usersRepository = usersRepository;
+    this.fetchUsersUsecase = fetchUsersUsecase;
     disposables = new CompositeDisposable();
     this.view.setPresenter(this);
   }
@@ -81,12 +80,14 @@ public class MainPresenter implements MainContract.Presenter {
     Timber.d("Start refresh");
     view.showProgress();
 
-    disposables.add(usersRepository.getUsers().map(new Function<List<User>, MainViewModel>() {
-      @Override
-      public MainViewModel apply(List<User> users) throws Exception {
-        return MainViewModel.create(users);
-      }
-    }).subscribeOn(schedulerProvider.io()).observeOn(schedulerProvider.ui())
+    disposables.add(fetchUsersUsecase.execute(FetchUsersUsecase.RequestValues.create())
+        .map(new Function<FetchUsersUsecase.ResponseValue, MainViewModel>() {
+          @Override
+          public MainViewModel apply(FetchUsersUsecase.ResponseValue responseValue)
+              throws Exception {
+            return MainViewModel.create(responseValue.users());
+          }
+        }).subscribeOn(schedulerProvider.io()).observeOn(schedulerProvider.ui())
         .subscribeWith(new RefreshSubscriber()));
   }
 
