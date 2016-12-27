@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import com.google.auto.value.AutoValue;
 import com.kaciula.archiman.domain.model.User;
-import com.kaciula.archiman.domain.usecase.FetchUsersUsecase;
+import com.kaciula.archiman.domain.usecase.GetUsersUsecase;
 import com.kaciula.archiman.presentation.util.Toasts;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 import io.reactivex.disposables.CompositeDisposable;
@@ -17,17 +17,17 @@ class MainPresenter implements MainContract.Presenter {
   private final MainContract.Container container;
   private final MainContract.View view;
   private final BaseSchedulerProvider schedulerProvider;
-  private final FetchUsersUsecase fetchUsersUsecase;
+  private final GetUsersUsecase getUsersUsecase;
 
   private final CompositeDisposable disposables;
   private User lastClickedUser;
 
   MainPresenter(MainContract.Container container, MainContract.View view,
-      BaseSchedulerProvider schedulerProvider, FetchUsersUsecase fetchUsersUsecase) {
+      BaseSchedulerProvider schedulerProvider, GetUsersUsecase getUsersUsecase) {
     this.container = container;
     this.view = view;
     this.schedulerProvider = schedulerProvider;
-    this.fetchUsersUsecase = fetchUsersUsecase;
+    this.getUsersUsecase = getUsersUsecase;
     disposables = new CompositeDisposable();
     this.view.setPresenter(this);
   }
@@ -80,10 +80,10 @@ class MainPresenter implements MainContract.Presenter {
     Timber.d("Start refresh");
     view.showProgress();
 
-    disposables.add(fetchUsersUsecase.execute(FetchUsersUsecase.RequestValues.create())
-        .map(new Function<FetchUsersUsecase.ResponseValue, MainViewModel>() {
+    disposables.add(getUsersUsecase.execute(GetUsersUsecase.RequestValues.create())
+        .map(new Function<GetUsersUsecase.ResponseValue, MainViewModel>() {
           @Override
-          public MainViewModel apply(FetchUsersUsecase.ResponseValue responseValue)
+          public MainViewModel apply(GetUsersUsecase.ResponseValue responseValue)
               throws Exception {
             return MainViewModel.create(responseValue.users());
           }

@@ -10,7 +10,7 @@ public final class UsecaseModule {
 
   @Provides
   @Singleton
-  FetchUsersUsecase provideFetchUsersUsecase(UsersRepository usersRepository) {
-    return new FetchUsersUsecase(usersRepository);
+  GetUsersUsecase provideFetchUsersUsecase(UsersRepository usersRepository) {
+    return new GetUsersUsecase(usersRepository);
   }
 }

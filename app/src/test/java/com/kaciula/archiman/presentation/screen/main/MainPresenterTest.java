@@ -5,7 +5,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.kaciula.archiman.domain.model.User;
-import com.kaciula.archiman.domain.usecase.FetchUsersUsecase;
+import com.kaciula.archiman.domain.usecase.GetUsersUsecase;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 import com.kaciula.archiman.util.scheduler.TrampolineSchedulerProvider;
 import io.reactivex.Observable;
@@ -20,7 +20,7 @@ public class MainPresenterTest {
 
   @Mock MainContract.Container container;
   @Mock MainContract.View view;
-  @Mock FetchUsersUsecase fetchUsersUsecase;
+  @Mock GetUsersUsecase getUsersUsecase;
 
   private MainPresenter presenter;
 
@@ -29,13 +29,13 @@ public class MainPresenterTest {
     MockitoAnnotations.initMocks(this);
 
     BaseSchedulerProvider schedulerProvider = new TrampolineSchedulerProvider();
-    presenter = new MainPresenter(container, view, schedulerProvider, fetchUsersUsecase);
+    presenter = new MainPresenter(container, view, schedulerProvider, getUsersUsecase);
   }
 
   @Test
   public void startCallSetup() {
-    when(fetchUsersUsecase.execute(FetchUsersUsecase.RequestValues.create()))
-        .thenReturn(Observable.<FetchUsersUsecase.ResponseValue>empty());
+    when(getUsersUsecase.execute(GetUsersUsecase.RequestValues.create()))
+        .thenReturn(Observable.<GetUsersUsecase.ResponseValue>empty());
 
     presenter.start();
 
@@ -46,8 +46,8 @@ public class MainPresenterTest {
   public void loadUsersCallViewToShowContent() {
     List<User> users = new ArrayList<>();
     users.add(User.create("Bob Sacamano"));
-    when(fetchUsersUsecase.execute(FetchUsersUsecase.RequestValues.create()))
-        .thenReturn(Observable.just(FetchUsersUsecase.ResponseValue.create(users)));
+    when(getUsersUsecase.execute(GetUsersUsecase.RequestValues.create()))
+        .thenReturn(Observable.just(GetUsersUsecase.ResponseValue.create(users)));
 
     presenter.start();
 
@@ -57,8 +57,8 @@ public class MainPresenterTest {
 
   @Test
   public void loadUsersErrorCallViewToShowError() {
-    when(fetchUsersUsecase.execute(FetchUsersUsecase.RequestValues.create()))
-        .thenReturn(Observable.<FetchUsersUsecase.ResponseValue>error(new Exception()));
+    when(getUsersUsecase.execute(GetUsersUsecase.RequestValues.create()))
+        .thenReturn(Observable.<GetUsersUsecase.ResponseValue>error(new Exception()));
 
     presenter.start();
 

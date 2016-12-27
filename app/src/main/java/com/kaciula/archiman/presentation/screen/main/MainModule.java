@@ -1,6 +1,6 @@
 package com.kaciula.archiman.presentation.screen.main;
 
-import com.kaciula.archiman.domain.usecase.FetchUsersUsecase;
+import com.kaciula.archiman.domain.usecase.GetUsersUsecase;
 import com.kaciula.archiman.util.injection.ActivityScope;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 import dagger.Module;
@@ -19,7 +19,7 @@ class MainModule {
   @Provides
   @ActivityScope
   MainContract.Presenter providePresenter(BaseSchedulerProvider schedulerProvider,
-      FetchUsersUsecase fetchUsersUsecase) {
-    return new MainPresenter(container, view, schedulerProvider, fetchUsersUsecase);
+      GetUsersUsecase getUsersUsecase) {
+    return new MainPresenter(container, view, schedulerProvider, getUsersUsecase);
   }
 }
