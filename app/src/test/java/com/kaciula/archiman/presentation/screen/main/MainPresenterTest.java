@@ -4,8 +4,8 @@ package com.kaciula.archiman.presentation.screen.main;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.kaciula.archiman.data.UsersRepository;
 import com.kaciula.archiman.domain.model.User;
+import com.kaciula.archiman.domain.usecase.FetchUsersUsecase;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 import com.kaciula.archiman.util.scheduler.TrampolineSchedulerProvider;
 import io.reactivex.Observable;
@@ -20,7 +20,7 @@ public class MainPresenterTest {
 
   @Mock MainContract.Container container;
   @Mock MainContract.View view;
-  @Mock UsersRepository usersRepository;
+  @Mock FetchUsersUsecase fetchUsersUsecase;
 
   private MainPresenter presenter;
 
@@ -29,12 +29,13 @@ public class MainPresenterTest {
     MockitoAnnotations.initMocks(this);
 
     BaseSchedulerProvider schedulerProvider = new TrampolineSchedulerProvider();
-    presenter = new MainPresenter(container, view, schedulerProvider, usersRepository);
+    presenter = new MainPresenter(container, view, schedulerProvider, fetchUsersUsecase);
   }
 
   @Test
   public void startCallSetup() {
-    when(usersRepository.getUsers()).thenReturn(Observable.<List<User>>empty());
+    when(fetchUsersUsecase.execute(FetchUsersUsecase.RequestValues.create()))
+        .thenReturn(Observable.<FetchUsersUsecase.ResponseValue>empty());
 
     presenter.start();
 
@@ -45,7 +46,8 @@ public class MainPresenterTest {
   public void loadUsersCallViewToShowContent() {
     List<User> users = new ArrayList<>();
     users.add(User.create("Bob Sacamano"));
-    when(usersRepository.getUsers()).thenReturn(Observable.just(users));
+    when(fetchUsersUsecase.execute(FetchUsersUsecase.RequestValues.create()))
+        .thenReturn(Observable.just(FetchUsersUsecase.ResponseValue.create(users)));
 
     presenter.start();
 
@@ -55,7 +57,8 @@ public class MainPresenterTest {
 
   @Test
   public void loadUsersErrorCallViewToShowError() {
-    when(usersRepository.getUsers()).thenReturn(Observable.<List<User>>error(new Exception()));
+    when(fetchUsersUsecase.execute(FetchUsersUsecase.RequestValues.create()))
+        .thenReturn(Observable.<FetchUsersUsecase.ResponseValue>error(new Exception()));
 
     presenter.start();
 
