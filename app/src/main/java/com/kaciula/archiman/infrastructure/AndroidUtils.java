@@ -4,7 +4,7 @@ import android.content.Context;
 import android.provider.Settings;
 import com.kaciula.archiman.util.Strings;
 
-public class MiscUtils {
+public class AndroidUtils {
 
   public static String getDeviceId() {
     Context ctx = BaseApplication.getContext();

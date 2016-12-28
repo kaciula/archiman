@@ -25,6 +25,9 @@ public class ArchimanApplication extends BaseApplication {
       Timber.plant(new Timber.DebugTree());
       LeakCanary.install(this);
     } else {
+      Thread.UncaughtExceptionHandler uncaughtExceptionHandler =
+          new ArchimanUncaughtExceptionHandler(getContext());
+      Thread.setDefaultUncaughtExceptionHandler(uncaughtExceptionHandler);
       startCrashlytics();
       Timber.plant(new CrashlyticsTree());
     }
@@ -42,8 +45,8 @@ public class ArchimanApplication extends BaseApplication {
 
   public void startCrashlytics() {
     Fabric.with(this, new Crashlytics());
-    Crashlytics.setUserIdentifier(MiscUtils.getDeviceId());
-    Crashlytics.setString("Installer", MiscUtils.getInstaller());
+    Crashlytics.setUserIdentifier(AndroidUtils.getDeviceId());
+    Crashlytics.setString("Installer", AndroidUtils.getInstaller());
     Crashlytics.setString("Git SHA", BuildConfig.GIT_SHA);
   }
 }

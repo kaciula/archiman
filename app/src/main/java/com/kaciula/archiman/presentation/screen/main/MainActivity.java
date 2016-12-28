@@ -1,5 +1,7 @@
 package com.kaciula.archiman.presentation.screen.main;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,6 +19,10 @@ public class MainActivity extends ArchimanActivity implements MainContract.Conta
   @BindView(R.id.view_main) MainView mainView;
 
   private MainComponent component;
+
+  public static Intent getStartIntent(Context context) {
+    return new Intent(context, MainActivity.class);
+  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
