@@ -1,7 +1,7 @@
 package com.kaciula.archiman.domain.usecase;
 
-import com.kaciula.archiman.data.UsersRepository;
-import com.kaciula.archiman.data.local.prefs.PrefsRepository;
+import com.kaciula.archiman.domain.abstractions.PrefsRepository;
+import com.kaciula.archiman.domain.abstractions.UsersRepository;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;

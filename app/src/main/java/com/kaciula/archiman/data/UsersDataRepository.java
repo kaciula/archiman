@@ -1,14 +1,15 @@
 package com.kaciula.archiman.data;
 
+import com.kaciula.archiman.domain.abstractions.UsersRepository;
 import com.kaciula.archiman.domain.model.User;
 import io.reactivex.Observable;
 import java.util.List;
 
-public class UsersRepository implements UsersDataSource {
+public class UsersDataRepository implements UsersRepository {
 
   private UsersDataSource usersRemoteDataSource;
 
-  public UsersRepository(UsersDataSource usersRemoteDataSource) {
+  public UsersDataRepository(UsersDataSource usersRemoteDataSource) {
     this.usersRemoteDataSource = usersRemoteDataSource;
   }
 

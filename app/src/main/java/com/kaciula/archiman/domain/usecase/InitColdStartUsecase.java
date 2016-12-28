@@ -3,7 +3,7 @@ package com.kaciula.archiman.domain.usecase;
 
 import com.google.auto.value.AutoValue;
 import com.kaciula.archiman.BuildConfig;
-import com.kaciula.archiman.data.local.prefs.PrefsRepository;
+import com.kaciula.archiman.domain.abstractions.PrefsRepository;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.functions.Action;

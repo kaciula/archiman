@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import com.kaciula.archiman.data.local.prefs.util.BooleanPreference;
 import com.kaciula.archiman.data.local.prefs.util.IntPreference;
+import com.kaciula.archiman.domain.abstractions.PrefsRepository;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Named;
@@ -21,7 +22,7 @@ public class PrefsModule {
   @Provides
   @Singleton
   PrefsRepository providePrefsRepository() {
-    return new PrefsRepository();
+    return new PrefsDataRepository();
   }
 
   @Provides

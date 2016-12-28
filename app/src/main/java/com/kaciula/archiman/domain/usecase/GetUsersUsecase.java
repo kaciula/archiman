@@ -2,7 +2,7 @@ package com.kaciula.archiman.domain.usecase;
 
 
 import com.google.auto.value.AutoValue;
-import com.kaciula.archiman.data.UsersRepository;
+import com.kaciula.archiman.domain.abstractions.UsersRepository;
 import com.kaciula.archiman.domain.model.User;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
