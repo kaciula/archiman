@@ -2,7 +2,6 @@ package com.kaciula.archiman.domain.usecase;
 
 
 import com.google.auto.value.AutoValue;
-import com.kaciula.archiman.BuildConfig;
 import com.kaciula.archiman.domain.abstractions.PrefsRepository;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -19,12 +18,12 @@ public class InitColdStartUseCase
   }
 
   @Override
-  public Observable<ResponseValue> execute(RequestValues requestValues) {
+  public Observable<ResponseValue> execute(final RequestValues requestValues) {
     return Completable.fromAction(new Action() {
       @Override
       public void run() throws Exception {
         Timber.d("Initialize every cold start");
-        int currentVersionCode = BuildConfig.VERSION_CODE;
+        int currentVersionCode = requestValues.currentVersionCode();
         if (prefsRepository.firstTime()) {
           Timber.d("First time running the app");
           prefsRepository.saveFirstTime(false);
