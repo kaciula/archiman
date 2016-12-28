@@ -8,15 +8,14 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.kaciula.archiman.R;
-import com.kaciula.archiman.domain.model.User;
 import com.kaciula.archiman.presentation.util.GenericRecyclerAdapter;
 import java.util.List;
 
-public class UserAdapter extends GenericRecyclerAdapter<User, UserAdapter.ViewHolder> {
+public class UserAdapter extends GenericRecyclerAdapter<UserViewModel, UserAdapter.ViewHolder> {
 
   private final MainContract.Presenter presenter;
 
-  public UserAdapter(Context ctx, List<User> items, MainContract.Presenter presenter) {
+  public UserAdapter(Context ctx, List<UserViewModel> items, MainContract.Presenter presenter) {
     super(ctx, items);
     this.presenter = presenter;
   }
@@ -29,7 +28,7 @@ public class UserAdapter extends GenericRecyclerAdapter<User, UserAdapter.ViewHo
 
   @Override
   public void onBindViewHolder(ViewHolder holder, int position) {
-    User user = getItem(position);
+    UserViewModel user = getItem(position);
     holder.username.setText(user.name());
     holder.view.setOnClickListener(holder);
   }
@@ -49,7 +48,7 @@ public class UserAdapter extends GenericRecyclerAdapter<User, UserAdapter.ViewHo
     public void onClick(View view) {
       int adapterPosition = getAdapterPosition();
       if (adapterPosition != RecyclerView.NO_POSITION) {
-        User user = getItem(adapterPosition);
+        UserViewModel user = getItem(adapterPosition);
         presenter.onClickUser(user);
       }
     }

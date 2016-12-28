@@ -11,7 +11,6 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.kaciula.archiman.R;
-import com.kaciula.archiman.domain.model.User;
 import javax.inject.Inject;
 
 public class UserDialogFragment extends AppCompatDialogFragment {
@@ -22,7 +21,7 @@ public class UserDialogFragment extends AppCompatDialogFragment {
 
   @BindView(R.id.tv_user_name) TextView tvUserName;
 
-  public static UserDialogFragment newInstance(User user) {
+  public static UserDialogFragment newInstance(UserViewModel user) {
     UserDialogFragment fragment = new UserDialogFragment();
     Bundle args = new Bundle();
     args.putParcelable(EXTRA_USER, user);
@@ -58,7 +57,7 @@ public class UserDialogFragment extends AppCompatDialogFragment {
     tvUserName.setText(user().name());
   }
 
-  private User user() {
+  private UserViewModel user() {
     return getArguments().getParcelable(EXTRA_USER);
   }
 }

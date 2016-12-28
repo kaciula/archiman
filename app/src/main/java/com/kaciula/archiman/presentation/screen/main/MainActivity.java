@@ -6,7 +6,6 @@ import android.os.Bundle;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.kaciula.archiman.R;
-import com.kaciula.archiman.domain.model.User;
 import com.kaciula.archiman.infrastructure.ArchimanApplication;
 import com.kaciula.archiman.presentation.util.ArchimanActivity;
 import com.kaciula.archiman.presentation.util.Toasts;
@@ -52,14 +51,14 @@ public class MainActivity extends ArchimanActivity implements MainContract.Conta
   }
 
   @Override
-  public void showUserDialog(User user) {
+  public void showUserDialog(UserViewModel user) {
     if (canShowDialogs()) {
       UserDialogFragment.newInstance(user).show(getSupportFragmentManager(), "UserDialogFragment");
     }
   }
 
   @Override
-  public void showUserMessage(User user) {
+  public void showUserMessage(UserViewModel user) {
     Toasts.show("Before orientation change, last user clicked was " + user.toString());
   }
 }

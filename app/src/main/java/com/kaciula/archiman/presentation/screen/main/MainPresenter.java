@@ -10,6 +10,8 @@ import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableObserver;
+import java.util.ArrayList;
+import java.util.List;
 import timber.log.Timber;
 
 class MainPresenter implements MainContract.Presenter {
@@ -20,7 +22,7 @@ class MainPresenter implements MainContract.Presenter {
   private final GetUsersUseCase getUsersUseCase;
 
   private final CompositeDisposable disposables;
-  private User lastClickedUser;
+  private UserViewModel lastClickedUser;
 
   MainPresenter(MainContract.Container container, MainContract.View view,
       BaseSchedulerProvider schedulerProvider, GetUsersUseCase getUsersUseCase) {
@@ -66,13 +68,13 @@ class MainPresenter implements MainContract.Presenter {
   }
 
   @Override
-  public void onClickUser(User user) {
+  public void onClickUser(UserViewModel user) {
     container.showUserDialog(user);
     lastClickedUser = user;
   }
 
   @Override
-  public void onClickOkUserDialog(User user) {
+  public void onClickOkUserDialog(UserViewModel user) {
     Toasts.show("Clicked OK on user dialog for user " + user.name());
   }
 
@@ -83,9 +85,12 @@ class MainPresenter implements MainContract.Presenter {
     disposables.add(getUsersUseCase.execute(GetUsersUseCase.RequestValues.create())
         .map(new Function<GetUsersUseCase.ResponseValue, MainViewModel>() {
           @Override
-          public MainViewModel apply(GetUsersUseCase.ResponseValue responseValue)
-              throws Exception {
-            return MainViewModel.create(responseValue.users());
+          public MainViewModel apply(GetUsersUseCase.ResponseValue responseValue) throws Exception {
+            List<UserViewModel> users = new ArrayList<>(responseValue.users().size());
+            for (User user : responseValue.users()) {
+              users.add(UserViewModel.create(user.name()));
+            }
+            return MainViewModel.create(users);
           }
         }).subscribeOn(schedulerProvider.io()).observeOn(schedulerProvider.ui())
         .subscribeWith(new RefreshSubscriber()));
@@ -116,9 +121,9 @@ class MainPresenter implements MainContract.Presenter {
   @AutoValue
   abstract static class State {
     @Nullable
-    public abstract User lastClickedUser();
+    public abstract UserViewModel lastClickedUser();
 
-    public static State create(@Nullable User lastClickedUser) {
+    public static State create(@Nullable UserViewModel lastClickedUser) {
       return new AutoValue_MainPresenter_State(lastClickedUser);
     }
   }

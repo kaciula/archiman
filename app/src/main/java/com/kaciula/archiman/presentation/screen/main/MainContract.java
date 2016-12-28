@@ -1,6 +1,5 @@
 package com.kaciula.archiman.presentation.screen.main;
 
-import com.kaciula.archiman.domain.model.User;
 import com.kaciula.archiman.presentation.util.BasePresenter;
 import com.kaciula.archiman.presentation.util.BaseView;
 
@@ -21,9 +20,9 @@ public interface MainContract {
 
 
   interface Container {
-    void showUserDialog(User user);
+    void showUserDialog(UserViewModel user);
 
-    void showUserMessage(User user);
+    void showUserMessage(UserViewModel user);
   }
 
 
@@ -31,8 +30,8 @@ public interface MainContract {
 
     void onClickRetry();
 
-    void onClickUser(User user);
+    void onClickUser(UserViewModel user);
 
-    void onClickOkUserDialog(User user);
+    void onClickOkUserDialog(UserViewModel user);
   }
 }

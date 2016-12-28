@@ -9,7 +9,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.kaciula.archiman.R;
-import com.kaciula.archiman.domain.model.User;
 import com.kaciula.archiman.presentation.widget.DividerItemDecoration;
 import java.util.ArrayList;
 import timber.log.Timber;
@@ -66,7 +65,7 @@ public class MainView extends ViewFlipper implements MainContract.View {
     recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
     recyclerView.setLayoutManager(
         new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-    adapter = new UserAdapter(getContext(), new ArrayList<User>(), presenter);
+    adapter = new UserAdapter(getContext(), new ArrayList<UserViewModel>(), presenter);
     recyclerView.setAdapter(adapter);
   }
 
