@@ -11,11 +11,11 @@ import com.kaciula.archiman.R;
 import com.kaciula.archiman.presentation.util.GenericRecyclerAdapter;
 import java.util.List;
 
-public class UserAdapter extends GenericRecyclerAdapter<UserViewModel, UserAdapter.ViewHolder> {
+class UserAdapter extends GenericRecyclerAdapter<UserViewModel, UserAdapter.ViewHolder> {
 
   private final MainContract.Presenter presenter;
 
-  public UserAdapter(Context ctx, List<UserViewModel> items, MainContract.Presenter presenter) {
+  UserAdapter(Context ctx, List<UserViewModel> items, MainContract.Presenter presenter) {
     super(ctx, items);
     this.presenter = presenter;
   }
@@ -38,7 +38,7 @@ public class UserAdapter extends GenericRecyclerAdapter<UserViewModel, UserAdapt
 
     View view;
 
-    public ViewHolder(View view) {
+    ViewHolder(View view) {
       super(view);
       this.view = view;
       ButterKnife.bind(this, view);

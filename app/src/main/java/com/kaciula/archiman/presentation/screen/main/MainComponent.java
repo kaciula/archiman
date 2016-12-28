@@ -6,7 +6,7 @@ import dagger.Component;
 
 @ActivityScope
 @Component(dependencies = AppComponent.class, modules = MainModule.class)
-public interface MainComponent {
+interface MainComponent {
 
   void inject(MainActivity activity);
 
