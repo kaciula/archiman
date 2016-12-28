@@ -8,8 +8,8 @@ import dagger.Provides;
 
 @Module
 class MainModule {
-  private MainContract.Container container;
-  private MainContract.View view;
+  private final MainContract.Container container;
+  private final MainContract.View view;
 
   MainModule(MainContract.Container container, MainContract.View view) {
     this.container = container;
