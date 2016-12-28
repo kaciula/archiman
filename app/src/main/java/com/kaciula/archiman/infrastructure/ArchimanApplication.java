@@ -2,7 +2,7 @@ package com.kaciula.archiman.infrastructure;
 
 import com.crashlytics.android.Crashlytics;
 import com.kaciula.archiman.BuildConfig;
-import com.kaciula.archiman.domain.usecase.InitColdStartUsecase;
+import com.kaciula.archiman.domain.usecase.InitColdStartUseCase;
 import com.kaciula.archiman.util.injection.AppComponent;
 import com.kaciula.archiman.util.injection.AppModule;
 import com.kaciula.archiman.util.injection.DaggerAppComponent;
@@ -15,7 +15,7 @@ public class ArchimanApplication extends BaseApplication {
 
   private AppComponent appComponent;
 
-  @Inject InitColdStartUsecase initColdStartUsecase;
+  @Inject InitColdStartUseCase initColdStartUseCase;
 
   @Override
   public void onCreate() {
@@ -35,8 +35,8 @@ public class ArchimanApplication extends BaseApplication {
     appComponent = DaggerAppComponent.builder().appModule(new AppModule()).build();
     appComponent.inject(this);
 
-    initColdStartUsecase
-        .execute(InitColdStartUsecase.RequestValues.create(BuildConfig.VERSION_CODE)).subscribe();
+    initColdStartUseCase
+        .execute(InitColdStartUseCase.RequestValues.create(BuildConfig.VERSION_CODE)).subscribe();
   }
 
   public static AppComponent component() {

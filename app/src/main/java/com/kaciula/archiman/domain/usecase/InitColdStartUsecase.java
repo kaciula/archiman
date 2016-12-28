@@ -9,12 +9,12 @@ import io.reactivex.Observable;
 import io.reactivex.functions.Action;
 import timber.log.Timber;
 
-public class InitColdStartUsecase
-    extends Usecase<InitColdStartUsecase.RequestValues, InitColdStartUsecase.ResponseValue> {
+public class InitColdStartUseCase
+    extends UseCase<InitColdStartUseCase.RequestValues, InitColdStartUseCase.ResponseValue> {
 
   private final PrefsRepository prefsRepository;
 
-  public InitColdStartUsecase(PrefsRepository prefsRepository) {
+  public InitColdStartUseCase(PrefsRepository prefsRepository) {
     this.prefsRepository = prefsRepository;
   }
 
@@ -43,19 +43,19 @@ public class InitColdStartUsecase
   }
 
   @AutoValue
-  public abstract static class RequestValues implements Usecase.RequestValues {
+  public abstract static class RequestValues implements UseCase.RequestValues {
     public abstract int currentVersionCode();
 
     public static RequestValues create(int currentVersionCode) {
-      return new AutoValue_InitColdStartUsecase_RequestValues(currentVersionCode);
+      return new AutoValue_InitColdStartUseCase_RequestValues(currentVersionCode);
     }
   }
 
 
   @AutoValue
-  public abstract static class ResponseValue implements Usecase.ResponseValue {
+  public abstract static class ResponseValue implements UseCase.ResponseValue {
     public static ResponseValue create() {
-      return new AutoValue_InitColdStartUsecase_ResponseValue();
+      return new AutoValue_InitColdStartUseCase_ResponseValue();
     }
   }
 }

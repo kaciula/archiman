@@ -7,17 +7,17 @@ import dagger.Provides;
 import javax.inject.Singleton;
 
 @Module
-public final class UsecaseModule {
+public final class UseCaseModule {
 
   @Provides
   @Singleton
-  GetUsersUsecase provideGetUsersUsecase(UsersRepository usersRepository) {
-    return new GetUsersUsecase(usersRepository);
+  GetUsersUseCase provideGetUsersUsecase(UsersRepository usersRepository) {
+    return new GetUsersUseCase(usersRepository);
   }
 
   @Provides
   @Singleton
-  InitColdStartUsecase provideInitColdStartUsecase(PrefsRepository prefsRepository) {
-    return new InitColdStartUsecase(prefsRepository);
+  InitColdStartUseCase provideInitColdStartUsecase(PrefsRepository prefsRepository) {
+    return new InitColdStartUseCase(prefsRepository);
   }
 }

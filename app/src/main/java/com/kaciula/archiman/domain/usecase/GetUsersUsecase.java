@@ -8,12 +8,12 @@ import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 import java.util.List;
 
-public class GetUsersUsecase
-    extends Usecase<GetUsersUsecase.RequestValues, GetUsersUsecase.ResponseValue> {
+public class GetUsersUseCase
+    extends UseCase<GetUsersUseCase.RequestValues, GetUsersUseCase.ResponseValue> {
 
   private final UsersRepository usersRepository;
 
-  public GetUsersUsecase(UsersRepository usersRepository) {
+  public GetUsersUseCase(UsersRepository usersRepository) {
     this.usersRepository = usersRepository;
   }
 
@@ -28,19 +28,19 @@ public class GetUsersUsecase
   }
 
   @AutoValue
-  public abstract static class RequestValues implements Usecase.RequestValues {
+  public abstract static class RequestValues implements UseCase.RequestValues {
     public static RequestValues create() {
-      return new AutoValue_GetUsersUsecase_RequestValues();
+      return new AutoValue_GetUsersUseCase_RequestValues();
     }
   }
 
 
   @AutoValue
-  public abstract static class ResponseValue implements Usecase.ResponseValue {
+  public abstract static class ResponseValue implements UseCase.ResponseValue {
     public abstract List<User> users();
 
     public static ResponseValue create(List<User> users) {
-      return new AutoValue_GetUsersUsecase_ResponseValue(users);
+      return new AutoValue_GetUsersUseCase_ResponseValue(users);
     }
   }
 }
