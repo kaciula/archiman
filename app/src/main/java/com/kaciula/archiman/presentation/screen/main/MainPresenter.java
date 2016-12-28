@@ -92,7 +92,9 @@ class MainPresenter implements MainContract.Presenter {
             }
             return MainViewModel.create(users);
           }
-        }).subscribeOn(schedulerProvider.io()).observeOn(schedulerProvider.ui())
+        })
+        .subscribeOn(schedulerProvider.io())
+        .observeOn(schedulerProvider.ui())
         .subscribeWith(new RefreshSubscriber()));
   }
 

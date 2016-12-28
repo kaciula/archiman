@@ -36,7 +36,8 @@ public class ArchimanApplication extends BaseApplication {
     appComponent.inject(this);
 
     initColdStartUseCase
-        .execute(InitColdStartUseCase.RequestValues.create(BuildConfig.VERSION_CODE)).subscribe();
+        .execute(InitColdStartUseCase.RequestValues.create(BuildConfig.VERSION_CODE))
+        .subscribe();
   }
 
   public static AppComponent component() {

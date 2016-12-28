@@ -19,12 +19,13 @@ public class GetUsersUseCase
 
   @Override
   public Observable<ResponseValue> execute(RequestValues requestValues) {
-    return usersRepository.getUsers().map(new Function<List<User>, ResponseValue>() {
-      @Override
-      public ResponseValue apply(List<User> users) throws Exception {
-        return ResponseValue.create(users);
-      }
-    });
+    return usersRepository.getUsers()
+        .map(new Function<List<User>, ResponseValue>() {
+          @Override
+          public ResponseValue apply(List<User> users) throws Exception {
+            return ResponseValue.create(users);
+          }
+        });
   }
 
   @AutoValue
