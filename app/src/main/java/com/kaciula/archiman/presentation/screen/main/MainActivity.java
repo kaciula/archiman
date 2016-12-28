@@ -5,9 +5,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.kaciula.archiman.R;
 import com.kaciula.archiman.domain.model.User;
+import com.kaciula.archiman.infrastructure.ArchimanApplication;
 import com.kaciula.archiman.presentation.util.ArchimanActivity;
 import com.kaciula.archiman.presentation.util.Toasts;
-import com.kaciula.archiman.util.ArchimanApplication;
 import javax.inject.Inject;
 
 public class MainActivity extends ArchimanActivity implements MainContract.Container {

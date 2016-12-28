@@ -1,7 +1,8 @@
-package com.kaciula.archiman.util;
+package com.kaciula.archiman.infrastructure;
 
 import android.content.Context;
 import android.provider.Settings;
+import com.kaciula.archiman.util.Strings;
 
 public class MiscUtils {
 

@@ -1,6 +1,5 @@
 package com.kaciula.archiman.util;
 
-import android.os.Looper;
 import android.support.annotation.Nullable;
 
 public final class Preconditions {
@@ -42,13 +41,6 @@ public final class Preconditions {
   public static void checkArgument(boolean assertion, String message) {
     if (!assertion) {
       throw new IllegalArgumentException(message);
-    }
-  }
-
-  public static void checkUiThread() {
-    if (Looper.getMainLooper() != Looper.myLooper()) {
-      throw new IllegalStateException(
-          "Must be called from the main thread. Was: " + Thread.currentThread());
     }
   }
 }

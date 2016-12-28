@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
-import com.kaciula.archiman.util.BaseApplication;
+import com.kaciula.archiman.infrastructure.BaseApplication;
 
 public class Toasts {
 

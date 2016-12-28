@@ -1,4 +1,4 @@
-package com.kaciula.archiman.util;
+package com.kaciula.archiman.infrastructure;
 
 import com.kaciula.archiman.BuildConfig;
 import com.kaciula.archiman.data.local.prefs.PrefsRepository;

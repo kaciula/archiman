@@ -1,4 +1,4 @@
-package com.kaciula.archiman.util;
+package com.kaciula.archiman.infrastructure;
 
 import android.util.Log;
 import com.crashlytics.android.Crashlytics;
