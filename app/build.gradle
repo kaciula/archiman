@@ -17,6 +17,7 @@ repositories {
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'jacoco'
 apply from: '../config/quality.gradle'
 
 def versionMajor = 0
@@ -65,6 +66,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguardTest-rules.pro'
             versionNameSuffix "-dev-" + buildTime
+            testCoverageEnabled true
         }
     }
     productFlavors {
@@ -79,6 +81,13 @@ android {
         if (variant.buildType.name.equals('release')
                 && variant.getFlavors().get(0).name.equals('mock')) {
             variant.setIgnore(true);
+        }
+    }
+    testOptions {
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
         }
     }
     packagingOptions {
@@ -169,4 +178,22 @@ dependencies {
     androidTestCompile "com.android.support.test:rules:$RUNNER_VERSION"
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
     androidTestCompile 'tools.fastlane:screengrab:0.5.6'
+}
+
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testProdDebugUnitTest', 'createProdDebugCoverageReport']) {
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']
+    def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/prod/debug", excludes: fileFilter)
+    def mainSrc = "${project.projectDir}/src/main/java"
+
+    sourceDirectories = files([mainSrc])
+    classDirectories = files([debugTree])
+    executionData = fileTree(dir: "$buildDir", includes: [
+            "jacoco/testProdDebugUnitTest.exec", "outputs/code-coverage/connected/*coverage.ec"
+    ])
 }

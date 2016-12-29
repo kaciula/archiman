@@ -51,7 +51,7 @@ unitTests:
   artifacts:
     when: always
     paths:
-    - app/build/test-results
+    - app/build/reports
 
 functionalTests:
   stage: test
@@ -67,4 +67,4 @@ functionalTests:
   artifacts:
     when: always
     paths:
-    - app/build/reports/androidTests/
+    - app/build/reports
