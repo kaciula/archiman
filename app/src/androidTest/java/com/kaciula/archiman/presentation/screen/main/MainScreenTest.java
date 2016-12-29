@@ -29,9 +29,10 @@ public class MainScreenTest {
 
   @Test
   public void screenshot() {
+    // Comment this out until the fastlane guys fix the Android 7 issue with MODE_WORLD_READABLE
     TestUtils.rotateToPortrait(activityTestRule.getActivity());
-    Screengrab.screenshot("main_screen");
+    //    Screengrab.screenshot("main_screen");
     TestUtils.rotateToLandscape(activityTestRule.getActivity());
-    Screengrab.screenshot("main_screen");
+    //    Screengrab.screenshot("main_screen");
   }
 }
