@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import com.crashlytics.android.Crashlytics;
-import com.kaciula.archiman.BuildConfig;
+import com.kaciula.archiman.infrastructure.ArchimanApplication;
 
 public abstract class ArchimanActivity extends AppCompatActivity {
 
@@ -14,7 +14,7 @@ public abstract class ArchimanActivity extends AppCompatActivity {
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    if (!BuildConfig.DEBUG) {
+    if (ArchimanApplication.isCrashlyticsUsed()) {
       Crashlytics.setString("current screen", getLocalClassName());
     }
   }

@@ -28,8 +28,11 @@ public class ArchimanApplication extends BaseApplication {
       Thread.UncaughtExceptionHandler uncaughtExceptionHandler =
           new ArchimanUncaughtExceptionHandler(getContext());
       Thread.setDefaultUncaughtExceptionHandler(uncaughtExceptionHandler);
-      startCrashlytics();
-      Timber.plant(new CrashlyticsTree());
+
+      if (isCrashlyticsUsed()) {
+        startCrashlytics();
+        Timber.plant(new CrashlyticsTree());
+      }
     }
 
     appComponent = DaggerAppComponent.builder().appModule(new AppModule()).build();
@@ -44,7 +47,12 @@ public class ArchimanApplication extends BaseApplication {
     return ((ArchimanApplication) getContext()).appComponent;
   }
 
-  public void startCrashlytics() {
+  public static boolean isCrashlyticsUsed() {
+    // FIXME: 10/01/17 When you have set the fabric API key, replace this with BuildConfig.BUILD
+    return false;
+  }
+
+  private void startCrashlytics() {
     Fabric.with(this, new Crashlytics());
     Crashlytics.setUserIdentifier(AndroidUtils.getDeviceId());
     Crashlytics.setString("Installer", AndroidUtils.getInstaller());
