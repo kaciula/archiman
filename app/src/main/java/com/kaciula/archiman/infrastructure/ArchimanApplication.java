@@ -8,7 +8,6 @@ import com.kaciula.archiman.util.injection.AppModule;
 import com.kaciula.archiman.util.injection.DaggerAppComponent;
 import com.squareup.leakcanary.LeakCanary;
 import io.fabric.sdk.android.Fabric;
-import io.palaima.debugdrawer.timber.data.LumberYard;
 import javax.inject.Inject;
 import timber.log.Timber;
 
@@ -23,11 +22,7 @@ public class ArchimanApplication extends BaseApplication {
     super.onCreate();
 
     if (BuildConfig.DEBUG) {
-      LumberYard lumberYard = LumberYard.getInstance(this);
-      lumberYard.cleanUp();
-      Timber.plant(lumberYard.tree());
       Timber.plant(new Timber.DebugTree());
-
       LeakCanary.install(this);
     } else {
       Thread.UncaughtExceptionHandler uncaughtExceptionHandler =
