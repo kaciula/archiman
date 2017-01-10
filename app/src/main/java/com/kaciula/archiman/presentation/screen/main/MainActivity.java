@@ -8,6 +8,7 @@ import butterknife.ButterKnife;
 import com.kaciula.archiman.R;
 import com.kaciula.archiman.infrastructure.ArchimanApplication;
 import com.kaciula.archiman.presentation.util.ArchimanActivity;
+import com.kaciula.archiman.presentation.util.DevDrawer;
 import com.kaciula.archiman.presentation.util.Toasts;
 import javax.inject.Inject;
 
@@ -18,6 +19,8 @@ public class MainActivity extends ArchimanActivity implements MainContract.Conta
   @BindView(R.id.view_main) MainView mainView;
 
   private MainComponent component;
+
+  private DevDrawer devDrawer;
 
   public static Intent getStartIntent(Context context) {
     return new Intent(context, MainActivity.class);
@@ -30,6 +33,31 @@ public class MainActivity extends ArchimanActivity implements MainContract.Conta
     ButterKnife.bind(this);
 
     setupComponent();
+    setupDevDrawer();
+  }
+
+  @Override
+  protected void onStart() {
+    super.onStart();
+    devDrawer.onStart();
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    devDrawer.onResume();
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+    devDrawer.onPause();
+  }
+
+  @Override
+  protected void onStop() {
+    super.onStop();
+    devDrawer.onStop();
   }
 
   private void setupComponent() {
@@ -60,5 +88,9 @@ public class MainActivity extends ArchimanActivity implements MainContract.Conta
   @Override
   public void showUserMessage(UserViewModel user) {
     Toasts.show("Before orientation change, last user clicked was " + user.toString());
+  }
+
+  private void setupDevDrawer() {
+    devDrawer = new DevDrawer(this);
   }
 }
