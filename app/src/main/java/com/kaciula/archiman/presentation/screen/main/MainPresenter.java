@@ -85,9 +85,9 @@ class MainPresenter implements MainContract.Presenter {
     disposables.add(getUsers.execute(GetUsers.RequestModel.create())
         .map(new Function<GetUsers.ResponseModel, MainViewModel>() {
           @Override
-          public MainViewModel apply(GetUsers.ResponseModel responseValue) throws Exception {
-            List<UserViewModel> users = new ArrayList<>(responseValue.users().size());
-            for (User user : responseValue.users()) {
+          public MainViewModel apply(GetUsers.ResponseModel responseModel) throws Exception {
+            List<UserViewModel> users = new ArrayList<>(responseModel.users().size());
+            for (User user : responseModel.users()) {
               users.add(UserViewModel.create(user.name()));
             }
             return MainViewModel.create(users);

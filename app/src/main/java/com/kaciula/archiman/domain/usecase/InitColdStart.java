@@ -18,12 +18,12 @@ public class InitColdStart
   }
 
   @Override
-  public Observable<ResponseModel> execute(final RequestModel requestValues) {
+  public Observable<ResponseModel> execute(final RequestModel requestModel) {
     return Completable.fromAction(new Action() {
       @Override
       public void run() throws Exception {
         Timber.d("Initialize every cold start");
-        int currentVersionCode = requestValues.currentVersionCode();
+        int currentVersionCode = requestModel.currentVersionCode();
         if (prefsRepository.firstTime()) {
           Timber.d("First time running the app");
           prefsRepository.saveFirstTime(false);

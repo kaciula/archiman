@@ -18,7 +18,7 @@ public class GetUsers
   }
 
   @Override
-  public Observable<ResponseModel> execute(RequestModel requestValues) {
+  public Observable<ResponseModel> execute(RequestModel requestModel) {
     return usersRepository.getUsers()
         .map(new Function<List<User>, ResponseModel>() {
           @Override
