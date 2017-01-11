@@ -2,7 +2,7 @@ package com.kaciula.archiman.data.remote.mapper;
 
 import com.kaciula.archiman.data.remote.response.UserResponse;
 import com.kaciula.archiman.data.remote.response.UsersResponse;
-import com.kaciula.archiman.domain.model.User;
+import com.kaciula.archiman.domain.entity.User;
 import io.reactivex.functions.Function;
 import java.util.ArrayList;
 import java.util.List;

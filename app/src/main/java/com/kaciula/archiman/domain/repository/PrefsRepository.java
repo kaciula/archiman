@@ -1,4 +1,4 @@
-package com.kaciula.archiman.domain.abstractions;
+package com.kaciula.archiman.domain.repository;
 
 public interface PrefsRepository {
 

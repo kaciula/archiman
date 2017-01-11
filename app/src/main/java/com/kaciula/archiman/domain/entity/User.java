@@ -1,4 +1,4 @@
-package com.kaciula.archiman.domain.model;
+package com.kaciula.archiman.domain.entity;
 
 import com.google.auto.value.AutoValue;
 

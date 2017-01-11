@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import com.kaciula.archiman.data.local.prefs.util.BooleanPreference;
 import com.kaciula.archiman.data.local.prefs.util.IntPreference;
-import com.kaciula.archiman.domain.abstractions.PrefsRepository;
+import com.kaciula.archiman.domain.repository.PrefsRepository;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Named;

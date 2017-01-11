@@ -5,7 +5,7 @@ import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.kaciula.archiman.domain.model.User;
+import com.kaciula.archiman.domain.entity.User;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;

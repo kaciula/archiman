@@ -4,7 +4,7 @@ package com.kaciula.archiman.domain.usecase;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.kaciula.archiman.domain.abstractions.PrefsRepository;
+import com.kaciula.archiman.domain.repository.PrefsRepository;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import org.junit.Assert;
@@ -13,17 +13,17 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-public class InitColdStartUseCaseTest {
+public class InitColdStartTest {
 
   @Mock PrefsRepository prefsRepository;
 
-  private InitColdStartUseCase useCase;
+  private InitColdStart useCase;
 
   @Before
   public void setupUseCase() {
     MockitoAnnotations.initMocks(this);
 
-    useCase = new InitColdStartUseCase(prefsRepository);
+    useCase = new InitColdStart(prefsRepository);
   }
 
   @Test
@@ -32,15 +32,15 @@ public class InitColdStartUseCaseTest {
     when(prefsRepository.firstTime()).thenReturn(true);
     when(prefsRepository.versionCode()).thenReturn(0);
 
-    useCase.execute(InitColdStartUseCase.RequestValues.create(currentVersionCode))
-        .subscribe(new Observer<InitColdStartUseCase.ResponseValue>() {
+    useCase.execute(InitColdStart.RequestModel.create(currentVersionCode))
+        .subscribe(new Observer<InitColdStart.ResponseModel>() {
                      @Override
                      public void onSubscribe(Disposable d) {
                        // do nothing
                      }
 
                      @Override
-                     public void onNext(InitColdStartUseCase.ResponseValue value) {
+                     public void onNext(InitColdStart.ResponseModel value) {
                        Assert.fail("onNext should not be triggered");
                      }
 
@@ -66,15 +66,15 @@ public class InitColdStartUseCaseTest {
     when(prefsRepository.firstTime()).thenReturn(false);
     when(prefsRepository.versionCode()).thenReturn(1);
 
-    useCase.execute(InitColdStartUseCase.RequestValues.create(currentVersionCode))
-        .subscribe(new Observer<InitColdStartUseCase.ResponseValue>() {
+    useCase.execute(InitColdStart.RequestModel.create(currentVersionCode))
+        .subscribe(new Observer<InitColdStart.ResponseModel>() {
                      @Override
                      public void onSubscribe(Disposable d) {
                        // do nothing
                      }
 
                      @Override
-                     public void onNext(InitColdStartUseCase.ResponseValue value) {
+                     public void onNext(InitColdStart.ResponseModel value) {
                        Assert.fail("onNext should not be triggered");
                      }
 

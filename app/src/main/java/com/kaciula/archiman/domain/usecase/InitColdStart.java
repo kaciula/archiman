@@ -1,24 +1,24 @@
 package com.kaciula.archiman.domain.usecase;
 
-
 import com.google.auto.value.AutoValue;
-import com.kaciula.archiman.domain.abstractions.PrefsRepository;
+import com.kaciula.archiman.domain.repository.PrefsRepository;
+import com.kaciula.archiman.domain.util.UseCase;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.functions.Action;
 import timber.log.Timber;
 
-public class InitColdStartUseCase
-    extends UseCase<InitColdStartUseCase.RequestValues, InitColdStartUseCase.ResponseValue> {
+public class InitColdStart
+    extends UseCase<InitColdStart.RequestModel, InitColdStart.ResponseModel> {
 
   private final PrefsRepository prefsRepository;
 
-  public InitColdStartUseCase(PrefsRepository prefsRepository) {
+  public InitColdStart(PrefsRepository prefsRepository) {
     this.prefsRepository = prefsRepository;
   }
 
   @Override
-  public Observable<ResponseValue> execute(final RequestValues requestValues) {
+  public Observable<ResponseModel> execute(final RequestModel requestValues) {
     return Completable.fromAction(new Action() {
       @Override
       public void run() throws Exception {
@@ -42,19 +42,19 @@ public class InitColdStartUseCase
   }
 
   @AutoValue
-  public abstract static class RequestValues implements UseCase.RequestValues {
+  public abstract static class RequestModel implements UseCase.RequestModel {
     public abstract int currentVersionCode();
 
-    public static RequestValues create(int currentVersionCode) {
-      return new AutoValue_InitColdStartUseCase_RequestValues(currentVersionCode);
+    public static RequestModel create(int currentVersionCode) {
+      return new AutoValue_InitColdStart_RequestModel(currentVersionCode);
     }
   }
 
 
   @AutoValue
-  public abstract static class ResponseValue implements UseCase.ResponseValue {
-    public static ResponseValue create() {
-      return new AutoValue_InitColdStartUseCase_ResponseValue();
+  public abstract static class ResponseModel implements UseCase.ResponseModel {
+    public static ResponseModel create() {
+      return new AutoValue_InitColdStart_ResponseModel();
     }
   }
 }

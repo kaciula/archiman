@@ -1,7 +1,7 @@
 package com.kaciula.archiman.data;
 
-import com.kaciula.archiman.domain.abstractions.UsersRepository;
-import com.kaciula.archiman.domain.model.User;
+import com.kaciula.archiman.domain.entity.User;
+import com.kaciula.archiman.domain.repository.UsersRepository;
 import io.reactivex.Observable;
 import java.util.List;
 

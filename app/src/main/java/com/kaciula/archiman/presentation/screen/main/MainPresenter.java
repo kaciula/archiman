@@ -3,8 +3,8 @@ package com.kaciula.archiman.presentation.screen.main;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import com.google.auto.value.AutoValue;
-import com.kaciula.archiman.domain.model.User;
-import com.kaciula.archiman.domain.usecase.GetUsersUseCase;
+import com.kaciula.archiman.domain.entity.User;
+import com.kaciula.archiman.domain.usecase.GetUsers;
 import com.kaciula.archiman.presentation.util.Toasts;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 import io.reactivex.disposables.CompositeDisposable;
@@ -19,17 +19,17 @@ class MainPresenter implements MainContract.Presenter {
   private final MainContract.Container container;
   private final MainContract.View view;
   private final BaseSchedulerProvider schedulerProvider;
-  private final GetUsersUseCase getUsersUseCase;
+  private final GetUsers getUsers;
 
   private final CompositeDisposable disposables;
   private UserViewModel lastClickedUser;
 
   MainPresenter(MainContract.Container container, MainContract.View view,
-      BaseSchedulerProvider schedulerProvider, GetUsersUseCase getUsersUseCase) {
+      BaseSchedulerProvider schedulerProvider, GetUsers getUsers) {
     this.container = container;
     this.view = view;
     this.schedulerProvider = schedulerProvider;
-    this.getUsersUseCase = getUsersUseCase;
+    this.getUsers = getUsers;
     disposables = new CompositeDisposable();
     this.view.setPresenter(this);
   }
@@ -82,10 +82,10 @@ class MainPresenter implements MainContract.Presenter {
     Timber.d("Start refresh");
     view.showProgress();
 
-    disposables.add(getUsersUseCase.execute(GetUsersUseCase.RequestValues.create())
-        .map(new Function<GetUsersUseCase.ResponseValue, MainViewModel>() {
+    disposables.add(getUsers.execute(GetUsers.RequestModel.create())
+        .map(new Function<GetUsers.ResponseModel, MainViewModel>() {
           @Override
-          public MainViewModel apply(GetUsersUseCase.ResponseValue responseValue) throws Exception {
+          public MainViewModel apply(GetUsers.ResponseModel responseValue) throws Exception {
             List<UserViewModel> users = new ArrayList<>(responseValue.users().size());
             for (User user : responseValue.users()) {
               users.add(UserViewModel.create(user.name()));

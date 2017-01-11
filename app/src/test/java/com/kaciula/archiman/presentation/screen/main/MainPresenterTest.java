@@ -4,8 +4,8 @@ package com.kaciula.archiman.presentation.screen.main;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.kaciula.archiman.domain.model.User;
-import com.kaciula.archiman.domain.usecase.GetUsersUseCase;
+import com.kaciula.archiman.domain.entity.User;
+import com.kaciula.archiman.domain.usecase.GetUsers;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 import com.kaciula.archiman.util.scheduler.TrampolineSchedulerProvider;
 import io.reactivex.Observable;
@@ -20,7 +20,7 @@ public class MainPresenterTest {
 
   @Mock MainContract.Container container;
   @Mock MainContract.View view;
-  @Mock GetUsersUseCase getUsersUseCase;
+  @Mock GetUsers getUsers;
 
   private MainPresenter presenter;
 
@@ -29,13 +29,13 @@ public class MainPresenterTest {
     MockitoAnnotations.initMocks(this);
 
     BaseSchedulerProvider schedulerProvider = new TrampolineSchedulerProvider();
-    presenter = new MainPresenter(container, view, schedulerProvider, getUsersUseCase);
+    presenter = new MainPresenter(container, view, schedulerProvider, getUsers);
   }
 
   @Test
   public void startCallSetup() {
-    when(getUsersUseCase.execute(GetUsersUseCase.RequestValues.create()))
-        .thenReturn(Observable.<GetUsersUseCase.ResponseValue>empty());
+    when(getUsers.execute(GetUsers.RequestModel.create()))
+        .thenReturn(Observable.<GetUsers.ResponseModel>empty());
 
     presenter.start();
 
@@ -46,8 +46,8 @@ public class MainPresenterTest {
   public void loadUsersCallViewToShowContent() {
     List<User> users = new ArrayList<>();
     users.add(User.create("Bob Sacamano"));
-    when(getUsersUseCase.execute(GetUsersUseCase.RequestValues.create()))
-        .thenReturn(Observable.just(GetUsersUseCase.ResponseValue.create(users)));
+    when(getUsers.execute(GetUsers.RequestModel.create()))
+        .thenReturn(Observable.just(GetUsers.ResponseModel.create(users)));
 
     presenter.start();
 
@@ -57,8 +57,8 @@ public class MainPresenterTest {
 
   @Test
   public void loadUsersErrorCallViewToShowError() {
-    when(getUsersUseCase.execute(GetUsersUseCase.RequestValues.create()))
-        .thenReturn(Observable.<GetUsersUseCase.ResponseValue>error(new Exception()));
+    when(getUsers.execute(GetUsers.RequestModel.create()))
+        .thenReturn(Observable.<GetUsers.ResponseModel>error(new Exception()));
 
     presenter.start();
 
