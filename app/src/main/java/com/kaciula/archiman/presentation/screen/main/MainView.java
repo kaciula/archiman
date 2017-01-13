@@ -11,7 +11,6 @@ import butterknife.OnClick;
 import com.kaciula.archiman.R;
 import com.kaciula.archiman.presentation.widget.DividerItemDecoration;
 import java.util.ArrayList;
-import timber.log.Timber;
 
 public class MainView extends ViewFlipper implements MainContract.View {
 
@@ -77,13 +76,11 @@ public class MainView extends ViewFlipper implements MainContract.View {
   @Override
   public void showContent() {
     setDisplayedChild(CHILD_CONTENT);
-    Timber.d("child content ? %d", getDisplayedChild());
   }
 
   @Override
   public void showProgress() {
     setDisplayedChild(CHILD_PROGRESS);
-    Timber.d("child progress ? %d", getDisplayedChild());
   }
 
   @Override

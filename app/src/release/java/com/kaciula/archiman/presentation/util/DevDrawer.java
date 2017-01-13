@@ -18,4 +18,7 @@ public class DevDrawer {
 
   public void onStop() {
   }
+
+  public static void setupLogging() {
+  }
 }

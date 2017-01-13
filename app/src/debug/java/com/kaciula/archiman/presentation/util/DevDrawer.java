@@ -1,10 +1,13 @@
 package com.kaciula.archiman.presentation.util;
 
-
 import android.app.Activity;
+import com.kaciula.archiman.infrastructure.BaseApplication;
+import com.kaciula.archiman.util.log.LumberYard;
+import com.kaciula.archiman.util.log.TimberModule;
 import io.palaima.debugdrawer.DebugDrawer;
 import io.palaima.debugdrawer.commons.BuildModule;
 import io.palaima.debugdrawer.commons.DeviceModule;
+import timber.log.Timber;
 
 public class DevDrawer {
 
@@ -38,18 +41,9 @@ public class DevDrawer {
 
     debugDrawer = new DebugDrawer.Builder(activity)
         .modules(
-            //            new ActionsModule(switchAction, buttonAction, spinnerAction),
-            //              new FpsModule(Takt.stock(getApplication())),
-            //              new LocationModule(this),
-            //              new ScalpelModule(this),
-            //              new TimberModule(),
-            //              new OkHttp3Module(okHttpClient),
-            //              new PicassoModule(picasso),
-            //              new GlideModule(Glide.get(getContext())),
+            new TimberModule(),
             new DeviceModule(activity),
             new BuildModule(activity)
-            //              new NetworkModule(this),
-            //              new SettingsModule(this)
         )
         .build();
   }
@@ -68,5 +62,11 @@ public class DevDrawer {
 
   public void onStop() {
     debugDrawer.onStop();
+  }
+
+  public static void setupLogging() {
+    LumberYard lumberYard = LumberYard.getInstance(BaseApplication.getContext());
+    lumberYard.cleanUp();
+    Timber.plant(lumberYard.tree());
   }
 }

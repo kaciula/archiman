@@ -3,6 +3,7 @@ package com.kaciula.archiman.infrastructure;
 import com.crashlytics.android.Crashlytics;
 import com.kaciula.archiman.BuildConfig;
 import com.kaciula.archiman.domain.usecase.InitColdStart;
+import com.kaciula.archiman.presentation.util.DevDrawer;
 import com.kaciula.archiman.util.injection.AppComponent;
 import com.kaciula.archiman.util.injection.AppModule;
 import com.kaciula.archiman.util.injection.DaggerAppComponent;
@@ -23,6 +24,7 @@ public class ArchimanApplication extends BaseApplication {
 
     if (BuildConfig.DEBUG) {
       Timber.plant(new Timber.DebugTree());
+      DevDrawer.setupLogging();
       LeakCanary.install(this);
     } else {
       Thread.UncaughtExceptionHandler uncaughtExceptionHandler =

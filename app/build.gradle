@@ -53,6 +53,11 @@ android {
             keyPassword 'Archiman987'
         }
     }
+
+    // FIXME Replace with your app's package name followed by fileprovider
+    final FILE_PROVIDER_DEBUG = "com.kaciula.archiman.fileprovider"
+    final FILE_PROVIDER_AUTHORITY = "FILE_PROVIDER_AUTHORITY"
+
     buildTypes {
         release {
             minifyEnabled true
@@ -68,6 +73,9 @@ android {
             applicationIdSuffix ".dev"
             versionNameSuffix "-dev-" + buildTime
             testCoverageEnabled true
+
+            buildConfigField "String", FILE_PROVIDER_AUTHORITY, "\"" + FILE_PROVIDER_DEBUG + "\""
+            manifestPlaceholders = [fileProviderAuthority: FILE_PROVIDER_DEBUG]
         }
     }
     productFlavors {

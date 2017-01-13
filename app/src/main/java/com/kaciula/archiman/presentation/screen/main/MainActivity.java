@@ -11,6 +11,7 @@ import com.kaciula.archiman.presentation.util.ArchimanActivity;
 import com.kaciula.archiman.presentation.util.DevDrawer;
 import com.kaciula.archiman.presentation.util.Toasts;
 import javax.inject.Inject;
+import timber.log.Timber;
 
 public class MainActivity extends ArchimanActivity implements MainContract.Container {
 
@@ -46,6 +47,7 @@ public class MainActivity extends ArchimanActivity implements MainContract.Conta
   protected void onResume() {
     super.onResume();
     devDrawer.onResume();
+    Timber.i("Resuming ...");
   }
 
   @Override

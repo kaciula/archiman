@@ -1,4 +1,7 @@
 <resources>
     <!-- General strings -->
     <string name="all_app_name">archiman debug</string>
+    <string name="logs">Logs</string>
+    <string name="show_logs">Show logs</string>
+    <string name="all_save_logs_error">Can\'t save logs for some unknown reason</string>
 </resources>
