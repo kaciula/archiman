@@ -36,10 +36,8 @@ public class LumberYard {
 
   private static final int BUFFER_SIZE = 200;
 
-  private static final DateFormat FILENAME_DATE =
-      new SimpleDateFormat("yyyy-MM-dd hhmm a", Locale.US);
-  private static final DateFormat LOG_DATE_PATTERN =
-      new SimpleDateFormat("MM-dd hh:mm:ss.S", Locale.US);
+  private final DateFormat filenameDate = new SimpleDateFormat("yyyy-MM-dd hhmm a", Locale.US);
+  private final DateFormat logDatePattern = new SimpleDateFormat("MM-dd hh:mm:ss.S", Locale.US);
 
   private static final String LOG_FILE_END = ".log";
 
@@ -71,7 +69,7 @@ public class LumberYard {
       @Override
       protected void log(int priority, String tag, String message, Throwable t) {
         addEntry(new LogEntry(priority, tag, message,
-            LOG_DATE_PATTERN.format(Calendar.getInstance().getTime())));
+            logDatePattern.format(Calendar.getInstance().getTime())));
       }
     };
   }
@@ -161,7 +159,7 @@ public class LumberYard {
 
   private String getLogFileName() {
     String pattern = "%s%s";
-    String currentDate = FILENAME_DATE.format(Calendar.getInstance().getTime());
+    String currentDate = filenameDate.format(Calendar.getInstance().getTime());
 
     return String.format(pattern, currentDate, LOG_FILE_END);
   }
