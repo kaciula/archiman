@@ -1,10 +1,8 @@
-package com.kaciula.archiman.presentation.screen.main;
+package com.kaciula.archiman.presentation.screen.home;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import com.google.auto.value.AutoValue;
 import com.kaciula.archiman.domain.entity.User;
 import com.kaciula.archiman.domain.usecase.GetUsers;
+import com.kaciula.archiman.presentation.screen.main.Container;
 import com.kaciula.archiman.presentation.util.Toasts;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 import io.reactivex.disposables.CompositeDisposable;
@@ -14,24 +12,22 @@ import java.util.ArrayList;
 import java.util.List;
 import timber.log.Timber;
 
-class MainPresenter implements MainContract.Presenter {
+class HomePresenter implements HomeContract.Presenter {
 
-  private final MainContract.Container container;
-  private final MainContract.View view;
+  private final HomeContract.View view;
   private final BaseSchedulerProvider schedulerProvider;
   private final GetUsers getUsers;
+  private Container container;
 
   private final CompositeDisposable disposables;
   private UserViewModel lastClickedUser;
 
-  MainPresenter(MainContract.Container container, MainContract.View view,
-      BaseSchedulerProvider schedulerProvider, GetUsers getUsers) {
-    this.container = container;
+  HomePresenter(HomeContract.View view, BaseSchedulerProvider schedulerProvider,
+      GetUsers getUsers) {
     this.view = view;
     this.schedulerProvider = schedulerProvider;
     this.getUsers = getUsers;
     disposables = new CompositeDisposable();
-    this.view.setPresenter(this);
   }
 
   @Override
@@ -48,18 +44,12 @@ class MainPresenter implements MainContract.Presenter {
   @Override
   public void stop() {
     Timber.d("stop");
-    disposables.dispose();
+    disposables.clear();
   }
 
   @Override
-  public Object getRetainedState() {
-    return State.create(lastClickedUser);
-  }
-
-  @Override
-  public void setRetainedState(@NonNull Object object) {
-    State state = (State) object;
-    lastClickedUser = state.lastClickedUser();
+  public void setContainer(Container container) {
+    this.container = container;
   }
 
   @Override
@@ -83,14 +73,14 @@ class MainPresenter implements MainContract.Presenter {
     view.showProgress();
 
     disposables.add(getUsers.execute(GetUsers.RequestModel.create())
-        .map(new Function<GetUsers.ResponseModel, MainViewModel>() {
+        .map(new Function<GetUsers.ResponseModel, HomeViewModel>() {
           @Override
-          public MainViewModel apply(GetUsers.ResponseModel responseModel) throws Exception {
+          public HomeViewModel apply(GetUsers.ResponseModel responseModel) throws Exception {
             List<UserViewModel> users = new ArrayList<>(responseModel.users().size());
             for (User user : responseModel.users()) {
               users.add(UserViewModel.create(user.name()));
             }
-            return MainViewModel.create(users);
+            return HomeViewModel.create(users);
           }
         })
         .subscribeOn(schedulerProvider.io())
@@ -98,12 +88,12 @@ class MainPresenter implements MainContract.Presenter {
         .subscribeWith(new RefreshSubscriber()));
   }
 
-  private final class RefreshSubscriber extends DisposableObserver<MainViewModel> {
+  private final class RefreshSubscriber extends DisposableObserver<HomeViewModel> {
 
     @Override
-    public void onNext(MainViewModel mainViewModel) {
+    public void onNext(HomeViewModel homeViewModel) {
       Timber.d("Received next data");
-      view.updateContent(mainViewModel);
+      view.updateContent(homeViewModel);
       view.showContent();
     }
 
@@ -116,17 +106,6 @@ class MainPresenter implements MainContract.Presenter {
     @Override
     public void onComplete() {
       // Do nothing
-    }
-  }
-
-
-  @AutoValue
-  abstract static class State {
-    @Nullable
-    public abstract UserViewModel lastClickedUser();
-
-    public static State create(@Nullable UserViewModel lastClickedUser) {
-      return new AutoValue_MainPresenter_State(lastClickedUser);
     }
   }
 }

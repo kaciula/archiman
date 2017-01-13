@@ -1,4 +1,4 @@
-package com.kaciula.archiman.presentation.screen.main;
+package com.kaciula.archiman.presentation.screen.home;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -13,9 +13,9 @@ import java.util.List;
 
 class UserAdapter extends GenericRecyclerAdapter<UserViewModel, UserAdapter.ViewHolder> {
 
-  private final MainContract.Presenter presenter;
+  private final HomeContract.Presenter presenter;
 
-  UserAdapter(Context ctx, List<UserViewModel> items, MainContract.Presenter presenter) {
+  UserAdapter(Context ctx, List<UserViewModel> items, HomeContract.Presenter presenter) {
     super(ctx, items);
     this.presenter = presenter;
   }

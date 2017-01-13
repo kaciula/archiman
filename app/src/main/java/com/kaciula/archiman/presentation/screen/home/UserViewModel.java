@@ -1,4 +1,4 @@
-package com.kaciula.archiman.presentation.screen.main;
+package com.kaciula.archiman.presentation.screen.home;
 
 import android.os.Parcelable;
 import com.google.auto.value.AutoValue;

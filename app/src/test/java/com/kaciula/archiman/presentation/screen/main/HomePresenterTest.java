@@ -6,6 +6,8 @@ import static org.mockito.Mockito.when;
 
 import com.kaciula.archiman.domain.entity.User;
 import com.kaciula.archiman.domain.usecase.GetUsers;
+import com.kaciula.archiman.presentation.screen.home.HomeContract;
+import com.kaciula.archiman.presentation.screen.home.HomePresenter;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 import com.kaciula.archiman.util.scheduler.TrampolineSchedulerProvider;
 import io.reactivex.Observable;
@@ -16,20 +18,20 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-public class MainPresenterTest {
+public class HomePresenterTest {
 
-  @Mock MainContract.Container container;
-  @Mock MainContract.View view;
+  @Mock HomeContract.Container container;
+  @Mock HomeContract.View view;
   @Mock GetUsers getUsers;
 
-  private MainPresenter presenter;
+  private HomePresenter presenter;
 
   @Before
   public void setupPresenter() {
     MockitoAnnotations.initMocks(this);
 
     BaseSchedulerProvider schedulerProvider = new TrampolineSchedulerProvider();
-    presenter = new MainPresenter(container, view, schedulerProvider, getUsers);
+    presenter = new HomePresenter(container, view, schedulerProvider, getUsers);
   }
 
   @Test

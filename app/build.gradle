@@ -28,14 +28,14 @@ def buildTime = new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.3"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
         // FIXME Replace with your app's package name
         applicationId "com.kaciula.archiman"
-        minSdkVersion 15
-        targetSdkVersion 24
+        minSdkVersion 16
+        targetSdkVersion 25
         versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
 
@@ -122,13 +122,14 @@ android {
 }
 
 dependencies {
-    final SUPPORT_LIBRARY_VERSION = '24.2.1'
+    final SUPPORT_LIBRARY_VERSION = '25.0.0'
     final DAGGER_VERSION = '2.5'
     final LEAK_CANARY_VERSION = '1.4-beta2'
     final BUTTER_KNIFE_VERSION = '8.1.0'
     final RETROFIT_VERSION = '2.1.0'
     final OKHTTP_VERSION = '3.4.1'
     final RXJAVA_VERSION = '2.0.1'
+    final CONDUCTOR_VERSION = '2.0.5'
     final DEBUG_DRAWER = '0.7.0'
     final RUNNER_VERSION = '0.5'
 
@@ -167,6 +168,10 @@ dependencies {
     apt 'com.ryanharter.auto.value:auto-value-gson:0.4.4'
     provided 'com.ryanharter.auto.value:auto-value-gson:0.4.4'
 
+    compile "com.bluelinelabs:conductor:$CONDUCTOR_VERSION"
+    compile "com.bluelinelabs:conductor-support:$CONDUCTOR_VERSION"
+    compile "com.bluelinelabs:conductor-rxlifecycle2:$CONDUCTOR_VERSION"
+
     compile('com.crashlytics.sdk.android:crashlytics:2.6.0@aar') {
         transitive = true;
     }
@@ -181,6 +186,7 @@ dependencies {
     compile "io.palaima.debugdrawer:debugdrawer-actions:$DEBUG_DRAWER"
 
     compile 'net.sourceforge.findbugs:annotations:1.3.2'
+    compile "com.android.support:support-annotations:$SUPPORT_LIBRARY_VERSION"
 
     // Unit testing dependencies.
     testCompile 'junit:junit:4.12'
@@ -193,6 +199,7 @@ dependencies {
     androidTestCompile "com.android.support.test:rules:$RUNNER_VERSION"
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
     androidTestCompile 'tools.fastlane:screengrab:0.5.6'
+    androidTestCompile "com.google.code.findbugs:jsr305:3.0.1"
 }
 
 task jacocoTestReport(type: JacocoReport, dependsOn: ['testProdDebugUnitTest', 'createProdDebugCoverageReport']) {

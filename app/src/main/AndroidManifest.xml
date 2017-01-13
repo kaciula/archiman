@@ -11,7 +11,9 @@
         android:label="@string/all_app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.screen.main.MainActivity">
+        <activity
+            android:name=".presentation.screen.main.MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

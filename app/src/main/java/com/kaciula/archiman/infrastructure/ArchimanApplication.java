@@ -8,6 +8,7 @@ import com.kaciula.archiman.util.injection.AppComponent;
 import com.kaciula.archiman.util.injection.AppModule;
 import com.kaciula.archiman.util.injection.DaggerAppComponent;
 import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import io.fabric.sdk.android.Fabric;
 import javax.inject.Inject;
 import timber.log.Timber;
@@ -15,6 +16,7 @@ import timber.log.Timber;
 public class ArchimanApplication extends BaseApplication {
 
   private AppComponent appComponent;
+  public static RefWatcher refWatcher;
 
   @Inject InitColdStart initColdStart;
 
@@ -25,7 +27,7 @@ public class ArchimanApplication extends BaseApplication {
     if (BuildConfig.DEBUG) {
       Timber.plant(new Timber.DebugTree());
       DevDrawer.setupLogging();
-      LeakCanary.install(this);
+      refWatcher = LeakCanary.install(this);
     } else {
       Thread.UncaughtExceptionHandler uncaughtExceptionHandler =
           new ArchimanUncaughtExceptionHandler(getContext());

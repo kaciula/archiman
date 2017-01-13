@@ -11,13 +11,14 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.kaciula.archiman.R;
-import javax.inject.Inject;
+import com.kaciula.archiman.presentation.screen.home.HomeContract;
+import com.kaciula.archiman.presentation.screen.home.UserViewModel;
 
 public class UserDialogFragment extends AppCompatDialogFragment {
 
   private static final String EXTRA_USER = "user";
 
-  @Inject MainContract.Presenter presenter;
+  HomeContract.Presenter presenter;
 
   @BindView(R.id.tv_user_name) TextView tvUserName;
 
@@ -32,7 +33,6 @@ public class UserDialogFragment extends AppCompatDialogFragment {
   @Override
   public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
-    ((MainActivity) getActivity()).component().inject(this);
   }
 
   @NonNull
