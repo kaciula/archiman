@@ -35,6 +35,11 @@ public class HomeController extends BaseController implements HomeContract.View 
   @NonNull
   @Override
   protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
+    setupAndInjectIfNecessary();
+    return super.onCreateView(inflater, container);
+  }
+
+  private void setupAndInjectIfNecessary() {
     if (presenter == null) {
       HomeComponent component = DaggerHomeComponent.builder()
           .appComponent(ArchimanApplication.component())
@@ -43,7 +48,6 @@ public class HomeController extends BaseController implements HomeContract.View 
       component.inject(this);
     }
     presenter.setContainer(getContainer());
-    return super.onCreateView(inflater, container);
   }
 
   @Override
