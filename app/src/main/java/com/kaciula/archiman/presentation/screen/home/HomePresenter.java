@@ -2,7 +2,6 @@ package com.kaciula.archiman.presentation.screen.home;
 
 import com.kaciula.archiman.domain.entity.User;
 import com.kaciula.archiman.domain.usecase.GetUsers;
-import com.kaciula.archiman.presentation.screen.main.Container;
 import com.kaciula.archiman.presentation.util.Toasts;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 import io.reactivex.disposables.CompositeDisposable;
@@ -17,7 +16,6 @@ class HomePresenter implements HomeContract.Presenter {
   private final HomeContract.View view;
   private final BaseSchedulerProvider schedulerProvider;
   private final GetUsers getUsers;
-  private Container container;
 
   private final CompositeDisposable disposables;
   private UserViewModel lastClickedUser;
@@ -36,7 +34,7 @@ class HomePresenter implements HomeContract.Presenter {
     view.setup();
     // Do stuff if we have retained state
     if (lastClickedUser != null) {
-      container.showUserMessage(lastClickedUser);
+      view.showUserMessage(lastClickedUser);
     }
     refresh();
   }
@@ -48,18 +46,13 @@ class HomePresenter implements HomeContract.Presenter {
   }
 
   @Override
-  public void setContainer(Container container) {
-    this.container = container;
-  }
-
-  @Override
   public void onClickRetry() {
     refresh();
   }
 
   @Override
   public void onClickUser(UserViewModel user) {
-    container.showUserDialog(user);
+    view.showUserDialog(user);
     lastClickedUser = user;
   }
 

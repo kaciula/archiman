@@ -3,6 +3,7 @@ package com.kaciula.archiman.presentation.screen.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.Toolbar;
 import android.view.ViewGroup;
 import butterknife.BindView;
@@ -13,15 +14,13 @@ import com.bluelinelabs.conductor.RouterTransaction;
 import com.kaciula.archiman.R;
 import com.kaciula.archiman.presentation.screen.home.HomeComponent;
 import com.kaciula.archiman.presentation.screen.home.HomeController;
-import com.kaciula.archiman.presentation.screen.home.UserDialogFragment;
-import com.kaciula.archiman.presentation.screen.home.UserViewModel;
 import com.kaciula.archiman.presentation.util.ArchimanActivity;
 import com.kaciula.archiman.presentation.util.DevDrawer;
-import com.kaciula.archiman.presentation.util.Toasts;
+import java.util.UUID;
 import timber.log.Timber;
 
 public class MainActivity extends ArchimanActivity
-    implements ActionBarProvider, Container, ComponentProvider {
+    implements ActionBarProvider, ComponentProvider, DialogShowman {
 
   private static final String TAG_CONTROLLER_HOME = "HomeController";
 
@@ -84,22 +83,17 @@ public class MainActivity extends ArchimanActivity
   }
 
   @Override
-  public HomeComponent homeComponent() {
+  public HomeComponent getHomeComponent() {
     HomeController homeController =
         (HomeController) router.getControllerWithTag(TAG_CONTROLLER_HOME);
     return homeController.component();
   }
 
   @Override
-  public void showUserDialog(UserViewModel user) {
+  public void show(DialogFragment dialogFragment) {
     if (canShowDialogs()) {
-      UserDialogFragment.newInstance(user).show(getSupportFragmentManager(), "UserDialogFragment");
+      dialogFragment.show(getSupportFragmentManager(), UUID.randomUUID().toString());
     }
-  }
-
-  @Override
-  public void showUserMessage(UserViewModel user) {
-    Toasts.show("Before orientation change, last user clicked was " + user.toString());
   }
 
   private void setupDevDrawer() {

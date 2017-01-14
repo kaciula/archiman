@@ -14,6 +14,7 @@ import butterknife.OnClick;
 import com.kaciula.archiman.R;
 import com.kaciula.archiman.infrastructure.ArchimanApplication;
 import com.kaciula.archiman.presentation.util.BaseController;
+import com.kaciula.archiman.presentation.util.Toasts;
 import com.kaciula.archiman.presentation.widget.DividerItemDecoration;
 import java.util.ArrayList;
 import javax.inject.Inject;
@@ -36,11 +37,11 @@ public class HomeController extends BaseController implements HomeContract.View 
   @NonNull
   @Override
   protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-    setupAndInjectIfNecessary();
+    setupComponentAndInjectIfNecessary();
     return super.onCreateView(inflater, container);
   }
 
-  private void setupAndInjectIfNecessary() {
+  private void setupComponentAndInjectIfNecessary() {
     if (presenter == null) {
       component = DaggerHomeComponent.builder()
           .appComponent(ArchimanApplication.component())
@@ -48,7 +49,6 @@ public class HomeController extends BaseController implements HomeContract.View 
           .build();
       component.inject(this);
     }
-    presenter.setContainer(getContainer());
   }
 
   public HomeComponent component() {
@@ -99,6 +99,16 @@ public class HomeController extends BaseController implements HomeContract.View 
   @Override
   public void showError() {
     flipper.setDisplayedChild(CHILD_ERROR);
+  }
+
+  @Override
+  public void showUserDialog(UserViewModel user) {
+    getDialogShowman().show(UserDialogFragment.newInstance(user));
+  }
+
+  @Override
+  public void showUserMessage(UserViewModel user) {
+    Toasts.show("Before orientation change, last user clicked was " + user.toString());
   }
 
   @OnClick(R.id.btn_retry)

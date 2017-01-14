@@ -34,7 +34,7 @@ public class UserDialogFragment extends AppCompatDialogFragment {
   @Override
   public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
-    ((ComponentProvider) getActivity()).homeComponent().inject(this);
+    ((ComponentProvider) getActivity()).getHomeComponent().inject(this);
   }
 
   @NonNull

@@ -6,7 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.view.View;
 import com.bluelinelabs.conductor.Controller;
 import com.kaciula.archiman.presentation.screen.main.ActionBarProvider;
-import com.kaciula.archiman.presentation.screen.main.Container;
+import com.kaciula.archiman.presentation.screen.main.DialogShowman;
 
 public abstract class BaseController extends RefWatchingController {
 
@@ -49,7 +49,7 @@ public abstract class BaseController extends RefWatchingController {
     return null;
   }
 
-  protected Container getContainer() {
-    return (Container) getActivity();
+  protected DialogShowman getDialogShowman() {
+    return (DialogShowman) getActivity();
   }
 }
