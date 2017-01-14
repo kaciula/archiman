@@ -11,14 +11,19 @@ import com.bluelinelabs.conductor.Conductor;
 import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.kaciula.archiman.R;
+import com.kaciula.archiman.presentation.screen.home.HomeComponent;
 import com.kaciula.archiman.presentation.screen.home.HomeController;
+import com.kaciula.archiman.presentation.screen.home.UserDialogFragment;
 import com.kaciula.archiman.presentation.screen.home.UserViewModel;
 import com.kaciula.archiman.presentation.util.ArchimanActivity;
 import com.kaciula.archiman.presentation.util.DevDrawer;
 import com.kaciula.archiman.presentation.util.Toasts;
 import timber.log.Timber;
 
-public class MainActivity extends ArchimanActivity implements ActionBarProvider, Container {
+public class MainActivity extends ArchimanActivity
+    implements ActionBarProvider, Container, ComponentProvider {
+
+  private static final String TAG_CONTROLLER_HOME = "HomeController";
 
   @BindView(R.id.toolbar) Toolbar toolbar;
   @BindView(R.id.controller_container) ViewGroup container;
@@ -40,7 +45,7 @@ public class MainActivity extends ArchimanActivity implements ActionBarProvider,
 
     router = Conductor.attachRouter(this, container, savedInstanceState);
     if (!router.hasRootController()) {
-      router.setRoot(RouterTransaction.with(new HomeController()));
+      router.setRoot(RouterTransaction.with(new HomeController()).tag(TAG_CONTROLLER_HOME));
     }
 
     setupDevDrawer();
@@ -76,6 +81,13 @@ public class MainActivity extends ArchimanActivity implements ActionBarProvider,
   protected void onStop() {
     super.onStop();
     devDrawer.onStop();
+  }
+
+  @Override
+  public HomeComponent homeComponent() {
+    HomeController homeController =
+        (HomeController) router.getControllerWithTag(TAG_CONTROLLER_HOME);
+    return homeController.component();
   }
 
   @Override

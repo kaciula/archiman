@@ -6,7 +6,9 @@ import dagger.Component;
 
 @ActivityScope
 @Component(dependencies = AppComponent.class, modules = HomeModule.class)
-interface HomeComponent {
+public interface HomeComponent {
 
   void inject(HomeController homeController);
+
+  void inject(UserDialogFragment userDialogFragment);
 }

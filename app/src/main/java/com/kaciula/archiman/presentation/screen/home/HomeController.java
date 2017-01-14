@@ -30,6 +30,7 @@ public class HomeController extends BaseController implements HomeContract.View 
   @Inject
   HomeContract.Presenter presenter;
 
+  private HomeComponent component;
   private UserAdapter adapter;
 
   @NonNull
@@ -41,13 +42,17 @@ public class HomeController extends BaseController implements HomeContract.View 
 
   private void setupAndInjectIfNecessary() {
     if (presenter == null) {
-      HomeComponent component = DaggerHomeComponent.builder()
+      component = DaggerHomeComponent.builder()
           .appComponent(ArchimanApplication.component())
           .homeModule(new HomeModule(this))
           .build();
       component.inject(this);
     }
     presenter.setContainer(getContainer());
+  }
+
+  public HomeComponent component() {
+    return component;
   }
 
   @Override
