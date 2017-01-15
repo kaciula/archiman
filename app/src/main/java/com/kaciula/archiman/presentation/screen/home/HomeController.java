@@ -1,7 +1,5 @@
 package com.kaciula.archiman.presentation.screen.home;
 
-import static com.kaciula.archiman.infrastructure.BaseApplication.getContext;
-
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,30 +23,21 @@ public class HomeController extends BaseController implements HomeContract.View 
   private static final int CHILD_PROGRESS = 1;
   private static final int CHILD_ERROR = 2;
 
+  @Inject
+  HomeContract.Presenter presenter;
+  private HomeComponent component;
+
   @BindView(R.id.flipper) ViewFlipper flipper;
   @BindView(R.id.recycler_view) RecyclerView recyclerView;
 
-  @Inject
-  HomeContract.Presenter presenter;
-
-  private HomeComponent component;
   private UserAdapter adapter;
 
-  @NonNull
-  @Override
-  protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-    setupComponentAndInjectIfNecessary();
-    return super.onCreateView(inflater, container);
-  }
-
-  private void setupComponentAndInjectIfNecessary() {
-    if (presenter == null) {
-      component = DaggerHomeComponent.builder()
-          .appComponent(ArchimanApplication.component())
-          .homeModule(new HomeModule(this))
-          .build();
-      component.inject(this);
-    }
+  public HomeController() {
+    component = DaggerHomeComponent.builder()
+        .appComponent(ArchimanApplication.component())
+        .homeModule(new HomeModule(this))
+        .build();
+    component.inject(this);
   }
 
   public HomeComponent component() {
@@ -74,10 +63,10 @@ public class HomeController extends BaseController implements HomeContract.View 
 
   @Override
   public void setup() {
-    recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
+    recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
     recyclerView.setLayoutManager(
-        new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-    adapter = new UserAdapter(getContext(), new ArrayList<UserViewModel>(), presenter);
+        new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+    adapter = new UserAdapter(getActivity(), new ArrayList<UserViewModel>(), presenter);
     recyclerView.setAdapter(adapter);
   }
 
