@@ -29,9 +29,12 @@ class HomePresenter implements HomeContract.Presenter {
   }
 
   @Override
-  public void start() {
-    Timber.d("start");
+  public void setup() {
     view.setup();
+  }
+
+  @Override
+  public void start() {
     // Do stuff if we have retained state
     if (lastClickedUser != null) {
       view.showUserMessage(lastClickedUser);
@@ -41,7 +44,6 @@ class HomePresenter implements HomeContract.Presenter {
 
   @Override
   public void stop() {
-    Timber.d("stop");
     disposables.clear();
   }
 

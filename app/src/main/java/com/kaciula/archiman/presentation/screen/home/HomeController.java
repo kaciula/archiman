@@ -50,6 +50,11 @@ public class HomeController extends BaseController implements HomeContract.View 
   }
 
   @Override
+  protected void onViewBound(@NonNull View view) {
+    presenter.setup();
+  }
+
+  @Override
   protected void onAttach(@NonNull View view) {
     super.onAttach(view);
     presenter.start();

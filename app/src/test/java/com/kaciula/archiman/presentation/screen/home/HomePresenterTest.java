@@ -32,11 +32,8 @@ public class HomePresenterTest {
   }
 
   @Test
-  public void startCallSetup() {
-    when(getUsers.execute(GetUsers.RequestModel.create()))
-        .thenReturn(Observable.<GetUsers.ResponseModel>empty());
-
-    presenter.start();
+  public void setupIsCalled() {
+    presenter.setup();
 
     verify(view).setup();
   }
