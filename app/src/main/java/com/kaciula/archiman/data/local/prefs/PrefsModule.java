@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import com.kaciula.archiman.data.local.prefs.util.BooleanPreference;
 import com.kaciula.archiman.data.local.prefs.util.IntPreference;
-import com.kaciula.archiman.domain.repository.PrefsRepository;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Named;
@@ -17,12 +16,6 @@ public class PrefsModule {
   @Singleton
   SharedPreferences provideSharedPreferences(Context ctx) {
     return ctx.getSharedPreferences("prefs_utils", Context.MODE_PRIVATE);
-  }
-
-  @Provides
-  @Singleton
-  PrefsRepository providePrefsRepository() {
-    return new PrefsDataRepository();
   }
 
   @Provides

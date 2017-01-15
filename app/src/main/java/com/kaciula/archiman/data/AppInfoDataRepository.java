@@ -1,13 +1,13 @@
-package com.kaciula.archiman.data.local.prefs;
+package com.kaciula.archiman.data;
 
 import com.kaciula.archiman.data.local.prefs.util.BooleanPreference;
 import com.kaciula.archiman.data.local.prefs.util.IntPreference;
-import com.kaciula.archiman.domain.repository.PrefsRepository;
+import com.kaciula.archiman.domain.repository.AppInfoRepository;
 import com.kaciula.archiman.infrastructure.ArchimanApplication;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-public class PrefsDataRepository implements PrefsRepository {
+public class AppInfoDataRepository implements AppInfoRepository {
 
   @Inject
   @Named("first_time")
@@ -16,12 +16,12 @@ public class PrefsDataRepository implements PrefsRepository {
   @Named("version_code")
   IntPreference versionCodePref;
 
-  public PrefsDataRepository() {
+  public AppInfoDataRepository() {
     ArchimanApplication.component().inject(this);
   }
 
   @Override
-  public boolean firstTime() {
+  public boolean isFirstTime() {
     return firstTimePref.get();
   }
 
@@ -31,7 +31,7 @@ public class PrefsDataRepository implements PrefsRepository {
   }
 
   @Override
-  public int versionCode() {
+  public int getVersionCode() {
     return versionCodePref.get();
   }
 

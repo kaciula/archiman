@@ -1,5 +1,6 @@
 package com.kaciula.archiman.data;
 
+import com.kaciula.archiman.domain.repository.AppInfoRepository;
 import com.kaciula.archiman.domain.repository.UsersRepository;
 import dagger.Module;
 import dagger.Provides;
@@ -12,5 +13,11 @@ public class DataRepositoryModule {
   @Provides
   UsersRepository providerUsersRepository() {
     return new UsersDataRepository(new FakeUsersDataSource());
+  }
+
+  @Provides
+  @Singleton
+  AppInfoRepository provideAppInfoRepository() {
+    return new AppInfoDataRepository();
   }
 }

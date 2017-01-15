@@ -1,12 +1,12 @@
 package com.kaciula.archiman.domain.repository;
 
-public interface PrefsRepository {
+public interface AppInfoRepository {
 
-  boolean firstTime();
+  boolean isFirstTime();
 
   void saveFirstTime(boolean firstTime);
 
-  int versionCode();
+  int getVersionCode();
 
   void saveVersionCode(int value);
 }

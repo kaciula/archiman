@@ -4,7 +4,7 @@ package com.kaciula.archiman.domain.usecase;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.kaciula.archiman.domain.repository.PrefsRepository;
+import com.kaciula.archiman.domain.repository.AppInfoRepository;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import org.junit.Assert;
@@ -15,7 +15,7 @@ import org.mockito.MockitoAnnotations;
 
 public class InitColdStartTest {
 
-  @Mock PrefsRepository prefsRepository;
+  @Mock AppInfoRepository appInfoRepository;
 
   private InitColdStart useCase;
 
@@ -23,14 +23,14 @@ public class InitColdStartTest {
   public void setupUseCase() {
     MockitoAnnotations.initMocks(this);
 
-    useCase = new InitColdStart(prefsRepository);
+    useCase = new InitColdStart(appInfoRepository);
   }
 
   @Test
   public void firstTime() {
     int currentVersionCode = 1;
-    when(prefsRepository.firstTime()).thenReturn(true);
-    when(prefsRepository.versionCode()).thenReturn(0);
+    when(appInfoRepository.isFirstTime()).thenReturn(true);
+    when(appInfoRepository.getVersionCode()).thenReturn(0);
 
     useCase.execute(InitColdStart.RequestModel.create(currentVersionCode))
         .subscribe(new Observer<InitColdStart.ResponseModel>() {
@@ -56,15 +56,15 @@ public class InitColdStartTest {
                    }
         );
 
-    verify(prefsRepository).saveFirstTime(false);
-    verify(prefsRepository).saveVersionCode(currentVersionCode);
+    verify(appInfoRepository).saveFirstTime(false);
+    verify(appInfoRepository).saveVersionCode(currentVersionCode);
   }
 
   @Test
   public void newVersion() {
     int currentVersionCode = 2;
-    when(prefsRepository.firstTime()).thenReturn(false);
-    when(prefsRepository.versionCode()).thenReturn(1);
+    when(appInfoRepository.isFirstTime()).thenReturn(false);
+    when(appInfoRepository.getVersionCode()).thenReturn(1);
 
     useCase.execute(InitColdStart.RequestModel.create(currentVersionCode))
         .subscribe(new Observer<InitColdStart.ResponseModel>() {
@@ -90,6 +90,6 @@ public class InitColdStartTest {
                    }
         );
 
-    verify(prefsRepository).saveVersionCode(currentVersionCode);
+    verify(appInfoRepository).saveVersionCode(currentVersionCode);
   }
 }

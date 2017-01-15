@@ -1,6 +1,6 @@
 package com.kaciula.archiman.domain.util;
 
-import com.kaciula.archiman.domain.repository.PrefsRepository;
+import com.kaciula.archiman.domain.repository.AppInfoRepository;
 import com.kaciula.archiman.domain.repository.UsersRepository;
 import com.kaciula.archiman.domain.usecase.GetUsers;
 import com.kaciula.archiman.domain.usecase.InitColdStart;
@@ -19,7 +19,7 @@ public final class UseCaseModule {
 
   @Provides
   @Singleton
-  InitColdStart provideInitColdStartUsecase(PrefsRepository prefsRepository) {
-    return new InitColdStart(prefsRepository);
+  InitColdStart provideInitColdStartUsecase(AppInfoRepository appInfoRepository) {
+    return new InitColdStart(appInfoRepository);
   }
 }

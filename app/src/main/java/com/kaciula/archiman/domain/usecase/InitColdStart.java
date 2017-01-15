@@ -1,7 +1,7 @@
 package com.kaciula.archiman.domain.usecase;
 
 import com.google.auto.value.AutoValue;
-import com.kaciula.archiman.domain.repository.PrefsRepository;
+import com.kaciula.archiman.domain.repository.AppInfoRepository;
 import com.kaciula.archiman.domain.util.UseCase;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -11,10 +11,10 @@ import timber.log.Timber;
 public class InitColdStart
     extends UseCase<InitColdStart.RequestModel, InitColdStart.ResponseModel> {
 
-  private final PrefsRepository prefsRepository;
+  private final AppInfoRepository appInfoRepository;
 
-  public InitColdStart(PrefsRepository prefsRepository) {
-    this.prefsRepository = prefsRepository;
+  public InitColdStart(AppInfoRepository appInfoRepository) {
+    this.appInfoRepository = appInfoRepository;
   }
 
   @Override
@@ -24,15 +24,15 @@ public class InitColdStart
       public void run() throws Exception {
         Timber.d("Initialize every cold start");
         int currentVersionCode = requestModel.currentVersionCode();
-        if (prefsRepository.firstTime()) {
+        if (appInfoRepository.isFirstTime()) {
           Timber.d("First time running the app");
-          prefsRepository.saveFirstTime(false);
-          prefsRepository.saveVersionCode(currentVersionCode);
+          appInfoRepository.saveFirstTime(false);
+          appInfoRepository.saveVersionCode(currentVersionCode);
         } else {
-          if (prefsRepository.versionCode() < currentVersionCode) {
+          if (appInfoRepository.getVersionCode() < currentVersionCode) {
             Timber.d("Old version code %d is replaced with new version code %d",
-                prefsRepository.versionCode(), currentVersionCode);
-            prefsRepository.saveVersionCode(currentVersionCode);
+                appInfoRepository.getVersionCode(), currentVersionCode);
+            appInfoRepository.saveVersionCode(currentVersionCode);
           } else {
             Timber.d("Just a basic cold start");
           }
