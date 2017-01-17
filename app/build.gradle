@@ -133,6 +133,8 @@ dependencies {
     final CONDUCTOR_VERSION = '2.0.5'
     final DEBUG_DRAWER = '0.7.0'
     final RUNNER_VERSION = '0.5'
+    final JODA_TIME_ANDROID_VERSION = '2.9.5.1'
+    final JODA_TIME_VERSION = '2.9.7'
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -177,7 +179,7 @@ dependencies {
         transitive = true;
     }
     compile 'com.google.code.gson:gson:2.7'
-    compile 'net.danlew:android.joda:2.9.3.1'
+    compile "net.danlew:android.joda:$JODA_TIME_ANDROID_VERSION"
     compile 'com.dmitrymalkovich.android:material-design-dimens:1.2'
     debugCompile 'com.amitshekhar.android:debug-db:0.4.0'
 
@@ -193,6 +195,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:1.10.19'
     testCompile 'org.hamcrest:hamcrest-all:1.3'
+    testCompile "joda-time:joda-time:$JODA_TIME_VERSION"
 
     // Force usage of support annotations in the test app, since it is internally used by the runner module.
     androidTestCompile "com.android.support:support-annotations:$SUPPORT_LIBRARY_VERSION"

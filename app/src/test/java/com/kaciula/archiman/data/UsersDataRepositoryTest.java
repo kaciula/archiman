@@ -5,6 +5,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.kaciula.archiman.domain.entity.User;
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -36,6 +37,7 @@ public class UsersDataRepositoryTest {
     users.add(User.create(1, "Best programmer"));
     users.add(User.create(2, "Second best programmer"));
     when(usersLocalDataSource.getUsers()).thenReturn(Observable.<List<User>>empty());
+    when(usersLocalDataSource.createOrUpdateUsers(users)).thenReturn(Completable.complete());
     when(usersRemoteDataSource.getUsers()).thenReturn(Observable.fromArray(users));
 
     usersRepository.getUsers()
