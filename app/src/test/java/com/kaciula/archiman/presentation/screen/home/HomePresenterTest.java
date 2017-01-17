@@ -41,7 +41,7 @@ public class HomePresenterTest {
   @Test
   public void loadUsersCallViewToShowContent() {
     List<User> users = new ArrayList<>();
-    users.add(User.create("Bob Sacamano"));
+    users.add(User.create(1, "Bob Sacamano"));
     when(getUsers.execute(GetUsers.RequestModel.create()))
         .thenReturn(Observable.just(GetUsers.ResponseModel.create(users)));
 

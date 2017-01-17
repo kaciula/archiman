@@ -1,6 +1,5 @@
 package com.kaciula.archiman.data;
 
-
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -19,7 +18,8 @@ import org.mockito.MockitoAnnotations;
 
 public class UsersDataRepositoryTest {
 
-  @Mock UsersDataSource usersDataSource;
+  @Mock UsersDataSource usersRemoteDataSource;
+  @Mock UsersDataSource usersLocalDataSource;
 
   private UsersDataRepository usersRepository;
 
@@ -27,15 +27,16 @@ public class UsersDataRepositoryTest {
   public void setupUseCase() {
     MockitoAnnotations.initMocks(this);
 
-    usersRepository = new UsersDataRepository(usersDataSource);
+    usersRepository = new UsersDataRepository(usersRemoteDataSource, usersLocalDataSource);
   }
 
   @Test
   public void getUsers() {
     final List<User> users = new ArrayList<>();
-    users.add(User.create("Best programmer"));
-    users.add(User.create("Second best programmer"));
-    when(usersDataSource.getUsers()).thenReturn(Observable.fromArray(users));
+    users.add(User.create(1, "Best programmer"));
+    users.add(User.create(2, "Second best programmer"));
+    when(usersLocalDataSource.getUsers()).thenReturn(Observable.<List<User>>empty());
+    when(usersRemoteDataSource.getUsers()).thenReturn(Observable.fromArray(users));
 
     usersRepository.getUsers()
         .subscribe(new Observer<List<User>>() {
@@ -61,6 +62,6 @@ public class UsersDataRepositoryTest {
                    }
         );
 
-    verify(usersDataSource).getUsers();
+    verify(usersRemoteDataSource).getUsers();
   }
 }

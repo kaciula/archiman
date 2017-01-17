@@ -33,8 +33,8 @@ public class GetUsersTest {
   @Test
   public void getUsers() {
     final List<User> users = new ArrayList<>();
-    users.add(User.create("Best programmer"));
-    users.add(User.create("Second best programmer"));
+    users.add(User.create(1, "Best programmer"));
+    users.add(User.create(2, "Second best programmer"));
     when(usersRepository.getUsers()).thenReturn(Observable.fromArray(users));
 
     useCase.execute(GetUsers.RequestModel.create())
