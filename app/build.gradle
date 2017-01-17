@@ -18,6 +18,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'jacoco'
+apply plugin: 'realm-android'
 apply from: '../config/quality.gradle'
 
 def versionMajor = 0

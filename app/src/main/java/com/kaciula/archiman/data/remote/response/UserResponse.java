@@ -7,6 +7,9 @@ import com.google.gson.annotations.SerializedName;
 
 @AutoValue
 public abstract class UserResponse {
+  @SerializedName("account_id")
+  public abstract long accountId();
+
   @SerializedName("display_name")
   public abstract String displayName();
 

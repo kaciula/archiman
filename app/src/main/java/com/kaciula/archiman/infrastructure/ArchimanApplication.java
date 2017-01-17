@@ -10,6 +10,8 @@ import com.kaciula.archiman.util.injection.DaggerAppComponent;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import io.fabric.sdk.android.Fabric;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import javax.inject.Inject;
 import timber.log.Timber;
 
@@ -42,6 +44,8 @@ public class ArchimanApplication extends BaseApplication {
     appComponent = DaggerAppComponent.builder().appModule(new AppModule()).build();
     appComponent.inject(this);
 
+    setupRealm();
+
     initColdStart
         .execute(InitColdStart.RequestModel.create(BuildConfig.VERSION_CODE))
         .subscribe();
@@ -61,5 +65,11 @@ public class ArchimanApplication extends BaseApplication {
     Crashlytics.setUserIdentifier(AndroidUtils.getDeviceId());
     Crashlytics.setString("Installer", AndroidUtils.getInstaller());
     Crashlytics.setString("Git SHA", BuildConfig.GIT_SHA);
+  }
+
+  private void setupRealm() {
+    Realm.init(this);
+    RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().build();
+    Realm.setDefaultConfiguration(realmConfiguration);
   }
 }

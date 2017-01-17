@@ -13,7 +13,7 @@ public class UsersResponseMapper implements Function<UsersResponse, List<User>> 
   public List<User> apply(UsersResponse usersResponse) throws Exception {
     List<User> users = new ArrayList<>(usersResponse.items().size());
     for (UserResponse userResponse : usersResponse.items()) {
-      users.add(User.create(userResponse.displayName()));
+      users.add(User.create(userResponse.accountId(), userResponse.displayName()));
     }
     return users;
   }
