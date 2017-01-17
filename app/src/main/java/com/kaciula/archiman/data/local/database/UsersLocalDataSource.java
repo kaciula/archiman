@@ -20,13 +20,13 @@ public class UsersLocalDataSource implements UsersDataSource {
       public List<User> call() throws Exception {
         Realm realm = Realm.getDefaultInstance();
         RealmResults<UserDb> results = realm.where(UserDb.class).findAll();
-        realm.close();
 
         List<User> users = new ArrayList<>(results.size());
         for (UserDb userDb : results) {
           User user = User.create(userDb.accountId, userDb.name);
           users.add(user);
         }
+        realm.close();
         return users;
       }
     });
