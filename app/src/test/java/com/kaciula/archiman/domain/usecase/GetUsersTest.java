@@ -31,7 +31,7 @@ public class GetUsersTest {
   }
 
   @Test
-  public void getUsers() {
+  public void getUsersSuccess() {
     final List<User> users = new ArrayList<>();
     users.add(User.create(1, "Best programmer"));
     users.add(User.create(2, "Second best programmer"));
@@ -60,5 +60,32 @@ public class GetUsersTest {
                      }
                    }
         );
+  }
+
+  @Test
+  public void getUsersFailure() {
+    when(usersRepository.getUsers()).thenReturn(Observable.<List<User>>error(new Throwable()));
+
+    useCase.execute(GetUsers.RequestModel.create())
+        .subscribe(new Observer<GetUsers.ResponseModel>() {
+          @Override
+          public void onSubscribe(Disposable d) {
+            // do nothing
+          }
+
+          @Override
+          public void onNext(GetUsers.ResponseModel value) {
+            Assert.fail("Should not finish successfully");
+          }
+
+          @Override
+          public void onError(Throwable e) {
+          }
+
+          @Override
+          public void onComplete() {
+            // do nothing
+          }
+        });
   }
 }
