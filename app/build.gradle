@@ -152,9 +152,6 @@ dependencies {
 
     compile "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
     compile "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
-    debugCompile "com.squareup.leakcanary:leakcanary-android:$LEAK_CANARY_VERSION"
-    debugCompile 'com.squareup.haha:haha:2.0.3'
-    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$LEAK_CANARY_VERSION"
     compile 'com.github.simonpercic:oklog3:2.0.0'
 
     compile "com.google.dagger:dagger:$DAGGER_VERSION"
@@ -181,15 +178,21 @@ dependencies {
     compile 'com.google.code.gson:gson:2.7'
     compile "net.danlew:android.joda:$JODA_TIME_ANDROID_VERSION"
     compile 'com.dmitrymalkovich.android:material-design-dimens:1.2'
-    debugCompile 'com.amitshekhar.android:debug-db:0.4.0'
-
-    debugCompile "io.palaima.debugdrawer:debugdrawer:$DEBUG_DRAWER"
-    releaseCompile "io.palaima.debugdrawer:debugdrawer-no-op:$DEBUG_DRAWER"
-    compile "io.palaima.debugdrawer:debugdrawer-commons:$DEBUG_DRAWER"
-    compile "io.palaima.debugdrawer:debugdrawer-actions:$DEBUG_DRAWER"
 
     compile 'net.sourceforge.findbugs:annotations:1.3.2'
     compile "com.android.support:support-annotations:$SUPPORT_LIBRARY_VERSION"
+
+    // Debug only dependencies
+    debugCompile "com.squareup.leakcanary:leakcanary-android:$LEAK_CANARY_VERSION"
+    debugCompile 'com.squareup.haha:haha:2.0.3'
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$LEAK_CANARY_VERSION"
+
+    debugCompile 'com.amitshekhar.android:debug-db:0.4.0'
+    debugCompile "io.palaima.debugdrawer:debugdrawer:$DEBUG_DRAWER"
+    releaseCompile "io.palaima.debugdrawer:debugdrawer-no-op:$DEBUG_DRAWER"
+    debugCompile "io.palaima.debugdrawer:debugdrawer-commons:$DEBUG_DRAWER"
+    debugCompile "io.palaima.debugdrawer:debugdrawer-actions:$DEBUG_DRAWER"
+    debugCompile 'jp.wasabeef:takt:1.0.3'
 
     // Unit testing dependencies.
     testCompile 'junit:junit:4.12'

@@ -4,6 +4,7 @@ import com.crashlytics.android.Crashlytics;
 import com.kaciula.archiman.BuildConfig;
 import com.kaciula.archiman.domain.usecase.InitColdStart;
 import com.kaciula.archiman.presentation.util.DevDrawer;
+import com.kaciula.archiman.util.FpsReporter;
 import com.kaciula.archiman.util.injection.AppComponent;
 import com.kaciula.archiman.util.injection.AppModule;
 import com.kaciula.archiman.util.injection.DaggerAppComponent;
@@ -30,6 +31,7 @@ public class ArchimanApplication extends BaseApplication {
       Timber.plant(new Timber.DebugTree());
       DevDrawer.setupLogging();
       refWatcher = LeakCanary.install(this);
+      FpsReporter.start(this);
     } else {
       Thread.UncaughtExceptionHandler uncaughtExceptionHandler =
           new ArchimanUncaughtExceptionHandler(getContext());
@@ -49,6 +51,14 @@ public class ArchimanApplication extends BaseApplication {
     initColdStart
         .execute(InitColdStart.RequestModel.create(BuildConfig.VERSION_CODE))
         .subscribe();
+  }
+
+  @Override
+  public void onTerminate() {
+    if (BuildConfig.DEBUG) {
+      FpsReporter.end();
+    }
+    super.onTerminate();
   }
 
   public static AppComponent component() {
