@@ -5,7 +5,6 @@ import com.kaciula.archiman.data.remote.mapper.UsersResponseMapper;
 import com.kaciula.archiman.domain.entity.User;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
-import io.reactivex.functions.Action;
 import java.util.List;
 
 public class UsersRemoteDataSource implements UsersDataSource {
@@ -23,11 +22,8 @@ public class UsersRemoteDataSource implements UsersDataSource {
 
   @Override
   public Completable createOrUpdateUsers(List<User> users) {
-    return Completable.fromAction(new Action() {
-      @Override
-      public void run() throws Exception {
-        // Do nothing because we do not need this implementation
-      }
+    return Completable.fromAction(() -> {
+      // Do nothing because we do not need this implementation
     });
   }
 }

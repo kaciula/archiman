@@ -5,7 +5,6 @@ import com.kaciula.archiman.domain.usecase.GetUsers;
 import com.kaciula.archiman.presentation.util.Toasts;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableObserver;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,15 +67,12 @@ class HomePresenter implements HomeContract.Presenter {
     view.showProgress();
 
     disposables.add(getUsers.execute(GetUsers.RequestModel.create())
-        .map(new Function<GetUsers.ResponseModel, HomeViewModel>() {
-          @Override
-          public HomeViewModel apply(GetUsers.ResponseModel responseModel) throws Exception {
-            List<UserViewModel> users = new ArrayList<>(responseModel.users().size());
-            for (User user : responseModel.users()) {
-              users.add(UserViewModel.create(user.name()));
-            }
-            return HomeViewModel.create(users);
+        .map(responseModel -> {
+          List<UserViewModel> users = new ArrayList<>(responseModel.users().size());
+          for (User user : responseModel.users()) {
+            users.add(UserViewModel.create(user.name()));
           }
+          return HomeViewModel.create(users);
         })
         .subscribeOn(schedulerProvider.io())
         .observeOn(schedulerProvider.ui())

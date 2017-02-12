@@ -5,7 +5,6 @@ import com.kaciula.archiman.domain.entity.User;
 import com.kaciula.archiman.domain.repository.UsersRepository;
 import com.kaciula.archiman.domain.util.UseCase;
 import io.reactivex.Observable;
-import io.reactivex.functions.Function;
 import java.util.List;
 
 public class GetUsers
@@ -20,12 +19,7 @@ public class GetUsers
   @Override
   public Observable<ResponseModel> execute(RequestModel requestModel) {
     return usersRepository.getUsers()
-        .map(new Function<List<User>, ResponseModel>() {
-          @Override
-          public ResponseModel apply(List<User> users) throws Exception {
-            return ResponseModel.create(users);
-          }
-        });
+        .map(users -> ResponseModel.create(users));
   }
 
   @AutoValue

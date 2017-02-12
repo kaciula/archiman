@@ -3,7 +3,6 @@ package com.kaciula.archiman.data;
 import com.kaciula.archiman.domain.entity.User;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
-import io.reactivex.functions.Action;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,11 +22,8 @@ public class FakeUsersDataSource implements UsersDataSource {
 
   @Override
   public Completable createOrUpdateUsers(List<User> users) {
-    return Completable.fromAction(new Action() {
-      @Override
-      public void run() throws Exception {
-        // Do nothing here
-      }
+    return Completable.fromAction(() -> {
+      // Do nothing here
     });
   }
 }
