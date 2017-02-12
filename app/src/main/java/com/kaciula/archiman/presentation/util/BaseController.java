@@ -8,7 +8,7 @@ import com.bluelinelabs.conductor.Controller;
 import com.kaciula.archiman.presentation.screen.main.ActionBarProvider;
 import com.kaciula.archiman.presentation.screen.main.DialogShowman;
 
-public abstract class BaseController extends RefWatchingController {
+public abstract class BaseController extends ButterKnifeController {
 
   protected BaseController() {
   }
