@@ -1,16 +1,11 @@
 package com.kaciula.archiman.infrastructure;
 
 import com.crashlytics.android.Crashlytics;
-import com.facebook.stetho.Stetho;
-import com.facebook.stetho.timber.StethoTree;
 import com.kaciula.archiman.BuildConfig;
 import com.kaciula.archiman.domain.usecase.InitColdStart;
-import com.kaciula.archiman.presentation.util.DevDrawer;
-import com.kaciula.archiman.util.FpsReporter;
 import com.kaciula.archiman.util.injection.AppComponent;
 import com.kaciula.archiman.util.injection.AppModule;
 import com.kaciula.archiman.util.injection.DaggerAppComponent;
-import com.squareup.leakcanary.LeakCanary;
 import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -27,22 +22,13 @@ public class ArchimanApplication extends BaseApplication {
   public void onCreate() {
     super.onCreate();
 
-    if (BuildConfig.DEBUG) {
-      Timber.plant(new Timber.DebugTree());
-      DevDrawer.setupLogging();
-      LeakCanary.install(this);
-      FpsReporter.start(this);
-      Stetho.initializeWithDefaults(this);
-      Timber.plant(new StethoTree());
-    } else {
-      Thread.UncaughtExceptionHandler uncaughtExceptionHandler =
-          new ArchimanUncaughtExceptionHandler(getContext());
-      Thread.setDefaultUncaughtExceptionHandler(uncaughtExceptionHandler);
+    Thread.UncaughtExceptionHandler uncaughtExceptionHandler =
+        new ArchimanUncaughtExceptionHandler(getContext());
+    Thread.setDefaultUncaughtExceptionHandler(uncaughtExceptionHandler);
 
-      if (isCrashlyticsUsed()) {
-        startCrashlytics();
-        Timber.plant(new CrashlyticsTree());
-      }
+    if (isCrashlyticsUsed()) {
+      startCrashlytics();
+      Timber.plant(new CrashlyticsTree());
     }
 
     appComponent = DaggerAppComponent.builder().appModule(new AppModule()).build();
@@ -53,14 +39,6 @@ public class ArchimanApplication extends BaseApplication {
     initColdStart
         .execute(InitColdStart.RequestModel.create(BuildConfig.VERSION_CODE))
         .subscribe();
-  }
-
-  @Override
-  public void onTerminate() {
-    if (BuildConfig.DEBUG) {
-      FpsReporter.end();
-    }
-    super.onTerminate();
   }
 
   public static AppComponent component() {

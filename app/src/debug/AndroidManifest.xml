@@ -14,8 +14,10 @@
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
 
     <application
+        android:name=".infrastructure.DebugArchimanApplication"
         android:allowBackup="true"
-        android:fullBackupContent="@xml/backup_rules">
+        android:fullBackupContent="@xml/backup_rules"
+        tools:replace="android:name">
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${fileProviderAuthority}"

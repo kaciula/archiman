@@ -155,8 +155,6 @@ dependencies {
     compile "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0"
 
     compile "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
-    compile "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
-    compile 'com.github.simonpercic:oklog3:2.0.0'
 
     compile "com.google.dagger:dagger:$DAGGER_VERSION"
     provided 'org.glassfish:javax.annotation:10.0-b28' //Required by Dagger2
@@ -189,20 +187,20 @@ dependencies {
     // Debug only dependencies
     debugCompile "com.squareup.leakcanary:leakcanary-android:$LEAK_CANARY_VERSION"
     debugCompile 'com.squareup.haha:haha:2.0.3'
-    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$LEAK_CANARY_VERSION"
 
     debugCompile 'com.amitshekhar.android:debug-db:0.4.0'
     debugCompile "io.palaima.debugdrawer:debugdrawer:$DEBUG_DRAWER"
-    releaseCompile "io.palaima.debugdrawer:debugdrawer-no-op:$DEBUG_DRAWER"
     debugCompile "io.palaima.debugdrawer:debugdrawer-commons:$DEBUG_DRAWER"
     debugCompile "io.palaima.debugdrawer:debugdrawer-actions:$DEBUG_DRAWER"
     debugCompile 'jp.wasabeef:takt:1.0.3'
+    debugCompile "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
+    debugCompile 'com.github.simonpercic:oklog3:2.0.0'
 
-    compile "com.facebook.stetho:stetho:$STETHO_VERSION"
-    compile("com.facebook.stetho:stetho-okhttp3:$STETHO_VERSION") {
+    debugCompile "com.facebook.stetho:stetho:$STETHO_VERSION"
+    debugCompile("com.facebook.stetho:stetho-okhttp3:$STETHO_VERSION") {
         exclude group: 'com.squareup.okhttp3'
     }
-    compile("com.facebook.stetho:stetho-timber:$STETHO_VERSION") {
+    debugCompile("com.facebook.stetho:stetho-timber:$STETHO_VERSION") {
         exclude group: 'com.jakewharton.timber'
     }
 
