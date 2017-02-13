@@ -1,5 +1,6 @@
 package com.kaciula.archiman.data.remote;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.github.simonpercic.oklog3.OkLogInterceptor;
 import com.google.gson.Gson;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -25,6 +26,8 @@ public class RemoteModule {
       builder.addInterceptor(loggingInterceptor);
       OkLogInterceptor okLogInterceptor = OkLogInterceptor.builder().build();
       builder.addInterceptor(okLogInterceptor);
+      StethoInterceptor stethoInterceptor = new StethoInterceptor();
+      builder.addNetworkInterceptor(stethoInterceptor);
     }
     return builder.build();
   }

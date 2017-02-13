@@ -138,6 +138,7 @@ dependencies {
     final RUNNER_VERSION = '0.5'
     final JODA_TIME_ANDROID_VERSION = '2.9.5.1'
     final JODA_TIME_VERSION = '2.9.7'
+    final STETHO_VERSION = '1.4.2'
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -196,6 +197,14 @@ dependencies {
     debugCompile "io.palaima.debugdrawer:debugdrawer-commons:$DEBUG_DRAWER"
     debugCompile "io.palaima.debugdrawer:debugdrawer-actions:$DEBUG_DRAWER"
     debugCompile 'jp.wasabeef:takt:1.0.3'
+
+    compile "com.facebook.stetho:stetho:$STETHO_VERSION"
+    compile("com.facebook.stetho:stetho-okhttp3:$STETHO_VERSION") {
+        exclude group: 'com.squareup.okhttp3'
+    }
+    compile("com.facebook.stetho:stetho-timber:$STETHO_VERSION") {
+        exclude group: 'com.jakewharton.timber'
+    }
 
     // Unit testing dependencies.
     testCompile 'junit:junit:4.12'

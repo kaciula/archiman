@@ -1,6 +1,8 @@
 package com.kaciula.archiman.infrastructure;
 
 import com.crashlytics.android.Crashlytics;
+import com.facebook.stetho.Stetho;
+import com.facebook.stetho.timber.StethoTree;
 import com.kaciula.archiman.BuildConfig;
 import com.kaciula.archiman.domain.usecase.InitColdStart;
 import com.kaciula.archiman.presentation.util.DevDrawer;
@@ -30,6 +32,8 @@ public class ArchimanApplication extends BaseApplication {
       DevDrawer.setupLogging();
       LeakCanary.install(this);
       FpsReporter.start(this);
+      Stetho.initializeWithDefaults(this);
+      Timber.plant(new StethoTree());
     } else {
       Thread.UncaughtExceptionHandler uncaughtExceptionHandler =
           new ArchimanUncaughtExceptionHandler(getContext());
