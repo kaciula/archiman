@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.kaciula.archiman">
+
+    <application
+        android:name=".infrastructure.ReleaseArchimanApplication"
+        android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_rules"
+        tools:replace="android:name" />
+</manifest>

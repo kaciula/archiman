@@ -14,7 +14,7 @@ public abstract class ArchimanActivity extends AppCompatActivity {
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    if (ArchimanApplication.isCrashlyticsUsed()) {
+    if (ArchimanApplication.get().isCrashlyticsUsed()) {
       Crashlytics.setString("current screen", getLocalClassName());
     }
   }
