@@ -1,7 +1,6 @@
 package com.kaciula.archiman.presentation.screen.home;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -47,11 +46,8 @@ public class UserDialogFragment extends AppCompatDialogFragment {
     ButterKnife.bind(this, view);
     setup();
     builder.setView(view);
-    builder.setPositiveButton(R.string.all_ok, new DialogInterface.OnClickListener() {
-      public void onClick(DialogInterface dialog, int id) {
-        presenter.onClickOkUserDialog(user());
-      }
-    });
+    builder.setPositiveButton(R.string.all_ok,
+        (dialog, id) -> presenter.onClickOkUserDialog(user()));
     return builder.create();
   }
 
