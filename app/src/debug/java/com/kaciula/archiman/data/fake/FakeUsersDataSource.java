@@ -1,5 +1,6 @@
-package com.kaciula.archiman.data;
+package com.kaciula.archiman.data.fake;
 
+import com.kaciula.archiman.data.UsersDataSource;
 import com.kaciula.archiman.domain.entity.User;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
