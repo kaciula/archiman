@@ -93,3 +93,7 @@
 -dontwarn javax.annotation.**
 -dontwarn javax.inject.**
 -dontwarn sun.misc.Unsafe
+
+#-------- Retrolambda START -------
+-dontwarn java.lang.invoke.*
+#-------- Retrolambda END -------
