@@ -3,7 +3,9 @@ package com.kaciula.archiman.util.log;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
+
 import com.kaciula.archiman.R;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,6 +17,7 @@ import java.util.Calendar;
 import java.util.Deque;
 import java.util.List;
 import java.util.Locale;
+
 import timber.log.Timber;
 
 public class LumberYard {
@@ -118,14 +121,14 @@ public class LumberYard {
 
     } catch (IOException exception) {
       listener.onError(exception.getMessage());
-      Timber.w(exception, exception.getMessage());
+        Timber.w(exception);
     } finally {
       if (fileWriter != null) {
         try {
           fileWriter.close();
         } catch (IOException exception) {
           listener.onError(exception.getMessage());
-          Timber.w(exception, exception.getMessage());
+            Timber.w(exception);
         }
       }
     }
