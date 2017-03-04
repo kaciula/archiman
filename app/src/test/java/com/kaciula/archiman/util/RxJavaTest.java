@@ -2,7 +2,6 @@ package com.kaciula.archiman.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.kaciula.archiman.data.remote.StackExchangeApi;
 import com.kaciula.archiman.data.remote.response.UsersResponse;
 import com.kaciula.archiman.data.util.gson.ApiGsonAdapterFactory;
@@ -11,18 +10,22 @@ import com.kaciula.archiman.data.util.gson.GsonLocalDateAdapter;
 import com.kaciula.archiman.data.util.gson.GsonLocalDateTimeAdapter;
 import com.kaciula.archiman.data.util.gson.GsonLocalTimeAdapter;
 import com.kaciula.archiman.data.util.gson.GsonLongTypeAdapter;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
-import java.util.concurrent.CountDownLatch;
-import okhttp3.OkHttpClient;
+
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.concurrent.CountDownLatch;
+
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RxJavaTest {

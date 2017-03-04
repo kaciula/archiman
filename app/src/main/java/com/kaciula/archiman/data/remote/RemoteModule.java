@@ -1,32 +1,34 @@
 package com.kaciula.archiman.data.remote;
 
 import com.google.gson.Gson;
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.kaciula.archiman.util.injection.OkHttpModule;
+
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
-import javax.inject.Singleton;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module(includes = OkHttpModule.class)
 public class RemoteModule {
 
-  @Provides
-  @Singleton
-  OkHttpClient.Builder provideOkHttpClientBuilder() {
-    return new OkHttpClient.Builder();
-  }
+    @Provides
+    @Singleton
+    OkHttpClient.Builder provideOkHttpClientBuilder() {
+        return new OkHttpClient.Builder();
+    }
 
-  @Provides
-  @Singleton
-  StackExchangeApi provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
-    return new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .baseUrl("https://api.stackexchange.com/2.2/").client(okHttpClient).build()
-        .create(StackExchangeApi.class);
-  }
+    @Provides
+    @Singleton
+    StackExchangeApi provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
+        return new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .baseUrl("https://api.stackexchange.com/2.2/").client(okHttpClient).build()
+                .create(StackExchangeApi.class);
+    }
 
   /*// always verify the host - dont check for certificate
   private static final HostnameVerifier DO_NOT_VERIFY = new HostnameVerifier() {
