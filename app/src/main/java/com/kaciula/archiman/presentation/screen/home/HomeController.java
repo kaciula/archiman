@@ -71,7 +71,7 @@ public class HomeController extends BaseController implements HomeContract.View 
     recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
     recyclerView.setLayoutManager(
         new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-    adapter = new UserAdapter(getActivity(), new ArrayList<UserViewModel>(), presenter);
+    adapter = new UserAdapter(getActivity(), new ArrayList<>(), presenter);
     recyclerView.setAdapter(adapter);
   }
 

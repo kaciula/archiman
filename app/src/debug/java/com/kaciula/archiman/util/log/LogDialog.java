@@ -1,7 +1,6 @@
 package com.kaciula.archiman.util.log;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
@@ -30,18 +29,10 @@ public class LogDialog extends AlertDialog {
 
     setTitle("Logs");
     setView(listView);
-    setButton(BUTTON_NEGATIVE, "Close", new DialogInterface.OnClickListener() {
-      @Override
-      public void onClick(DialogInterface dialog, int which) {
-                /* no-op */
-      }
+    setButton(BUTTON_NEGATIVE, "Close", (dialog, which) -> {
+              /* no-op */
     });
-    setButton(BUTTON_POSITIVE, "Share", new DialogInterface.OnClickListener() {
-      @Override
-      public void onClick(DialogInterface dialog, int which) {
-        share();
-      }
-    });
+    setButton(BUTTON_POSITIVE, "Share", (dialog, which) -> share());
   }
 
   @Override
@@ -52,22 +43,11 @@ public class LogDialog extends AlertDialog {
 
     adapter.setLogs(lumberYard.bufferedLogs());
 
-    lumberYard.setOnLogListener(new LumberYard.OnLogListener() {
-      @Override
-      public void onLog(LogEntry logEntry) {
-
-        addLogEntry(logEntry);
-      }
-    });
+    lumberYard.setOnLogListener(logEntry -> addLogEntry(logEntry));
   }
 
   private void addLogEntry(final LogEntry logEntry) {
-    handler.post(new Runnable() {
-      @Override
-      public void run() {
-        adapter.addLog(logEntry);
-      }
-    });
+    handler.post(() -> adapter.addLog(logEntry));
   }
 
   @Override

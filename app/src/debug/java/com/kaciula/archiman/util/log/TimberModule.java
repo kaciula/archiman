@@ -14,12 +14,8 @@ public class TimberModule implements DebugModule {
   public View onCreateView(@NonNull LayoutInflater inflater, @NonNull final ViewGroup parent) {
     View view = inflater.inflate(R.layout.dd_debug_drawer_module_log, parent, false);
 
-    view.findViewById(R.id.dd_button_log).setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        new LogDialog(parent.getContext()).show();
-      }
-    });
+    view.findViewById(R.id.dd_button_log)
+        .setOnClickListener(view1 -> new LogDialog(parent.getContext()).show());
 
     return view;
   }

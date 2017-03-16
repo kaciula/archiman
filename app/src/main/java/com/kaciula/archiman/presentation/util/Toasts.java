@@ -15,12 +15,7 @@ public class Toasts {
     if (Looper.myLooper() == Looper.getMainLooper()) {
       Toast.makeText(ctx, message, Toast.LENGTH_SHORT).show();
     } else {
-      MAIN_THREAD.post(new Runnable() {
-        @Override
-        public void run() {
-          Toast.makeText(ctx, message, Toast.LENGTH_SHORT).show();
-        }
-      });
+      MAIN_THREAD.post(() -> Toast.makeText(ctx, message, Toast.LENGTH_SHORT).show());
     }
   }
 
@@ -29,12 +24,8 @@ public class Toasts {
     if (Looper.myLooper() == Looper.getMainLooper()) {
       Toast.makeText(ctx, ctx.getString(messageId, args), Toast.LENGTH_SHORT).show();
     } else {
-      MAIN_THREAD.post(new Runnable() {
-        @Override
-        public void run() {
-          Toast.makeText(ctx, ctx.getString(messageId, args), Toast.LENGTH_SHORT).show();
-        }
-      });
+      MAIN_THREAD.post(
+          () -> Toast.makeText(ctx, ctx.getString(messageId, args), Toast.LENGTH_SHORT).show());
     }
   }
 
@@ -43,12 +34,7 @@ public class Toasts {
     if (Looper.myLooper() == Looper.getMainLooper()) {
       Toast.makeText(ctx, message, Toast.LENGTH_LONG).show();
     } else {
-      MAIN_THREAD.post(new Runnable() {
-        @Override
-        public void run() {
-          Toast.makeText(ctx, message, Toast.LENGTH_LONG).show();
-        }
-      });
+      MAIN_THREAD.post(() -> Toast.makeText(ctx, message, Toast.LENGTH_LONG).show());
     }
   }
 
@@ -57,12 +43,8 @@ public class Toasts {
     if (Looper.myLooper() == Looper.getMainLooper()) {
       Toast.makeText(ctx, ctx.getString(messageId, args), Toast.LENGTH_LONG).show();
     } else {
-      MAIN_THREAD.post(new Runnable() {
-        @Override
-        public void run() {
-          Toast.makeText(ctx, ctx.getString(messageId, args), Toast.LENGTH_LONG).show();
-        }
-      });
+      MAIN_THREAD.post(
+          () -> Toast.makeText(ctx, ctx.getString(messageId, args), Toast.LENGTH_LONG).show());
     }
   }
 }
