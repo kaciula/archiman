@@ -29,7 +29,7 @@ class HomePresenter implements HomeContract.Presenter {
 
   @Override
   public void setup() {
-    view.setup();
+    view.render(HomeViewModel.Initial.create());
   }
 
   @Override
@@ -64,7 +64,7 @@ class HomePresenter implements HomeContract.Presenter {
 
   private void refresh() {
     Timber.d("Start refresh");
-    view.showProgress();
+    view.render(HomeViewModel.Progress.create());
 
     disposables.add(getUsers.execute(GetUsers.RequestModel.create())
         .map(responseModel -> {
@@ -72,7 +72,7 @@ class HomePresenter implements HomeContract.Presenter {
           for (User user : responseModel.users()) {
             users.add(UserViewModel.create(user.name()));
           }
-          return HomeViewModel.create(users);
+          return HomeViewModel.Content.create(users);
         })
         .subscribeOn(schedulerProvider.io())
         .observeOn(schedulerProvider.ui())
@@ -84,14 +84,13 @@ class HomePresenter implements HomeContract.Presenter {
     @Override
     public void onNext(HomeViewModel homeViewModel) {
       Timber.d("Received next data");
-      view.updateContent(homeViewModel);
-      view.showContent();
+      view.render(homeViewModel);
     }
 
     @Override
     public void onError(Throwable throwable) {
       Timber.d(throwable, "Received error");
-      view.showError();
+      view.render(HomeViewModel.Error.create());
     }
 
     @Override

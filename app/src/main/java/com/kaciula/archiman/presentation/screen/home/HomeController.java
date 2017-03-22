@@ -23,8 +23,7 @@ public class HomeController extends BaseController implements HomeContract.View 
   private static final int CHILD_PROGRESS = 1;
   private static final int CHILD_ERROR = 2;
 
-  @Inject
-  HomeContract.Presenter presenter;
+  @Inject HomeContract.Presenter presenter;
   private HomeComponent component;
 
   @BindView(R.id.flipper) ViewFlipper flipper;
@@ -67,35 +66,6 @@ public class HomeController extends BaseController implements HomeContract.View 
   }
 
   @Override
-  public void setup() {
-    recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
-    recyclerView.setLayoutManager(
-        new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-    adapter = new UserAdapter(getActivity(), new ArrayList<>(), presenter);
-    recyclerView.setAdapter(adapter);
-  }
-
-  @Override
-  public void updateContent(HomeViewModel data) {
-    adapter.setItems(data.users());
-  }
-
-  @Override
-  public void showContent() {
-    flipper.setDisplayedChild(CHILD_CONTENT);
-  }
-
-  @Override
-  public void showProgress() {
-    flipper.setDisplayedChild(CHILD_PROGRESS);
-  }
-
-  @Override
-  public void showError() {
-    flipper.setDisplayedChild(CHILD_ERROR);
-  }
-
-  @Override
   public void showUserDialog(UserViewModel user) {
     getDialogShowman().show(UserDialogFragment.newInstance(user));
   }
@@ -103,6 +73,41 @@ public class HomeController extends BaseController implements HomeContract.View 
   @Override
   public void showUserMessage(UserViewModel user) {
     Toasts.show("Before orientation change, last user clicked was " + user.toString());
+  }
+
+  @Override
+  public void render(HomeViewModel viewModel) {
+    if (viewModel instanceof HomeViewModel.Initial) {
+      renderInitial();
+    } else if (viewModel instanceof HomeViewModel.Progress) {
+      renderProgress();
+    } else if (viewModel instanceof HomeViewModel.Content) {
+      HomeViewModel.Content content = (HomeViewModel.Content) viewModel;
+      renderContent(content);
+    } else if (viewModel instanceof HomeViewModel.Error) {
+      renderError();
+    }
+  }
+
+  private void renderInitial() {
+    recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
+    recyclerView.setLayoutManager(
+        new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+    adapter = new UserAdapter(getActivity(), new ArrayList<>(), presenter);
+    recyclerView.setAdapter(adapter);
+  }
+
+  private void renderProgress() {
+    flipper.setDisplayedChild(CHILD_PROGRESS);
+  }
+
+  private void renderContent(HomeViewModel.Content viewModel) {
+    adapter.setItems(viewModel.users());
+    flipper.setDisplayedChild(CHILD_CONTENT);
+  }
+
+  private void renderError() {
+    flipper.setDisplayedChild(CHILD_ERROR);
   }
 
   @OnClick(R.id.btn_retry)

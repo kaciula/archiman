@@ -6,19 +6,11 @@ public interface HomeContract {
 
   interface View {
 
-    void updateContent(HomeViewModel data);
-
-    void showContent();
-
-    void showProgress();
-
-    void showError();
-
     void showUserDialog(UserViewModel user);
 
     void showUserMessage(UserViewModel user);
 
-    void setup();
+    void render(HomeViewModel viewModel);
   }
 
 
