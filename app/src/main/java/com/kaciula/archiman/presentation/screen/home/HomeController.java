@@ -12,7 +12,6 @@ import butterknife.OnClick;
 import com.kaciula.archiman.R;
 import com.kaciula.archiman.infrastructure.ArchimanApplication;
 import com.kaciula.archiman.presentation.util.BaseController;
-import com.kaciula.archiman.presentation.util.Toasts;
 import com.kaciula.archiman.presentation.widget.DividerItemDecoration;
 import java.util.ArrayList;
 import javax.inject.Inject;
@@ -63,13 +62,6 @@ public class HomeController extends BaseController implements HomeContract.View 
   protected void onDetach(@NonNull View view) {
     presenter.stop();
     super.onDetach(view);
-  }
-
-
-
-  @Override
-  public void showUserMessage(UserViewModel user) {
-    Toasts.show("Before orientation change, last user clicked was " + user.toString());
   }
 
   @Override

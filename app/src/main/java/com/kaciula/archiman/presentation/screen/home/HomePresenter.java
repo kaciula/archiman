@@ -18,7 +18,6 @@ class HomePresenter implements HomeContract.Presenter {
 
   private final CompositeDisposable disposables;
   private HomeViewModel viewModel;
-  private UserViewModel lastClickedUser;
 
   HomePresenter(HomeContract.View view, BaseSchedulerProvider schedulerProvider,
       GetUsers getUsers) {
@@ -30,15 +29,12 @@ class HomePresenter implements HomeContract.Presenter {
 
   @Override
   public void setup() {
-    view.render(HomeViewModel.Initial.create());
+    viewModel = HomeViewModel.Initial.create();
+    view.render(viewModel);
   }
 
   @Override
   public void start() {
-    // Do stuff if we have retained state
-    if (lastClickedUser != null) {
-      view.showUserMessage(lastClickedUser);
-    }
     refresh();
   }
 
@@ -63,7 +59,6 @@ class HomePresenter implements HomeContract.Presenter {
               .create(((HomeViewModel.ContentWithDialog) viewModel).users(), user);
     }
     view.render(viewModel);
-    lastClickedUser = user;
   }
 
   @Override
