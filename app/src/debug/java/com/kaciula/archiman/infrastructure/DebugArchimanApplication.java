@@ -12,6 +12,9 @@ public class DebugArchimanApplication extends ArchimanApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+    if (LeakCanary.isInAnalyzerProcess(this)) {
+      return;
+    }
 
     Timber.plant(new Timber.DebugTree());
     DevDrawer.setupLogging();
