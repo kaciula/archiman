@@ -65,10 +65,7 @@ public class HomeController extends BaseController implements HomeContract.View 
     super.onDetach(view);
   }
 
-  @Override
-  public void showUserDialog(UserViewModel user) {
-    getDialogShowman().show(UserDialogFragment.newInstance(user));
-  }
+
 
   @Override
   public void showUserMessage(UserViewModel user) {
@@ -86,6 +83,10 @@ public class HomeController extends BaseController implements HomeContract.View 
       renderContent(content);
     } else if (viewModel instanceof HomeViewModel.Error) {
       renderError();
+    } else if (viewModel instanceof HomeViewModel.ContentWithDialog) {
+      HomeViewModel.ContentWithDialog contentWithDialog =
+          (HomeViewModel.ContentWithDialog) viewModel;
+      renderUserDialog(contentWithDialog.user());
     }
   }
 
@@ -108,6 +109,10 @@ public class HomeController extends BaseController implements HomeContract.View 
 
   private void renderError() {
     flipper.setDisplayedChild(CHILD_ERROR);
+  }
+
+  private void renderUserDialog(UserViewModel user) {
+    getDialogShowman().show(UserDialogFragment.newInstance(user));
   }
 
   @OnClick(R.id.btn_retry)

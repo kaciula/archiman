@@ -17,6 +17,7 @@ class HomePresenter implements HomeContract.Presenter {
   private final GetUsers getUsers;
 
   private final CompositeDisposable disposables;
+  private HomeViewModel viewModel;
   private UserViewModel lastClickedUser;
 
   HomePresenter(HomeContract.View view, BaseSchedulerProvider schedulerProvider,
@@ -53,7 +54,15 @@ class HomePresenter implements HomeContract.Presenter {
 
   @Override
   public void onClickUser(UserViewModel user) {
-    view.showUserDialog(user);
+    if (viewModel instanceof HomeViewModel.Content) {
+      viewModel =
+          HomeViewModel.ContentWithDialog.create(((HomeViewModel.Content) viewModel).users(), user);
+    } else if (viewModel instanceof HomeViewModel.ContentWithDialog) {
+      viewModel =
+          HomeViewModel.ContentWithDialog
+              .create(((HomeViewModel.ContentWithDialog) viewModel).users(), user);
+    }
+    view.render(viewModel);
     lastClickedUser = user;
   }
 
@@ -64,7 +73,8 @@ class HomePresenter implements HomeContract.Presenter {
 
   private void refresh() {
     Timber.d("Start refresh");
-    view.render(HomeViewModel.Progress.create());
+    viewModel = HomeViewModel.Progress.create();
+    view.render(viewModel);
 
     disposables.add(getUsers.execute(GetUsers.RequestModel.create())
         .map(responseModel -> {
@@ -73,6 +83,9 @@ class HomePresenter implements HomeContract.Presenter {
             users.add(UserViewModel.create(user.name()));
           }
           return HomeViewModel.Content.create(users);
+        })
+        .doOnNext(homeViewModel -> {
+          viewModel = homeViewModel;
         })
         .subscribeOn(schedulerProvider.io())
         .observeOn(schedulerProvider.ui())
@@ -84,13 +97,15 @@ class HomePresenter implements HomeContract.Presenter {
     @Override
     public void onNext(HomeViewModel homeViewModel) {
       Timber.d("Received next data");
-      view.render(homeViewModel);
+      viewModel = homeViewModel;
+      view.render(viewModel);
     }
 
     @Override
     public void onError(Throwable throwable) {
       Timber.d(throwable, "Received error");
-      view.render(HomeViewModel.Error.create());
+      viewModel = HomeViewModel.Error.create();
+      view.render(viewModel);
     }
 
     @Override

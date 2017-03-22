@@ -37,4 +37,17 @@ interface HomeViewModel {
       return new AutoValue_HomeViewModel_Error();
     }
   }
+
+
+  @AutoValue
+  abstract class ContentWithDialog implements HomeViewModel {
+    public abstract List<UserViewModel> users();
+
+    public abstract UserViewModel user();
+
+    public static HomeViewModel create(List<UserViewModel> users, UserViewModel user) {
+      return new AutoValue_HomeViewModel_ContentWithDialog(users, user);
+    }
+  }
+
 }

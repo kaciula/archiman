@@ -6,8 +6,6 @@ public interface HomeContract {
 
   interface View {
 
-    void showUserDialog(UserViewModel user);
-
     void showUserMessage(UserViewModel user);
 
     void render(HomeViewModel viewModel);
