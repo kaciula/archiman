@@ -1,14 +1,23 @@
 package com.kaciula.archiman.presentation.screen.home;
 
+import com.jakewharton.rxrelay2.PublishRelay;
 import com.kaciula.archiman.domain.entity.User;
 import com.kaciula.archiman.domain.usecase.GetUsers;
+import com.kaciula.archiman.presentation.screen.home.event.ClickOkUserDialogEvent;
+import com.kaciula.archiman.presentation.screen.home.event.ClickOkUserDialogResult;
+import com.kaciula.archiman.presentation.screen.home.event.ClickUserEvent;
+import com.kaciula.archiman.presentation.screen.home.event.ClickUserResult;
+import com.kaciula.archiman.presentation.screen.home.event.GetUsersEvent;
+import com.kaciula.archiman.presentation.screen.home.event.HomeViewEvent;
 import com.kaciula.archiman.presentation.util.Toasts;
+import com.kaciula.archiman.util.GenericResult;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
+import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.exceptions.OnErrorNotImplementedException;
 import io.reactivex.observers.DisposableObserver;
 import java.util.ArrayList;
 import java.util.List;
-import timber.log.Timber;
 
 class HomePresenter implements HomeContract.Presenter {
 
@@ -17,7 +26,7 @@ class HomePresenter implements HomeContract.Presenter {
   private final GetUsers getUsers;
 
   private final CompositeDisposable disposables;
-  private HomeViewModel viewModel;
+  private PublishRelay<HomeViewEvent> flowRelay;
 
   HomePresenter(HomeContract.View view, BaseSchedulerProvider schedulerProvider,
       GetUsers getUsers) {
@@ -25,17 +34,17 @@ class HomePresenter implements HomeContract.Presenter {
     this.schedulerProvider = schedulerProvider;
     this.getUsers = getUsers;
     disposables = new CompositeDisposable();
+    flowRelay = PublishRelay.create();
   }
 
   @Override
   public void setup() {
-    viewModel = HomeViewModel.Initial.create();
-    view.render(viewModel);
+    setupFlow();
   }
 
   @Override
   public void start() {
-    refresh();
+    flowRelay.accept(GetUsersEvent.create());
   }
 
   @Override
@@ -45,62 +54,73 @@ class HomePresenter implements HomeContract.Presenter {
 
   @Override
   public void onClickRetry() {
-    refresh();
+    flowRelay.accept(GetUsersEvent.create());
   }
 
   @Override
   public void onClickUser(UserViewModel user) {
-    if (viewModel instanceof HomeViewModel.Content) {
-      viewModel =
-          HomeViewModel.ContentWithDialog.create(((HomeViewModel.Content) viewModel).users(), user);
-    } else if (viewModel instanceof HomeViewModel.ContentWithDialog) {
-      viewModel =
-          HomeViewModel.ContentWithDialog
-              .create(((HomeViewModel.ContentWithDialog) viewModel).users(), user);
-    }
-    view.render(viewModel);
+    flowRelay.accept(ClickUserEvent.create(user));
   }
 
   @Override
   public void onClickOkUserDialog(UserViewModel user) {
-    Toasts.show("Clicked OK on user dialog for user " + user.name());
+    flowRelay.accept(ClickOkUserDialogEvent.create());
   }
 
-  private void refresh() {
-    Timber.d("Start refresh");
-    viewModel = HomeViewModel.Progress.create();
-    view.render(viewModel);
+  private void setupFlow() {
+    Observable<GenericResult> results = flowRelay
+        .publish(shared -> Observable.merge(
+            shared.ofType(GetUsersEvent.class)
+                .flatMap(ignored -> getUsers.execute(GetUsers.RequestModel.create())),
+            shared.ofType(ClickUserEvent.class)
+                .flatMap(clickUserEvent -> Observable
+                    .just(ClickUserResult.create(clickUserEvent.user()))),
+            shared.ofType(ClickOkUserDialogEvent.class)
+                .flatMap(
+                    clickOkUserDialogEvent -> Observable.just(ClickOkUserDialogResult.create())))
+        );
 
-    disposables.add(getUsers.execute(GetUsers.RequestModel.create())
-        .map(responseModel -> {
-          List<UserViewModel> users = new ArrayList<>(responseModel.users().size());
-          for (User user : responseModel.users()) {
-            users.add(UserViewModel.create(user.name()));
+    Observable<HomeViewModel> viewModels = results
+        .scan(HomeViewModel.initial(), (viewModel, result) -> {
+          if (result instanceof GetUsers.ResponseModel) {
+            GetUsers.ResponseModel responseModel = (GetUsers.ResponseModel) result;
+            if (responseModel.inFlight()) {
+              return HomeViewModel.progress();
+            } else if (responseModel.isError()) {
+              return HomeViewModel.error();
+            } else {
+              List<UserViewModel> users = new ArrayList<>(responseModel.users().size());
+              for (User user : responseModel.users()) {
+                users.add(UserViewModel.create(user.name()));
+              }
+              return HomeViewModel.content(users);
+            }
+          } else if (result instanceof ClickUserResult) {
+            ClickUserResult result1 = ((ClickUserResult) result);
+            return viewModel.toBuilder().showUserDialog(true).dialogUser(result1.user()).build();
+          } else if (result instanceof ClickOkUserDialogResult) {
+            Toasts.show("Clicked OK on user dialog for user " + viewModel.dialogUser());
+            return viewModel.toBuilder().showUserDialog(false).dialogUser(null).build();
           }
-          return HomeViewModel.Content.create(users);
-        })
-        .doOnNext(homeViewModel -> {
-          viewModel = homeViewModel;
-        })
-        .subscribeOn(schedulerProvider.io())
+          throw new IllegalArgumentException(
+              "No view model representation for this kind of result");
+        });
+
+    disposables.add(viewModels
         .observeOn(schedulerProvider.ui())
-        .subscribeWith(new RefreshSubscriber()));
+        .subscribeWith(new FlowSubscriber()));
   }
 
-  private final class RefreshSubscriber extends DisposableObserver<HomeViewModel> {
+  private final class FlowSubscriber extends DisposableObserver<HomeViewModel> {
 
     @Override
-    public void onNext(HomeViewModel homeViewModel) {
-      Timber.d("Received next data");
-      viewModel = homeViewModel;
+    public void onNext(HomeViewModel viewModel) {
       view.render(viewModel);
     }
 
     @Override
     public void onError(Throwable throwable) {
-      Timber.d(throwable, "Received error");
-      viewModel = HomeViewModel.Error.create();
-      view.render(viewModel);
+      throw new OnErrorNotImplementedException(throwable);
     }
 
     @Override

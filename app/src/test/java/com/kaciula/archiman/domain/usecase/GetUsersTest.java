@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 
 import com.kaciula.archiman.domain.entity.User;
 import com.kaciula.archiman.domain.repository.UsersRepository;
+import com.kaciula.archiman.util.scheduler.TrampolineSchedulerProvider;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -27,7 +28,7 @@ public class GetUsersTest {
   public void setupUseCase() {
     MockitoAnnotations.initMocks(this);
 
-    useCase = new GetUsers(usersRepository);
+    useCase = new GetUsers(usersRepository, new TrampolineSchedulerProvider());
   }
 
   @Test

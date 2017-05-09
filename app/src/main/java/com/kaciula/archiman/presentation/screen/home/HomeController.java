@@ -66,45 +66,22 @@ public class HomeController extends BaseController implements HomeContract.View 
 
   @Override
   public void render(HomeViewModel viewModel) {
-    if (viewModel instanceof HomeViewModel.Initial) {
-      renderInitial();
-    } else if (viewModel instanceof HomeViewModel.Progress) {
-      renderProgress();
-    } else if (viewModel instanceof HomeViewModel.Content) {
-      HomeViewModel.Content content = (HomeViewModel.Content) viewModel;
-      renderContent(content);
-    } else if (viewModel instanceof HomeViewModel.Error) {
-      renderError();
-    } else if (viewModel instanceof HomeViewModel.ContentWithDialog) {
-      HomeViewModel.ContentWithDialog contentWithDialog =
-          (HomeViewModel.ContentWithDialog) viewModel;
-      renderUserDialog(contentWithDialog.user());
+    if (viewModel.isInitial()) {
+      recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
+      recyclerView.setLayoutManager(
+          new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+      adapter = new UserAdapter(getActivity(), new ArrayList<>(), presenter);
+      recyclerView.setAdapter(adapter);
+    } else if (viewModel.isProgress()) {
+      flipper.setDisplayedChild(CHILD_PROGRESS);
+    } else if (viewModel.isError()) {
+      flipper.setDisplayedChild(CHILD_ERROR);
+    } else if (viewModel.showUserDialog()) {
+      getDialogShowman().show(UserDialogFragment.newInstance(viewModel.dialogUser()));
+    } else {
+      adapter.setItems(viewModel.users());
+      flipper.setDisplayedChild(CHILD_CONTENT);
     }
-  }
-
-  private void renderInitial() {
-    recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
-    recyclerView.setLayoutManager(
-        new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-    adapter = new UserAdapter(getActivity(), new ArrayList<>(), presenter);
-    recyclerView.setAdapter(adapter);
-  }
-
-  private void renderProgress() {
-    flipper.setDisplayedChild(CHILD_PROGRESS);
-  }
-
-  private void renderContent(HomeViewModel.Content viewModel) {
-    adapter.setItems(viewModel.users());
-    flipper.setDisplayedChild(CHILD_CONTENT);
-  }
-
-  private void renderError() {
-    flipper.setDisplayedChild(CHILD_ERROR);
-  }
-
-  private void renderUserDialog(UserViewModel user) {
-    getDialogShowman().show(UserDialogFragment.newInstance(user));
   }
 
   @OnClick(R.id.btn_retry)

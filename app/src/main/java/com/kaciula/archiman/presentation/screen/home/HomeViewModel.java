@@ -1,53 +1,101 @@
 package com.kaciula.archiman.presentation.screen.home;
 
 import com.google.auto.value.AutoValue;
+import io.reactivex.annotations.Nullable;
 import java.util.List;
 
-interface HomeViewModel {
+@AutoValue
+public abstract class HomeViewModel {
 
-  @AutoValue
-  abstract class Initial implements HomeViewModel {
-    public static Initial create() {
-      return new AutoValue_HomeViewModel_Initial();
-    }
+  public abstract boolean isInitial();
+
+  public abstract boolean isProgress();
+
+  @Nullable
+  public abstract List<UserViewModel> users();
+
+  public abstract boolean isError();
+
+  public abstract boolean showUserDialog();
+
+  @Nullable
+  public abstract UserViewModel dialogUser();
+
+  public static Builder builder() {
+    return new AutoValue_HomeViewModel.Builder();
   }
 
-
-  @AutoValue
-  abstract class Progress implements HomeViewModel {
-    public static Progress create() {
-      return new AutoValue_HomeViewModel_Progress();
-    }
+  static HomeViewModel initial() {
+    return builder()
+        .isInitial(true)
+        .isProgress(false)
+        .users(null)
+        .isError(false)
+        .showUserDialog(false)
+        .dialogUser(null)
+        .build();
   }
 
-
-  @AutoValue
-  abstract class Content implements HomeViewModel {
-    public abstract List<UserViewModel> users();
-
-    public static HomeViewModel create(List<UserViewModel> users) {
-      return new AutoValue_HomeViewModel_Content(users);
-    }
+  static HomeViewModel progress() {
+    return builder()
+        .isInitial(false)
+        .isProgress(true)
+        .users(null)
+        .isError(false)
+        .showUserDialog(false)
+        .dialogUser(null)
+        .build();
   }
 
-
-  @AutoValue
-  abstract class Error implements HomeViewModel {
-    public static Error create() {
-      return new AutoValue_HomeViewModel_Error();
-    }
+  static HomeViewModel content(List<UserViewModel> users) {
+    return builder()
+        .isInitial(false)
+        .isProgress(false)
+        .users(users)
+        .isError(false)
+        .showUserDialog(false)
+        .dialogUser(null)
+        .build();
   }
 
-
-  @AutoValue
-  abstract class ContentWithDialog implements HomeViewModel {
-    public abstract List<UserViewModel> users();
-
-    public abstract UserViewModel user();
-
-    public static HomeViewModel create(List<UserViewModel> users, UserViewModel user) {
-      return new AutoValue_HomeViewModel_ContentWithDialog(users, user);
-    }
+  static HomeViewModel error() {
+    return builder()
+        .isInitial(false)
+        .isProgress(false)
+        .users(null)
+        .isError(true)
+        .showUserDialog(false)
+        .dialogUser(null)
+        .build();
   }
 
+  static HomeViewModel contentWithDialog(UserViewModel user) {
+    return builder()
+        .isInitial(false)
+        .isProgress(false)
+        .users(null)
+        .isError(false)
+        .showUserDialog(true)
+        .dialogUser(user)
+        .build();
+  }
+
+  abstract Builder toBuilder();
+
+  @AutoValue.Builder
+  public abstract static class Builder {
+    public abstract Builder isInitial(boolean isInitial);
+
+    public abstract Builder isProgress(boolean isProgress);
+
+    public abstract Builder users(List<UserViewModel> users);
+
+    public abstract Builder isError(boolean isError);
+
+    public abstract Builder showUserDialog(boolean showUserDialog);
+
+    public abstract Builder dialogUser(UserViewModel dialogUser);
+
+    public abstract HomeViewModel build();
+  }
 }
