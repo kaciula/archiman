@@ -17,5 +17,7 @@ public interface HomeContract {
     void onClickUser(UserViewModel user);
 
     void onClickOkUserDialog(UserViewModel user);
+
+    void onCancelUserDialog();
   }
 }

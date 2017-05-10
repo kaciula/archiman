@@ -1,6 +1,7 @@
 package com.kaciula.archiman.presentation.screen.home;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -49,6 +50,12 @@ public class UserDialogFragment extends AppCompatDialogFragment {
     builder.setPositiveButton(R.string.all_ok,
         (dialog, id) -> presenter.onClickOkUserDialog(user()));
     return builder.create();
+  }
+
+  @Override
+  public void onCancel(DialogInterface dialog) {
+    super.onCancel(dialog);
+    presenter.onCancelUserDialog();
   }
 
   private void setup() {

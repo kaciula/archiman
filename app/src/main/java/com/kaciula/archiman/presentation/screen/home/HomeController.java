@@ -65,6 +65,12 @@ public class HomeController extends BaseController implements HomeContract.View 
   }
 
   @Override
+  protected void onDestroy() {
+    presenter.destroy();
+    super.onDestroy();
+  }
+
+  @Override
   public void render(HomeViewModel viewModel) {
     if (viewModel.isInitial()) {
       recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
@@ -77,11 +83,18 @@ public class HomeController extends BaseController implements HomeContract.View 
     } else if (viewModel.isError()) {
       flipper.setDisplayedChild(CHILD_ERROR);
     } else if (viewModel.showUserDialog()) {
-      getDialogShowman().show(UserDialogFragment.newInstance(viewModel.dialogUser()));
+      showContent(viewModel);
+      if (!viewModel.isOrientationChange()) {
+        getDialogShowman().show(UserDialogFragment.newInstance(viewModel.dialogUser()));
+      }
     } else {
-      adapter.setItems(viewModel.users());
-      flipper.setDisplayedChild(CHILD_CONTENT);
+      showContent(viewModel);
     }
+  }
+
+  private void showContent(HomeViewModel viewModel) {
+    adapter.setItems(viewModel.users());
+    flipper.setDisplayedChild(CHILD_CONTENT);
   }
 
   @OnClick(R.id.btn_retry)

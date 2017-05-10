@@ -3,13 +3,16 @@ package com.kaciula.archiman.presentation.screen.home;
 import com.jakewharton.rxrelay2.PublishRelay;
 import com.kaciula.archiman.domain.entity.User;
 import com.kaciula.archiman.domain.usecase.GetUsers;
+import com.kaciula.archiman.presentation.screen.home.event.CancelUserDialogEvent;
+import com.kaciula.archiman.presentation.screen.home.event.CancelUserDialogResult;
 import com.kaciula.archiman.presentation.screen.home.event.ClickOkUserDialogEvent;
 import com.kaciula.archiman.presentation.screen.home.event.ClickOkUserDialogResult;
 import com.kaciula.archiman.presentation.screen.home.event.ClickUserEvent;
 import com.kaciula.archiman.presentation.screen.home.event.ClickUserResult;
 import com.kaciula.archiman.presentation.screen.home.event.GetUsersEvent;
 import com.kaciula.archiman.presentation.screen.home.event.HomeViewEvent;
-import com.kaciula.archiman.presentation.util.Toasts;
+import com.kaciula.archiman.presentation.screen.home.event.OrientationChangeEvent;
+import com.kaciula.archiman.presentation.screen.home.event.OrientationChangeResult;
 import com.kaciula.archiman.util.GenericResult;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 import io.reactivex.Observable;
@@ -18,6 +21,7 @@ import io.reactivex.exceptions.OnErrorNotImplementedException;
 import io.reactivex.observers.DisposableObserver;
 import java.util.ArrayList;
 import java.util.List;
+import timber.log.Timber;
 
 class HomePresenter implements HomeContract.Presenter {
 
@@ -26,6 +30,7 @@ class HomePresenter implements HomeContract.Presenter {
   private final GetUsers getUsers;
 
   private final CompositeDisposable disposables;
+  private boolean isFirstOrientation;
   private PublishRelay<HomeViewEvent> flowRelay;
 
   HomePresenter(HomeContract.View view, BaseSchedulerProvider schedulerProvider,
@@ -34,21 +39,37 @@ class HomePresenter implements HomeContract.Presenter {
     this.schedulerProvider = schedulerProvider;
     this.getUsers = getUsers;
     disposables = new CompositeDisposable();
+    isFirstOrientation = true;
     flowRelay = PublishRelay.create();
   }
 
   @Override
   public void setup() {
-    setupFlow();
+    Timber.d("presenter setup");
+    if (isFirstOrientation) {
+      setupFlow();
+    } else {
+      flowRelay.accept(OrientationChangeEvent.create());
+    }
   }
 
   @Override
   public void start() {
-    flowRelay.accept(GetUsersEvent.create());
+    Timber.d("presenter start");
+    if (isFirstOrientation) {
+      isFirstOrientation = false;
+      flowRelay.accept(GetUsersEvent.create());
+    }
   }
 
   @Override
   public void stop() {
+    Timber.d("presenter stop");
+  }
+
+  @Override
+  public void destroy() {
+    Timber.d("presenter destroy");
     disposables.clear();
   }
 
@@ -67,6 +88,11 @@ class HomePresenter implements HomeContract.Presenter {
     flowRelay.accept(ClickOkUserDialogEvent.create());
   }
 
+  @Override
+  public void onCancelUserDialog() {
+    flowRelay.accept(CancelUserDialogEvent.create());
+  }
+
   private void setupFlow() {
     Observable<GenericResult> results = flowRelay
         .publish(shared -> Observable.merge(
@@ -75,9 +101,17 @@ class HomePresenter implements HomeContract.Presenter {
             shared.ofType(ClickUserEvent.class)
                 .flatMap(clickUserEvent -> Observable
                     .just(ClickUserResult.create(clickUserEvent.user()))),
-            shared.ofType(ClickOkUserDialogEvent.class)
+            Observable.merge(
+                shared.ofType(ClickOkUserDialogEvent.class)
+                    .flatMap(
+                        clickOkUserDialogEvent -> Observable.just(ClickOkUserDialogResult.create
+                            ())),
+                shared.ofType(CancelUserDialogEvent.class)
+                    .flatMap(
+                        cancelUserDialogEvent -> Observable.just(CancelUserDialogResult.create()))),
+            shared.ofType(OrientationChangeEvent.class)
                 .flatMap(
-                    clickOkUserDialogEvent -> Observable.just(ClickOkUserDialogResult.create())))
+                    orientationChangeEvent -> Observable.just(OrientationChangeResult.create())))
         );
 
     Observable<HomeViewModel> viewModels = results
@@ -97,10 +131,26 @@ class HomePresenter implements HomeContract.Presenter {
             }
           } else if (result instanceof ClickUserResult) {
             ClickUserResult result1 = ((ClickUserResult) result);
-            return viewModel.toBuilder().showUserDialog(true).dialogUser(result1.user()).build();
+            return viewModel.toBuilder()
+                .showUserDialog(true)
+                .dialogUser(result1.user())
+                .isOrientationChange(false)
+                .build();
           } else if (result instanceof ClickOkUserDialogResult) {
-            Toasts.show("Clicked OK on user dialog for user " + viewModel.dialogUser());
-            return viewModel.toBuilder().showUserDialog(false).dialogUser(null).build();
+            return viewModel.toBuilder()
+                .showUserDialog(false)
+                .dialogUser(null)
+                .isOrientationChange(false)
+                .build();
+          } else if (result instanceof CancelUserDialogResult) {
+            return viewModel.toBuilder()
+                .showUserDialog(false)
+                .dialogUser(null)
+                .isOrientationChange(false)
+                .build();
+          } else if (result instanceof OrientationChangeResult) {
+            view.render(HomeViewModel.initial());
+            return viewModel.toBuilder().isOrientationChange(true).build();
           }
           throw new IllegalArgumentException(
               "No view model representation for this kind of result");

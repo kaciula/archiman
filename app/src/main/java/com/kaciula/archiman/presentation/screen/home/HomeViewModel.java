@@ -21,6 +21,8 @@ public abstract class HomeViewModel {
   @Nullable
   public abstract UserViewModel dialogUser();
 
+  public abstract boolean isOrientationChange();
+
   public static Builder builder() {
     return new AutoValue_HomeViewModel.Builder();
   }
@@ -33,6 +35,7 @@ public abstract class HomeViewModel {
         .isError(false)
         .showUserDialog(false)
         .dialogUser(null)
+        .isOrientationChange(false)
         .build();
   }
 
@@ -44,6 +47,7 @@ public abstract class HomeViewModel {
         .isError(false)
         .showUserDialog(false)
         .dialogUser(null)
+        .isOrientationChange(false)
         .build();
   }
 
@@ -55,6 +59,7 @@ public abstract class HomeViewModel {
         .isError(false)
         .showUserDialog(false)
         .dialogUser(null)
+        .isOrientationChange(false)
         .build();
   }
 
@@ -66,17 +71,7 @@ public abstract class HomeViewModel {
         .isError(true)
         .showUserDialog(false)
         .dialogUser(null)
-        .build();
-  }
-
-  static HomeViewModel contentWithDialog(UserViewModel user) {
-    return builder()
-        .isInitial(false)
-        .isProgress(false)
-        .users(null)
-        .isError(false)
-        .showUserDialog(true)
-        .dialogUser(user)
+        .isOrientationChange(false)
         .build();
   }
 
@@ -95,6 +90,8 @@ public abstract class HomeViewModel {
     public abstract Builder showUserDialog(boolean showUserDialog);
 
     public abstract Builder dialogUser(UserViewModel dialogUser);
+
+    public abstract Builder isOrientationChange(boolean isOrientationChange);
 
     public abstract HomeViewModel build();
   }
