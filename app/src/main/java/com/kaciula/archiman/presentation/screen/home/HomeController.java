@@ -72,13 +72,15 @@ public class HomeController extends BaseController implements HomeContract.View 
 
   @Override
   public void render(HomeViewModel viewModel) {
-    if (viewModel.isInitial()) {
+    if (viewModel.initialize()) {
       recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
       recyclerView.setLayoutManager(
           new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
       adapter = new UserAdapter(getActivity(), new ArrayList<>(), presenter);
       recyclerView.setAdapter(adapter);
-    } else if (viewModel.isProgress()) {
+    }
+
+    if (viewModel.isProgress()) {
       flipper.setDisplayedChild(CHILD_PROGRESS);
     } else if (viewModel.isError()) {
       flipper.setDisplayedChild(CHILD_ERROR);
@@ -87,7 +89,7 @@ public class HomeController extends BaseController implements HomeContract.View 
       if (!viewModel.isOrientationChange()) {
         getDialogShowman().show(UserDialogFragment.newInstance(viewModel.dialogUser()));
       }
-    } else {
+    } else if (viewModel.isContent()) {
       showContent(viewModel);
     }
   }

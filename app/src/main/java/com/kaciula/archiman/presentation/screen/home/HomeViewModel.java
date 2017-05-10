@@ -7,9 +7,11 @@ import java.util.List;
 @AutoValue
 public abstract class HomeViewModel {
 
-  public abstract boolean isInitial();
+  public abstract boolean initialize();
 
   public abstract boolean isProgress();
+
+  public abstract boolean isContent();
 
   @Nullable
   public abstract List<UserViewModel> users();
@@ -27,10 +29,11 @@ public abstract class HomeViewModel {
     return new AutoValue_HomeViewModel.Builder();
   }
 
-  static HomeViewModel initial() {
+  static HomeViewModel justInitialize() {
     return builder()
-        .isInitial(true)
+        .initialize(true)
         .isProgress(false)
+        .isContent(false)
         .users(null)
         .isError(false)
         .showUserDialog(false)
@@ -41,8 +44,9 @@ public abstract class HomeViewModel {
 
   static HomeViewModel progress() {
     return builder()
-        .isInitial(false)
+        .initialize(false)
         .isProgress(true)
+        .isContent(false)
         .users(null)
         .isError(false)
         .showUserDialog(false)
@@ -53,8 +57,9 @@ public abstract class HomeViewModel {
 
   static HomeViewModel content(List<UserViewModel> users) {
     return builder()
-        .isInitial(false)
+        .initialize(false)
         .isProgress(false)
+        .isContent(true)
         .users(users)
         .isError(false)
         .showUserDialog(false)
@@ -65,8 +70,9 @@ public abstract class HomeViewModel {
 
   static HomeViewModel error() {
     return builder()
-        .isInitial(false)
+        .initialize(false)
         .isProgress(false)
+        .isContent(false)
         .users(null)
         .isError(true)
         .showUserDialog(false)
@@ -79,9 +85,11 @@ public abstract class HomeViewModel {
 
   @AutoValue.Builder
   public abstract static class Builder {
-    public abstract Builder isInitial(boolean isInitial);
+    public abstract Builder initialize(boolean initialize);
 
     public abstract Builder isProgress(boolean isProgress);
+
+    public abstract Builder isContent(boolean isContent);
 
     public abstract Builder users(List<UserViewModel> users);
 

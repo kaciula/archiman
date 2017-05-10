@@ -115,7 +115,7 @@ class HomePresenter implements HomeContract.Presenter {
         );
 
     Observable<HomeViewModel> viewModels = results
-        .scan(HomeViewModel.initial(), (viewModel, result) -> {
+        .scan(HomeViewModel.justInitialize(), (viewModel, result) -> {
           if (result instanceof GetUsers.ResponseModel) {
             GetUsers.ResponseModel responseModel = (GetUsers.ResponseModel) result;
             if (responseModel.inFlight()) {
@@ -135,22 +135,27 @@ class HomePresenter implements HomeContract.Presenter {
                 .showUserDialog(true)
                 .dialogUser(result1.user())
                 .isOrientationChange(false)
+                .initialize(false)
                 .build();
           } else if (result instanceof ClickOkUserDialogResult) {
             return viewModel.toBuilder()
                 .showUserDialog(false)
                 .dialogUser(null)
                 .isOrientationChange(false)
+                .initialize(false)
                 .build();
           } else if (result instanceof CancelUserDialogResult) {
             return viewModel.toBuilder()
                 .showUserDialog(false)
                 .dialogUser(null)
                 .isOrientationChange(false)
+                .initialize(false)
                 .build();
           } else if (result instanceof OrientationChangeResult) {
-            view.render(HomeViewModel.initial());
-            return viewModel.toBuilder().isOrientationChange(true).build();
+            return viewModel.toBuilder()
+                .isOrientationChange(true)
+                .initialize(true)
+                .build();
           }
           throw new IllegalArgumentException(
               "No view model representation for this kind of result");
