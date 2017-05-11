@@ -23,7 +23,7 @@ abstract class HomeViewModel {
   @Nullable
   public abstract UserViewModel dialogUser();
 
-  public abstract boolean isOrientationChange();
+  public abstract boolean isRecreate();
 
   public static Builder builder() {
     return new AutoValue_HomeViewModel.Builder();
@@ -38,7 +38,7 @@ abstract class HomeViewModel {
         .isError(false)
         .showUserDialog(false)
         .dialogUser(null)
-        .isOrientationChange(false)
+        .isRecreate(false)
         .build();
   }
 
@@ -51,7 +51,7 @@ abstract class HomeViewModel {
         .isError(false)
         .showUserDialog(false)
         .dialogUser(null)
-        .isOrientationChange(false)
+        .isRecreate(false)
         .build();
   }
 
@@ -64,7 +64,7 @@ abstract class HomeViewModel {
         .isError(false)
         .showUserDialog(false)
         .dialogUser(null)
-        .isOrientationChange(false)
+        .isRecreate(false)
         .build();
   }
 
@@ -77,7 +77,7 @@ abstract class HomeViewModel {
         .isError(true)
         .showUserDialog(false)
         .dialogUser(null)
-        .isOrientationChange(false)
+        .isRecreate(false)
         .build();
   }
 
@@ -99,7 +99,7 @@ abstract class HomeViewModel {
 
     public abstract Builder dialogUser(UserViewModel dialogUser);
 
-    public abstract Builder isOrientationChange(boolean isOrientationChange);
+    public abstract Builder isRecreate(boolean isRecreate);
 
     public abstract HomeViewModel build();
   }

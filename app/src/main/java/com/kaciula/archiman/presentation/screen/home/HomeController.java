@@ -86,7 +86,7 @@ public class HomeController extends BaseController implements HomeContract.View 
       flipper.setDisplayedChild(CHILD_ERROR);
     } else if (viewModel.showUserDialog()) {
       showContent(viewModel);
-      if (!viewModel.isOrientationChange()) {
+      if (!viewModel.isRecreate()) {
         getDialogShowman().show(UserDialogFragment.newInstance(viewModel.dialogUser()));
       }
     } else if (viewModel.isContent()) {

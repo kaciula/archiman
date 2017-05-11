@@ -11,8 +11,8 @@ import com.kaciula.archiman.presentation.screen.home.event.ClickUserEvent;
 import com.kaciula.archiman.presentation.screen.home.event.ClickUserResult;
 import com.kaciula.archiman.presentation.screen.home.event.GetUsersEvent;
 import com.kaciula.archiman.presentation.screen.home.event.HomeViewEvent;
-import com.kaciula.archiman.presentation.screen.home.event.OrientationChangeEvent;
-import com.kaciula.archiman.presentation.screen.home.event.OrientationChangeResult;
+import com.kaciula.archiman.presentation.screen.home.event.RecreateEvent;
+import com.kaciula.archiman.presentation.screen.home.event.RecreateResult;
 import com.kaciula.archiman.util.GenericResult;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 import io.reactivex.Observable;
@@ -32,7 +32,7 @@ class HomePresenter implements HomeContract.Presenter {
   private final GetUsers getUsers;
 
   private final CompositeDisposable disposables;
-  private boolean isFirstOrientation;
+  private boolean isFirstInit;
   private final PublishRelay<HomeViewEvent> flowRelay;
 
   HomePresenter(HomeContract.View view, BaseSchedulerProvider schedulerProvider,
@@ -41,21 +41,21 @@ class HomePresenter implements HomeContract.Presenter {
     this.schedulerProvider = schedulerProvider;
     this.getUsers = getUsers;
     disposables = new CompositeDisposable();
-    isFirstOrientation = true;
+    isFirstInit = true;
     flowRelay = PublishRelay.create();
   }
 
   @Override
   public void init() {
     Timber.d("presenter init");
-    if (isFirstOrientation) {
-      isFirstOrientation = false;
+    if (isFirstInit) {
+      isFirstInit = false;
       HomeViewModel initialViewModel = HomeViewModel.justInitialize();
       setupFlow(initialViewModel);
 
       flowRelay.accept(GetUsersEvent.create());
     } else {
-      flowRelay.accept(OrientationChangeEvent.create());
+      flowRelay.accept(RecreateEvent.create());
     }
   }
 
@@ -132,9 +132,9 @@ class HomePresenter implements HomeContract.Presenter {
               shared.ofType(CancelUserDialogEvent.class)
                   .flatMap(
                       cancelUserDialogEvent -> Observable.just(CancelUserDialogResult.create())),
-              shared.ofType(OrientationChangeEvent.class)
+              shared.ofType(RecreateEvent.class)
                   .flatMap(
-                      orientationChangeEvent -> Observable.just(OrientationChangeResult.create()))))
+                      recreateEvent -> Observable.just(RecreateResult.create()))))
       );
     }
   }
@@ -169,26 +169,26 @@ class HomePresenter implements HomeContract.Presenter {
           return viewModel.toBuilder()
               .showUserDialog(true)
               .dialogUser(result1.user())
-              .isOrientationChange(false)
+              .isRecreate(false)
               .initialize(false)
               .build();
         } else if (result instanceof ClickOkUserDialogResult) {
           return viewModel.toBuilder()
               .showUserDialog(false)
               .dialogUser(null)
-              .isOrientationChange(false)
+              .isRecreate(false)
               .initialize(false)
               .build();
         } else if (result instanceof CancelUserDialogResult) {
           return viewModel.toBuilder()
               .showUserDialog(false)
               .dialogUser(null)
-              .isOrientationChange(false)
+              .isRecreate(false)
               .initialize(false)
               .build();
-        } else if (result instanceof OrientationChangeResult) {
+        } else if (result instanceof RecreateResult) {
           return viewModel.toBuilder()
-              .isOrientationChange(true)
+              .isRecreate(true)
               .initialize(true)
               .build();
         }
