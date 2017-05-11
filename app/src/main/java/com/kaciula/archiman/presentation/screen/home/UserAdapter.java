@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.kaciula.archiman.R;
 import com.kaciula.archiman.presentation.util.GenericRecyclerAdapter;
 import java.util.List;
@@ -34,7 +35,7 @@ class UserAdapter extends GenericRecyclerAdapter<UserViewModel, UserAdapter.View
   }
 
   class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    @BindView(R.id.username) TextView username;
+    @BindView(R.id.tv_username) TextView username;
 
     View view;
 
@@ -50,6 +51,15 @@ class UserAdapter extends GenericRecyclerAdapter<UserViewModel, UserAdapter.View
       if (adapterPosition != RecyclerView.NO_POSITION) {
         UserViewModel user = getItem(adapterPosition);
         presenter.onClickUser(user);
+      }
+    }
+
+    @OnClick(R.id.btn_details)
+    void onClickDetails() {
+      int adapterPosition = getAdapterPosition();
+      if (adapterPosition != RecyclerView.NO_POSITION) {
+        UserViewModel user = getItem(adapterPosition);
+        presenter.onClickUserDetails(user);
       }
     }
   }

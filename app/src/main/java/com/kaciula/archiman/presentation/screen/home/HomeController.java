@@ -103,4 +103,9 @@ public class HomeController extends BaseController implements HomeContract.View 
   void onClickRetry() {
     presenter.onClickRetry();
   }
+
+  @Override
+  public void goToUserDetailsScreen(UserViewModel user) {
+    getNavigator().goToUserDetailsScreen(user);
+  }
 }

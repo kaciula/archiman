@@ -95,6 +95,11 @@ class HomePresenter implements HomeContract.Presenter {
     flowRelay.accept(CancelUserDialogEvent.create());
   }
 
+  @Override
+  public void onClickUserDetails(UserViewModel user) {
+    view.goToUserDetailsScreen(user);
+  }
+
   private void setupFlow(HomeViewModel initialViewModel) {
     disposables.add(flowRelay
         .compose(new EventsMerger(getUsers))

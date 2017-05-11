@@ -7,6 +7,8 @@ public interface HomeContract {
   interface View {
 
     void render(HomeViewModel viewModel);
+
+    void goToUserDetailsScreen(UserViewModel user);
   }
 
 
@@ -19,5 +21,7 @@ public interface HomeContract {
     void onClickOkUserDialog(UserViewModel user);
 
     void onCancelUserDialog();
+
+    void onClickUserDetails(UserViewModel user);
   }
 }

@@ -7,6 +7,7 @@ import android.view.View;
 import com.bluelinelabs.conductor.Controller;
 import com.kaciula.archiman.presentation.screen.main.ActionBarProvider;
 import com.kaciula.archiman.presentation.screen.main.DialogShowman;
+import com.kaciula.archiman.presentation.screen.main.Navigator;
 
 public abstract class BaseController extends ButterKnifeController {
 
@@ -51,5 +52,9 @@ public abstract class BaseController extends ButterKnifeController {
 
   protected DialogShowman getDialogShowman() {
     return (DialogShowman) getActivity();
+  }
+
+  protected Navigator getNavigator() {
+    return (Navigator) getActivity();
   }
 }

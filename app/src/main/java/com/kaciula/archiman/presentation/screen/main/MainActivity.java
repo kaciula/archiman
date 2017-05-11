@@ -14,15 +14,18 @@ import com.bluelinelabs.conductor.RouterTransaction;
 import com.kaciula.archiman.R;
 import com.kaciula.archiman.presentation.screen.home.HomeComponent;
 import com.kaciula.archiman.presentation.screen.home.HomeController;
+import com.kaciula.archiman.presentation.screen.home.UserViewModel;
+import com.kaciula.archiman.presentation.screen.userdetails.UserDetailsController;
 import com.kaciula.archiman.presentation.util.ArchimanActivity;
 import com.kaciula.archiman.presentation.util.DevDrawer;
 import java.util.UUID;
 import timber.log.Timber;
 
 public class MainActivity extends ArchimanActivity
-    implements ActionBarProvider, ComponentProvider, DialogShowman {
+    implements ActionBarProvider, ComponentProvider, DialogShowman, Navigator {
 
   private static final String TAG_CONTROLLER_HOME = "HomeController";
+  private static final String TAG_CONTROLLER_USER_DETAILS = "UserDetailsController";
 
   @BindView(R.id.toolbar) Toolbar toolbar;
   @BindView(R.id.controller_container) ViewGroup container;
@@ -98,5 +101,11 @@ public class MainActivity extends ArchimanActivity
 
   private void setupDevDrawer() {
     devDrawer = new DevDrawer(this);
+  }
+
+  @Override
+  public void goToUserDetailsScreen(UserViewModel user) {
+    router.pushController(
+        RouterTransaction.with(new UserDetailsController(user)).tag(TAG_CONTROLLER_USER_DETAILS));
   }
 }
