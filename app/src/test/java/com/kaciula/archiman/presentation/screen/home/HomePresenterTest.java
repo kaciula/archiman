@@ -33,7 +33,7 @@ public class HomePresenterTest {
 
   @Test
   public void setupIsCalled() {
-    presenter.setup();
+    presenter.init();
 
     verify(view).setup();
   }

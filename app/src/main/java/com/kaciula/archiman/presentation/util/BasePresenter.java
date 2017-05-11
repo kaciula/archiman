@@ -2,7 +2,7 @@ package com.kaciula.archiman.presentation.util;
 
 public interface BasePresenter {
 
-  void setup();
+  void init();
 
   void start();
 

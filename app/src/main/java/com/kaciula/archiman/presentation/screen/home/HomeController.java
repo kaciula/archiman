@@ -49,7 +49,7 @@ public class HomeController extends BaseController implements HomeContract.View 
 
   @Override
   protected void onViewBound(@NonNull View view) {
-    presenter.setup();
+    presenter.init();
   }
 
   @Override

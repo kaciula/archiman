@@ -16,6 +16,8 @@ import com.kaciula.archiman.presentation.screen.home.event.OrientationChangeResu
 import com.kaciula.archiman.util.GenericResult;
 import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.ObservableTransformer;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.exceptions.OnErrorNotImplementedException;
 import io.reactivex.observers.DisposableObserver;
@@ -31,7 +33,7 @@ class HomePresenter implements HomeContract.Presenter {
 
   private final CompositeDisposable disposables;
   private boolean isFirstOrientation;
-  private PublishRelay<HomeViewEvent> flowRelay;
+  private final PublishRelay<HomeViewEvent> flowRelay;
 
   HomePresenter(HomeContract.View view, BaseSchedulerProvider schedulerProvider,
       GetUsers getUsers) {
@@ -44,10 +46,14 @@ class HomePresenter implements HomeContract.Presenter {
   }
 
   @Override
-  public void setup() {
-    Timber.d("presenter setup");
+  public void init() {
+    Timber.d("presenter init");
     if (isFirstOrientation) {
-      setupFlow();
+      isFirstOrientation = false;
+      HomeViewModel initialViewModel = HomeViewModel.justInitialize();
+      setupFlow(initialViewModel);
+
+      flowRelay.accept(GetUsersEvent.create());
     } else {
       flowRelay.accept(OrientationChangeEvent.create());
     }
@@ -56,10 +62,6 @@ class HomePresenter implements HomeContract.Presenter {
   @Override
   public void start() {
     Timber.d("presenter start");
-    if (isFirstOrientation) {
-      isFirstOrientation = false;
-      flowRelay.accept(GetUsersEvent.create());
-    }
   }
 
   @Override
@@ -93,78 +95,104 @@ class HomePresenter implements HomeContract.Presenter {
     flowRelay.accept(CancelUserDialogEvent.create());
   }
 
-  private void setupFlow() {
-    Observable<GenericResult> results = flowRelay
-        .publish(shared -> Observable.merge(
-            shared.ofType(GetUsersEvent.class)
-                .flatMap(ignored -> getUsers.execute(GetUsers.RequestModel.create())),
-            shared.ofType(ClickUserEvent.class)
-                .flatMap(clickUserEvent -> Observable
-                    .just(ClickUserResult.create(clickUserEvent.user()))),
-            Observable.merge(
-                shared.ofType(ClickOkUserDialogEvent.class)
-                    .flatMap(
-                        clickOkUserDialogEvent -> Observable.just(ClickOkUserDialogResult.create
-                            ())),
-                shared.ofType(CancelUserDialogEvent.class)
-                    .flatMap(
-                        cancelUserDialogEvent -> Observable.just(CancelUserDialogResult.create()))),
-            shared.ofType(OrientationChangeEvent.class)
-                .flatMap(
-                    orientationChangeEvent -> Observable.just(OrientationChangeResult.create())))
-        );
-
-    Observable<HomeViewModel> viewModels = results
-        .scan(HomeViewModel.justInitialize(), (viewModel, result) -> {
-          if (result instanceof GetUsers.ResponseModel) {
-            GetUsers.ResponseModel responseModel = (GetUsers.ResponseModel) result;
-            if (responseModel.inFlight()) {
-              return HomeViewModel.progress();
-            } else if (responseModel.isError()) {
-              return HomeViewModel.error();
-            } else {
-              List<UserViewModel> users = new ArrayList<>(responseModel.users().size());
-              for (User user : responseModel.users()) {
-                users.add(UserViewModel.create(user.name()));
-              }
-              return HomeViewModel.content(users);
-            }
-          } else if (result instanceof ClickUserResult) {
-            ClickUserResult result1 = ((ClickUserResult) result);
-            return viewModel.toBuilder()
-                .showUserDialog(true)
-                .dialogUser(result1.user())
-                .isOrientationChange(false)
-                .initialize(false)
-                .build();
-          } else if (result instanceof ClickOkUserDialogResult) {
-            return viewModel.toBuilder()
-                .showUserDialog(false)
-                .dialogUser(null)
-                .isOrientationChange(false)
-                .initialize(false)
-                .build();
-          } else if (result instanceof CancelUserDialogResult) {
-            return viewModel.toBuilder()
-                .showUserDialog(false)
-                .dialogUser(null)
-                .isOrientationChange(false)
-                .initialize(false)
-                .build();
-          } else if (result instanceof OrientationChangeResult) {
-            return viewModel.toBuilder()
-                .isOrientationChange(true)
-                .initialize(true)
-                .build();
-          }
-          throw new IllegalArgumentException(
-              "No view model representation for this kind of result");
-        });
-
-    disposables.add(viewModels
+  private void setupFlow(HomeViewModel initialViewModel) {
+    disposables.add(flowRelay
+        .compose(new EventsMerger(getUsers))
+        .compose(new StateReducer(initialViewModel))
         .observeOn(schedulerProvider.ui())
         .subscribeWith(new FlowSubscriber()));
   }
+
+
+  private static class EventsMerger implements ObservableTransformer<HomeViewEvent, GenericResult> {
+
+    private final GetUsers getUsers;
+
+    EventsMerger(GetUsers getUsers) {
+      this.getUsers = getUsers;
+    }
+
+    @Override
+    public ObservableSource<GenericResult> apply(Observable<HomeViewEvent> upstream) {
+      return upstream.publish(shared -> Observable.merge(
+          shared.ofType(GetUsersEvent.class)
+              .flatMap(ignored -> getUsers.execute(GetUsers.RequestModel.create())),
+          Observable.merge(
+              shared.ofType(ClickUserEvent.class)
+                  .flatMap(clickUserEvent -> Observable
+                      .just(ClickUserResult.create(clickUserEvent.user()))),
+              shared.ofType(ClickOkUserDialogEvent.class)
+                  .flatMap(
+                      clickOkUserDialogEvent -> Observable.just(ClickOkUserDialogResult.create())),
+              shared.ofType(CancelUserDialogEvent.class)
+                  .flatMap(
+                      cancelUserDialogEvent -> Observable.just(CancelUserDialogResult.create())),
+              shared.ofType(OrientationChangeEvent.class)
+                  .flatMap(
+                      orientationChangeEvent -> Observable.just(OrientationChangeResult.create()))))
+      );
+    }
+  }
+
+
+  private static class StateReducer implements ObservableTransformer<GenericResult, HomeViewModel> {
+
+    private HomeViewModel initialViewModel;
+
+    StateReducer(HomeViewModel initialViewModel) {
+      this.initialViewModel = initialViewModel;
+    }
+
+    @Override
+    public ObservableSource<HomeViewModel> apply(Observable<GenericResult> upstream) {
+      return upstream.scan(initialViewModel, (viewModel, result) -> {
+        if (result instanceof GetUsers.ResponseModel) {
+          GetUsers.ResponseModel responseModel = (GetUsers.ResponseModel) result;
+          if (responseModel.inFlight()) {
+            return HomeViewModel.progress();
+          } else if (responseModel.isError()) {
+            return HomeViewModel.error();
+          } else {
+            List<UserViewModel> users = new ArrayList<>(responseModel.users().size());
+            for (User user : responseModel.users()) {
+              users.add(UserViewModel.create(user.name()));
+            }
+            return HomeViewModel.content(users);
+          }
+        } else if (result instanceof ClickUserResult) {
+          ClickUserResult result1 = ((ClickUserResult) result);
+          return viewModel.toBuilder()
+              .showUserDialog(true)
+              .dialogUser(result1.user())
+              .isOrientationChange(false)
+              .initialize(false)
+              .build();
+        } else if (result instanceof ClickOkUserDialogResult) {
+          return viewModel.toBuilder()
+              .showUserDialog(false)
+              .dialogUser(null)
+              .isOrientationChange(false)
+              .initialize(false)
+              .build();
+        } else if (result instanceof CancelUserDialogResult) {
+          return viewModel.toBuilder()
+              .showUserDialog(false)
+              .dialogUser(null)
+              .isOrientationChange(false)
+              .initialize(false)
+              .build();
+        } else if (result instanceof OrientationChangeResult) {
+          return viewModel.toBuilder()
+              .isOrientationChange(true)
+              .initialize(true)
+              .build();
+        }
+        throw new IllegalArgumentException(
+            "No view model representation for this kind of result");
+      });
+    }
+  }
+
 
   private final class FlowSubscriber extends DisposableObserver<HomeViewModel> {
 
