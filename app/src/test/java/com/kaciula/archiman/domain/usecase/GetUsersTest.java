@@ -1,18 +1,15 @@
 package com.kaciula.archiman.domain.usecase;
 
 
-import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.when;
 
 import com.kaciula.archiman.domain.entity.User;
 import com.kaciula.archiman.domain.repository.UsersRepository;
 import com.kaciula.archiman.util.scheduler.TrampolineSchedulerProvider;
 import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.TestObserver;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -38,55 +35,18 @@ public class GetUsersTest {
     users.add(User.create(2, "Second best programmer"));
     when(usersRepository.getUsers()).thenReturn(Observable.fromArray(users));
 
-    useCase.execute(GetUsers.RequestModel.create())
-        .subscribe(new Observer<GetUsers.ResponseModel>() {
-                     @Override
-                     public void onSubscribe(Disposable d) {
-                       // do nothing
-                     }
-
-                     @Override
-                     public void onNext(GetUsers.ResponseModel value) {
-                       Assert.assertThat(value.users(), is(users));
-                     }
-
-                     @Override
-                     public void onError(Throwable e) {
-                       Assert.fail("Failed to receive the users list");
-                     }
-
-                     @Override
-                     public void onComplete() {
-                       // do nothing
-                     }
-                   }
-        );
+    TestObserver<GetUsers.ResponseModel> observer =
+        useCase.execute(GetUsers.RequestModel.create()).test();
+    observer.assertValues(GetUsers.ResponseModel.IN_FLIGHT, GetUsers.ResponseModel.success(users));
   }
 
   @Test
   public void getUsersFailure() {
-    when(usersRepository.getUsers()).thenReturn(Observable.<List<User>>error(new Throwable()));
+    Throwable error = new Throwable();
+    when(usersRepository.getUsers()).thenReturn(Observable.error(error));
 
-    useCase.execute(GetUsers.RequestModel.create())
-        .subscribe(new Observer<GetUsers.ResponseModel>() {
-          @Override
-          public void onSubscribe(Disposable d) {
-            // do nothing
-          }
-
-          @Override
-          public void onNext(GetUsers.ResponseModel value) {
-            Assert.fail("Should not finish successfully");
-          }
-
-          @Override
-          public void onError(Throwable e) {
-          }
-
-          @Override
-          public void onComplete() {
-            // do nothing
-          }
-        });
+    TestObserver<GetUsers.ResponseModel> observer =
+        useCase.execute(GetUsers.RequestModel.create()).test();
+    observer.assertValues(GetUsers.ResponseModel.IN_FLIGHT, GetUsers.ResponseModel.error(error));
   }
 }

@@ -58,7 +58,7 @@ public class GetUsers
       return new AutoValue_GetUsers_ResponseModel(inFlight, isError, error, isSuccess, users);
     }
 
-    public static ResponseModel IN_FLIGHT = create(true, false, null, false, null);
+    public static final ResponseModel IN_FLIGHT = create(true, false, null, false, null);
 
     public static ResponseModel error(Throwable throwable) {
       return create(false, true, throwable, false, null);
