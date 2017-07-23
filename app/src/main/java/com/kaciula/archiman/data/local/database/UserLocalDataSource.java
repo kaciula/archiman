@@ -1,6 +1,6 @@
 package com.kaciula.archiman.data.local.database;
 
-import com.kaciula.archiman.data.UsersDataSource;
+import com.kaciula.archiman.data.UserDataSource;
 import com.kaciula.archiman.domain.entity.User;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -9,7 +9,7 @@ import io.realm.RealmResults;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsersLocalDataSource implements UsersDataSource {
+public class UserLocalDataSource implements UserDataSource {
 
   @Override
   public Observable<List<User>> getUsers() {

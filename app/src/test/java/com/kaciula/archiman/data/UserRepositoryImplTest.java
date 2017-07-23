@@ -19,8 +19,8 @@ import org.mockito.MockitoAnnotations;
 
 public class UserRepositoryImplTest {
 
-  @Mock UsersDataSource usersRemoteDataSource;
-  @Mock UsersDataSource usersLocalDataSource;
+  @Mock UserDataSource usersRemoteDataSource;
+  @Mock UserDataSource usersLocalDataSource;
 
   private UserRepositoryImpl usersRepository;
 

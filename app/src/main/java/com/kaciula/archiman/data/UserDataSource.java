@@ -5,7 +5,7 @@ import io.reactivex.Completable;
 import io.reactivex.Observable;
 import java.util.List;
 
-public interface UsersDataSource {
+public interface UserDataSource {
 
   Observable<List<User>> getUsers();
 

@@ -10,13 +10,13 @@ import timber.log.Timber;
 
 public class UserRepositoryImpl implements UserRepository {
 
-  private final UsersDataSource usersRemoteDataSource;
-  private final UsersDataSource usersLocalDataSource;
+  private final UserDataSource usersRemoteDataSource;
+  private final UserDataSource usersLocalDataSource;
 
   private LocalDateTime lastTimeUsedRemote;
 
-  public UserRepositoryImpl(UsersDataSource usersRemoteDataSource,
-      UsersDataSource usersLocalDataSource) {
+  public UserRepositoryImpl(UserDataSource usersRemoteDataSource,
+      UserDataSource usersLocalDataSource) {
     this.usersRemoteDataSource = usersRemoteDataSource;
     this.usersLocalDataSource = usersLocalDataSource;
     lastTimeUsedRemote = new LocalDateTime().minusMonths(1);

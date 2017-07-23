@@ -3,7 +3,7 @@ package com.kaciula.archiman.util;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kaciula.archiman.data.remote.StackExchangeApi;
-import com.kaciula.archiman.data.remote.response.UsersResponse;
+import com.kaciula.archiman.data.remote.response.UsersRemote;
 import com.kaciula.archiman.data.util.gson.ApiGsonAdapterFactory;
 import com.kaciula.archiman.data.util.gson.GsonIntegerTypeAdapter;
 import com.kaciula.archiman.data.util.gson.GsonLocalDateAdapter;
@@ -69,9 +69,9 @@ public class RxJavaTest {
     Disposable disposable = api.getUsers()
         .subscribeOn(Schedulers.io())
         .observeOn(Schedulers.io())
-        .subscribeWith(new DisposableObserver<UsersResponse>() {
+        .subscribeWith(new DisposableObserver<UsersRemote>() {
           @Override
-          public void onNext(UsersResponse value) {
+          public void onNext(UsersRemote value) {
           }
 
           @Override

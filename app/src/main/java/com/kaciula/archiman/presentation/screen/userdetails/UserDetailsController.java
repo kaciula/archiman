@@ -23,6 +23,7 @@ public class UserDetailsController extends BaseController implements UserDetails
 
   @BindView(R.id.tv_user_name) TextView tvUserName;
 
+  @SuppressWarnings("WeakerAccess")
   public UserDetailsController(Bundle args) {
     super(args);
 

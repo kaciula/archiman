@@ -48,7 +48,7 @@ public class InitColdStart
 
 
   @AutoValue
-  public abstract static class ResponseModel implements UseCase.ResponseModel {
+  abstract static class ResponseModel implements UseCase.ResponseModel {
     public static ResponseModel create() {
       return new AutoValue_InitColdStart_ResponseModel();
     }

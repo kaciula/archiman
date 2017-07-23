@@ -6,11 +6,11 @@ import com.google.gson.TypeAdapter;
 import java.util.List;
 
 @AutoValue
-public abstract class UsersResponse {
-  public abstract List<UserResponse> items();
+public abstract class UsersRemote {
+  public abstract List<UserRemote> items();
 
   // This tells auto-value-gson to create a TypeAdapter when parsing json
-  public static TypeAdapter<UsersResponse> typeAdapter(Gson gson) {
+  public static TypeAdapter<UsersRemote> typeAdapter(Gson gson) {
     return new AutoValue_UsersResponse.GsonTypeAdapter(gson);
   }
 }

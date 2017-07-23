@@ -4,7 +4,7 @@ import com.kaciula.archiman.domain.boundary.SchedulerProvider;
 import com.kaciula.archiman.domain.usecases.GetUsers;
 import com.kaciula.archiman.infrastructure.ArchimanApplication;
 
-public interface BaseAppComponent {
+interface BaseAppComponent {
 
   void inject(ArchimanApplication application);
 

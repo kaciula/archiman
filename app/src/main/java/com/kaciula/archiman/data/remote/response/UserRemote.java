@@ -6,7 +6,7 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.SerializedName;
 
 @AutoValue
-public abstract class UserResponse {
+public abstract class UserRemote {
   @SerializedName("account_id")
   public abstract long accountId();
 
@@ -14,7 +14,7 @@ public abstract class UserResponse {
   public abstract String displayName();
 
   // This tells auto-value-gson to create a TypeAdapter when parsing json
-  public static TypeAdapter<UserResponse> typeAdapter(Gson gson) {
+  public static TypeAdapter<UserRemote> typeAdapter(Gson gson) {
     return new AutoValue_UserResponse.GsonTypeAdapter(gson);
   }
 }

@@ -1,13 +1,13 @@
 package com.kaciula.archiman.data.fake;
 
-import com.kaciula.archiman.data.UsersDataSource;
+import com.kaciula.archiman.data.UserDataSource;
 import com.kaciula.archiman.domain.entity.User;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FakeUsersDataSource implements UsersDataSource {
+public class FakeUsersDataSource implements UserDataSource {
 
   @Override
   public Observable<List<User>> getUsers() {

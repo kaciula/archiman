@@ -53,18 +53,18 @@ public class GetUsers
     @Nullable
     public abstract List<User> users();
 
-    public static ResponseModel create(boolean inFlight, boolean isError, Throwable error,
+    static ResponseModel create(boolean inFlight, boolean isError, Throwable error,
         boolean isSuccess, List<User> users) {
       return new AutoValue_GetUsers_ResponseModel(inFlight, isError, error, isSuccess, users);
     }
 
-    public static final ResponseModel IN_FLIGHT = create(true, false, null, false, null);
+    static final ResponseModel IN_FLIGHT = create(true, false, null, false, null);
 
-    public static ResponseModel error(Throwable throwable) {
+    static ResponseModel error(Throwable throwable) {
       return create(false, true, throwable, false, null);
     }
 
-    public static ResponseModel success(List<User> users) {
+    static ResponseModel success(List<User> users) {
       return create(false, false, null, true, users);
     }
   }
