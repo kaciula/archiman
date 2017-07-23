@@ -2,7 +2,7 @@ package com.kaciula.archiman.infrastructure;
 
 import android.content.Context;
 import android.provider.Settings;
-import com.kaciula.archiman.util.Strings;
+import com.kaciula.archiman.domain.util.Strings;
 
 public class AndroidUtils {
 

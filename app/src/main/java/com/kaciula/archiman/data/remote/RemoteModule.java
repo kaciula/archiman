@@ -2,7 +2,7 @@ package com.kaciula.archiman.data.remote;
 
 import android.content.Context;
 import com.google.gson.Gson;
-import com.kaciula.archiman.util.injection.OkHttpModule;
+import com.kaciula.archiman.injection.OkHttpModule;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;

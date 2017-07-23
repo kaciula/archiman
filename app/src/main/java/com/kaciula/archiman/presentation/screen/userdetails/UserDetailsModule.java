@@ -1,8 +1,8 @@
 package com.kaciula.archiman.presentation.screen.userdetails;
 
+import com.kaciula.archiman.domain.boundary.SchedulerProvider;
+import com.kaciula.archiman.injection.ActivityScope;
 import com.kaciula.archiman.presentation.screen.home.UserViewModel;
-import com.kaciula.archiman.util.injection.ActivityScope;
-import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 import dagger.Module;
 import dagger.Provides;
 
@@ -19,7 +19,7 @@ class UserDetailsModule {
 
   @Provides
   @ActivityScope
-  UserDetailsContract.Presenter providePresenter(BaseSchedulerProvider schedulerProvider) {
+  UserDetailsContract.Presenter providePresenter(SchedulerProvider schedulerProvider) {
     return new UserDetailsPresenter(view, user, schedulerProvider);
   }
 }

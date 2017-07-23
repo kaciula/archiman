@@ -2,7 +2,7 @@ package com.kaciula.archiman.data.local.prefs.util;
 
 import android.content.SharedPreferences;
 import com.google.gson.Gson;
-import com.kaciula.archiman.util.Strings;
+import com.kaciula.archiman.domain.util.Strings;
 
 public class GsonPreference<T> {
   private final SharedPreferences preferences;

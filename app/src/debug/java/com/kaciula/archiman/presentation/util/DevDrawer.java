@@ -2,8 +2,8 @@ package com.kaciula.archiman.presentation.util;
 
 import android.app.Activity;
 import com.kaciula.archiman.infrastructure.BaseApplication;
-import com.kaciula.archiman.util.log.LumberYard;
-import com.kaciula.archiman.util.log.TimberModule;
+import com.kaciula.archiman.infrastructure.log.LumberYard;
+import com.kaciula.archiman.infrastructure.log.TimberModule;
 import io.palaima.debugdrawer.DebugDrawer;
 import io.palaima.debugdrawer.commons.BuildModule;
 import io.palaima.debugdrawer.commons.DeviceModule;

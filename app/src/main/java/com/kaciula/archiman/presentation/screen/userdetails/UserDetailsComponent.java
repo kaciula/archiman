@@ -1,7 +1,7 @@
 package com.kaciula.archiman.presentation.screen.userdetails;
 
-import com.kaciula.archiman.util.injection.ActivityScope;
-import com.kaciula.archiman.util.injection.AppComponent;
+import com.kaciula.archiman.injection.ActivityScope;
+import com.kaciula.archiman.injection.AppComponent;
 import dagger.Component;
 
 @ActivityScope

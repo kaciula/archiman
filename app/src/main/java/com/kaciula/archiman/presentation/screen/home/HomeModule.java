@@ -1,8 +1,8 @@
 package com.kaciula.archiman.presentation.screen.home;
 
-import com.kaciula.archiman.domain.usecase.GetUsers;
-import com.kaciula.archiman.util.injection.ActivityScope;
-import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
+import com.kaciula.archiman.domain.boundary.SchedulerProvider;
+import com.kaciula.archiman.domain.usecases.GetUsers;
+import com.kaciula.archiman.injection.ActivityScope;
 import dagger.Module;
 import dagger.Provides;
 
@@ -16,7 +16,7 @@ class HomeModule {
 
   @Provides
   @ActivityScope
-  HomeContract.Presenter providePresenter(BaseSchedulerProvider schedulerProvider,
+  HomeContract.Presenter providePresenter(SchedulerProvider schedulerProvider,
       GetUsers getUsers) {
     return new HomePresenter(view, schedulerProvider, getUsers);
   }

@@ -1,10 +1,10 @@
 package com.kaciula.archiman.infrastructure;
 
 import com.kaciula.archiman.BuildConfig;
-import com.kaciula.archiman.domain.usecase.InitColdStart;
-import com.kaciula.archiman.util.injection.AppComponent;
-import com.kaciula.archiman.util.injection.AppModule;
-import com.kaciula.archiman.util.injection.DaggerAppComponent;
+import com.kaciula.archiman.domain.usecases.InitColdStart;
+import com.kaciula.archiman.injection.AppComponent;
+import com.kaciula.archiman.injection.AppModule;
+import com.kaciula.archiman.injection.DaggerAppComponent;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import javax.inject.Inject;

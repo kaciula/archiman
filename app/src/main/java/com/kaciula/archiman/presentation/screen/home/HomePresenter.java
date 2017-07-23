@@ -1,8 +1,10 @@
 package com.kaciula.archiman.presentation.screen.home;
 
 import com.jakewharton.rxrelay2.PublishRelay;
+import com.kaciula.archiman.domain.boundary.SchedulerProvider;
 import com.kaciula.archiman.domain.entity.User;
-import com.kaciula.archiman.domain.usecase.GetUsers;
+import com.kaciula.archiman.domain.usecases.GetUsers;
+import com.kaciula.archiman.domain.util.GenericResult;
 import com.kaciula.archiman.presentation.screen.home.event.CancelUserDialogEvent;
 import com.kaciula.archiman.presentation.screen.home.event.CancelUserDialogResult;
 import com.kaciula.archiman.presentation.screen.home.event.ClickOkUserDialogEvent;
@@ -13,8 +15,6 @@ import com.kaciula.archiman.presentation.screen.home.event.GetUsersEvent;
 import com.kaciula.archiman.presentation.screen.home.event.HomeViewEvent;
 import com.kaciula.archiman.presentation.screen.home.event.RecreateEvent;
 import com.kaciula.archiman.presentation.screen.home.event.RecreateResult;
-import com.kaciula.archiman.util.GenericResult;
-import com.kaciula.archiman.util.scheduler.BaseSchedulerProvider;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
@@ -28,14 +28,14 @@ import timber.log.Timber;
 class HomePresenter implements HomeContract.Presenter {
 
   private final HomeContract.View view;
-  private final BaseSchedulerProvider schedulerProvider;
+  private final SchedulerProvider schedulerProvider;
   private final GetUsers getUsers;
 
   private final CompositeDisposable disposables;
   private boolean isFirstInit;
   private final PublishRelay<HomeViewEvent> flowRelay;
 
-  HomePresenter(HomeContract.View view, BaseSchedulerProvider schedulerProvider,
+  HomePresenter(HomeContract.View view, SchedulerProvider schedulerProvider,
       GetUsers getUsers) {
     this.view = view;
     this.schedulerProvider = schedulerProvider;
