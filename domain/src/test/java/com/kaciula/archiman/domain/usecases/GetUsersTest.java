@@ -1,11 +1,9 @@
 package com.kaciula.archiman.domain.usecases;
 
 
-import static org.mockito.Mockito.when;
-
 import com.kaciula.archiman.domain.boundary.data.UserRepository;
 import com.kaciula.archiman.domain.entity.User;
-import com.kaciula.archiman.infrastructure.scheduler.TrampolineSchedulerProvider;
+import com.kaciula.archiman.domain.util.TrampolineSchedulerProvider;
 import io.reactivex.Observable;
 import io.reactivex.observers.TestObserver;
 import java.util.ArrayList;
@@ -13,6 +11,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 public class GetUsersTest {
@@ -33,7 +32,7 @@ public class GetUsersTest {
     final List<User> users = new ArrayList<>();
     users.add(User.create(1, "Best programmer"));
     users.add(User.create(2, "Second best programmer"));
-    when(userRepository.getUsers()).thenReturn(Observable.fromArray(users));
+    Mockito.when(userRepository.getUsers()).thenReturn(Observable.fromArray(users));
 
     TestObserver<GetUsers.ResponseModel> observer =
         useCase.execute(GetUsers.RequestModel.create()).test();
@@ -43,7 +42,7 @@ public class GetUsersTest {
   @Test
   public void getUsersFailure() {
     Throwable error = new Throwable();
-    when(userRepository.getUsers()).thenReturn(Observable.error(error));
+    Mockito.when(userRepository.getUsers()).thenReturn(Observable.error(error));
 
     TestObserver<GetUsers.ResponseModel> observer =
         useCase.execute(GetUsers.RequestModel.create()).test();

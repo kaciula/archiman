@@ -5,7 +5,6 @@ import com.kaciula.archiman.domain.boundary.data.AppInfoRepository;
 import com.kaciula.archiman.domain.util.UseCase;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
-import timber.log.Timber;
 
 public class InitColdStart
     extends UseCase<InitColdStart.RequestModel, InitColdStart.ResponseModel> {
@@ -19,19 +18,13 @@ public class InitColdStart
   @Override
   public Observable<ResponseModel> execute(final RequestModel requestModel) {
     return Completable.fromAction(() -> {
-      Timber.d("Initialize every cold start");
       int currentVersionCode = requestModel.currentVersionCode();
       if (appInfoRepository.isFirstTime()) {
-        Timber.d("First time running the app");
         appInfoRepository.saveFirstTime(false);
         appInfoRepository.saveVersionCode(currentVersionCode);
       } else {
         if (appInfoRepository.getVersionCode() < currentVersionCode) {
-          Timber.d("Old version code %d is replaced with new version code %d",
-              appInfoRepository.getVersionCode(), currentVersionCode);
           appInfoRepository.saveVersionCode(currentVersionCode);
-        } else {
-          Timber.d("Just a basic cold start");
         }
       }
     }).toObservable();

@@ -1,7 +1,7 @@
 package com.kaciula.archiman.presentation.screen.home;
 
-import com.kaciula.archiman.domain.boundary.SchedulerProvider;
 import com.kaciula.archiman.domain.usecases.GetUsers;
+import com.kaciula.archiman.domain.util.SchedulerProvider;
 import com.kaciula.archiman.injection.ActivityScope;
 import dagger.Module;
 import dagger.Provides;

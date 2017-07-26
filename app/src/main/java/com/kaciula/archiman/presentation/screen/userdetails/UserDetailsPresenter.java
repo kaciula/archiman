@@ -1,6 +1,6 @@
 package com.kaciula.archiman.presentation.screen.userdetails;
 
-import com.kaciula.archiman.domain.boundary.SchedulerProvider;
+import com.kaciula.archiman.domain.util.SchedulerProvider;
 import com.kaciula.archiman.presentation.screen.home.UserViewModel;
 
 class UserDetailsPresenter implements UserDetailsContract.Presenter {

@@ -1,6 +1,6 @@
 package com.kaciula.archiman.domain.util;
 
-import android.support.annotation.NonNull;
+import io.reactivex.annotations.NonNull;
 import java.text.Normalizer;
 
 public final class Strings {

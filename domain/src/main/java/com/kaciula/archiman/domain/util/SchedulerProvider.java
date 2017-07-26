@@ -1,7 +1,7 @@
-package com.kaciula.archiman.domain.boundary;
+package com.kaciula.archiman.domain.util;
 
-import android.support.annotation.NonNull;
 import io.reactivex.Scheduler;
+import io.reactivex.annotations.NonNull;
 
 /**
  * Allow providing different types of {@link Scheduler}s.

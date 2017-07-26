@@ -5,7 +5,6 @@ import com.kaciula.archiman.data.DataModule;
 import com.kaciula.archiman.data.DataRepositoryModule;
 import com.kaciula.archiman.data.local.prefs.PrefsModule;
 import com.kaciula.archiman.data.remote.RemoteModule;
-import com.kaciula.archiman.domain.util.DomainModule;
 import dagger.Component;
 import javax.inject.Singleton;
 

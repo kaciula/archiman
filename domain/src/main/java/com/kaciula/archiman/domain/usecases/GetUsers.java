@@ -1,10 +1,10 @@
 package com.kaciula.archiman.domain.usecases;
 
 import com.google.auto.value.AutoValue;
-import com.kaciula.archiman.domain.boundary.SchedulerProvider;
 import com.kaciula.archiman.domain.boundary.data.UserRepository;
 import com.kaciula.archiman.domain.entity.User;
 import com.kaciula.archiman.domain.util.GenericResult;
+import com.kaciula.archiman.domain.util.SchedulerProvider;
 import com.kaciula.archiman.domain.util.UseCase;
 import io.reactivex.Observable;
 import io.reactivex.annotations.Nullable;

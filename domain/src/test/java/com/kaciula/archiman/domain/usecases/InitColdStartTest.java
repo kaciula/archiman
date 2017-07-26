@@ -1,9 +1,6 @@
 package com.kaciula.archiman.domain.usecases;
 
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import com.kaciula.archiman.domain.boundary.data.AppInfoRepository;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -11,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 public class InitColdStartTest {
@@ -29,8 +27,8 @@ public class InitColdStartTest {
   @Test
   public void firstTime() {
     int currentVersionCode = 1;
-    when(appInfoRepository.isFirstTime()).thenReturn(true);
-    when(appInfoRepository.getVersionCode()).thenReturn(0);
+    Mockito.when(appInfoRepository.isFirstTime()).thenReturn(true);
+    Mockito.when(appInfoRepository.getVersionCode()).thenReturn(0);
 
     useCase.execute(InitColdStart.RequestModel.create(currentVersionCode))
         .subscribe(new Observer<InitColdStart.ResponseModel>() {
@@ -56,15 +54,15 @@ public class InitColdStartTest {
                    }
         );
 
-    verify(appInfoRepository).saveFirstTime(false);
-    verify(appInfoRepository).saveVersionCode(currentVersionCode);
+    Mockito.verify(appInfoRepository).saveFirstTime(false);
+    Mockito.verify(appInfoRepository).saveVersionCode(currentVersionCode);
   }
 
   @Test
   public void newVersion() {
     int currentVersionCode = 2;
-    when(appInfoRepository.isFirstTime()).thenReturn(false);
-    when(appInfoRepository.getVersionCode()).thenReturn(1);
+    Mockito.when(appInfoRepository.isFirstTime()).thenReturn(false);
+    Mockito.when(appInfoRepository.getVersionCode()).thenReturn(1);
 
     useCase.execute(InitColdStart.RequestModel.create(currentVersionCode))
         .subscribe(new Observer<InitColdStart.ResponseModel>() {
@@ -90,6 +88,6 @@ public class InitColdStartTest {
                    }
         );
 
-    verify(appInfoRepository).saveVersionCode(currentVersionCode);
+    Mockito.verify(appInfoRepository).saveVersionCode(currentVersionCode);
   }
 }

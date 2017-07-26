@@ -1,10 +1,10 @@
 package com.kaciula.archiman.presentation.screen.home;
 
 import com.jakewharton.rxrelay2.PublishRelay;
-import com.kaciula.archiman.domain.boundary.SchedulerProvider;
 import com.kaciula.archiman.domain.entity.User;
 import com.kaciula.archiman.domain.usecases.GetUsers;
 import com.kaciula.archiman.domain.util.GenericResult;
+import com.kaciula.archiman.domain.util.SchedulerProvider;
 import com.kaciula.archiman.presentation.screen.home.event.CancelUserDialogEvent;
 import com.kaciula.archiman.presentation.screen.home.event.CancelUserDialogResult;
 import com.kaciula.archiman.presentation.screen.home.event.ClickOkUserDialogEvent;

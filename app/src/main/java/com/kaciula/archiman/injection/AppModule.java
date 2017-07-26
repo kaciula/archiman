@@ -1,9 +1,9 @@
 package com.kaciula.archiman.injection;
 
 import android.content.Context;
-import com.kaciula.archiman.domain.boundary.SchedulerProvider;
+import com.kaciula.archiman.domain.util.SchedulerProvider;
+import com.kaciula.archiman.infrastructure.AndroidSchedulerProvider;
 import com.kaciula.archiman.infrastructure.BaseApplication;
-import com.kaciula.archiman.infrastructure.scheduler.AndroidSchedulerProvider;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;

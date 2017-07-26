@@ -1,6 +1,7 @@
 package com.kaciula.archiman.domain.util;
 
-import android.support.annotation.Nullable;
+
+import io.reactivex.annotations.Nullable;
 
 public final class Preconditions {
 

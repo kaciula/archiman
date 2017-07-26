@@ -1,8 +1,7 @@
-package com.kaciula.archiman.infrastructure.scheduler;
+package com.kaciula.archiman.domain.util;
 
-import android.support.annotation.NonNull;
-import com.kaciula.archiman.domain.boundary.SchedulerProvider;
 import io.reactivex.Scheduler;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.schedulers.Schedulers;
 
 /**
