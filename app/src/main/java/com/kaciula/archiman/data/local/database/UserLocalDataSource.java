@@ -19,7 +19,7 @@ public class UserLocalDataSource implements UserDataSource {
 
       List<User> users = new ArrayList<>(results.size());
       for (UserDb userDb : results) {
-        User user = User.create(userDb.accountId, userDb.name);
+        User user = new User(userDb.accountId, userDb.name);
         users.add(user);
       }
       realm.close();
@@ -35,8 +35,8 @@ public class UserLocalDataSource implements UserDataSource {
         List<UserDb> usersDb = new ArrayList<>(users.size());
         for (User user : users) {
           UserDb userDb = new UserDb();
-          userDb.accountId = user.accountId();
-          userDb.name = user.name();
+          userDb.accountId = user.getAccountId();
+          userDb.name = user.getName();
           usersDb.add(userDb);
         }
         realm1.copyToRealmOrUpdate(usersDb);

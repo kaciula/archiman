@@ -34,8 +34,8 @@ public class UserRepositoryImplTest {
   @Test
   public void getUsers() {
     final List<User> users = new ArrayList<>();
-    users.add(User.create(1, "Best programmer"));
-    users.add(User.create(2, "Second best programmer"));
+    users.add(new User(1, "Best programmer"));
+    users.add(new User(2, "Second best programmer"));
     when(usersLocalDataSource.getUsers()).thenReturn(Observable.<List<User>>empty());
     when(usersLocalDataSource.createOrUpdateUsers(users)).thenReturn(Completable.complete());
     when(usersRemoteDataSource.getUsers()).thenReturn(Observable.fromArray(users));

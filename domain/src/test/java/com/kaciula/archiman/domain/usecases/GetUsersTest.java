@@ -30,8 +30,8 @@ public class GetUsersTest {
   @Test
   public void getUsersSuccess() {
     final List<User> users = new ArrayList<>();
-    users.add(User.create(1, "Best programmer"));
-    users.add(User.create(2, "Second best programmer"));
+    users.add(new User(1, "Best programmer"));
+    users.add(new User(2, "Second best programmer"));
     Mockito.when(userRepository.getUsers()).thenReturn(Observable.fromArray(users));
 
     TestObserver<GetUsers.ResponseModel> observer =

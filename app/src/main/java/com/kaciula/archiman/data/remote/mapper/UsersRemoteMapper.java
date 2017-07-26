@@ -13,7 +13,7 @@ public class UsersRemoteMapper implements Function<UsersRemote, List<User>> {
   public List<User> apply(UsersRemote usersRemote) throws Exception {
     List<User> users = new ArrayList<>(usersRemote.items().size());
     for (UserRemote userRemote : usersRemote.items()) {
-      users.add(User.create(userRemote.accountId(), userRemote.displayName()));
+      users.add(new User(userRemote.accountId(), userRemote.displayName()));
     }
     return users;
   }
