@@ -11,6 +11,6 @@ public abstract class UsersRemote {
 
   // This tells auto-value-gson to create a TypeAdapter when parsing json
   public static TypeAdapter<UsersRemote> typeAdapter(Gson gson) {
-    return new AutoValue_UsersResponse.GsonTypeAdapter(gson);
+    return new AutoValue_UsersRemote.GsonTypeAdapter(gson);
   }
 }
