@@ -8,13 +8,12 @@ buildscript {
         classpath 'io.fabric.tools:gradle:1.22.1'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.14.0'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-        classpath 'me.tatarka:gradle-retrolambda:3.6.0'
+        classpath "me.tatarka:gradle-retrolambda:$RETROLAMBDA_VERSION"
     }
 }
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
-    mavenCentral()
 }
 
 apply plugin: 'com.android.application'
@@ -177,7 +176,7 @@ dependencies {
 
     compile 'net.sourceforge.findbugs:annotations:1.3.2'
     compile "com.android.support:support-annotations:$SUPPORT_LIBRARY_VERSION"
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$KOTLIN_VERSION"
 
     // Debug only dependencies
     debugCompile "com.squareup.leakcanary:leakcanary-android:$LEAK_CANARY_VERSION"
