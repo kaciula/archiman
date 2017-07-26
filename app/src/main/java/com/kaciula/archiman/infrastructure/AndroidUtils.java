@@ -10,7 +10,7 @@ public class AndroidUtils {
     Context ctx = BaseApplication.getContext();
     String deviceId =
         Settings.Secure.getString(ctx.getContentResolver(), Settings.Secure.ANDROID_ID);
-    if (!Strings.isBlank(deviceId)) {
+    if (!Strings.INSTANCE.isBlank(deviceId)) {
       return deviceId;
     }
     return "THISISASTATICID";

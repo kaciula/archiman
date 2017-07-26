@@ -26,7 +26,7 @@ public class GsonPreference<T> {
 
   public T get() {
     String value = preferences.getString(key, "");
-    if (Strings.isBlank(value)) {
+    if (Strings.INSTANCE.isBlank(value)) {
       return defaultValue;
     }
     return gson.fromJson(value, type);
