@@ -35,8 +35,10 @@ public class GetUsersTest {
     Mockito.when(userRepository.getUsers()).thenReturn(Observable.fromArray(users));
 
     TestObserver<GetUsers.ResponseModel> observer =
-        useCase.execute(GetUsers.RequestModel.create()).test();
-    observer.assertValues(GetUsers.ResponseModel.IN_FLIGHT, GetUsers.ResponseModel.success(users));
+        useCase.execute(new GetUsers.RequestModel()).test();
+    observer.assertValues(
+        GetUsers.ResponseModel.Companion.getIN_FLIGHT(),
+        GetUsers.ResponseModel.Companion.success(users));
   }
 
   @Test
@@ -45,7 +47,9 @@ public class GetUsersTest {
     Mockito.when(userRepository.getUsers()).thenReturn(Observable.error(error));
 
     TestObserver<GetUsers.ResponseModel> observer =
-        useCase.execute(GetUsers.RequestModel.create()).test();
-    observer.assertValues(GetUsers.ResponseModel.IN_FLIGHT, GetUsers.ResponseModel.error(error));
+        useCase.execute(new GetUsers.RequestModel()).test();
+    observer.assertValues(
+        GetUsers.ResponseModel.Companion.getIN_FLIGHT(),
+        GetUsers.ResponseModel.Companion.error(error));
   }
 }

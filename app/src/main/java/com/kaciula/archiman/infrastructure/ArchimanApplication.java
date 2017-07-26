@@ -25,7 +25,7 @@ public class ArchimanApplication extends BaseApplication {
     setupRealm();
 
     initColdStart
-        .execute(InitColdStart.RequestModel.create(BuildConfig.VERSION_CODE))
+        .execute(new InitColdStart.RequestModel(BuildConfig.VERSION_CODE))
         .subscribe();
   }
 

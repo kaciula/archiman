@@ -30,7 +30,7 @@ public class InitColdStartTest {
     Mockito.when(appInfoRepository.isFirstTime()).thenReturn(true);
     Mockito.when(appInfoRepository.getVersionCode()).thenReturn(0);
 
-    useCase.execute(InitColdStart.RequestModel.create(currentVersionCode))
+    useCase.execute(new InitColdStart.RequestModel(currentVersionCode))
         .subscribe(new Observer<InitColdStart.ResponseModel>() {
                      @Override
                      public void onSubscribe(Disposable d) {
@@ -64,7 +64,7 @@ public class InitColdStartTest {
     Mockito.when(appInfoRepository.isFirstTime()).thenReturn(false);
     Mockito.when(appInfoRepository.getVersionCode()).thenReturn(1);
 
-    useCase.execute(InitColdStart.RequestModel.create(currentVersionCode))
+    useCase.execute(new InitColdStart.RequestModel(currentVersionCode))
         .subscribe(new Observer<InitColdStart.ResponseModel>() {
                      @Override
                      public void onSubscribe(Disposable d) {

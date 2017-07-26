@@ -121,7 +121,7 @@ class HomePresenter implements HomeContract.Presenter {
     public ObservableSource<GenericResult> apply(Observable<HomeViewEvent> upstream) {
       return upstream.publish(shared -> Observable.merge(
           shared.ofType(GetUsersEvent.class)
-              .flatMap(ignored -> getUsers.execute(GetUsers.RequestModel.create())),
+              .flatMap(ignored -> getUsers.execute(new GetUsers.RequestModel())),
           Observable.merge(
               shared.ofType(ClickUserEvent.class)
                   .flatMap(clickUserEvent -> Observable
@@ -153,13 +153,13 @@ class HomePresenter implements HomeContract.Presenter {
       return upstream.scan(initialViewModel, (viewModel, result) -> {
         if (result instanceof GetUsers.ResponseModel) {
           GetUsers.ResponseModel responseModel = (GetUsers.ResponseModel) result;
-          if (responseModel.inFlight()) {
+          if (responseModel.isInFlight()) {
             return HomeViewModel.progress();
           } else if (responseModel.isError()) {
             return HomeViewModel.error();
           } else {
-            List<UserViewModel> users = new ArrayList<>(responseModel.users().size());
-            for (User user : responseModel.users()) {
+            List<UserViewModel> users = new ArrayList<>(responseModel.getUsers().size());
+            for (User user : responseModel.getUsers()) {
               users.add(UserViewModel.create(user.getName()));
             }
             return HomeViewModel.content(users);
