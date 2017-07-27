@@ -20,9 +20,6 @@ dependencies {
     compile "io.reactivex.rxjava2:rxjava:$RXJAVA_VERSION"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
 
-    compileOnly "com.google.auto.value:auto-value:$AUTOVALUE_VERSION"
-    apt "com.google.auto.value:auto-value:$AUTOVALUE_VERSION"
-
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:1.10.19'
     testCompile 'org.hamcrest:hamcrest-all:1.3'
