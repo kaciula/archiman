@@ -67,7 +67,7 @@ public class LogDialog extends AlertDialog {
             sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             sendIntent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(getContext(),
                 BuildConfig.FILE_PROVIDER_AUTHORITY, file));
-            Intents.maybeStartActivity(getContext(), sendIntent);
+            Intents.INSTANCE.maybeStartActivity(getContext(), sendIntent);
           }
 
           @Override
