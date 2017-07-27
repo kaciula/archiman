@@ -53,9 +53,9 @@ class HomePresenter implements HomeContract.Presenter {
       HomeViewModel initialViewModel = HomeViewModel.justInitialize();
       setupFlow(initialViewModel);
 
-      flowRelay.accept(GetUsersEvent.create());
+      flowRelay.accept(new GetUsersEvent());
     } else {
-      flowRelay.accept(RecreateEvent.create());
+      flowRelay.accept(new RecreateEvent());
     }
   }
 
@@ -77,22 +77,22 @@ class HomePresenter implements HomeContract.Presenter {
 
   @Override
   public void onClickRetry() {
-    flowRelay.accept(GetUsersEvent.create());
+    flowRelay.accept(new GetUsersEvent());
   }
 
   @Override
   public void onClickUser(UserViewModel user) {
-    flowRelay.accept(ClickUserEvent.create(user));
+    flowRelay.accept(new ClickUserEvent(user));
   }
 
   @Override
   public void onClickOkUserDialog(UserViewModel user) {
-    flowRelay.accept(ClickOkUserDialogEvent.create());
+    flowRelay.accept(new ClickOkUserDialogEvent());
   }
 
   @Override
   public void onCancelUserDialog() {
-    flowRelay.accept(CancelUserDialogEvent.create());
+    flowRelay.accept(new CancelUserDialogEvent());
   }
 
   @Override
@@ -125,7 +125,7 @@ class HomePresenter implements HomeContract.Presenter {
           Observable.merge(
               shared.ofType(ClickUserEvent.class)
                   .flatMap(clickUserEvent -> Observable
-                      .just(new ClickUserResult(clickUserEvent.user()))),
+                      .just(new ClickUserResult(clickUserEvent.getUser()))),
               shared.ofType(ClickOkUserDialogEvent.class)
                   .flatMap(
                       clickOkUserDialogEvent -> Observable.just(new ClickOkUserDialogResult())),
