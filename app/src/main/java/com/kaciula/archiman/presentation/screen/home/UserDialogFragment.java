@@ -41,7 +41,7 @@ public class UserDialogFragment extends AppCompatDialogFragment {
   @Override
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-    builder.setTitle(user().name());
+    builder.setTitle(user().getName());
 
     View view = View.inflate(getActivity(), R.layout.dialog_user, null);
     ButterKnife.bind(this, view);
@@ -59,7 +59,7 @@ public class UserDialogFragment extends AppCompatDialogFragment {
   }
 
   private void setup() {
-    tvUserName.setText(user().name());
+    tvUserName.setText(user().getName());
   }
 
   private UserViewModel user() {

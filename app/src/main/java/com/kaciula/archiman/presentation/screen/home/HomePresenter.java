@@ -160,7 +160,7 @@ class HomePresenter implements HomeContract.Presenter {
           } else {
             List<UserViewModel> users = new ArrayList<>(responseModel.getUsers().size());
             for (User user : responseModel.getUsers()) {
-              users.add(UserViewModel.create(user.getName()));
+              users.add(new UserViewModel(user.getName()));
             }
             return HomeViewModel.content(users);
           }

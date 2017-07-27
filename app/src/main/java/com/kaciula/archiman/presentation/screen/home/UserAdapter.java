@@ -30,7 +30,7 @@ class UserAdapter extends GenericRecyclerAdapter<UserViewModel, UserAdapter.View
   @Override
   public void onBindViewHolder(ViewHolder holder, int position) {
     UserViewModel user = getItem(position);
-    holder.username.setText(user.name());
+    holder.username.setText(user.getName());
     holder.view.setOnClickListener(holder);
   }
 
