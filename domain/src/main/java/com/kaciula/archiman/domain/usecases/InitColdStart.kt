@@ -11,11 +11,11 @@ class InitColdStart(private val appInfoRepository: AppInfoRepository) :
     override fun execute(requestModel: RequestModel): Observable<ResponseModel> {
         return Completable.fromAction {
             val currentVersionCode = requestModel.currentVersionCode
-            if (appInfoRepository.isFirstTime) {
+            if (appInfoRepository.isFirstTime()) {
                 appInfoRepository.saveFirstTime(false)
                 appInfoRepository.saveVersionCode(currentVersionCode)
             } else {
-                if (appInfoRepository.versionCode < currentVersionCode) {
+                if (appInfoRepository.getVersionCode() < currentVersionCode) {
                     appInfoRepository.saveVersionCode(currentVersionCode)
                 }
             }

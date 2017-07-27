@@ -11,7 +11,7 @@ class GetUsers(private val userRepository: UserRepository, private val scheduler
     : UseCase<GetUsers.RequestModel, GetUsers.ResponseModel>() {
 
     override fun execute(requestModel: RequestModel): Observable<ResponseModel> {
-        return userRepository.users
+        return userRepository.getUsers()
                 .subscribeOn(schedulerProvider.io())
                 .map { users -> ResponseModel.success(users) }
                 .onErrorReturn { throwable -> ResponseModel.error(throwable) }

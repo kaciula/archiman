@@ -27,7 +27,7 @@ class GetUsersTest {
     @Test
     fun getUsersSuccess() {
         val users = arrayListOf(User(1, "Best programmer"), User(2, "Second best programmer"))
-        Mockito.`when`(userRepository.users).thenReturn(Observable.fromArray(users))
+        Mockito.`when`(userRepository.getUsers()).thenReturn(Observable.fromArray(users))
 
         val observer = useCase.execute(GetUsers.RequestModel()).test()
         observer.assertValues(
@@ -38,7 +38,7 @@ class GetUsersTest {
     @Test
     fun getUsersFailure() {
         val error = Throwable()
-        Mockito.`when`(userRepository.users).thenReturn(Observable.error(error))
+        Mockito.`when`(userRepository.getUsers()).thenReturn(Observable.error(error))
 
         val observer = useCase.execute(GetUsers.RequestModel()).test()
         observer.assertValues(
