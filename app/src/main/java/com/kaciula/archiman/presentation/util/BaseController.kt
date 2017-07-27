@@ -15,7 +15,7 @@ abstract class BaseController : ButterKnifeController {
 
     protected fun getActionBar(): ActionBar? {
         val actionBarProvider = activity as ActionBarProvider?
-        return actionBarProvider?.supportActionBar
+        return actionBarProvider?.getSupportActionBar()
     }
 
     override fun onAttach(view: View) {
