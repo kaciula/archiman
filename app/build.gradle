@@ -138,6 +138,7 @@ dependencies {
     compile "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
     compile "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION"
     compile "com.android.support:design:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support.constraint:constraint-layout:1.0.2"
 
     compile 'com.jakewharton.timber:timber:4.5.1'
     compile "com.jakewharton:butterknife:$BUTTER_KNIFE_VERSION"

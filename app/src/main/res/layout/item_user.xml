@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:gravity="center_vertical"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:minHeight="@dimen/material_component_lists_single_line_height"
@@ -12,9 +12,13 @@
         android:gravity="center_vertical"
         android:id="@+id/tv_username"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:layout_width="0dp"
         android:textSize="@dimen/material_component_lists_single_line_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/btn_details"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Jane Doe" />
 
     <Button
@@ -22,5 +26,9 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="@string/all_details"
-        android:textSize="@dimen/material_component_lists_single_line_text_size" />
-</LinearLayout>
+        android:textSize="@dimen/material_component_lists_single_line_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/tv_username"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>
