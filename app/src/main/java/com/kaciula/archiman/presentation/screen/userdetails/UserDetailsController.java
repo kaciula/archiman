@@ -76,6 +76,6 @@ public class UserDetailsController extends BaseController implements UserDetails
 
   @Override
   public void render(UserDetailsViewModel viewModel) {
-    tvUserName.setText(viewModel.userName());
+    tvUserName.setText(viewModel.getUserName());
   }
 }

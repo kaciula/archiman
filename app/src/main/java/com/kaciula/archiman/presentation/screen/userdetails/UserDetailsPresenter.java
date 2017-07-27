@@ -18,7 +18,7 @@ class UserDetailsPresenter implements UserDetailsContract.Presenter {
 
   @Override
   public void init() {
-    view.render(UserDetailsViewModel.create(user.name()));
+    view.render(new UserDetailsViewModel(user.name()));
   }
 
   @Override
