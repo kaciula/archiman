@@ -5,7 +5,8 @@ import com.kaciula.archiman.domain.util.UseCase
 import io.reactivex.Completable
 import io.reactivex.Observable
 
-class InitColdStart(private val appInfoRepository: AppInfoRepository) : UseCase<InitColdStart.RequestModel, InitColdStart.ResponseModel>() {
+class InitColdStart(private val appInfoRepository: AppInfoRepository) :
+        UseCase<InitColdStart.RequestModel, InitColdStart.ResponseModel>() {
 
     override fun execute(requestModel: RequestModel): Observable<ResponseModel> {
         return Completable.fromAction {
@@ -18,7 +19,7 @@ class InitColdStart(private val appInfoRepository: AppInfoRepository) : UseCase<
                     appInfoRepository.saveVersionCode(currentVersionCode)
                 }
             }
-        }.toObservable<ResponseModel>()
+        }.toObservable()
     }
 
     data class RequestModel(val currentVersionCode: Int) : UseCase.RequestModel

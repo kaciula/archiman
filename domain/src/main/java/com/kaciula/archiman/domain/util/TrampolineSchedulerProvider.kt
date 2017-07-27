@@ -8,15 +8,9 @@ import io.reactivex.schedulers.Schedulers
  */
 class TrampolineSchedulerProvider : SchedulerProvider {
 
-    override fun computation(): Scheduler {
-        return Schedulers.trampoline()
-    }
+    override fun computation(): Scheduler = Schedulers.trampoline()
 
-    override fun io(): Scheduler {
-        return Schedulers.trampoline()
-    }
+    override fun io(): Scheduler = Schedulers.trampoline()
 
-    override fun ui(): Scheduler {
-        return Schedulers.trampoline()
-    }
+    override fun ui(): Scheduler = Schedulers.trampoline()
 }
