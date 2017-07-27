@@ -7,7 +7,6 @@ buildscript {
     dependencies {
         classpath 'io.fabric.tools:gradle:1.22.1'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.14.0'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath "me.tatarka:gradle-retrolambda:$RETROLAMBDA_VERSION"
         classpath "io.mironov.smuggler:smuggler-plugin:0.12.13"
     }
@@ -19,10 +18,10 @@ repositories {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply plugin: "io.mironov.smuggler"
 apply plugin: 'io.fabric'
 apply plugin: 'com.github.ben-manes.versions'
-apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'jacoco'
 apply plugin: 'realm-android'
@@ -142,7 +141,7 @@ dependencies {
 
     compile 'com.jakewharton.timber:timber:4.5.1'
     compile "com.jakewharton:butterknife:$BUTTER_KNIFE_VERSION"
-    apt "com.jakewharton:butterknife-compiler:$BUTTER_KNIFE_VERSION"
+    kapt "com.jakewharton:butterknife-compiler:$BUTTER_KNIFE_VERSION"
 
     compile "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
     compile "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
@@ -152,18 +151,18 @@ dependencies {
 
     compile "com.google.dagger:dagger:$DAGGER_VERSION"
     provided 'org.glassfish:javax.annotation:10.0-b28' //Required by Dagger2
-    apt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
+    kapt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
 
     compile "io.reactivex.rxjava2:rxjava:$RXJAVA_VERSION"
     compile "io.reactivex.rxjava2:rxandroid:2.0.1"
     compile "com.jakewharton.rxrelay2:rxrelay:2.0.0"
 
     provided "com.google.auto.value:auto-value:$AUTOVALUE_VERSION"
-    apt "com.google.auto.value:auto-value:$AUTOVALUE_VERSION"
+    kapt "com.google.auto.value:auto-value:$AUTOVALUE_VERSION"
     provided "com.ryanharter.auto.value:auto-value-parcel:0.2.5"
-    apt "com.ryanharter.auto.value:auto-value-parcel:0.2.5"
+    kapt "com.ryanharter.auto.value:auto-value-parcel:0.2.5"
     provided "com.ryanharter.auto.value:auto-value-gson:0.4.6"
-    apt "com.ryanharter.auto.value:auto-value-gson:0.4.6"
+    kapt "com.ryanharter.auto.value:auto-value-gson:0.4.6"
 
     compile "com.bluelinelabs:conductor:$CONDUCTOR_VERSION"
     compile "com.bluelinelabs:conductor-support:$CONDUCTOR_VERSION"
