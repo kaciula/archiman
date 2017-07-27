@@ -29,8 +29,8 @@ public class ReleaseArchimanApplication extends ArchimanApplication {
 
   private void startCrashlytics() {
     Fabric.with(this, new Crashlytics());
-    Crashlytics.setUserIdentifier(AndroidUtils.getDeviceId());
-    Crashlytics.setString("Installer", AndroidUtils.getInstaller());
+    Crashlytics.setUserIdentifier(AndroidUtils.INSTANCE.getDeviceId());
+    Crashlytics.setString("Installer", AndroidUtils.INSTANCE.getInstaller());
     Crashlytics.setString("Git SHA", BuildConfig.GIT_SHA);
   }
 }
