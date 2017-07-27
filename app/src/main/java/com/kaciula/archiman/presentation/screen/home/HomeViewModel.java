@@ -5,7 +5,7 @@ import io.reactivex.annotations.Nullable;
 import java.util.List;
 
 @AutoValue
-abstract class HomeViewModel {
+public abstract class HomeViewModel {
 
   public abstract boolean initialize();
 

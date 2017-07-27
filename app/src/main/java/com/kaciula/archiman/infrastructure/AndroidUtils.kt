@@ -7,10 +7,7 @@ object AndroidUtils {
     fun getDeviceId(): String {
         val ctx = BaseApplication.getContext()
         val deviceId = Settings.Secure.getString(ctx.contentResolver, Settings.Secure.ANDROID_ID)
-        if (!deviceId.isBlank()) {
-            return deviceId
-        }
-        return "THISISASTATICID"
+        return if (!deviceId.isBlank()) deviceId else "THISISASTATICID"
     }
 
     fun getInstaller(): String {
@@ -22,9 +19,6 @@ object AndroidUtils {
         if ("com.amazon.venezia" == installer) {
             return "Amazon App Store"
         }
-        if (installer == null) {
-            return "No store info"
-        }
-        return installer
+        return installer ?: "No store info"
     }
 }
