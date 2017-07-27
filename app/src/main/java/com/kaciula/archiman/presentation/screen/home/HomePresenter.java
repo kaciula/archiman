@@ -125,16 +125,16 @@ class HomePresenter implements HomeContract.Presenter {
           Observable.merge(
               shared.ofType(ClickUserEvent.class)
                   .flatMap(clickUserEvent -> Observable
-                      .just(ClickUserResult.create(clickUserEvent.user()))),
+                      .just(new ClickUserResult(clickUserEvent.user()))),
               shared.ofType(ClickOkUserDialogEvent.class)
                   .flatMap(
-                      clickOkUserDialogEvent -> Observable.just(ClickOkUserDialogResult.create())),
+                      clickOkUserDialogEvent -> Observable.just(new ClickOkUserDialogResult())),
               shared.ofType(CancelUserDialogEvent.class)
                   .flatMap(
-                      cancelUserDialogEvent -> Observable.just(CancelUserDialogResult.create())),
+                      cancelUserDialogEvent -> Observable.just(new CancelUserDialogResult())),
               shared.ofType(RecreateEvent.class)
                   .flatMap(
-                      recreateEvent -> Observable.just(RecreateResult.create()))))
+                      recreateEvent -> Observable.just(new RecreateResult()))))
       );
     }
   }
@@ -168,7 +168,7 @@ class HomePresenter implements HomeContract.Presenter {
           ClickUserResult result1 = ((ClickUserResult) result);
           return viewModel.toBuilder()
               .showUserDialog(true)
-              .dialogUser(result1.user())
+              .dialogUser(result1.getUser())
               .isRecreate(false)
               .initialize(false)
               .build();
