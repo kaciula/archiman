@@ -32,7 +32,6 @@ def versionMinor = 0
 def versionPatch = 1
 
 def buildTime = new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
-def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
 
 android {
     compileSdkVersion 25
@@ -46,7 +45,6 @@ android {
         versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
 
-        buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
         buildConfigField "String", "BUILD_TIME", "\"${buildTime}\""
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
