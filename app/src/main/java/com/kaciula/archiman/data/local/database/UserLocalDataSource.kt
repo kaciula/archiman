@@ -15,10 +15,7 @@ class UserLocalDataSource : UserDataSource {
             val results = realm.where(UserDb::class.java).findAll()
 
             val users = ArrayList<User>(results.size)
-            for (userDb in results) {
-                val user = User(userDb.accountId, userDb.name!!)
-                users.add(user)
-            }
+            results.mapTo(users) { User(it.accountId, it.name!!) }
             realm.close()
             users
         }

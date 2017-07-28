@@ -10,9 +10,7 @@ class UsersRemoteMapper : Function<UsersRemote, List<User>> {
     @Throws(Exception::class)
     override fun apply(usersRemote: UsersRemote): List<User> {
         val users = ArrayList<User>(usersRemote.items.size)
-        for (userRemote in usersRemote.items) {
-            users.add(User(userRemote.accountId, userRemote.displayName))
-        }
+        usersRemote.items.mapTo(users) { User(it.accountId, it.displayName) }
         return users
     }
 }
