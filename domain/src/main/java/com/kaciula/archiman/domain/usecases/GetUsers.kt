@@ -2,7 +2,6 @@ package com.kaciula.archiman.domain.usecases
 
 import com.kaciula.archiman.domain.boundary.data.UserRepository
 import com.kaciula.archiman.domain.entity.User
-import com.kaciula.archiman.domain.util.GenericResult
 import com.kaciula.archiman.domain.util.SchedulerProvider
 import com.kaciula.archiman.domain.util.UseCase
 import io.reactivex.Observable
@@ -25,7 +24,7 @@ class GetUsers(private val userRepository: UserRepository, private val scheduler
                              val isError: Boolean,
                              val error: Throwable?,
                              val isSuccess: Boolean,
-                             val users: List<User>?) : UseCase.ResponseModel, GenericResult {
+                             val users: List<User>?) : UseCase.ResponseModel {
 
         companion object {
 

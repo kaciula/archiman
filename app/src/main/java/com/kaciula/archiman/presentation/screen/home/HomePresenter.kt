@@ -2,9 +2,7 @@ package com.kaciula.archiman.presentation.screen.home
 
 import com.jakewharton.rxrelay2.PublishRelay
 import com.kaciula.archiman.domain.usecases.GetUsers
-import com.kaciula.archiman.domain.util.GenericResult
 import com.kaciula.archiman.domain.util.SchedulerProvider
-import com.kaciula.archiman.presentation.screen.home.event.*
 import io.reactivex.Observable
 import io.reactivex.ObservableSource
 import io.reactivex.ObservableTransformer
@@ -77,61 +75,57 @@ class HomePresenter(private val view: HomeContract.View,
     }
 
 
-    private class EventsMerger(private val getUsers: GetUsers) : ObservableTransformer<HomeViewEvent, GenericResult> {
+    private class EventsMerger(private val getUsers: GetUsers) : ObservableTransformer<HomeViewEvent, HomeResult> {
 
-        override fun apply(upstream: Observable<HomeViewEvent>): ObservableSource<GenericResult> {
+        override fun apply(upstream: Observable<HomeViewEvent>): ObservableSource<HomeResult> {
             return upstream.publish { shared ->
                 Observable.merge(
                         shared.ofType(HomeViewEvent.GetUsers::class.java)
-                                .flatMap<GetUsers.ResponseModel> { getUsers.execute(GetUsers.RequestModel()) },
+                                .flatMap<GetUsers.ResponseModel> { getUsers.execute(GetUsers.RequestModel()) }
+                                .map { responseModel -> HomeResult.GetUsers(responseModel) },
                         Observable.merge(
                                 shared.ofType(HomeViewEvent.ClickUser::class.java)
                                         .flatMap { clickUserEvent ->
-                                            Observable
-                                                    .just(ClickUserResult(clickUserEvent.user))
+                                            Observable.just(HomeResult.ClickUser(clickUserEvent.user))
                                         },
                                 shared.ofType(HomeViewEvent.ClickOkUserDialog::class.java)
-                                        .flatMap { Observable.just(ClickOkUserDialogResult()) },
+                                        .flatMap { Observable.just(HomeResult.ClickOkUserDialog()) },
                                 shared.ofType(HomeViewEvent.CancelUserDialog::class.java)
-                                        .flatMap { Observable.just(CancelUserDialogResult()) },
+                                        .flatMap { Observable.just(HomeResult.CancelUserDialog()) },
                                 shared.ofType(HomeViewEvent.Recreate::class.java)
-                                        .flatMap { Observable.just(RecreateResult()) }))
+                                        .flatMap { Observable.just(HomeResult.Recreate()) }))
             }
         }
     }
 
 
-    private class StateReducer(private val initialViewModel: HomeViewModel) : ObservableTransformer<GenericResult, HomeViewModel> {
+    private class StateReducer(private val initialViewModel: HomeViewModel) : ObservableTransformer<HomeResult, HomeViewModel> {
 
-        override fun apply(upstream: Observable<GenericResult>): ObservableSource<HomeViewModel> {
+        override fun apply(upstream: Observable<HomeResult>): ObservableSource<HomeViewModel> {
             return upstream.scan(initialViewModel) { viewModel, result ->
-                if (result is GetUsers.ResponseModel) {
-                    val (isInFlight, isError, _, _, users1) = result
-                    if (isInFlight) {
-                        return@scan HomeViewModel(isProgress = true)
-                    } else if (isError) {
-                        return@scan HomeViewModel(isError = true)
-                    } else {
-                        val users = ArrayList<UserViewModel>(users1!!.size)
-                        for ((_, name) in users1) {
-                            users.add(UserViewModel(name))
+                when (result) {
+                    is HomeResult.GetUsers -> {
+                        val (isInFlight, isError, _, _, users1) = result.response
+                        if (isInFlight) {
+                            return@scan HomeViewModel(isProgress = true)
+                        } else if (isError) {
+                            return@scan HomeViewModel(isError = true)
+                        } else {
+                            val users = ArrayList<UserViewModel>(users1!!.size)
+                            for ((_, name) in users1) {
+                                users.add(UserViewModel(name))
+                            }
+                            return@scan HomeViewModel(isContent = true, users = users)
                         }
-                        return@scan HomeViewModel(isContent = true, users = users)
                     }
-                } else if (result is ClickUserResult) {
-                    return@scan viewModel.copy(showUserDialog = true, dialogUser = result.user,
-                            isRecreate = false, initialize = false)
-                } else if (result is ClickOkUserDialogResult) {
-                    return@scan viewModel.copy(showUserDialog = false, dialogUser = null,
-                            isRecreate = false, initialize = false)
-                } else if (result is CancelUserDialogResult) {
-                    return@scan viewModel.copy(showUserDialog = false, dialogUser = null,
-                            isRecreate = false, initialize = false)
-                } else if (result is RecreateResult) {
-                    return@scan viewModel.copy(isRecreate = true, initialize = true)
+                    is HomeResult.ClickUser -> return@scan viewModel.copy(showUserDialog = true,
+                            dialogUser = result.user, isRecreate = false, initialize = false)
+                    is HomeResult.ClickOkUserDialog -> return@scan viewModel.copy(showUserDialog = false,
+                            dialogUser = null, isRecreate = false, initialize = false)
+                    is HomeResult.CancelUserDialog -> return@scan viewModel.copy(showUserDialog = false,
+                            dialogUser = null, isRecreate = false, initialize = false)
+                    is HomeResult.Recreate -> return@scan viewModel.copy(isRecreate = true, initialize = true)
                 }
-                throw IllegalArgumentException(
-                        "No view model representation for this kind of result")
             }
         }
     }
