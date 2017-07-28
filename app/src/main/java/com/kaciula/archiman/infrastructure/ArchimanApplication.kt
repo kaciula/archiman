@@ -32,14 +32,13 @@ abstract class ArchimanApplication : BaseApplication() {
 
     private fun setupRealm() {
         Realm.init(this)
-        val realmConfiguration = RealmConfiguration.Builder().build()
-        Realm.setDefaultConfiguration(realmConfiguration)
+        Realm.setDefaultConfiguration(RealmConfiguration.Builder().build())
     }
 
     companion object {
 
         fun component(): AppComponent {
-            return (context as ArchimanApplication).appComponent
+            return get().appComponent
         }
 
         fun get(): ArchimanApplication {

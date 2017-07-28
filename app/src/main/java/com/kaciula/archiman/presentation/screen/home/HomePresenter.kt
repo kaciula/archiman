@@ -85,8 +85,8 @@ class HomePresenter(private val view: HomeContract.View,
                                 .map { responseModel -> HomeResult.GetUsers(responseModel) },
                         Observable.merge(
                                 shared.ofType(HomeViewEvent.ClickUser::class.java)
-                                        .flatMap { clickUserEvent ->
-                                            Observable.just(HomeResult.ClickUser(clickUserEvent.user))
+                                        .flatMap { (user) ->
+                                            Observable.just(HomeResult.ClickUser(user))
                                         },
                                 shared.ofType(HomeViewEvent.ClickOkUserDialog::class.java)
                                         .flatMap { Observable.just(HomeResult.ClickOkUserDialog()) },
