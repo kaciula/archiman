@@ -29,9 +29,9 @@ class HomePresenter(private val view: HomeContract.View,
             val initialViewModel = HomeViewModel(initialize = true)
             setupFlow(initialViewModel)
 
-            flowRelay.accept(GetUsersEvent())
+            flowRelay.accept(HomeViewEvent.GetUsers())
         } else {
-            flowRelay.accept(RecreateEvent())
+            flowRelay.accept(HomeViewEvent.Recreate())
         }
     }
 
@@ -49,19 +49,19 @@ class HomePresenter(private val view: HomeContract.View,
     }
 
     override fun onClickRetry() {
-        flowRelay.accept(GetUsersEvent())
+        flowRelay.accept(HomeViewEvent.GetUsers())
     }
 
     override fun onClickUser(user: UserViewModel) {
-        flowRelay.accept(ClickUserEvent(user))
+        flowRelay.accept(HomeViewEvent.ClickUser(user))
     }
 
     override fun onClickOkUserDialog(user: UserViewModel) {
-        flowRelay.accept(ClickOkUserDialogEvent())
+        flowRelay.accept(HomeViewEvent.ClickOkUserDialog())
     }
 
     override fun onCancelUserDialog() {
-        flowRelay.accept(CancelUserDialogEvent())
+        flowRelay.accept(HomeViewEvent.CancelUserDialog())
     }
 
     override fun onClickUserDetails(user: UserViewModel) {
@@ -82,19 +82,19 @@ class HomePresenter(private val view: HomeContract.View,
         override fun apply(upstream: Observable<HomeViewEvent>): ObservableSource<GenericResult> {
             return upstream.publish { shared ->
                 Observable.merge(
-                        shared.ofType(GetUsersEvent::class.java)
+                        shared.ofType(HomeViewEvent.GetUsers::class.java)
                                 .flatMap<GetUsers.ResponseModel> { getUsers.execute(GetUsers.RequestModel()) },
                         Observable.merge(
-                                shared.ofType(ClickUserEvent::class.java)
+                                shared.ofType(HomeViewEvent.ClickUser::class.java)
                                         .flatMap { clickUserEvent ->
                                             Observable
                                                     .just(ClickUserResult(clickUserEvent.user))
                                         },
-                                shared.ofType(ClickOkUserDialogEvent::class.java)
+                                shared.ofType(HomeViewEvent.ClickOkUserDialog::class.java)
                                         .flatMap { Observable.just(ClickOkUserDialogResult()) },
-                                shared.ofType(CancelUserDialogEvent::class.java)
+                                shared.ofType(HomeViewEvent.CancelUserDialog::class.java)
                                         .flatMap { Observable.just(CancelUserDialogResult()) },
-                                shared.ofType(RecreateEvent::class.java)
+                                shared.ofType(HomeViewEvent.Recreate::class.java)
                                         .flatMap { Observable.just(RecreateResult()) }))
             }
         }
