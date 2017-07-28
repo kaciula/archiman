@@ -29,7 +29,6 @@ class DataModule {
         gsonBuilder.registerTypeAdapter(Int::class.javaPrimitiveType, gsonIntegerTypeAdapter)
         gsonBuilder.registerTypeAdapter(Int::class.java, gsonIntegerTypeAdapter)
 
-        gsonBuilder.registerTypeAdapterFactory(ApiGsonAdapterFactory.create())
         return gsonBuilder.create()
     }
 }
