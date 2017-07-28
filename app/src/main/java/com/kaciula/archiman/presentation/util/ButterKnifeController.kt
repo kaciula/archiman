@@ -10,7 +10,7 @@ import com.bluelinelabs.conductor.Controller
 
 abstract class ButterKnifeController : Controller {
 
-    private var unbinder: Unbinder? = null
+    private lateinit var unbinder: Unbinder
 
     protected constructor()
 
@@ -29,8 +29,7 @@ abstract class ButterKnifeController : Controller {
 
     override fun onDestroyView(view: View) {
         super.onDestroyView(view)
-        unbinder!!.unbind()
-        unbinder = null
+        unbinder.unbind()
     }
 
 }

@@ -10,7 +10,7 @@ import android.view.View
 
 class DividerItemDecoration : RecyclerView.ItemDecoration {
 
-    private var divider: Drawable? = null
+    private var divider: Drawable
     private var drawLastDivider: Boolean = false
 
     constructor(context: Context) {
@@ -32,22 +32,14 @@ class DividerItemDecoration : RecyclerView.ItemDecoration {
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView,
                                 state: RecyclerView.State?) {
         super.getItemOffsets(outRect, view, parent, state)
-        if (divider == null) {
-            return
-        }
         if (getOrientation(parent) == LinearLayoutManager.VERTICAL) {
-            outRect.bottom = divider!!.intrinsicHeight
+            outRect.bottom = divider.intrinsicHeight
         } else {
-            outRect.right = divider!!.intrinsicWidth
+            outRect.right = divider.intrinsicWidth
         }
     }
 
     override fun onDrawOver(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State?) {
-        if (divider == null) {
-            super.onDrawOver(canvas, parent, state)
-            return
-        }
-
         if (getOrientation(parent) == LinearLayoutManager.VERTICAL) {
             val left = parent.paddingLeft
             val right = parent.width - parent.paddingRight
@@ -57,11 +49,11 @@ class DividerItemDecoration : RecyclerView.ItemDecoration {
             for (i in 0..count - 1) {
                 val child = parent.getChildAt(i)
                 val params = child.layoutParams as RecyclerView.LayoutParams
-                val size = divider!!.intrinsicHeight
+                val size = divider.intrinsicHeight
                 val top = child.bottom + params.bottomMargin
                 val bottom = top + size
-                divider!!.setBounds(left, top, right, bottom)
-                divider!!.draw(canvas)
+                divider.setBounds(left, top, right, bottom)
+                divider.draw(canvas)
             }
         } else { //horizontal
             val top = parent.paddingTop
@@ -72,11 +64,11 @@ class DividerItemDecoration : RecyclerView.ItemDecoration {
             for (i in 0..count - 1) {
                 val child = parent.getChildAt(i)
                 val params = child.layoutParams as RecyclerView.LayoutParams
-                val size = divider!!.intrinsicWidth
+                val size = divider.intrinsicWidth
                 val left = child.right + params.rightMargin
                 val right = left + size
-                divider!!.setBounds(left, top, right, bottom)
-                divider!!.draw(canvas)
+                divider.setBounds(left, top, right, bottom)
+                divider.draw(canvas)
             }
         }
     }
@@ -87,7 +79,7 @@ class DividerItemDecoration : RecyclerView.ItemDecoration {
             return layoutManager.orientation
         } else {
             throw IllegalStateException(
-                    "DividerItemDecorationOld can only be used with a " + "LinearLayoutManager.")
+                    "DividerItemDecoration can only be used with a LinearLayoutManager.")
         }
     }
 }
