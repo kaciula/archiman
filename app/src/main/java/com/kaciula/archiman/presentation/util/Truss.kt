@@ -62,5 +62,5 @@ class Truss {
         return builder
     }
 
-    private class Span(internal val start: Int, internal val theSpan: Any)
+    private class Span(val start: Int, val theSpan: Any)
 }

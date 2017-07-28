@@ -61,7 +61,7 @@ class HomeController : BaseController(), HomeContract.View {
 
     override fun render(viewModel: HomeViewModel) {
         if (viewModel.initialize) {
-            recyclerView.addItemDecoration(DividerItemDecoration(activity))
+            recyclerView.addItemDecoration(DividerItemDecoration(activity!!))
             recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             adapter = UserAdapter(activity!!, ArrayList<UserViewModel>(), presenter)
             recyclerView.adapter = adapter
