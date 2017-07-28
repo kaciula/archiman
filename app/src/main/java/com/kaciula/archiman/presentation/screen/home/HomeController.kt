@@ -60,7 +60,7 @@ class HomeController : BaseController(), HomeContract.View {
     }
 
     override fun render(viewModel: HomeViewModel) {
-        if (viewModel.initialize()) {
+        if (viewModel.initialize) {
             recyclerView.addItemDecoration(DividerItemDecoration(activity))
             recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             adapter = UserAdapter(activity!!, ArrayList<UserViewModel>(), presenter)
@@ -71,10 +71,10 @@ class HomeController : BaseController(), HomeContract.View {
             flipper.displayedChild = CHILD_PROGRESS
         } else if (viewModel.isError) {
             flipper.displayedChild = CHILD_ERROR
-        } else if (viewModel.showUserDialog()) {
+        } else if (viewModel.showUserDialog) {
             showContent(viewModel)
             if (!viewModel.isRecreate) {
-                getDialogShowman().show(UserDialogFragment.newInstance(viewModel.dialogUser()))
+                getDialogShowman().show(UserDialogFragment.newInstance(viewModel.dialogUser!!))
             }
         } else if (viewModel.isContent) {
             showContent(viewModel)
@@ -82,7 +82,7 @@ class HomeController : BaseController(), HomeContract.View {
     }
 
     private fun showContent(viewModel: HomeViewModel) {
-        adapter.items = viewModel.users()
+        adapter.items = viewModel.users!!
         flipper.displayedChild = CHILD_CONTENT
     }
 

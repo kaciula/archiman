@@ -26,7 +26,7 @@ class HomePresenter(private val view: HomeContract.View,
         Timber.d("presenter init")
         if (isFirstInit) {
             isFirstInit = false
-            val initialViewModel = HomeViewModel.justInitialize()
+            val initialViewModel = HomeViewModel(initialize = true)
             setupFlow(initialViewModel)
 
             flowRelay.accept(GetUsersEvent())
@@ -108,42 +108,27 @@ class HomePresenter(private val view: HomeContract.View,
                 if (result is GetUsers.ResponseModel) {
                     val (isInFlight, isError, _, _, users1) = result
                     if (isInFlight) {
-                        return@scan HomeViewModel.progress()
+                        return@scan HomeViewModel(isProgress = true)
                     } else if (isError) {
-                        return@scan HomeViewModel.error()
+                        return@scan HomeViewModel(isError = true)
                     } else {
                         val users = ArrayList<UserViewModel>(users1!!.size)
                         for ((_, name) in users1) {
                             users.add(UserViewModel(name))
                         }
-                        return@scan HomeViewModel.content(users)
+                        return@scan HomeViewModel(isContent = true, users = users)
                     }
                 } else if (result is ClickUserResult) {
-                    return@scan viewModel.toBuilder()
-                            .showUserDialog(true)
-                            .dialogUser(result.user)
-                            .isRecreate(false)
-                            .initialize(false)
-                            .build()
+                    return@scan viewModel.copy(showUserDialog = true, dialogUser = result.user,
+                            isRecreate = false, initialize = false)
                 } else if (result is ClickOkUserDialogResult) {
-                    return@scan viewModel.toBuilder()
-                            .showUserDialog(false)
-                            .dialogUser(null)
-                            .isRecreate(false)
-                            .initialize(false)
-                            .build()
+                    return@scan viewModel.copy(showUserDialog = false, dialogUser = null,
+                            isRecreate = false, initialize = false)
                 } else if (result is CancelUserDialogResult) {
-                    return@scan viewModel.toBuilder()
-                            .showUserDialog(false)
-                            .dialogUser(null)
-                            .isRecreate(false)
-                            .initialize(false)
-                            .build()
+                    return@scan viewModel.copy(showUserDialog = false, dialogUser = null,
+                            isRecreate = false, initialize = false)
                 } else if (result is RecreateResult) {
-                    return@scan viewModel.toBuilder()
-                            .isRecreate(true)
-                            .initialize(true)
-                            .build()
+                    return@scan viewModel.copy(isRecreate = true, initialize = true)
                 }
                 throw IllegalArgumentException(
                         "No view model representation for this kind of result")
