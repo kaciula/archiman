@@ -5,10 +5,11 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.22.1'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.14.0'
-        classpath "me.tatarka:gradle-retrolambda:$RETROLAMBDA_VERSION"
-        classpath "io.mironov.smuggler:smuggler-plugin:0.12.13"
+        classpath "io.realm:realm-gradle-plugin:3.5.0"
+        classpath 'io.fabric.tools:gradle:1.23.0'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
+        classpath "me.tatarka:gradle-retrolambda:3.7.0"
+        classpath "io.mironov.smuggler:smuggler-plugin:0.12.14"
     }
 }
 
@@ -108,18 +109,18 @@ android {
 }
 
 dependencies {
-    final SUPPORT_LIBRARY_VERSION = '25.2.0'
-    final DAGGER_VERSION = '2.9'
-    final LEAK_CANARY_VERSION = '1.5'
-    final BUTTER_KNIFE_VERSION = '8.5.1'
-    final RETROFIT_VERSION = '2.2.0'
-    final OKHTTP_VERSION = '3.6.0'
-    final CONDUCTOR_VERSION = '2.1.1'
+    final SUPPORT_LIBRARY_VERSION = '25.3.1'
+    final DAGGER_VERSION = '2.11'
+    final LEAK_CANARY_VERSION = '1.5.1'
+    final BUTTER_KNIFE_VERSION = '8.7.0'
+    final RETROFIT_VERSION = '2.3.0'
+    final OKHTTP_VERSION = '3.8.1'
+    final CONDUCTOR_VERSION = '2.1.4'
     final DEBUG_DRAWER = '0.7.0'
     final RUNNER_VERSION = '0.5'
-    final JODA_TIME_ANDROID_VERSION = '2.9.7'
-    final JODA_TIME_VERSION = '2.9.7'
-    final STETHO_VERSION = '1.4.2'
+    final JODA_TIME_ANDROID_VERSION = '2.9.9'
+    final JODA_TIME_VERSION = '2.9.9'
+    final STETHO_VERSION = '1.5.0'
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':domain')
@@ -151,10 +152,10 @@ dependencies {
     compile "com.bluelinelabs:conductor-support:$CONDUCTOR_VERSION"
     compile "com.bluelinelabs:conductor-rxlifecycle2:$CONDUCTOR_VERSION"
 
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.6@aar') {
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
         transitive = true;
     }
-    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.google.code.gson:gson:2.8.1'
     compile "net.danlew:android.joda:$JODA_TIME_ANDROID_VERSION"
     compile 'com.dmitrymalkovich.android:material-design-dimens:1.4'
 
@@ -165,11 +166,11 @@ dependencies {
     debugCompile "com.squareup.leakcanary:leakcanary-android:$LEAK_CANARY_VERSION"
     debugCompile 'com.squareup.haha:haha:2.0.3'
 
-    debugCompile 'com.amitshekhar.android:debug-db:1.0.0'
+    debugCompile 'com.amitshekhar.android:debug-db:1.0.1'
     debugCompile "io.palaima.debugdrawer:debugdrawer:$DEBUG_DRAWER"
     debugCompile "io.palaima.debugdrawer:debugdrawer-commons:$DEBUG_DRAWER"
     debugCompile "io.palaima.debugdrawer:debugdrawer-actions:$DEBUG_DRAWER"
-    debugCompile 'jp.wasabeef:takt:1.0.3'
+    debugCompile 'jp.wasabeef:takt:1.0.5'
     debugCompile "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
     debugCompile 'com.github.simonpercic:oklog3:2.1.0'
 
@@ -193,6 +194,6 @@ dependencies {
     androidTestCompile "com.android.support.test:runner:$RUNNER_VERSION"
     androidTestCompile "com.android.support.test:rules:$RUNNER_VERSION"
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
-    androidTestCompile 'tools.fastlane:screengrab:1.0.2'
+    androidTestCompile 'tools.fastlane:screengrab:1.1.0'
     androidTestCompile "com.google.code.findbugs:jsr305:3.0.1"
 }

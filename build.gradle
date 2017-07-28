@@ -9,15 +9,12 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath "io.realm:realm-gradle-plugin:3.0.0"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
     }
 }
 
 allprojects {
-    ext.RXJAVA_VERSION = '2.0.6'
-    ext.AUTOVALUE_VERSION = '1.3'
-    ext.RETROLAMBDA_VERSION = '3.6.1'
+    ext.RXJAVA_VERSION = '2.1.2'
     ext.JUNIT_VERSION = '4.12'
     ext.MOCKITO_VERSION = '1.10.19'
     ext.HAMCREST_VERSION = '1.3'
