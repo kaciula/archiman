@@ -87,7 +87,7 @@ public class HomeController extends BaseController implements HomeContract.View 
     } else if (viewModel.showUserDialog()) {
       showContent(viewModel);
       if (!viewModel.isRecreate()) {
-        getDialogShowman().show(UserDialogFragment.newInstance(viewModel.dialogUser()));
+        getDialogShowman().show(UserDialogFragment.Companion.newInstance(viewModel.dialogUser()));
       }
     } else if (viewModel.isContent()) {
       showContent(viewModel);
