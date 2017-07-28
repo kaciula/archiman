@@ -68,8 +68,10 @@ class HomePresenter(private val view: HomeContract.View,
 
     private fun setupFlow(initialViewModel: HomeViewModel) {
         disposables.add(flowRelay
+                .doOnNext({ event -> Timber.i("Event: $event") })
                 .compose(EventsMerger(getUsers))
                 .compose(StateReducer(initialViewModel))
+                .doOnNext({ viewModel -> Timber.i("ViewModel: $viewModel") })
                 .observeOn(schedulerProvider.ui())
                 .subscribeWith(FlowSubscriber()))
     }
