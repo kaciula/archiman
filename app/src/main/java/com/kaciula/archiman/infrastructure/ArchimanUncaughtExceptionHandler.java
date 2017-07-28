@@ -14,7 +14,7 @@ public class ArchimanUncaughtExceptionHandler implements Thread.UncaughtExceptio
 
   @Override
   public void uncaughtException(Thread thread, Throwable ex) {
-    Intent startIntent = MainActivity.getStartIntent(context);
+    Intent startIntent = MainActivity.Companion.getStartIntent(context);
     startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
     context.startActivity(startIntent);
 

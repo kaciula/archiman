@@ -69,9 +69,8 @@ task pmd(type: Pmd) {
 
 android {
     lintOptions {
-        tasks.lint.enabled = false
-        abortOnError true
-        warningsAsErrors true
+        abortOnError false
+        warningsAsErrors false
         xmlReport false
         htmlReport true
         lintConfig file("$configDir/lint/lint.xml")
