@@ -12,7 +12,7 @@ abstract class ArchimanActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (ArchimanApplication.get().isCrashlyticsUsed) {
+        if (ArchimanApplication.get().isCrashlyticsUsed()) {
             Crashlytics.setString("current screen", localClassName)
         }
     }

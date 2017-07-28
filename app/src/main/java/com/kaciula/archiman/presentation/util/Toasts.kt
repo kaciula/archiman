@@ -10,7 +10,7 @@ object Toasts {
     private val MAIN_THREAD = Handler(Looper.getMainLooper())
 
     fun show(message: String) {
-        val ctx = BaseApplication.getContext()
+        val ctx = BaseApplication.context
         if (Looper.myLooper() == Looper.getMainLooper()) {
             Toast.makeText(ctx, message, Toast.LENGTH_SHORT).show()
         } else {
@@ -19,7 +19,7 @@ object Toasts {
     }
 
     fun show(messageId: Int, vararg args: Any) {
-        val ctx = BaseApplication.getContext()
+        val ctx = BaseApplication.context
         if (Looper.myLooper() == Looper.getMainLooper()) {
             Toast.makeText(ctx, ctx.getString(messageId, *args), Toast.LENGTH_SHORT).show()
         } else {
@@ -28,7 +28,7 @@ object Toasts {
     }
 
     fun showLong(message: String) {
-        val ctx = BaseApplication.getContext()
+        val ctx = BaseApplication.context
         if (Looper.myLooper() == Looper.getMainLooper()) {
             Toast.makeText(ctx, message, Toast.LENGTH_LONG).show()
         } else {
@@ -37,7 +37,7 @@ object Toasts {
     }
 
     fun showLong(messageId: Int, vararg args: Any) {
-        val ctx = BaseApplication.getContext()
+        val ctx = BaseApplication.context
         if (Looper.myLooper() == Looper.getMainLooper()) {
             Toast.makeText(ctx, ctx.getString(messageId, *args), Toast.LENGTH_LONG).show()
         } else {

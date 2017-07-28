@@ -4,7 +4,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".infrastructure.ArchimanApplication"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -12,8 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".presentation.screen.main.MainActivity"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:name=".presentation.screen.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

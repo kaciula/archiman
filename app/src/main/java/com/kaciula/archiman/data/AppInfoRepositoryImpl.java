@@ -17,7 +17,7 @@ public class AppInfoRepositoryImpl implements AppInfoRepository {
   IntPreference versionCodePref;
 
   public AppInfoRepositoryImpl() {
-    ArchimanApplication.component().inject(this);
+    ArchimanApplication.Companion.component().inject(this);
   }
 
   @Override
