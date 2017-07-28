@@ -69,6 +69,7 @@ task pmd(type: Pmd) {
 
 android {
     lintOptions {
+        tasks.lint.enabled = false
         abortOnError true
         warningsAsErrors true
         xmlReport false
