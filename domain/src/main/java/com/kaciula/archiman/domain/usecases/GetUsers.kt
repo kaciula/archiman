@@ -2,12 +2,12 @@ package com.kaciula.archiman.domain.usecases
 
 import com.kaciula.archiman.domain.boundary.data.UserRepository
 import com.kaciula.archiman.domain.entity.User
+import com.kaciula.archiman.domain.util.ObservableUseCase
 import com.kaciula.archiman.domain.util.SchedulerProvider
-import com.kaciula.archiman.domain.util.UseCase
 import io.reactivex.Observable
 
 class GetUsers(private val userRepository: UserRepository, private val schedulerProvider: SchedulerProvider)
-    : UseCase<GetUsers.RequestModel, GetUsers.ResponseModel>() {
+    : ObservableUseCase<GetUsers.RequestModel, GetUsers.ResponseModel>() {
 
     override fun execute(requestModel: RequestModel): Observable<ResponseModel> {
         return userRepository.getUsers()
@@ -18,13 +18,13 @@ class GetUsers(private val userRepository: UserRepository, private val scheduler
                 .startWith(ResponseModel.IN_FLIGHT)
     }
 
-    class RequestModel : UseCase.RequestModel
+    class RequestModel
 
     data class ResponseModel(val isInFlight: Boolean,
                              val isError: Boolean,
                              val error: Throwable?,
                              val isSuccess: Boolean,
-                             val users: List<User>?) : UseCase.ResponseModel {
+                             val users: List<User>?) {
 
         companion object {
 

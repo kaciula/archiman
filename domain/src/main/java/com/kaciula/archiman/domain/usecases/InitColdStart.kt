@@ -1,14 +1,12 @@
 package com.kaciula.archiman.domain.usecases
 
 import com.kaciula.archiman.domain.boundary.data.AppInfoRepository
-import com.kaciula.archiman.domain.util.UseCase
+import com.kaciula.archiman.domain.util.CompletableUseCase
 import io.reactivex.Completable
-import io.reactivex.Observable
 
-class InitColdStart(private val appInfoRepository: AppInfoRepository) :
-        UseCase<InitColdStart.RequestModel, InitColdStart.ResponseModel>() {
+class InitColdStart(private val appInfoRepository: AppInfoRepository) : CompletableUseCase<InitColdStart.RequestModel>() {
 
-    override fun execute(requestModel: RequestModel): Observable<ResponseModel> {
+    override fun execute(requestModel: RequestModel): Completable {
         return Completable.fromAction {
             val currentVersionCode = requestModel.currentVersionCode
             if (appInfoRepository.isFirstTime()) {
@@ -19,10 +17,8 @@ class InitColdStart(private val appInfoRepository: AppInfoRepository) :
                     appInfoRepository.saveVersionCode(currentVersionCode)
                 }
             }
-        }.toObservable()
+        }
     }
 
-    data class RequestModel(val currentVersionCode: Int) : UseCase.RequestModel
-
-    class ResponseModel : UseCase.ResponseModel
+    data class RequestModel(val currentVersionCode: Int)
 }
