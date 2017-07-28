@@ -12,31 +12,17 @@ class GetUsers(private val userRepository: UserRepository, private val scheduler
     override fun execute(requestModel: RequestModel): Observable<ResponseModel> {
         return userRepository.getUsers()
                 .subscribeOn(schedulerProvider.io())
-                .map { users -> ResponseModel.success(users) }
-                .onErrorReturn { throwable -> ResponseModel.error(throwable) }
+                .map { users -> ResponseModel(isSuccess = true, users = users) }
+                .onErrorReturn { throwable -> ResponseModel(isError = true, error = throwable) }
                 .observeOn(schedulerProvider.ui())
-                .startWith(ResponseModel.IN_FLIGHT)
+                .startWith(ResponseModel(isInFlight = true))
     }
 
     class RequestModel
 
-    data class ResponseModel(val isInFlight: Boolean,
-                             val isError: Boolean,
-                             val error: Throwable?,
-                             val isSuccess: Boolean,
-                             val users: List<User>?) {
-
-        companion object {
-
-            val IN_FLIGHT = ResponseModel(true, false, null, false, null)
-
-            fun error(throwable: Throwable): ResponseModel {
-                return ResponseModel(false, true, throwable, false, null)
-            }
-
-            fun success(users: List<User>): ResponseModel {
-                return ResponseModel(false, false, null, true, users)
-            }
-        }
-    }
+    data class ResponseModel(val isInFlight: Boolean = false,
+                             val isError: Boolean = false,
+                             val error: Throwable? = null,
+                             val isSuccess: Boolean = false,
+                             val users: List<User>? = null)
 }

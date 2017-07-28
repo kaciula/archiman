@@ -31,8 +31,8 @@ class GetUsersTest {
 
         val observer = useCase.execute(GetUsers.RequestModel()).test()
         observer.assertValues(
-                GetUsers.ResponseModel.IN_FLIGHT,
-                GetUsers.ResponseModel.success(users))
+                GetUsers.ResponseModel(isInFlight = true),
+                GetUsers.ResponseModel(isSuccess = true, users = users))
     }
 
     @Test
@@ -42,7 +42,7 @@ class GetUsersTest {
 
         val observer = useCase.execute(GetUsers.RequestModel()).test()
         observer.assertValues(
-                GetUsers.ResponseModel.IN_FLIGHT,
-                GetUsers.ResponseModel.error(error))
+                GetUsers.ResponseModel(isInFlight = true),
+                GetUsers.ResponseModel(isError = true, error = error))
     }
 }

@@ -28,7 +28,6 @@ class InitColdStartTest {
         Mockito.`when`(appInfoRepository.getVersionCode()).thenReturn(0)
 
         val observer = useCase.execute(InitColdStart.RequestModel(currentVersionCode)).test()
-        observer.assertNoValues()
         observer.assertNoErrors()
 
         Mockito.verify<AppInfoRepository>(appInfoRepository).saveFirstTime(false)
@@ -42,7 +41,6 @@ class InitColdStartTest {
         Mockito.`when`(appInfoRepository.getVersionCode()).thenReturn(1)
 
         val observer = useCase.execute(InitColdStart.RequestModel(currentVersionCode)).test()
-        observer.assertNoValues()
         observer.assertNoErrors()
 
         Mockito.verify<AppInfoRepository>(appInfoRepository).saveVersionCode(currentVersionCode)
