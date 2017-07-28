@@ -10,17 +10,17 @@ import java.io.IOException;
 public class GsonIntegerTypeAdapter extends TypeAdapter<Number> {
 
   @Override
-  public void write(JsonWriter out, Number value) throws IOException {
-    out.value(value);
+  public void write(JsonWriter writer, Number value) throws IOException {
+    writer.value(value);
   }
 
   @Override
-  public Number read(JsonReader in) throws IOException {
-    if (in.peek() == JsonToken.NULL) {
-      in.nextNull();
+  public Number read(JsonReader reader) throws IOException {
+    if (reader.peek() == JsonToken.NULL) {
+      reader.nextNull();
       return null;
     }
-    String result = in.nextString();
+    String result = reader.nextString();
     try {
       return Integer.parseInt(result);
     } catch (NumberFormatException nfe1) {

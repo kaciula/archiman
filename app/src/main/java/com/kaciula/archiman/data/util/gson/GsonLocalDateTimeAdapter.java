@@ -16,21 +16,21 @@ public class GsonLocalDateTimeAdapter extends TypeAdapter<LocalDateTime> {
       DateTimeFormat.forPattern(DATE_TIME_FORMAT);
 
   @Override
-  public void write(JsonWriter out, LocalDateTime value) throws IOException {
+  public void write(JsonWriter writer, LocalDateTime value) throws IOException {
     if (value != null) {
-      out.value(value.toString(DATE_TIME_FORMAT));
+      writer.value(value.toString(DATE_TIME_FORMAT));
     } else {
-      out.nullValue();
+      writer.nullValue();
     }
   }
 
   @Override
-  public LocalDateTime read(JsonReader in) throws IOException {
-    if (in.peek() == JsonToken.NULL) {
-      in.nextNull();
+  public LocalDateTime read(JsonReader reader) throws IOException {
+    if (reader.peek() == JsonToken.NULL) {
+      reader.nextNull();
       return null;
     }
-    String result = in.nextString();
+    String result = reader.nextString();
     return DATE_TIME_FORMATTER.parseLocalDateTime(result);
   }
 }
