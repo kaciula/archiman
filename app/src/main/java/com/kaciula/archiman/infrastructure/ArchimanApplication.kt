@@ -28,7 +28,7 @@ abstract class ArchimanApplication : BaseApplication() {
                 .subscribe()
     }
 
-    fun isCrashlyticsUsed() = false
+    open fun isCrashlyticsUsed() = false
 
     private fun setupRealm() {
         Realm.init(this)

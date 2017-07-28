@@ -9,10 +9,10 @@ class ReleaseArchimanApplication : ArchimanApplication() {
     override fun onCreate() {
         super.onCreate()
 
-        val uncaughtExceptionHandler = ArchimanUncaughtExceptionHandler(BaseApplication.getContext())
+        val uncaughtExceptionHandler = ArchimanUncaughtExceptionHandler(BaseApplication.context)
         Thread.setDefaultUncaughtExceptionHandler(uncaughtExceptionHandler)
 
-        if (isCrashlyticsUsed) {
+        if (isCrashlyticsUsed()) {
             startCrashlytics()
             Timber.plant(CrashlyticsTree())
         }
