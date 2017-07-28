@@ -4,12 +4,10 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.os.StrictMode
-import edu.umd.cs.findbugs.annotations.SuppressWarnings
 import net.danlew.android.joda.JodaTimeAndroid
 
 abstract class BaseApplication : Application() {
 
-    @SuppressWarnings("ST")
     override fun onCreate() {
         super.onCreate()
 

@@ -35,14 +35,14 @@ build:
     paths:
     - app/build/outputs/apk
 
-qualityTests:
-  stage: test
-  script:
-    - ./gradlew checkstyle findbugs pmd lintProdDebug
-  artifacts:
-    when: always
-    paths:
-    - app/build/reports
+#qualityTests:
+#  stage: test
+#  script:
+#    - ./gradlew lintProdDebug
+#  artifacts:
+#    when: always
+#    paths:
+#    - app/build/reports
 
 unitTests:
   stage: test
