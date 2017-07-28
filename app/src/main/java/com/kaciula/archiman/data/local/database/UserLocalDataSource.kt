@@ -16,7 +16,7 @@ class UserLocalDataSource : UserDataSource {
 
             val users = ArrayList<User>(results.size)
             for (userDb in results) {
-                val user = User(userDb.accountId, userDb.name)
+                val user = User(userDb.accountId, userDb.name!!)
                 users.add(user)
             }
             realm.close()
