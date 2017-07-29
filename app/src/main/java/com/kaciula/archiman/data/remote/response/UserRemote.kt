@@ -1,7 +1,6 @@
 package com.kaciula.archiman.data.remote.response
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
-data class UserRemote(@SerializedName("account_id") val accountId: Long,
-                      @SerializedName("display_name") val displayName: String)
-
+data class UserRemote(@field:Json(name = "account_id") val accountId: Long,
+                      @field:Json(name = "display_name") val displayName: String)

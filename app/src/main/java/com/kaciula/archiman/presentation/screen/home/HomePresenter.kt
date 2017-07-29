@@ -107,11 +107,11 @@ class HomePresenter(private val view: HomeContract.View,
             return upstream.scan(initialViewModel) { viewModel, result ->
                 when (result) {
                     is HomeResult.GetUsers -> {
-                        val (isInFlight, isError, _, _, users1) = result.response
+                        val (isInFlight, isError, error, _, users1) = result.response
                         if (isInFlight) {
                             return@scan HomeViewModel(isProgress = true)
                         } else if (isError) {
-                            return@scan HomeViewModel(isError = true)
+                            return@scan HomeViewModel(isError = true, error = error)
                         } else {
                             val users = ArrayList<UserViewModel>(users1!!.size)
                             for ((_, name) in users1) {

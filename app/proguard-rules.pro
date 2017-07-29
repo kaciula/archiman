@@ -83,6 +83,8 @@
 
 #------- Retrofit2 START -------
 -dontwarn retrofit2.Platform$Java8
+-dontwarn okio.**
+-dontwarn javax.annotation.**
 #------- Retrofit2 END -------
 
 
@@ -97,3 +99,13 @@
 #-------- Retrolambda START -------
 -dontwarn java.lang.invoke.*
 #-------- Retrolambda END -------
+
+#-------- Moshi START -------------------
+-dontwarn okio.**
+-dontwarn javax.annotation.Nullable
+-dontwarn javax.annotation.ParametersAreNonnullByDefault
+-keepclasseswithmembers class * {
+    @com.squareup.moshi.* <methods>;
+}
+#-------- Moshi END -------------------
+

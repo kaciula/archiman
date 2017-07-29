@@ -135,7 +135,7 @@ dependencies {
     kapt "com.jakewharton:butterknife-compiler:$BUTTER_KNIFE_VERSION"
 
     compile "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
-    compile "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
+    compile "com.squareup.retrofit2:converter-moshi:$RETROFIT_VERSION"
     compile "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VERSION"
 
     compile "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
@@ -155,7 +155,7 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
         transitive = true;
     }
-    compile 'com.google.code.gson:gson:2.8.1'
+    compile 'com.squareup.moshi:moshi:1.5.0'
     compile "net.danlew:android.joda:$JODA_TIME_ANDROID_VERSION"
     compile 'com.dmitrymalkovich.android:material-design-dimens:1.4'
 

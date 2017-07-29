@@ -12,6 +12,7 @@ import com.kaciula.archiman.R
 import com.kaciula.archiman.injection.Injector
 import com.kaciula.archiman.presentation.util.BaseController
 import com.kaciula.archiman.presentation.widget.DividerItemDecoration
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -71,6 +72,7 @@ class HomeController : BaseController(), HomeContract.View {
             flipper.displayedChild = CHILD_PROGRESS
         } else if (viewModel.isError) {
             flipper.displayedChild = CHILD_ERROR
+            Timber.w("Encountered an error: ${viewModel.error}")
         } else if (viewModel.showUserDialog) {
             showContent(viewModel)
             if (!viewModel.isRecreate) {
