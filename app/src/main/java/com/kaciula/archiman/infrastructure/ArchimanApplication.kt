@@ -33,8 +33,6 @@ abstract class ArchimanApplication : BaseApplication() {
                 .subscribe()
     }
 
-    open fun isCrashlyticsUsed() = false
-
     private fun setupRealm() {
         Realm.init(this)
         Realm.setDefaultConfiguration(RealmConfiguration.Builder().build())

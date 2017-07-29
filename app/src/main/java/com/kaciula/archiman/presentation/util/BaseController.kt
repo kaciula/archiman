@@ -6,6 +6,7 @@ import android.view.View
 import com.kaciula.archiman.presentation.screen.main.ActionBarProvider
 import com.kaciula.archiman.presentation.screen.main.DialogShowman
 import com.kaciula.archiman.presentation.screen.main.Navigator
+import timber.log.Timber
 
 abstract class BaseController : ButterKnifeController {
 
@@ -19,8 +20,14 @@ abstract class BaseController : ButterKnifeController {
     }
 
     override fun onAttach(view: View) {
+        Timber.i("ATTACH CONTROLLER -> ${javaClass.simpleName}")
         setTitle()
         super.onAttach(view)
+    }
+
+    override fun onDetach(view: View) {
+        Timber.i("DETACH CONTROLLER -> ${javaClass.simpleName}")
+        super.onDetach(view)
     }
 
     protected fun setTitle() {

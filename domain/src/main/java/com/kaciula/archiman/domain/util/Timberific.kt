@@ -10,7 +10,7 @@ object Timberific {
 
     fun init(isEnabled: Boolean) {
         Timberific.isEnabled = isEnabled
-        logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME)
+        if (isEnabled) logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME)
     }
 
     fun d(message: String) {

@@ -16,12 +16,12 @@ import com.kaciula.archiman.presentation.screen.home.HomeComponent
 import com.kaciula.archiman.presentation.screen.home.HomeController
 import com.kaciula.archiman.presentation.screen.home.UserViewModel
 import com.kaciula.archiman.presentation.screen.userdetails.UserDetailsController
-import com.kaciula.archiman.presentation.util.ArchimanActivity
+import com.kaciula.archiman.presentation.util.BaseActivity
 import com.kaciula.archiman.presentation.util.DevDrawer
 import timber.log.Timber
 import java.util.*
 
-class MainActivity : ArchimanActivity(), ActionBarProvider, ComponentProvider, DialogShowman, Navigator {
+class MainActivity : BaseActivity(), ActionBarProvider, ComponentProvider, DialogShowman, Navigator {
 
     @BindView(R.id.toolbar) lateinit var toolbar: Toolbar
     @BindView(R.id.controller_container) lateinit var container: ViewGroup
