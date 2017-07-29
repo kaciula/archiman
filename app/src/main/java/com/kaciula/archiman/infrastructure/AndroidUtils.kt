@@ -1,16 +1,16 @@
 package com.kaciula.archiman.infrastructure
 
+import android.content.Context
 import android.provider.Settings
 
 object AndroidUtils {
 
-    fun getDeviceId(): String {
-        val deviceId = Settings.Secure.getString(BaseApplication.context.contentResolver, Settings.Secure.ANDROID_ID)
+    fun getDeviceId(context: Context): String {
+        val deviceId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         return if (!deviceId.isBlank()) deviceId else "THISISASTATICID"
     }
 
-    fun getInstaller(): String {
-        val context = BaseApplication.context
+    fun getInstaller(context: Context): String {
         val installer = context.packageManager.getInstallerPackageName(context.packageName)
         if ("com.android.vending" == installer || "com.google.android.feedback" == installer) {
             return "Google Play Store"

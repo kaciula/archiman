@@ -14,8 +14,8 @@ class CrashlyticsCrashReporter(private val context: Context) : CrashReporter {
         // FIXME: 10/01/17 When you have set the fabric API key, replace this with true
         if (false) {
             Fabric.with(context, Crashlytics())
-            Crashlytics.setUserIdentifier(AndroidUtils.getDeviceId())
-            Crashlytics.setString("Installer", AndroidUtils.getInstaller())
+            Crashlytics.setUserIdentifier(AndroidUtils.getDeviceId(context))
+            Crashlytics.setString("Installer", AndroidUtils.getInstaller(context))
             Timber.plant(CrashlyticsTree())
         }
     }
