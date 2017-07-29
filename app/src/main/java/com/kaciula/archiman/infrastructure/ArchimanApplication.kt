@@ -1,6 +1,7 @@
 package com.kaciula.archiman.infrastructure
 
 import com.kaciula.archiman.BuildConfig
+import com.kaciula.archiman.domain.boundary.infrastructure.CrashReporter
 import com.kaciula.archiman.domain.usecases.InitColdStart
 import com.kaciula.archiman.injection.AppComponent
 import com.kaciula.archiman.injection.AppModule
@@ -14,6 +15,7 @@ abstract class ArchimanApplication : BaseApplication() {
     private lateinit var appComponent: AppComponent
 
     @Inject lateinit var initColdStart: InitColdStart
+    @Inject lateinit var crashReporter: CrashReporter
 
     override fun onCreate() {
         super.onCreate()
