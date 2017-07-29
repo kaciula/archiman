@@ -5,6 +5,7 @@ import com.kaciula.archiman.domain.boundary.infrastructure.CrashReporter
 import com.kaciula.archiman.domain.usecases.InitColdStart
 import com.kaciula.archiman.domain.util.Timberific
 import com.kaciula.archiman.injection.Injector
+import io.reactivex.plugins.RxJavaPlugins
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import javax.inject.Inject
@@ -21,6 +22,7 @@ abstract class ArchimanApplication : BaseApplication() {
         Injector.appComponent.inject(this)
 
         Timberific.init(BuildConfig.DEBUG)
+        RxJavaPlugins.setErrorHandler(RxGlobalErrorHandler())
 
         setupRealm()
 
