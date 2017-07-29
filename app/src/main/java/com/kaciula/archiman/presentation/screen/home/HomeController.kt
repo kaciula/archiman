@@ -9,7 +9,7 @@ import android.widget.ViewFlipper
 import butterknife.BindView
 import butterknife.OnClick
 import com.kaciula.archiman.R
-import com.kaciula.archiman.infrastructure.ArchimanApplication
+import com.kaciula.archiman.injection.Injector
 import com.kaciula.archiman.presentation.util.BaseController
 import com.kaciula.archiman.presentation.widget.DividerItemDecoration
 import java.util.*
@@ -19,7 +19,7 @@ class HomeController : BaseController(), HomeContract.View {
 
     @Inject lateinit var presenter: HomeContract.Presenter
     private val component: HomeComponent = DaggerHomeComponent.builder()
-            .appComponent(ArchimanApplication.component())
+            .appComponent(Injector.appComponent)
             .homeModule(HomeModule(this))
             .build()
 

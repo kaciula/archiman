@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import butterknife.BindView
 import com.kaciula.archiman.R
-import com.kaciula.archiman.infrastructure.ArchimanApplication
+import com.kaciula.archiman.injection.Injector
 import com.kaciula.archiman.presentation.screen.home.UserViewModel
 import com.kaciula.archiman.presentation.util.BaseController
 import com.kaciula.archiman.presentation.util.BundleBuilder
@@ -24,7 +24,7 @@ class UserDetailsController(args: Bundle) : BaseController(args), UserDetailsCon
         val user = getArgs().getParcelable<UserViewModel>(KEY_USER)
 
         component = DaggerUserDetailsComponent.builder()
-                .appComponent(ArchimanApplication.component())
+                .appComponent(Injector.appComponent)
                 .userDetailsModule(UserDetailsModule(this, user!!))
                 .build()
         component.inject(this)

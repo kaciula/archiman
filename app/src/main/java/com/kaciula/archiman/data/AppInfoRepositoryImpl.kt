@@ -3,7 +3,7 @@ package com.kaciula.archiman.data
 import com.kaciula.archiman.data.local.prefs.util.BooleanPreference
 import com.kaciula.archiman.data.local.prefs.util.IntPreference
 import com.kaciula.archiman.domain.boundary.data.AppInfoRepository
-import com.kaciula.archiman.infrastructure.ArchimanApplication
+import com.kaciula.archiman.injection.Injector
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -15,7 +15,7 @@ class AppInfoRepositoryImpl : AppInfoRepository {
     lateinit var versionCodePref: IntPreference
 
     init {
-        ArchimanApplication.component().inject(this)
+        Injector.appComponent.inject(this)
     }
 
     override fun isFirstTime(): Boolean {

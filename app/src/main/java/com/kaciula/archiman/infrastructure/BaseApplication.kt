@@ -1,8 +1,6 @@
 package com.kaciula.archiman.infrastructure
 
-import android.annotation.SuppressLint
 import android.app.Application
-import android.content.Context
 import android.os.StrictMode
 import net.danlew.android.joda.JodaTimeAndroid
 
@@ -11,7 +9,6 @@ abstract class BaseApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        BaseApplication.context = applicationContext
         JodaTimeAndroid.init(this)
     }
 
@@ -37,12 +34,5 @@ abstract class BaseApplication : Application() {
 
     protected fun allowThreadDiskWrites() {
         StrictMode.allowThreadDiskWrites()
-    }
-
-    companion object {
-
-        /* Get the context when you don't have access to it in any other way */
-        @SuppressLint("StaticFieldLeak") lateinit var context: Context
-            private set
     }
 }

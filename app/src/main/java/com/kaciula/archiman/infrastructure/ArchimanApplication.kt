@@ -4,16 +4,12 @@ import com.kaciula.archiman.BuildConfig
 import com.kaciula.archiman.domain.boundary.infrastructure.CrashReporter
 import com.kaciula.archiman.domain.usecases.InitColdStart
 import com.kaciula.archiman.domain.util.Timberific
-import com.kaciula.archiman.injection.AppComponent
-import com.kaciula.archiman.injection.AppModule
-import com.kaciula.archiman.injection.DaggerAppComponent
+import com.kaciula.archiman.injection.Injector
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import javax.inject.Inject
 
 abstract class ArchimanApplication : BaseApplication() {
-
-    private lateinit var appComponent: AppComponent
 
     @Inject lateinit var initColdStart: InitColdStart
     @Inject lateinit var crashReporter: CrashReporter
@@ -21,8 +17,8 @@ abstract class ArchimanApplication : BaseApplication() {
     override fun onCreate() {
         super.onCreate()
 
-        appComponent = DaggerAppComponent.builder().appModule(AppModule()).build()
-        appComponent.inject(this)
+        Injector.init(applicationContext)
+        Injector.appComponent.inject(this)
 
         Timberific.init(BuildConfig.DEBUG)
 
@@ -36,16 +32,5 @@ abstract class ArchimanApplication : BaseApplication() {
     private fun setupRealm() {
         Realm.init(this)
         Realm.setDefaultConfiguration(RealmConfiguration.Builder().build())
-    }
-
-    companion object {
-
-        fun component(): AppComponent {
-            return get().appComponent
-        }
-
-        fun get(): ArchimanApplication {
-            return context as ArchimanApplication
-        }
     }
 }

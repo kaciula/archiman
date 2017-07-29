@@ -1,7 +1,7 @@
 package com.kaciula.archiman.presentation.util
 
 import android.app.Activity
-import com.kaciula.archiman.infrastructure.BaseApplication
+import android.content.Context
 import com.kaciula.archiman.infrastructure.log.LumberYard
 import com.kaciula.archiman.infrastructure.log.TimberModule
 import io.palaima.debugdrawer.DebugDrawer
@@ -35,8 +35,8 @@ class DevDrawer(activity: Activity) {
 
     companion object {
 
-        fun setupLogging() {
-            val lumberYard = LumberYard.getInstance(BaseApplication.context)
+        fun setupLogging(context: Context) {
+            val lumberYard = LumberYard.getInstance(context)
             lumberYard.cleanUp()
             Timber.plant(lumberYard.tree())
         }

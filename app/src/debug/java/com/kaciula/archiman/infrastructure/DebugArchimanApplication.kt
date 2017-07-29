@@ -16,7 +16,7 @@ class DebugArchimanApplication : ArchimanApplication() {
         }
 
         Timber.plant(Timber.DebugTree())
-        DevDrawer.setupLogging()
+        DevDrawer.setupLogging(this)
         LeakCanary.install(this)
         Takt.stock(this).play()
         Stetho.initializeWithDefaults(this)
