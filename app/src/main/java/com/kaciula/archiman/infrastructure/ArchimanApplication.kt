@@ -3,6 +3,7 @@ package com.kaciula.archiman.infrastructure
 import com.kaciula.archiman.BuildConfig
 import com.kaciula.archiman.domain.boundary.infrastructure.CrashReporter
 import com.kaciula.archiman.domain.usecases.InitColdStart
+import com.kaciula.archiman.domain.util.Timberific
 import com.kaciula.archiman.injection.AppComponent
 import com.kaciula.archiman.injection.AppModule
 import com.kaciula.archiman.injection.DaggerAppComponent
@@ -22,6 +23,8 @@ abstract class ArchimanApplication : BaseApplication() {
 
         appComponent = DaggerAppComponent.builder().appModule(AppModule()).build()
         appComponent.inject(this)
+
+        Timberific.init(BuildConfig.DEBUG)
 
         setupRealm()
 

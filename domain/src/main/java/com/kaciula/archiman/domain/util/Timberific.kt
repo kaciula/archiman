@@ -5,14 +5,19 @@ import java.util.logging.Logger
 
 object Timberific {
 
-    private val logger: Logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME)
+    private var isEnabled: Boolean = false
+    private var logger: Logger? = null
+
+    fun init(isEnabled: Boolean) {
+        Timberific.isEnabled = isEnabled
+        logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME)
+    }
 
     fun d(message: String) {
-        logger.log(Level.FINEST, message)
+        if (isEnabled) logger?.log(Level.FINEST, message)
     }
 
     fun i(message: String) {
-        logger.log(Level.INFO, message)
+        if (isEnabled) logger?.log(Level.INFO, message)
     }
 }
-
