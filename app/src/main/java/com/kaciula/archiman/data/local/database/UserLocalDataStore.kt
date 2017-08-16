@@ -1,13 +1,13 @@
 package com.kaciula.archiman.data.local.database
 
-import com.kaciula.archiman.data.UserDataSource
+import com.kaciula.archiman.data.UserDataStore
 import com.kaciula.archiman.domain.entity.User
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.realm.Realm
 import java.util.*
 
-class UserLocalDataSource : UserDataSource {
+class UserLocalDataStore : UserDataStore {
 
     override fun getUsers(): Observable<List<User>> {
         return Observable.fromCallable<List<User>> {

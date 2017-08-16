@@ -7,19 +7,19 @@ import org.joda.time.LocalDateTime
 import timber.log.Timber
 import java.util.*
 
-class UserRepositoryImpl(private val usersRemoteDataSource: UserDataSource,
-                         private val usersLocalDataSource: UserDataSource) : UserRepository {
+class UserRepositoryImpl(private val usersRemoteDataStore: UserDataStore,
+                         private val usersLocalDataStore: UserDataStore) : UserRepository {
 
     private var lastTimeUsedRemote: LocalDateTime = LocalDateTime().minusMonths(1)
 
     override fun getUsers(): Observable<List<User>> {
-        val remote = usersRemoteDataSource.getUsers()
+        val remote = usersRemoteDataStore.getUsers()
         val remoteWithSave = remote.doOnNext { users ->
             Timber.d("Remote called")
             lastTimeUsedRemote = LocalDateTime()
-            usersLocalDataSource.createOrUpdateUsers(users).blockingAwait()
+            usersLocalDataStore.createOrUpdateUsers(users).blockingAwait()
         }
-        val local = usersLocalDataSource.getUsers()
+        val local = usersLocalDataStore.getUsers()
                 .filter { LocalDateTime().minusMinutes(1).isBefore(lastTimeUsedRemote) }
                 .doOnNext { Timber.d("Local called") }
         return Observable.concat(local, remoteWithSave).first(ArrayList<User>()).toObservable()

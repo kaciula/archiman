@@ -4,7 +4,7 @@ import com.kaciula.archiman.domain.entity.User
 import io.reactivex.Completable
 import io.reactivex.Observable
 
-interface UserDataSource {
+interface UserDataStore {
 
     fun getUsers(): Observable<List<User>>
 

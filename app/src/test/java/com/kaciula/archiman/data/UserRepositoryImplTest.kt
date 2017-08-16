@@ -17,8 +17,8 @@ import java.util.*
 
 class UserRepositoryImplTest {
 
-    @Mock lateinit var usersRemoteDataSource: UserDataSource
-    @Mock lateinit var usersLocalDataSource: UserDataSource
+    @Mock lateinit var usersRemoteDataStore: UserDataStore
+    @Mock lateinit var usersLocalDataStore: UserDataStore
 
     private lateinit var usersRepository: UserRepositoryImpl
 
@@ -26,7 +26,7 @@ class UserRepositoryImplTest {
     fun setupUseCase() {
         MockitoAnnotations.initMocks(this)
 
-        usersRepository = UserRepositoryImpl(usersRemoteDataSource, usersLocalDataSource)
+        usersRepository = UserRepositoryImpl(usersRemoteDataStore, usersLocalDataStore)
     }
 
     @Test
@@ -34,9 +34,9 @@ class UserRepositoryImplTest {
         val users = ArrayList<User>()
         users.add(User(1, "Best programmer"))
         users.add(User(2, "Second best programmer"))
-        `when`(usersLocalDataSource.getUsers()).thenReturn(Observable.empty<List<User>>())
-        `when`(usersLocalDataSource.createOrUpdateUsers(users)).thenReturn(Completable.complete())
-        `when`(usersRemoteDataSource.getUsers()).thenReturn(Observable.fromArray<List<User>>(users))
+        `when`(usersLocalDataStore.getUsers()).thenReturn(Observable.empty<List<User>>())
+        `when`(usersLocalDataStore.createOrUpdateUsers(users)).thenReturn(Completable.complete())
+        `when`(usersRemoteDataStore.getUsers()).thenReturn(Observable.fromArray<List<User>>(users))
 
         usersRepository.getUsers()
                 .subscribe(object : Observer<List<User>> {
@@ -58,6 +58,6 @@ class UserRepositoryImplTest {
                 }
                 )
 
-        verify<UserDataSource>(usersRemoteDataSource).getUsers()
+        verify<UserDataStore>(usersRemoteDataStore).getUsers()
     }
 }
