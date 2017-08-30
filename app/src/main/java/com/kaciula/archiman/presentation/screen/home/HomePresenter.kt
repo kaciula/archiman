@@ -27,7 +27,7 @@ class HomePresenter(private val view: HomeContract.View,
             val initialViewModel = HomeViewModel(initialize = true)
             setupFlow(initialViewModel)
 
-            flowRelay.accept(HomeViewEvent.GetUsers())
+            flowRelay.accept(HomeViewEvent.FirstInit())
         } else {
             flowRelay.accept(HomeViewEvent.Recreate())
         }
@@ -47,7 +47,7 @@ class HomePresenter(private val view: HomeContract.View,
     }
 
     override fun onClickRetry() {
-        flowRelay.accept(HomeViewEvent.GetUsers())
+        flowRelay.accept(HomeViewEvent.ClickRetry())
     }
 
     override fun onClickUser(user: UserViewModel) {
@@ -82,9 +82,12 @@ class HomePresenter(private val view: HomeContract.View,
         override fun apply(upstream: Observable<HomeViewEvent>): ObservableSource<HomeResult> {
             return upstream.publish { shared ->
                 Observable.merge(
-                        shared.ofType(HomeViewEvent.GetUsers::class.java)
+                        shared.ofType(HomeViewEvent.FirstInit::class.java)
                                 .flatMap<GetUsers.ResponseModel> { getUsers.execute(GetUsers.RequestModel()) }
-                                .map { responseModel -> HomeResult.GetUsers(responseModel) },
+                                .map { responseModel -> HomeResult.FirstInit(responseModel) },
+                        shared.ofType(HomeViewEvent.ClickRetry::class.java)
+                                .flatMap<GetUsers.ResponseModel> { getUsers.execute(GetUsers.RequestModel()) }
+                                .map { responseModel -> HomeResult.ClickRetry(responseModel) },
                         Observable.merge(
                                 shared.ofType(HomeViewEvent.ClickUser::class.java)
                                         .flatMap { (user) ->
@@ -106,19 +109,11 @@ class HomePresenter(private val view: HomeContract.View,
         override fun apply(upstream: Observable<HomeResult>): ObservableSource<HomeViewModel> {
             return upstream.scan(initialViewModel) { viewModel, result ->
                 when (result) {
-                    is HomeResult.GetUsers -> {
-                        val (isInFlight, isError, error, _, users1) = result.response
-                        if (isInFlight) {
-                            return@scan HomeViewModel(isProgress = true)
-                        } else if (isError) {
-                            return@scan HomeViewModel(isError = true, error = error)
-                        } else {
-                            val users = ArrayList<UserViewModel>(users1!!.size)
-                            for ((_, name) in users1) {
-                                users.add(UserViewModel(name))
-                            }
-                            return@scan HomeViewModel(isContent = true, users = users)
-                        }
+                    is HomeResult.FirstInit -> {
+                        return@scan build(result.response)
+                    }
+                    is HomeResult.ClickRetry -> {
+                        return@scan build(result.response)
                     }
                     is HomeResult.ClickUser -> return@scan viewModel.copy(showUserDialog = true,
                             dialogUser = result.user, isRecreate = false, initialize = false)
@@ -127,6 +122,21 @@ class HomePresenter(private val view: HomeContract.View,
                     is HomeResult.CancelUserDialog -> return@scan viewModel.copy(showUserDialog = false,
                             dialogUser = null, isRecreate = false, initialize = false)
                     is HomeResult.Recreate -> return@scan viewModel.copy(isRecreate = true, initialize = true)
+                }
+            }
+        }
+
+        private fun build(responseModel: GetUsers.ResponseModel): HomeViewModel {
+            val (isInFlight, isError, error, _, users1) = responseModel
+            return when {
+                isInFlight -> HomeViewModel(isProgress = true)
+                isError -> HomeViewModel(isError = true, error = error)
+                else -> {
+                    val users = ArrayList<UserViewModel>(users1!!.size)
+                    for ((_, name) in users1) {
+                        users.add(UserViewModel(name))
+                    }
+                    HomeViewModel(isContent = true, users = users)
                 }
             }
         }
