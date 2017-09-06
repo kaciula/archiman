@@ -13,6 +13,7 @@ object Timberific {
         if (isEnabled) logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME)
     }
 
+    // On some devices, the FINEST level is not shown. Use INFO level instead.
     fun d(message: String) {
         if (isEnabled) logger?.log(Level.FINEST, message)
     }
