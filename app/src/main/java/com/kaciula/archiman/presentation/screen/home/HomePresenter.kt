@@ -90,15 +90,13 @@ class HomePresenter(private val view: HomeContract.View,
                                 .map { responseModel -> HomeResult.ClickRetry(responseModel) },
                         Observable.merge(
                                 shared.ofType(HomeViewEvent.ClickUser::class.java)
-                                        .flatMap { (user) ->
-                                            Observable.just(HomeResult.ClickUser(user))
-                                        },
+                                        .map { (user) -> HomeResult.ClickUser(user) },
                                 shared.ofType(HomeViewEvent.ClickOkUserDialog::class.java)
-                                        .flatMap { Observable.just(HomeResult.ClickOkUserDialog()) },
+                                        .map { _ -> HomeResult.ClickOkUserDialog() },
                                 shared.ofType(HomeViewEvent.CancelUserDialog::class.java)
-                                        .flatMap { Observable.just(HomeResult.CancelUserDialog()) },
+                                        .map { _ -> HomeResult.CancelUserDialog() },
                                 shared.ofType(HomeViewEvent.Recreate::class.java)
-                                        .flatMap { Observable.just(HomeResult.Recreate()) }))
+                                        .map { _ -> HomeResult.Recreate() }))
             }
         }
     }
