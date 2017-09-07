@@ -27,9 +27,7 @@ class UserAdapter(ctx: Context, var items: List<UserViewModel>, private val pres
         holder.view.setOnClickListener(holder)
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
+    override fun getItemCount(): Int = items.size
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
 

@@ -11,7 +11,6 @@ class HomeModule(private val view: HomeContract.View) {
 
     @Provides
     @ActivityScope
-    fun providePresenter(schedulerProvider: SchedulerProvider, getUsers: GetUsers): HomeContract.Presenter {
-        return HomePresenter(view, schedulerProvider, getUsers)
-    }
+    fun providePresenter(schedulerProvider: SchedulerProvider, getUsers: GetUsers): HomeContract.Presenter
+            = HomePresenter(view, schedulerProvider, getUsers)
 }

@@ -13,7 +13,6 @@ import com.kaciula.archiman.injection.Injector
 import com.kaciula.archiman.presentation.util.BaseController
 import com.kaciula.archiman.presentation.widget.DividerItemDecoration
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 
 class HomeController : BaseController(), HomeContract.View {
@@ -33,13 +32,10 @@ class HomeController : BaseController(), HomeContract.View {
         component.inject(this)
     }
 
-    fun component(): HomeComponent {
-        return component
-    }
+    fun component(): HomeComponent = component
 
-    override fun inflateView(inflater: LayoutInflater, container: ViewGroup): View {
-        return inflater.inflate(R.layout.controller_home, container, false)
-    }
+    override fun inflateView(inflater: LayoutInflater, container: ViewGroup): View =
+            inflater.inflate(R.layout.controller_home, container, false)
 
     override fun onViewBound(view: View) {
         presenter.init()
@@ -64,7 +60,7 @@ class HomeController : BaseController(), HomeContract.View {
         if (viewModel.initialize) {
             recyclerView.addItemDecoration(DividerItemDecoration(activity!!))
             recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-            adapter = UserAdapter(activity!!, ArrayList<UserViewModel>(), presenter)
+            adapter = UserAdapter(activity!!, emptyList(), presenter)
             recyclerView.adapter = adapter
         }
 

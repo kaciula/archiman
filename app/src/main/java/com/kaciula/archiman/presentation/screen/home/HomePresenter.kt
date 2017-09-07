@@ -69,7 +69,7 @@ class HomePresenter(private val view: HomeContract.View,
     private fun setupFlow(initialViewModel: HomeViewModel) {
         disposables.add(flowRelay
                 .doOnNext({ event -> Timber.i("Event: $event") })
-                .compose(EventsMerger(getUsers))
+                .compose(EventsMerger())
                 .compose(StateReducer(initialViewModel))
                 .doOnNext({ viewModel -> Timber.i("ViewModel: $viewModel") })
                 .observeOn(schedulerProvider.ui())
@@ -77,7 +77,7 @@ class HomePresenter(private val view: HomeContract.View,
     }
 
 
-    private class EventsMerger(private val getUsers: GetUsers) : ObservableTransformer<HomeViewEvent, HomeResult> {
+    private inner class EventsMerger : ObservableTransformer<HomeViewEvent, HomeResult> {
 
         override fun apply(upstream: Observable<HomeViewEvent>): ObservableSource<HomeResult> {
             return upstream.publish { shared ->
@@ -102,7 +102,7 @@ class HomePresenter(private val view: HomeContract.View,
     }
 
 
-    private class StateReducer(private val initialViewModel: HomeViewModel) : ObservableTransformer<HomeResult, HomeViewModel> {
+    private inner class StateReducer(private val initialViewModel: HomeViewModel) : ObservableTransformer<HomeResult, HomeViewModel> {
 
         override fun apply(upstream: Observable<HomeResult>): ObservableSource<HomeViewModel> {
             return upstream.scan(initialViewModel) { viewModel, result ->
