@@ -27,9 +27,9 @@ class HomePresenter(private val view: HomeContract.View,
             val initialViewModel = HomeViewModel(initialize = true)
             setupFlow(initialViewModel)
 
-            flowRelay.accept(HomeViewEvent.FirstInit())
+            flowRelay.accept(HomeViewEvent.FirstInit)
         } else {
-            flowRelay.accept(HomeViewEvent.Recreate())
+            flowRelay.accept(HomeViewEvent.Recreate)
         }
     }
 
@@ -47,7 +47,7 @@ class HomePresenter(private val view: HomeContract.View,
     }
 
     override fun onClickRetry() {
-        flowRelay.accept(HomeViewEvent.ClickRetry())
+        flowRelay.accept(HomeViewEvent.ClickRetry)
     }
 
     override fun onClickUser(user: UserViewModel) {
@@ -55,11 +55,11 @@ class HomePresenter(private val view: HomeContract.View,
     }
 
     override fun onClickOkUserDialog(user: UserViewModel) {
-        flowRelay.accept(HomeViewEvent.ClickOkUserDialog())
+        flowRelay.accept(HomeViewEvent.ClickOkUserDialog)
     }
 
     override fun onCancelUserDialog() {
-        flowRelay.accept(HomeViewEvent.CancelUserDialog())
+        flowRelay.accept(HomeViewEvent.CancelUserDialog)
     }
 
     override fun onClickUserDetails(user: UserViewModel) {
@@ -92,11 +92,11 @@ class HomePresenter(private val view: HomeContract.View,
                                 shared.ofType(HomeViewEvent.ClickUser::class.java)
                                         .map { (user) -> HomeResult.ClickUser(user) },
                                 shared.ofType(HomeViewEvent.ClickOkUserDialog::class.java)
-                                        .map { _ -> HomeResult.ClickOkUserDialog() },
+                                        .map { _ -> HomeResult.ClickOkUserDialog },
                                 shared.ofType(HomeViewEvent.CancelUserDialog::class.java)
-                                        .map { _ -> HomeResult.CancelUserDialog() },
+                                        .map { _ -> HomeResult.CancelUserDialog },
                                 shared.ofType(HomeViewEvent.Recreate::class.java)
-                                        .map { _ -> HomeResult.Recreate() }))
+                                        .map { _ -> HomeResult.Recreate }))
             }
         }
     }
