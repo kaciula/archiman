@@ -1,6 +1,7 @@
 package com.kaciula.archiman.presentation.screen.home
 
-import com.jakewharton.rxrelay2.PublishRelay
+import com.jakewharton.rxrelay2.BehaviorRelay
+import com.jakewharton.rxrelay2.Relay
 import com.kaciula.archiman.domain.usecases.GetUsers
 import com.kaciula.archiman.domain.util.SchedulerProvider
 import io.reactivex.Observable
@@ -18,7 +19,7 @@ class HomePresenter(private val view: HomeContract.View,
 
     private val disposables: CompositeDisposable = CompositeDisposable()
     private var isFirstInit: Boolean = true
-    private val flowRelay: PublishRelay<HomeViewEvent> = PublishRelay.create<HomeViewEvent>()
+    private val flowRelay: Relay<HomeViewEvent> = BehaviorRelay.create<HomeViewEvent>().toSerialized()
 
     override fun init() {
         Timber.d("presenter init")
@@ -68,10 +69,10 @@ class HomePresenter(private val view: HomeContract.View,
 
     private fun setupFlow(initialViewModel: HomeViewModel) {
         disposables.add(flowRelay
-                .doOnNext({ event -> Timber.i("Event: $event") })
+                .doOnNext { event -> Timber.i("Event: $event") }
                 .compose(EventsMerger())
                 .compose(StateReducer(initialViewModel))
-                .doOnNext({ viewModel -> Timber.i("ViewModel: $viewModel") })
+                .doOnNext { viewModel -> Timber.i("ViewModel: $viewModel") }
                 .observeOn(schedulerProvider.ui())
                 .subscribeWith(FlowSubscriber()))
     }
