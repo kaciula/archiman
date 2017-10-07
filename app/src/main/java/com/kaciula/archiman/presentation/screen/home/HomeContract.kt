@@ -19,6 +19,8 @@ interface HomeContract {
 
         fun onClickUser(user: UserViewModel)
 
+        fun onShowingUserDialog()
+
         fun onClickOkUserDialog(user: UserViewModel)
 
         fun onCancelUserDialog()

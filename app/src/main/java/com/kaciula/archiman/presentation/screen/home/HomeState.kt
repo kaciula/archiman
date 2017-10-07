@@ -9,5 +9,4 @@ data class HomeState(val initialize: Boolean = false,
                      val isError: Boolean = false,
                      val error: Throwable? = null,
                      val showUserDialog: Boolean = false,
-                     val dialogUser: UserViewModel? = null,
-                     val isRecreate: Boolean = false) : State()
+                     val dialogUser: UserViewModel? = null) : State()

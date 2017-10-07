@@ -69,13 +69,13 @@ class HomeController : BaseController(), HomeContract.View {
         } else if (state.isError) {
             flipper.displayedChild = CHILD_ERROR
             Timber.w("Encountered an error: ${state.error}")
-        } else if (state.showUserDialog) {
-            showContent(state)
-            if (!state.isRecreate) {
-                getDialogShowman().show(UserDialogFragment.newInstance(state.dialogUser!!))
-            }
         } else if (state.isContent) {
             showContent(state)
+        }
+
+        if (state.showUserDialog) {
+            getDialogShowman().show(UserDialogFragment.newInstance(state.dialogUser!!))
+            presenter.onShowingUserDialog()
         }
     }
 

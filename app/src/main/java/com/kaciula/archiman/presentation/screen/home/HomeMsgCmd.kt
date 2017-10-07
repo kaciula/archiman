@@ -10,9 +10,9 @@ import java.util.*
 object GetUsersCmd : Cmd()
 
 // Messages
-object FirstInitMsg : Msg() {
+object GetUsersMsg : Msg() {
     fun reduceAndCmd(oldState: HomeState): Pair<HomeState, Cmd> {
-        val state = oldState.copy(isProgress = true, initialize = false)
+        val state = oldState.copy(isProgress = true, isContent = false, isError = false, initialize = false)
         return Pair(state, GetUsersCmd)
     }
 }
@@ -29,25 +29,30 @@ data class UsersDataMsg(private val response: GetUsers.ResponseModel) : Msg() {
 
 data class ClickUserMsg(private val user: UserViewModel) : Msg() {
     fun reduce(oldState: HomeState): HomeState {
-        return oldState.copy(showUserDialog = true, dialogUser = user, isRecreate = false, initialize = false)
+        return oldState.copy(showUserDialog = true, dialogUser = user, initialize = false)
     }
+}
+
+object ShowingUserDialogMsg : Msg() {
+    fun reduceAndCmd(oldState: HomeState): Pair<HomeState, Cmd> =
+            Pair(oldState.copy(showUserDialog = false, dialogUser = null), None)
 }
 
 object ClickOkUserDialogMsg : Msg() {
     fun reduce(oldState: HomeState): HomeState {
-        return oldState.copy(showUserDialog = false, dialogUser = null, isRecreate = false, initialize = false)
+        return oldState.copy(initialize = false)
     }
 }
 
 object CancelUserDialogMsg : Msg() {
     fun reduce(oldState: HomeState): HomeState {
-        return oldState.copy(showUserDialog = false, dialogUser = null, isRecreate = false, initialize = false)
+        return oldState.copy(initialize = false)
     }
 }
 
 object ClickRetryMsg : Msg() {
     fun reduceAndCmd(oldState: HomeState): Pair<HomeState, Cmd> {
-        val state = oldState.copy(isProgress = true)
+        val state = oldState.copy(isProgress = true, isContent = false, isError = false)
         return Pair(state, GetUsersCmd)
     }
 }
@@ -55,6 +60,6 @@ object ClickRetryMsg : Msg() {
 /* This event is triggered whenever there is an orientation change or we're coming back to this screen */
 object RecreateMsg : Msg() {
     fun reduce(oldState: HomeState): HomeState {
-        return oldState.copy(isRecreate = true, initialize = true)
+        return oldState.copy(initialize = true)
     }
 }

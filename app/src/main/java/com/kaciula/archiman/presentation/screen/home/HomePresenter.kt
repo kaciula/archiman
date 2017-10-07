@@ -20,7 +20,7 @@ class HomePresenter(private val view: HomeContract.View,
             val initialState = HomeState(initialize = true)
             disposables.add(elm.init(initialState, this))
             elm.render()
-            elm.accept(FirstInitMsg)
+            elm.accept(GetUsersMsg)
         } else {
             elm.accept(RecreateMsg)
         }
@@ -47,6 +47,10 @@ class HomePresenter(private val view: HomeContract.View,
         elm.accept(ClickUserMsg(user))
     }
 
+    override fun onShowingUserDialog() {
+        elm.accept(ShowingUserDialogMsg)
+    }
+
     override fun onClickOkUserDialog(user: UserViewModel) {
         elm.accept(ClickOkUserDialogMsg)
     }
@@ -62,13 +66,17 @@ class HomePresenter(private val view: HomeContract.View,
     override fun update(msg: Msg, state: State): Pair<State, Cmd> {
         val state = state as HomeState
         return when (msg) {
-            is FirstInitMsg -> msg.reduceAndCmd(state)
+            is GetUsersMsg -> msg.reduceAndCmd(state)
+            is RecreateMsg -> Pair(msg.reduce(state), None)
+
             is UsersDataMsg -> msg.reduceAndCmd(state)
             is ClickRetryMsg -> msg.reduceAndCmd(state)
+
             is ClickUserMsg -> Pair(msg.reduce(state), None)
+            is ShowingUserDialogMsg -> msg.reduceAndCmd(state)
             is ClickOkUserDialogMsg -> Pair(msg.reduce(state), None)
             is CancelUserDialogMsg -> Pair(msg.reduce(state), None)
-            is RecreateMsg -> Pair(msg.reduce(state), None)
+
             is ErrorMsg -> {
                 Timber.d("Error ${msg.err.message} for ${msg.cmd}")
                 Pair(state.copy(isError = true, error = msg.err), None)
