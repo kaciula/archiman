@@ -2,7 +2,7 @@ package com.kaciula.archiman.presentation.screen.home
 
 
 import com.kaciula.archiman.domain.usecases.GetUsers
-import com.kaciula.archiman.domain.util.TrampolineSchedulerProvider
+import com.kaciula.archiman.presentation.util.Elm
 import org.junit.Before
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
@@ -18,7 +18,6 @@ class HomePresenterTest {
     fun setupPresenter() {
         MockitoAnnotations.initMocks(this)
 
-        val schedulerProvider = TrampolineSchedulerProvider()
-        presenter = HomePresenter(view, schedulerProvider, getUsers)
+        presenter = HomePresenter(view, Elm(), getUsers)
     }
 }

@@ -56,31 +56,31 @@ class HomeController : BaseController(), HomeContract.View {
         super.onDestroy()
     }
 
-    override fun render(viewModel: HomeViewModel) {
-        if (viewModel.initialize) {
+    override fun render(state: HomeState) {
+        if (state.initialize) {
             recyclerView.addItemDecoration(DividerItemDecoration(activity!!))
             recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             adapter = UserAdapter(activity!!, emptyList(), presenter)
             recyclerView.adapter = adapter
         }
 
-        if (viewModel.isProgress) {
+        if (state.isProgress) {
             flipper.displayedChild = CHILD_PROGRESS
-        } else if (viewModel.isError) {
+        } else if (state.isError) {
             flipper.displayedChild = CHILD_ERROR
-            Timber.w("Encountered an error: ${viewModel.error}")
-        } else if (viewModel.showUserDialog) {
-            showContent(viewModel)
-            if (!viewModel.isRecreate) {
-                getDialogShowman().show(UserDialogFragment.newInstance(viewModel.dialogUser!!))
+            Timber.w("Encountered an error: ${state.error}")
+        } else if (state.showUserDialog) {
+            showContent(state)
+            if (!state.isRecreate) {
+                getDialogShowman().show(UserDialogFragment.newInstance(state.dialogUser!!))
             }
-        } else if (viewModel.isContent) {
-            showContent(viewModel)
+        } else if (state.isContent) {
+            showContent(state)
         }
     }
 
-    private fun showContent(viewModel: HomeViewModel) {
-        adapter.items = viewModel.users!!
+    private fun showContent(state: HomeState) {
+        adapter.items = state.users!!
         flipper.displayedChild = CHILD_CONTENT
     }
 

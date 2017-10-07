@@ -3,7 +3,6 @@ package com.kaciula.archiman.domain.usecases
 
 import com.kaciula.archiman.domain.boundary.data.UserRepository
 import com.kaciula.archiman.domain.entity.User
-import com.kaciula.archiman.domain.util.TrampolineSchedulerProvider
 import io.reactivex.Observable
 import org.junit.Before
 import org.junit.Test
@@ -21,7 +20,7 @@ class GetUsersTest {
     fun setupUseCase() {
         MockitoAnnotations.initMocks(this)
 
-        useCase = GetUsers(userRepository, TrampolineSchedulerProvider())
+        useCase = GetUsers(userRepository)
     }
 
     @Test
@@ -29,10 +28,8 @@ class GetUsersTest {
         val users = arrayListOf(User(1, "Best programmer"), User(2, "Second best programmer"))
         Mockito.`when`(userRepository.getUsers()).thenReturn(Observable.fromArray(users))
 
-        val observer = useCase.execute(GetUsers.RequestModel()).test()
-        observer.assertValues(
-                GetUsers.ResponseModel(isInFlight = true),
-                GetUsers.ResponseModel(isSuccess = true, users = users))
+        val observer = useCase.execute(GetUsers.RequestModel).test()
+        observer.assertValue(GetUsers.ResponseModel(users = users))
     }
 
     @Test
@@ -40,9 +37,7 @@ class GetUsersTest {
         val error = Throwable()
         Mockito.`when`(userRepository.getUsers()).thenReturn(Observable.error(error))
 
-        val observer = useCase.execute(GetUsers.RequestModel()).test()
-        observer.assertValues(
-                GetUsers.ResponseModel(isInFlight = true),
-                GetUsers.ResponseModel(isError = true, error = error))
+        val observer = useCase.execute(GetUsers.RequestModel).test()
+        observer.assertError { true }
     }
 }
