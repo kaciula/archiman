@@ -15,6 +15,8 @@ interface HomeContract {
 
     interface Presenter : BasePresenter, ElmPresenter {
 
+        fun onDoneInitialize()
+
         fun onClickRetry()
 
         fun onClickUser(user: UserViewModel)

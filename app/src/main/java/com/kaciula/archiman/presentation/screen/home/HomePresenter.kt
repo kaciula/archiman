@@ -39,6 +39,10 @@ class HomePresenter(private val view: HomeContract.View,
         disposables.clear()
     }
 
+    override fun onDoneInitialize() {
+        elm.accept(DoneInitializeMsg)
+    }
+
     override fun onClickRetry() {
         elm.accept(ClickRetryMsg)
     }
@@ -66,6 +70,7 @@ class HomePresenter(private val view: HomeContract.View,
     override fun update(msg: Msg, state: State): Pair<State, Cmd> {
         val state = state as HomeState
         return when (msg) {
+            is DoneInitializeMsg -> msg.reduceAndCmd(state)
             is GetUsersMsg -> msg.reduceAndCmd(state)
             is RecreateMsg -> Pair(msg.reduce(state), None)
 

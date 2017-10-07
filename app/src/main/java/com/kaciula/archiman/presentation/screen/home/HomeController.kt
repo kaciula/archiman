@@ -62,6 +62,7 @@ class HomeController : BaseController(), HomeContract.View {
             recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             adapter = UserAdapter(activity!!, emptyList(), presenter)
             recyclerView.adapter = adapter
+            presenter.onDoneInitialize()
         }
 
         if (state.isProgress) {

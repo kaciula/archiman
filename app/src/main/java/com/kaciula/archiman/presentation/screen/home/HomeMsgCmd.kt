@@ -12,7 +12,7 @@ object GetUsersCmd : Cmd()
 // Messages
 object GetUsersMsg : Msg() {
     fun reduceAndCmd(oldState: HomeState): Pair<HomeState, Cmd> {
-        val state = oldState.copy(isProgress = true, isContent = false, isError = false, initialize = false)
+        val state = oldState.copy(isProgress = true, isContent = false, isError = false)
         return Pair(state, GetUsersCmd)
     }
 }
@@ -29,7 +29,7 @@ data class UsersDataMsg(private val response: GetUsers.ResponseModel) : Msg() {
 
 data class ClickUserMsg(private val user: UserViewModel) : Msg() {
     fun reduce(oldState: HomeState): HomeState {
-        return oldState.copy(showUserDialog = true, dialogUser = user, initialize = false)
+        return oldState.copy(showUserDialog = true, dialogUser = user)
     }
 }
 
@@ -40,13 +40,13 @@ object ShowingUserDialogMsg : Msg() {
 
 object ClickOkUserDialogMsg : Msg() {
     fun reduce(oldState: HomeState): HomeState {
-        return oldState.copy(initialize = false)
+        return oldState.copy()
     }
 }
 
 object CancelUserDialogMsg : Msg() {
     fun reduce(oldState: HomeState): HomeState {
-        return oldState.copy(initialize = false)
+        return oldState.copy()
     }
 }
 
@@ -61,5 +61,12 @@ object ClickRetryMsg : Msg() {
 object RecreateMsg : Msg() {
     fun reduce(oldState: HomeState): HomeState {
         return oldState.copy(initialize = true)
+    }
+}
+
+object DoneInitializeMsg : Msg() {
+    fun reduceAndCmd(oldState: HomeState): Pair<HomeState, Cmd> {
+        val state = oldState.copy(initialize = false)
+        return Pair(state, None)
     }
 }
