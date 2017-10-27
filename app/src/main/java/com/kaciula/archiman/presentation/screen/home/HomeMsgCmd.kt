@@ -18,7 +18,7 @@ object GetUsersMsg : Msg() {
 }
 
 data class UsersDataMsg(private val response: GetUsers.ResponseModel) : Msg() {
-    fun reduceAndCmd(oldState: HomeState): Pair<HomeState, Cmd> {
+    fun reduceAndCmd(): Pair<HomeState, Cmd> {
         val users = ArrayList<UserViewModel>(response.users.size)
         for ((_, name) in response.users) {
             users.add(UserViewModel(name))

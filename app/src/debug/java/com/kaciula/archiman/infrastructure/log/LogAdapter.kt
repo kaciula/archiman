@@ -25,23 +25,23 @@ class LogAdapter : BaseAdapter() {
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        var convertView = convertView
+        var view = convertView
         val viewHolder: ViewHolder
 
-        if (convertView == null) {
-            convertView = LayoutInflater
+        if (view == null) {
+            view = LayoutInflater
                     .from(parent.context).inflate(R.layout.dd_item_log_entry, parent, false)
-            viewHolder = ViewHolder(convertView)
+            viewHolder = ViewHolder(view)
 
-            convertView!!.tag = viewHolder
+            view!!.tag = viewHolder
         } else {
-            viewHolder = convertView.tag as ViewHolder
+            viewHolder = view.tag as ViewHolder
         }
 
         val logEntry = logEntries[position]
         viewHolder.fillData(logEntry)
 
-        return convertView
+        return view
     }
 
     fun setLogs(logs: List<LogEntry>) {

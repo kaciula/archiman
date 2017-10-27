@@ -66,7 +66,7 @@ class Elm {
                 .filter { (_, cmd) -> cmd !is None }
                 .observeOn(Schedulers.io())
                 .flatMap { (state, cmd) ->
-                    Timber.d("call cmd:$cmd state:$state ")
+                    Timber.d("elm call cmd:$cmd state:$state ")
                     return@flatMap elmPresenter.call(cmd)
                             .onErrorResumeNext { err -> Single.just(ErrorMsg(err, cmd)) }
                             .toObservable()

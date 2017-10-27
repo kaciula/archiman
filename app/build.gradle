@@ -7,8 +7,6 @@ buildscript {
     dependencies {
         classpath "io.realm:realm-gradle-plugin:3.5.0"
         classpath 'io.fabric.tools:gradle:1.23.0'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
-        classpath "me.tatarka:gradle-retrolambda:3.7.0"
         classpath "io.mironov.smuggler:smuggler-plugin:0.12.14"
     }
 }
@@ -22,8 +20,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: "io.mironov.smuggler"
 apply plugin: 'io.fabric'
-apply plugin: 'com.github.ben-manes.versions'
-apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'realm-android'
 
 def versionMajor = 0
@@ -34,7 +30,7 @@ def buildTime = new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         // FIXME Replace with your app's package name
@@ -82,8 +78,10 @@ android {
             manifestPlaceholders = [fileProviderAuthority: FILE_PROVIDER_DEBUG]
         }
     }
+    flavorDimensions "one"
     productFlavors {
         prod {
+            dimension "one"
         }
     }
     packagingOptions {
@@ -99,11 +97,9 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            def oldFile = output.outputFile
+        variant.outputs.all {
             // FIXME Replace with your app's name
-            def newName = "Archiman-" + "${variant.versionName}.apk"
-            output.outputFile = new File(oldFile.parent, newName)
+            outputFileName = "Archiman-${variant.versionName}.apk"
         }
     }
 }

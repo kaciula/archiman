@@ -68,25 +68,25 @@ class HomePresenter(private val view: HomeContract.View,
     }
 
     override fun update(msg: Msg, state: State): Pair<State, Cmd> {
-        val state = state as HomeState
+        val oldState = state as HomeState
         return when (msg) {
-            is DoneInitializeMsg -> msg.reduceAndCmd(state)
-            is GetUsersMsg -> msg.reduceAndCmd(state)
-            is RecreateMsg -> Pair(msg.reduce(state), None)
+            is DoneInitializeMsg -> msg.reduceAndCmd(oldState)
+            is GetUsersMsg -> msg.reduceAndCmd(oldState)
+            is RecreateMsg -> Pair(msg.reduce(oldState), None)
 
-            is UsersDataMsg -> msg.reduceAndCmd(state)
-            is ClickRetryMsg -> msg.reduceAndCmd(state)
+            is UsersDataMsg -> msg.reduceAndCmd()
+            is ClickRetryMsg -> msg.reduceAndCmd(oldState)
 
-            is ClickUserMsg -> Pair(msg.reduce(state), None)
-            is ShowingUserDialogMsg -> msg.reduceAndCmd(state)
-            is ClickOkUserDialogMsg -> Pair(msg.reduce(state), None)
-            is CancelUserDialogMsg -> Pair(msg.reduce(state), None)
+            is ClickUserMsg -> Pair(msg.reduce(oldState), None)
+            is ShowingUserDialogMsg -> msg.reduceAndCmd(oldState)
+            is ClickOkUserDialogMsg -> Pair(msg.reduce(oldState), None)
+            is CancelUserDialogMsg -> Pair(msg.reduce(oldState), None)
 
             is ErrorMsg -> {
                 Timber.d("Error ${msg.err.message} for ${msg.cmd}")
-                Pair(state.copy(isError = true, error = msg.err), None)
+                Pair(oldState.copy(isError = true, error = msg.err), None)
             }
-            else -> Pair(state, None)
+            else -> Pair(oldState, None)
         }
     }
 
