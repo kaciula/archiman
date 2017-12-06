@@ -1,9 +1,9 @@
 package com.kaciula.archiman.domain.usecases
 
 
-import com.kaciula.archiman.domain.boundary.data.UserRepository
-import com.kaciula.archiman.domain.entity.User
-import io.reactivex.Observable
+import com.kaciula.archiman.domain.boundary.infrastructure.UserRepository
+import com.kaciula.archiman.domain.model.User
+import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -26,7 +26,7 @@ class GetUsersTest {
     @Test
     fun getUsersSuccess() {
         val users = arrayListOf(User(1, "Best programmer"), User(2, "Second best programmer"))
-        Mockito.`when`(userRepository.getUsers()).thenReturn(Observable.fromArray(users))
+        Mockito.`when`(userRepository.getAll()).thenReturn(Single.just(users))
 
         val observer = useCase.execute(GetUsers.RequestModel).test()
         observer.assertValue(GetUsers.ResponseModel(users = users))
@@ -35,9 +35,9 @@ class GetUsersTest {
     @Test
     fun getUsersFailure() {
         val error = Throwable()
-        Mockito.`when`(userRepository.getUsers()).thenReturn(Observable.error(error))
+        Mockito.`when`(userRepository.getAll()).thenReturn(Single.error(error))
 
         val observer = useCase.execute(GetUsers.RequestModel).test()
-        observer.assertError { true }
+        observer.assertError(error.javaClass)
     }
 }

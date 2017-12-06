@@ -1,10 +1,8 @@
 package com.kaciula.archiman.util
 
-import com.kaciula.archiman.data.remote.StackExchangeApi
-import com.kaciula.archiman.data.remote.response.UsersRemote
+import com.kaciula.archiman.infrastructure.data.remote.StackExchangeApi
 import com.squareup.moshi.Moshi
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import org.junit.Before
@@ -42,17 +40,7 @@ class RxJavaTest {
         val disposable = api.getUsers()
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
-                .subscribeWith(object : DisposableObserver<UsersRemote>() {
-                    override fun onNext(value: UsersRemote) {}
-
-                    override fun onError(e: Throwable) {
-                        latch.countDown()
-                    }
-
-                    override fun onComplete() {
-                        latch.countDown()
-                    }
-                })
+                .subscribe({ latch.countDown() }, { latch.countDown() })
         disposables.add(disposable)
 
         disposables.dispose()

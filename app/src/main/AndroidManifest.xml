@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:launchMode="singleTask"
-            android:name=".presentation.screen.main.MainActivity">
+            android:name=".presentation.screens.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

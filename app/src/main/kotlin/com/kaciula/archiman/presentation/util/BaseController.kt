@@ -3,9 +3,9 @@ package com.kaciula.archiman.presentation.util
 import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.view.View
-import com.kaciula.archiman.presentation.screen.main.ActionBarProvider
-import com.kaciula.archiman.presentation.screen.main.DialogShowman
-import com.kaciula.archiman.presentation.screen.main.Navigator
+import com.kaciula.archiman.presentation.screens.main.ActionBarProvider
+import com.kaciula.archiman.presentation.screens.main.DialogShowman
+import com.kaciula.archiman.presentation.screens.main.Navigator
 import timber.log.Timber
 
 abstract class BaseController : ButterKnifeController {

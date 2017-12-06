@@ -1,7 +1,7 @@
 package com.kaciula.archiman.injection
 
-import com.kaciula.archiman.domain.boundary.data.AppInfoRepository
-import com.kaciula.archiman.domain.boundary.data.UserRepository
+import com.kaciula.archiman.domain.boundary.infrastructure.AppRepository
+import com.kaciula.archiman.domain.boundary.infrastructure.UserRepository
 import com.kaciula.archiman.domain.usecases.GetUsers
 import com.kaciula.archiman.domain.usecases.InitColdStart
 import dagger.Module
@@ -19,7 +19,7 @@ class DomainModule {
 
     @Provides
     @Singleton
-    fun provideInitColdStart(appInfoRepository: AppInfoRepository): InitColdStart {
-        return InitColdStart(appInfoRepository)
+    fun provideInitColdStart(appRepository: AppRepository): InitColdStart {
+        return InitColdStart(appRepository)
     }
 }

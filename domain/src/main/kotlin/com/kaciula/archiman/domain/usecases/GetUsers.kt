@@ -1,15 +1,15 @@
 package com.kaciula.archiman.domain.usecases
 
-import com.kaciula.archiman.domain.boundary.data.UserRepository
-import com.kaciula.archiman.domain.entity.User
-import com.kaciula.archiman.domain.util.ObservableUseCase
-import io.reactivex.Observable
+import com.kaciula.archiman.domain.boundary.infrastructure.UserRepository
+import com.kaciula.archiman.domain.model.User
+import com.kaciula.archiman.domain.usecases.util.SingleUseCase
+import io.reactivex.Single
 
 class GetUsers(private val userRepository: UserRepository)
-    : ObservableUseCase<GetUsers.RequestModel, GetUsers.ResponseModel>() {
+    : SingleUseCase<GetUsers.RequestModel, GetUsers.ResponseModel>() {
 
-    override fun execute(requestModel: RequestModel): Observable<ResponseModel> {
-        return userRepository.getUsers()
+    override fun execute(requestModel: RequestModel): Single<ResponseModel> {
+        return userRepository.getAll()
                 .map { users -> ResponseModel(users) }
     }
 
