@@ -1,5 +1,6 @@
 package com.kaciula.archiman.infrastructure.util
 
+import com.chibatching.kotpref.Kotpref
 import com.kaciula.archiman.BuildConfig
 import com.kaciula.archiman.domain.boundary.infrastructure.CrashReporter
 import com.kaciula.archiman.domain.usecases.InitColdStart
@@ -25,6 +26,8 @@ abstract class ArchimanApplication : BaseApplication() {
         RxJavaPlugins.setErrorHandler(RxGlobalErrorHandler())
 
         setupRealm()
+
+        Kotpref.init(this)
 
         initColdStart
                 .execute(InitColdStart.RequestModel(BuildConfig.VERSION_CODE))

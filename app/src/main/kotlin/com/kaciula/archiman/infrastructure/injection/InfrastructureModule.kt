@@ -20,7 +20,7 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module(includes = arrayOf(RemoteModule::class, PrefsModule::class))
+@Module(includes = arrayOf(RemoteModule::class))
 class InfrastructureModule {
 
     @Provides
