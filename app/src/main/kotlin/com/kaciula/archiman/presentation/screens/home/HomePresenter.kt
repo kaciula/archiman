@@ -7,7 +7,7 @@ import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 
 class HomePresenter(private val view: HomeContract.View,
-                    private val elm: Elm,
+                    private val elm: Elm<HomeState>,
                     private val getUsers: GetUsers) : HomeContract.Presenter {
 
     private val disposables: CompositeDisposable = CompositeDisposable()
@@ -67,26 +67,25 @@ class HomePresenter(private val view: HomeContract.View,
         view.goToUserDetailsScreen(user)
     }
 
-    override fun update(msg: Msg, state: State): Pair<State, Cmd> {
-        val oldState = state as HomeState
+    override fun update(msg: Msg, state: HomeState): Pair<HomeState, Cmd> {
         return when (msg) {
-            is DoneInitializeMsg -> msg.reduceAndCmd(oldState)
-            is GetUsersMsg -> msg.reduceAndCmd(oldState)
-            is RecreateMsg -> Pair(msg.reduce(oldState), None)
+            is DoneInitializeMsg -> msg.reduceAndCmd(state)
+            is GetUsersMsg -> msg.reduceAndCmd(state)
+            is RecreateMsg -> Pair(msg.reduce(state), None)
 
             is UsersDataMsg -> msg.reduceAndCmd()
-            is ClickRetryMsg -> msg.reduceAndCmd(oldState)
+            is ClickRetryMsg -> msg.reduceAndCmd(state)
 
-            is ClickUserMsg -> Pair(msg.reduce(oldState), None)
-            is ShowingUserDialogMsg -> msg.reduceAndCmd(oldState)
-            is ClickOkUserDialogMsg -> Pair(msg.reduce(oldState), None)
-            is CancelUserDialogMsg -> Pair(msg.reduce(oldState), None)
+            is ClickUserMsg -> Pair(msg.reduce(state), None)
+            is ShowingUserDialogMsg -> msg.reduceAndCmd(state)
+            is ClickOkUserDialogMsg -> Pair(msg.reduce(state), None)
+            is CancelUserDialogMsg -> Pair(msg.reduce(state), None)
 
             is ErrorMsg -> {
                 Timber.d("Error ${msg.err.message} for ${msg.cmd}")
-                Pair(oldState.copy(isError = true, error = msg.err), None)
+                Pair(state.copy(isError = true, error = msg.err), None)
             }
-            else -> Pair(oldState, None)
+            else -> Pair(state, None)
         }
     }
 
@@ -99,7 +98,7 @@ class HomePresenter(private val view: HomeContract.View,
         }
     }
 
-    override fun render(state: State) {
-        view.render(state as HomeState)
+    override fun render(state: HomeState) {
+        view.render(state)
     }
 }

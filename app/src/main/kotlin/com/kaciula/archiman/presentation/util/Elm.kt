@@ -22,26 +22,25 @@ sealed class AbstractCmd
 open class Cmd : AbstractCmd()
 object None : Cmd()
 
-interface ElmPresenter {
+interface ElmPresenter<S : State> {
 
-    fun update(msg: Msg, state: State): Pair<State, Cmd>
+    fun update(msg: Msg, state: S): Pair<S, Cmd>
 
-    fun render(state: State)
+    fun render(state: S)
 
     fun call(cmd: Cmd): Single<Msg>
 }
 
 
-class Elm {
+class Elm<S : State> {
 
     private val uiScheduler: Scheduler = AndroidSchedulers.mainThread()
-    private val msgRelay: BehaviorRelay<Pair<Msg, State>> = BehaviorRelay.create()
+    private val msgRelay: BehaviorRelay<Pair<Msg, S>> = BehaviorRelay.create()
     private var msgQueue = ArrayDeque<Msg>()
-    private lateinit var state: State
-    private lateinit var elmPresenter: ElmPresenter
-    private var firstTime = true
+    private lateinit var state: S
+    private lateinit var elmPresenter: ElmPresenter<S>
 
-    fun init(initialState: State, elmPresenter: ElmPresenter): Disposable {
+    fun init(initialState: S, elmPresenter: ElmPresenter<S>): Disposable {
         this.elmPresenter = elmPresenter
         this.state = initialState
         return msgRelay
@@ -51,9 +50,8 @@ class Elm {
                 }
                 .observeOn(uiScheduler)
                 .doOnNext { (state, _) ->
-                    if (firstTime || state != getState()) {
+                    if (state != getState()) {
                         elmPresenter.render(state)
-                        firstTime = false
                     }
                 }
                 .doOnNext { (state, _) ->
@@ -85,7 +83,7 @@ class Elm {
                 })
     }
 
-    fun getState(): State = state
+    fun getState(): S = state
 
     fun render() {
         elmPresenter.render(state)

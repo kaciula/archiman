@@ -13,7 +13,7 @@ interface HomeContract {
     }
 
 
-    interface Presenter : BasePresenter, ElmPresenter {
+    interface Presenter : BasePresenter, ElmPresenter<HomeState> {
 
         fun onDoneInitialize()
 
