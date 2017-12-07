@@ -11,18 +11,20 @@ class InitColdStart(private val appRepository: AppRepository) : CompletableUseCa
         return Completable.fromAction {
             Timberific.i("Initialize every cold start")
             val currentVersionCode = requestModel.currentVersionCode
-            if (appRepository.isFirstTime()) {
+            val app = appRepository.get()
+            if (app.isFirstTime) {
                 Timberific.i("First time running the app")
-                appRepository.saveFirstTime(false)
-                appRepository.saveVersionCode(currentVersionCode)
+                app.isFirstTime = false
+                app.versionCode = currentVersionCode
             } else {
-                if (appRepository.getVersionCode() < currentVersionCode) {
-                    Timberific.i("Old version code ${appRepository.getVersionCode()} is replaced with new version code $currentVersionCode")
-                    appRepository.saveVersionCode(currentVersionCode)
+                if (app.versionCode < currentVersionCode) {
+                    Timberific.i("Old version code ${app.versionCode} is replaced with new version code $currentVersionCode")
+                    app.versionCode = currentVersionCode
                 } else {
                     Timberific.i("Just a basic cold start")
                 }
             }
+            appRepository.save(app)
         }
     }
 

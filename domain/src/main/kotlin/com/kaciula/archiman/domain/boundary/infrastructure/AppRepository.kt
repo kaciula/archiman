@@ -1,12 +1,10 @@
 package com.kaciula.archiman.domain.boundary.infrastructure
 
+import com.kaciula.archiman.domain.model.App
+
 interface AppRepository {
 
-    fun isFirstTime(): Boolean
+    fun get(): App
 
-    fun saveFirstTime(firstTime: Boolean)
-
-    fun getVersionCode(): Int
-
-    fun saveVersionCode(value: Int)
+    fun save(app: App)
 }
