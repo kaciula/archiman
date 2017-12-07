@@ -1,8 +1,7 @@
-package com.kaciula.archiman.infrastructure.injection
+package com.kaciula.archiman.injection
 
 import android.content.Context
 import com.kaciula.archiman.infrastructure.data.remote.StackExchangeApi
-import com.kaciula.archiman.injection.OkHttpModule
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -20,8 +19,8 @@ class RemoteModule {
     @Singleton
     fun provideOkHttpClientBuilder(context: Context): OkHttpClient.Builder {
         val builder = OkHttpClient.Builder()
-        val CACHE_SIZE_BYTES = 2 * 1024 * 1024
-        builder.cache(Cache(context.cacheDir, CACHE_SIZE_BYTES.toLong()))
+        val cacheSizeBytes = 2 * 1024 * 1024
+        builder.cache(Cache(context.cacheDir, cacheSizeBytes.toLong()))
         return builder
     }
 

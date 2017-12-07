@@ -15,6 +15,11 @@ buildscript {
 }
 
 allprojects {
+    ext.COMPILE_SDK = 25
+    ext.BUILD_TOOLS_VERSION = '26.0.2'
+    ext.MIN_SDK = 16
+    ext.TARGET_SDK = 25
+
     ext.RXJAVA_VERSION = '2.1.2'
     ext.JUNIT_VERSION = '4.12'
     ext.MOCKITO_VERSION = '1.10.19'

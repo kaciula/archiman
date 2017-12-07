@@ -29,14 +29,18 @@ def versionPatch = 1
 def buildTime = new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '26.0.2'
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion globalConfiguration["COMPILE_SDK"]
+    buildToolsVersion globalConfiguration["BUILD_TOOLS_VERSION"]
 
     defaultConfig {
         // FIXME Replace with your app's package name
         applicationId "com.kaciula.archiman"
-        minSdkVersion 16
-        targetSdkVersion 25
+
+        minSdkVersion globalConfiguration["MIN_SDK"]
+        targetSdkVersion globalConfiguration["TARGET_SDK"]
+
         versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
 
@@ -126,6 +130,7 @@ dependencies {
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':domain')
+//    compile project(':infrastructure')
 
     compile "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
     compile "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION"

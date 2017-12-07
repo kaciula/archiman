@@ -1,4 +1,4 @@
-package com.kaciula.archiman.infrastructure.injection
+package com.kaciula.archiman.injection
 
 import android.content.Context
 import com.kaciula.archiman.BuildConfig

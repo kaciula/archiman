@@ -26,8 +26,8 @@ abstract class ArchimanApplication : BaseApplication() {
         RxJavaPlugins.setErrorHandler(RxGlobalErrorHandler())
 
         setupRealm()
-
         Kotpref.init(this)
+        crashReporter.init()
 
         initColdStart
                 .execute(InitColdStart.RequestModel(BuildConfig.VERSION_CODE))

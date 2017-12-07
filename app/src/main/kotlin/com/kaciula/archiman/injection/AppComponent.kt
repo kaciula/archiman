@@ -1,7 +1,6 @@
 package com.kaciula.archiman.injection
 
 import com.kaciula.archiman.domain.boundary.infrastructure.AppRepository
-import com.kaciula.archiman.infrastructure.injection.InfrastructureModule
 import dagger.Component
 import javax.inject.Singleton
 
