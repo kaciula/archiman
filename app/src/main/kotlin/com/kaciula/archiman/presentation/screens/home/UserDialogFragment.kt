@@ -25,7 +25,7 @@ class UserDialogFragment : AppCompatDialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder = AlertDialog.Builder(activity)
+        val builder = AlertDialog.Builder(activity!!)
         builder.setTitle(user().name)
 
         val view = View.inflate(activity, R.layout.dialog_user, null)
@@ -46,7 +46,7 @@ class UserDialogFragment : AppCompatDialogFragment() {
     }
 
     private fun user(): UserViewModel {
-        return arguments.getParcelable<UserViewModel>(EXTRA_USER)
+        return arguments!!.getParcelable(EXTRA_USER)
     }
 
     companion object {

@@ -15,10 +15,10 @@ buildscript {
 }
 
 allprojects {
-    ext.COMPILE_SDK = 25
-    ext.BUILD_TOOLS_VERSION = '26.0.2'
+    ext.COMPILE_SDK = 27
+    ext.BUILD_TOOLS_VERSION = '27.0.2'
     ext.MIN_SDK = 16
-    ext.TARGET_SDK = 25
+    ext.TARGET_SDK = 27
 
     ext.RXJAVA_VERSION = '2.1.2'
     ext.JUNIT_VERSION = '4.12'
@@ -28,6 +28,7 @@ allprojects {
     repositories {
         jcenter()
         mavenCentral()
+        google()
     }
 }
 

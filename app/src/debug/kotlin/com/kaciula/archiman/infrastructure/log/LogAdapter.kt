@@ -60,9 +60,9 @@ class LogAdapter : BaseAdapter() {
         var logMessageTextView: TextView
 
         init {
-            logLevelTextView = rootView.findViewById(R.id.dd_text_log_level) as TextView
-            logTagTextView = rootView.findViewById(R.id.dd_text_log_tag) as TextView
-            logMessageTextView = rootView.findViewById(R.id.dd_text_log_message) as TextView
+            logLevelTextView = rootView.findViewById(R.id.dd_text_log_level)
+            logTagTextView = rootView.findViewById(R.id.dd_text_log_tag)
+            logMessageTextView = rootView.findViewById(R.id.dd_text_log_message)
         }
 
         fun fillData(entry: LogEntry) {

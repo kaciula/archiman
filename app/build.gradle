@@ -5,8 +5,8 @@ buildscript {
         maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
-        classpath "io.realm:realm-gradle-plugin:3.5.0"
-        classpath 'io.fabric.tools:gradle:1.23.0'
+        classpath "io.realm:realm-gradle-plugin:4.1.1"
+        classpath 'io.fabric.tools:gradle:1.24.2'
         classpath "io.mironov.smuggler:smuggler-plugin:0.12.14"
     }
 }
@@ -115,10 +115,10 @@ android {
 }
 
 dependencies {
-    final SUPPORT_LIBRARY_VERSION = '25.3.1'
+    final SUPPORT_LIBRARY_VERSION = '27.0.2'
     final DAGGER_VERSION = '2.11'
-    final LEAK_CANARY_VERSION = '1.5.1'
-    final BUTTER_KNIFE_VERSION = '8.7.0'
+    final LEAK_CANARY_VERSION = '1.5.4'
+    final BUTTER_KNIFE_VERSION = '8.8.1'
     final RETROFIT_VERSION = '2.3.0'
     final OKHTTP_VERSION = '3.8.1'
     final CONDUCTOR_VERSION = '2.1.4'
@@ -160,7 +160,7 @@ dependencies {
     compile "com.bluelinelabs:conductor-rxlifecycle2:$CONDUCTOR_VERSION"
 
     compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
-        transitive = true;
+        transitive = true
     }
     compile 'com.squareup.moshi:moshi:1.5.0'
     compile "net.danlew:android.joda:$JODA_TIME_ANDROID_VERSION"
@@ -201,7 +201,6 @@ dependencies {
     androidTestCompile "com.android.support:support-annotations:$SUPPORT_LIBRARY_VERSION"
     androidTestCompile "com.android.support.test:runner:$RUNNER_VERSION"
     androidTestCompile "com.android.support.test:rules:$RUNNER_VERSION"
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:3.0.1'
     androidTestCompile 'tools.fastlane:screengrab:1.1.0'
-    androidTestCompile "com.google.code.findbugs:jsr305:3.0.1"
 }
