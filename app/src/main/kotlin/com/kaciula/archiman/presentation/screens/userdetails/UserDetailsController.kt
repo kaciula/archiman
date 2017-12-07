@@ -59,8 +59,8 @@ class UserDetailsController(args: Bundle) : BaseController(args), UserDetailsCon
         super.onDestroy()
     }
 
-    override fun render(viewModel: UserDetailsViewModel) {
-        tvUserName.text = viewModel.userName
+    override fun render(state: UserDetailsState) {
+        tvUserName.text = state.userName
     }
 
     companion object {

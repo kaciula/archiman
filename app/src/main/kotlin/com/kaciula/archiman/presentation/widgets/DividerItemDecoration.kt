@@ -46,7 +46,7 @@ class DividerItemDecoration : RecyclerView.ItemDecoration {
             val childCount = parent.childCount
 
             val count = if (drawLastDivider) childCount else childCount - 1
-            for (i in 0..count - 1) {
+            for (i in 0 until count) {
                 val child = parent.getChildAt(i)
                 val params = child.layoutParams as RecyclerView.LayoutParams
                 val size = divider.intrinsicHeight
@@ -61,7 +61,7 @@ class DividerItemDecoration : RecyclerView.ItemDecoration {
             val childCount = parent.childCount
 
             val count = if (drawLastDivider) childCount else childCount - 1
-            for (i in 0..count - 1) {
+            for (i in 0 until count) {
                 val child = parent.getChildAt(i)
                 val params = child.layoutParams as RecyclerView.LayoutParams
                 val size = divider.intrinsicWidth

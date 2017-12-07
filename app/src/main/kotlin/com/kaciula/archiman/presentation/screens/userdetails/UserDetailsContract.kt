@@ -5,7 +5,7 @@ import com.kaciula.archiman.presentation.util.BasePresenter
 interface UserDetailsContract {
 
     interface View {
-        fun render(viewModel: UserDetailsViewModel)
+        fun render(state: UserDetailsState)
     }
 
 

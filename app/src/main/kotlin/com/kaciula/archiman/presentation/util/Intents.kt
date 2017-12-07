@@ -11,12 +11,12 @@ object Intents {
      * will display a simple message if none are available to handle it.
      */
     fun maybeStartActivity(context: Context, intent: Intent): Boolean {
-        if (hasHandler(context, intent)) {
+        return if (hasHandler(context, intent)) {
             context.startActivity(intent)
-            return true
+            true
         } else {
             Toast.makeText(context, R.string.all_no_apps_for_intent, Toast.LENGTH_LONG).show()
-            return false
+            false
         }
     }
 

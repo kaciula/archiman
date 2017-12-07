@@ -8,7 +8,7 @@ class UserDetailsPresenter(private val view: UserDetailsContract.View,
                            private val schedulerProvider: SchedulerProvider) : UserDetailsContract.Presenter {
 
     override fun init() {
-        view.render(UserDetailsViewModel(user.name))
+        view.render(UserDetailsState(user.name))
     }
 
     override fun start() {}
