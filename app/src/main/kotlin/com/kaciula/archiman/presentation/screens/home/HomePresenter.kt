@@ -6,10 +6,12 @@ import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 
-class HomePresenter(private val view: HomeContract.View,
-                    private val elm: Elm<HomeState>,
-                    private val getUsers: GetUsers) : HomeContract.Presenter {
+class HomePresenter(
+        private val view: HomeContract.View,
+        private val getUsers: GetUsers
+) : HomeContract.Presenter {
 
+    private val elm: Elm<HomeState> = Elm()
     private val disposables: CompositeDisposable = CompositeDisposable()
     private var isFirstInit: Boolean = true
 
@@ -19,7 +21,7 @@ class HomePresenter(private val view: HomeContract.View,
             isFirstInit = false
             val initialState = HomeState(initialize = true)
             disposables.add(elm.init(initialState, this))
-            elm.render()
+            elm.accept(InitMsg)
             elm.accept(GetUsersMsg)
         } else {
             elm.accept(RecreateMsg)
@@ -39,20 +41,12 @@ class HomePresenter(private val view: HomeContract.View,
         disposables.clear()
     }
 
-    override fun onDoneInitialize() {
-        elm.accept(DoneInitializeMsg)
-    }
-
     override fun onClickRetry() {
         elm.accept(ClickRetryMsg)
     }
 
     override fun onClickUser(user: UserViewModel) {
         elm.accept(ClickUserMsg(user))
-    }
-
-    override fun onShowingUserDialog() {
-        elm.accept(ShowingUserDialogMsg)
     }
 
     override fun onClickOkUserDialog(user: UserViewModel) {
@@ -69,15 +63,16 @@ class HomePresenter(private val view: HomeContract.View,
 
     override fun update(msg: Msg, state: HomeState): Pair<HomeState, Cmd> {
         return when (msg) {
-            is DoneInitializeMsg -> msg.reduceAndCmd(state)
+            is InitMsg -> Pair(state, OneShotCmd(ResetInitMsg))
+            is ResetInitMsg -> msg.reduceAndCmd(state)
             is GetUsersMsg -> msg.reduceAndCmd(state)
-            is RecreateMsg -> Pair(msg.reduce(state), None)
+            is RecreateMsg -> Pair(msg.reduce(state), OneShotCmd(ResetInitMsg))
 
             is UsersDataMsg -> msg.reduceAndCmd()
             is ClickRetryMsg -> msg.reduceAndCmd(state)
 
-            is ClickUserMsg -> Pair(msg.reduce(state), None)
-            is ShowingUserDialogMsg -> msg.reduceAndCmd(state)
+            is ClickUserMsg -> Pair(msg.reduce(state), OneShotCmd(ResetClickUserMsg))
+            is ResetClickUserMsg -> msg.reduceAndCmd(state)
             is ClickOkUserDialogMsg -> Pair(msg.reduce(state), None)
             is CancelUserDialogMsg -> Pair(msg.reduce(state), None)
 
@@ -96,6 +91,9 @@ class HomePresenter(private val view: HomeContract.View,
                     .map { responseModel -> UsersDataMsg(responseModel) }
             else -> Single.just(Idle)
         }
+    }
+
+    override fun sub(state: HomeState) {
     }
 
     override fun render(state: HomeState) {

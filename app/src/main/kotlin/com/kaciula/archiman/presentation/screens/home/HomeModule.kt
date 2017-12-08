@@ -2,7 +2,6 @@ package com.kaciula.archiman.presentation.screens.home
 
 import com.kaciula.archiman.domain.usecases.GetUsers
 import com.kaciula.archiman.injection.ActivityScope
-import com.kaciula.archiman.presentation.util.Elm
 import dagger.Module
 import dagger.Provides
 
@@ -11,6 +10,5 @@ class HomeModule(private val view: HomeContract.View) {
 
     @Provides
     @ActivityScope
-    fun providePresenter(getUsers: GetUsers): HomeContract.Presenter
-            = HomePresenter(view, Elm(), getUsers)
+    fun providePresenter(getUsers: GetUsers): HomeContract.Presenter = HomePresenter(view, getUsers)
 }
