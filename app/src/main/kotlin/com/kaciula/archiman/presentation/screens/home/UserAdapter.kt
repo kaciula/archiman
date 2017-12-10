@@ -1,6 +1,5 @@
 package com.kaciula.archiman.presentation.screens.home
 
-import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -11,13 +10,11 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.kaciula.archiman.R
 
-class UserAdapter(ctx: Context, var items: List<UserViewModel>, private val presenter: HomeContract.Presenter)
+class UserAdapter(var items: List<UserViewModel>, private val presenter: HomeContract.Presenter)
     : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
-    private val inflater: LayoutInflater = LayoutInflater.from(ctx)
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val convertView = inflater.inflate(R.layout.item_user, parent, false)
+        val convertView = LayoutInflater.from(parent.context).inflate(R.layout.item_user, parent, false)
         return ViewHolder(convertView)
     }
 

@@ -60,7 +60,7 @@ class HomeController : BaseController(), HomeContract.View {
         if (state.initialize) {
             recyclerView.addItemDecoration(DividerItemDecoration(activity!!))
             recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-            adapter = UserAdapter(activity!!, emptyList(), presenter)
+            adapter = UserAdapter(emptyList(), presenter)
             recyclerView.adapter = adapter
         }
 
