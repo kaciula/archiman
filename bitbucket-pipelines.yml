@@ -5,5 +5,10 @@ pipelines:
         caches:
           - gradle
         script:
-          - bash ./gradlew clean assembleProdDebug
-          - bash ./gradlew testProdDebugUnitTest
+          - bash ./gradlew clean assembleProdRelease
+          - bash ./gradlew testProdReleaseUnitTest
+  custom:
+    crashlytics:
+      - step:
+          script:
+            - bash ./gradlew crashlyticsUploadDistributionProdRelease
