@@ -5,4 +5,5 @@ pipelines:
         caches:
           - gradle
         script:
-          - bash ./gradlew clean assembleProdDebug testProdDebugUnitTest
+          - bash ./gradlew clean assembleProdDebug
+          - bash ./gradlew testProdDebugUnitTest
