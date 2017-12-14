@@ -11,7 +11,7 @@ pipelines:
     push_to_crashlytics_beta:
       - step:
           script:
-            - bash git tag "build-$BITBUCKET_BUILD_NUMBER"
             - bash ./gradlew clean assembleProdRelease
             - bash ./gradlew testProdReleaseUnitTest
             - bash ./gradlew crashlyticsUploadDistributionProdRelease
+            - git tag "build-$BITBUCKET_BUILD_NUMBER"
