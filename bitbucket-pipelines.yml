@@ -5,8 +5,17 @@ pipelines:
         caches:
           - gradle
         script:
-          - bash ./gradlew clean assembleProdRelease
-          - bash ./gradlew testProdReleaseUnitTest
+          - git remote -v
+          - git tag -l
+          - git log | head
+          - git tag hello
+          - git tag -l
+          - touch a.txt
+          - git add a.txt
+          - git status
+          - git commit "Message"
+          - git log | head
+          - git push origin --tags
   custom:
     push_to_crashlytics_beta:
       - step:
