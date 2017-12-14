@@ -15,3 +15,4 @@ pipelines:
             - bash ./gradlew testProdReleaseUnitTest
             - bash ./gradlew crashlyticsUploadDistributionProdRelease
             - git tag "build-$BITBUCKET_BUILD_NUMBER"
+            - git push --tags
