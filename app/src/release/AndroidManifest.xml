@@ -3,8 +3,12 @@
     package="com.kaciula.archiman">
 
     <application
-        android:name=".infrastructure.ReleaseArchimanApplication"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_rules"
-        tools:replace="android:name" />
+        android:name=".infrastructure.util.ReleaseArchimanApplication"
+        tools:replace="android:name">
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="a3b16d33bd80b789c24cf5009158acddd7dec962" />
+    </application>
 </manifest>
