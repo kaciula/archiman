@@ -5,17 +5,8 @@ pipelines:
         caches:
           - gradle
         script:
-          - git remote -v
-          - git tag -l
-          - git log | head
-          - git tag hello
-          - git tag -l
-          - touch a.txt
-          - git add a.txt
-          - git status
-          - git commit "Message"
-          - git log | head
-          - git push origin --tags
+          - bash ./gradlew clean assembleProdRelease
+          - bash ./gradlew testProdReleaseUnitTest
   custom:
     push_to_crashlytics_beta:
       - step:
@@ -24,4 +15,3 @@ pipelines:
             - bash ./gradlew testProdReleaseUnitTest
             - bash ./gradlew crashlyticsUploadDistributionProdRelease
             - git tag "build-$BITBUCKET_BUILD_NUMBER"
-            - git push --tags
