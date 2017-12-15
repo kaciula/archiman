@@ -17,8 +17,8 @@ pipelines:
             - git config user.email "robot@your.service"
             - bash ./gradlew clean assembleProdRelease
             - bash ./gradlew testProdReleaseUnitTest
+            - bash ./pipelines/setupFabricBeta.sh
             - bash ./gradlew crashlyticsUploadDistributionProdRelease
-            - git tag "build-$BITBUCKET_BUILD_NUMBER"
             - bash ./gradlew incrementVersionPatch
             - git commit -a -m "Bump version"
             - git push -u origin --tags
