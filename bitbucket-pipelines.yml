@@ -8,7 +8,7 @@ pipelines:
           - bash ./gradlew clean assembleProdRelease
           - bash ./gradlew testProdReleaseUnitTest
   custom:
-    publish_to_crashlytics_beta:
+    publish_to_fabric_beta:
       - step:
           script:
             - ./pipelines/oAuthGit.sh
@@ -18,7 +18,7 @@ pipelines:
             - bash ./gradlew clean assembleProdRelease
             - bash ./gradlew testProdReleaseUnitTest
             - bash ./gradlew crashlyticsUploadDistributionProdRelease
-            - bash ./gradlew incrementVersionPatch
             - git tag "build-$BITBUCKET_BUILD_NUMBER"
+            - bash ./gradlew incrementVersionPatch
             - git commit -a -m "Bump version"
             - git push -u origin --tags

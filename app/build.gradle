@@ -50,7 +50,7 @@ android {
 
         buildConfigField "String", "BUILD_TIME", "\"${buildTime}\""
 
-        ext.betaDistributionReleaseNotesFilePath="pipelines/release_notes.txt"
+        ext.betaDistributionReleaseNotesFilePath="pipelines/fabric_beta_release_notes.txt"
 //        ext.betaDistributionGroupAliases="standard testers"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
