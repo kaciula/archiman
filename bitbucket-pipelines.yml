@@ -11,9 +11,14 @@ pipelines:
     push_to_crashlytics_beta:
       - step:
           script:
+            - ./pipelines/oAuthGit.sh
+            - git init
+            - git config user.name "CI Robot"
+            - git config user.email "robot@your.service"
             - bash ./gradlew clean assembleProdRelease
             - bash ./gradlew testProdReleaseUnitTest
             - bash ./gradlew crashlyticsUploadDistributionProdRelease
             - bash ./gradlew incrementVersionPatch
             - git tag "build-$BITBUCKET_BUILD_NUMBER"
-            - git status
+            - git commit -a -m "Bump version"
+            - git push -u origin
