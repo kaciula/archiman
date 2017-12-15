@@ -14,4 +14,6 @@ pipelines:
             - bash ./gradlew clean assembleProdRelease
             - bash ./gradlew testProdReleaseUnitTest
             - bash ./gradlew crashlyticsUploadDistributionProdRelease
+            - bash ./gradlew incrementVersionPatch
             - git tag "build-$BITBUCKET_BUILD_NUMBER"
+            - git status

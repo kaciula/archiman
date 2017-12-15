@@ -22,10 +22,6 @@ apply plugin: "io.mironov.smuggler"
 apply plugin: 'io.fabric'
 apply plugin: 'realm-android'
 
-def versionMajor = 0
-def versionMinor = 0
-def versionPatch = 1
-
 def buildTime = new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 
 android {
@@ -33,6 +29,14 @@ android {
 
     compileSdkVersion globalConfiguration["COMPILE_SDK"]
     buildToolsVersion globalConfiguration["BUILD_TOOLS_VERSION"]
+
+    def versionPropsFile = file('version.properties')
+    Properties versionProps = new Properties()
+    versionProps.load(new FileInputStream(versionPropsFile))
+
+    def versionMajor = versionProps['versionMajor'].toInteger()
+    def versionMinor = versionProps['versionMinor'].toInteger()
+    def versionPatch = versionProps['versionPatch'].toInteger()
 
     defaultConfig {
         // FIXME Replace with your app's package name
@@ -111,6 +115,26 @@ android {
             // FIXME Replace with your app's name
             outputFileName = "Archiman-${variant.versionName}.apk"
         }
+    }
+}
+
+task incrementVersionPatch {
+    group 'Utils'
+    description 'Increments the version patch from the version.properties file'
+
+    doLast {
+        def versionPropsFile = file('version.properties')
+        Properties versionProps = new Properties()
+
+        versionProps.load(new FileInputStream(versionPropsFile))
+
+        def versionPatch = versionProps['versionPatch'].toInteger() + 1
+
+        versionProps['versionPatch'] = versionPatch.toString()
+        versionProps.store(versionPropsFile.newWriter(), null)
+
+        // Sort the properties inside the file so they are in natural order
+        versionPropsFile.with { it.text = it.readLines().findAll { it }.sort().join('\n') }
     }
 }
 
