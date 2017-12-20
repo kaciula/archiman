@@ -8,7 +8,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
 
     testCompile "junit:junit:$JUNIT_VERSION"
-    testCompile "org.mockito:mockito-all:$MOCKITO_VERSION"
+    testCompile "org.mockito:mockito-core:$MOCKITO_VERSION"
     testCompile "org.hamcrest:hamcrest-all:$HAMCREST_VERSION"
 }
 

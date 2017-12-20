@@ -30,10 +30,7 @@ android {
     compileSdkVersion globalConfiguration["COMPILE_SDK"]
     buildToolsVersion globalConfiguration["BUILD_TOOLS_VERSION"]
 
-    def versionPropsFile = file('version.properties')
-    Properties versionProps = new Properties()
-    versionProps.load(new FileInputStream(versionPropsFile))
-
+    Properties versionProps = loadVersionProperties()
     def versionMajor = versionProps['versionMajor'].toInteger()
     def versionMinor = versionProps['versionMinor'].toInteger()
     def versionPatch = versionProps['versionPatch'].toInteger()
@@ -50,7 +47,7 @@ android {
 
         buildConfigField "String", "BUILD_TIME", "\"${buildTime}\""
 
-        ext.betaDistributionReleaseNotesFilePath="pipelines/fabric_beta_release_notes.txt"
+        ext.betaDistributionReleaseNotesFilePath = "pipelines/fabric_beta_release_notes.txt"
 //        ext.betaDistributionGroupAliases="standard testers"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -121,23 +118,32 @@ android {
     }
 }
 
+def loadVersionProperties() {
+    def versionPropsFile = file('version.properties')
+    Properties versionProps = new Properties()
+    versionProps.load(new FileInputStream(versionPropsFile))
+    return versionProps
+}
+
+def storeVersionProperties(Properties versionProps) {
+    def versionPropsFile = file('version.properties')
+    versionProps.store(versionPropsFile.newWriter(), null)
+    // Sort the properties inside the file so they are in natural order
+    versionPropsFile.with { it.text = it.readLines().findAll { it }.sort().join('\n') }
+}
+
 task incrementVersionPatch {
     group 'Utils'
     description 'Increments the version patch from the version.properties file'
 
     doLast {
-        def versionPropsFile = file('version.properties')
-        Properties versionProps = new Properties()
-
-        versionProps.load(new FileInputStream(versionPropsFile))
-
+        Properties versionProps = loadVersionProperties()
         def versionPatch = versionProps['versionPatch'].toInteger() + 1
 
         versionProps['versionPatch'] = versionPatch.toString()
         versionProps.store(versionPropsFile.newWriter(), null)
 
-        // Sort the properties inside the file so they are in natural order
-        versionPropsFile.with { it.text = it.readLines().findAll { it }.sort().join('\n') }
+        storeVersionProperties(versionProps)
     }
 }
 
@@ -220,7 +226,7 @@ dependencies {
     // Unit testing dependencies.
     testCompile project(':domain')
     testCompile "junit:junit:$JUNIT_VERSION"
-    testCompile "org.mockito:mockito-all:$MOCKITO_VERSION"
+    testCompile "org.mockito:mockito-core:$MOCKITO_VERSION"
     testCompile "org.hamcrest:hamcrest-all:$HAMCREST_VERSION"
     testCompile "joda-time:joda-time:$JODA_TIME_VERSION"
 
