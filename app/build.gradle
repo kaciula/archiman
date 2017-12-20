@@ -8,6 +8,7 @@ buildscript {
         classpath "io.realm:realm-gradle-plugin:4.1.1"
         classpath 'io.fabric.tools:gradle:1.24.2'
         classpath "io.mironov.smuggler:smuggler-plugin:0.12.14"
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.17.0'
     }
 }
 
@@ -21,6 +22,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: "io.mironov.smuggler"
 apply plugin: 'io.fabric'
 apply plugin: 'realm-android'
+apply plugin: 'com.github.ben-manes.versions'
 
 def buildTime = new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 

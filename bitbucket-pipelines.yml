@@ -21,4 +21,4 @@ pipelines:
             - bash ./gradlew crashlyticsUploadDistributionProdRelease
             - bash ./gradlew incrementVersionPatch
             - git commit -a -m "Bump version"
-            - git push -u origin --tags
+            - git push -u origin && git push -u origin --tags
