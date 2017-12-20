@@ -4,11 +4,11 @@ apply plugin: 'idea'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation "io.reactivex.rxjava2:rxjava:$RXJAVA_VERSION"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
+    implementation deps.rxjava
+    implementation deps.kotlin
 
-    testImplementation "junit:junit:$JUNIT_VERSION"
-    testImplementation "org.mockito:mockito-core:$MOCKITO_VERSION"
-    testImplementation "org.hamcrest:hamcrest-all:$HAMCREST_VERSION"
+    testImplementation deps.junit
+    testImplementation deps.mockito
+    testImplementation deps.hamcrest
 }
 
