@@ -6,7 +6,7 @@ pipelines:
           - gradle
         script:
           - bash ./gradlew clean assembleProdRelease
-          - bash ./gradlew testProdReleaseUnitTest
+          - bash ./gradlew domain:test testProdReleaseUnitTest
   custom:
     publish_to_fabric_beta:
       - step:
@@ -16,7 +16,7 @@ pipelines:
             - git config user.name "CI Robot"
             - git config user.email "robot@your.service"
             - bash ./gradlew clean assembleProdRelease
-            - bash ./gradlew testProdReleaseUnitTest
+            - bash ./gradlew domain:test testProdReleaseUnitTest
             - bash ./pipelines/setupFabricBeta.sh
             - bash ./gradlew crashlyticsUploadDistributionProdRelease
             - bash ./gradlew incrementVersionPatch
