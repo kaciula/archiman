@@ -17,7 +17,7 @@ class GetUsersTest {
     private lateinit var useCase: GetUsers
 
     @Before
-    fun setupUseCase() {
+    fun setup() {
         MockitoAnnotations.initMocks(this)
 
         useCase = GetUsers(userRepository)
@@ -29,6 +29,7 @@ class GetUsersTest {
         Mockito.`when`(userRepository.getAll()).thenReturn(Single.just(users))
 
         val observer = useCase.execute(GetUsers.RequestModel).test()
+
         observer.assertValue(GetUsers.ResponseModel(users = users))
     }
 
@@ -38,6 +39,7 @@ class GetUsersTest {
         Mockito.`when`(userRepository.getAll()).thenReturn(Single.error(error))
 
         val observer = useCase.execute(GetUsers.RequestModel).test()
+
         observer.assertError(error.javaClass)
     }
 }
