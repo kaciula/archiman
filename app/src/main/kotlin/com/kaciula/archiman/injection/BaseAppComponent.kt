@@ -3,6 +3,7 @@ package com.kaciula.archiman.injection
 import com.kaciula.archiman.domain.boundary.infrastructure.CrashReporter
 import com.kaciula.archiman.domain.usecases.GetUsers
 import com.kaciula.archiman.domain.util.SchedulerProvider
+import com.kaciula.archiman.infrastructure.data.local.system.LocationProvider
 import com.kaciula.archiman.infrastructure.util.ArchimanApplication
 
 interface BaseAppComponent {
@@ -11,7 +12,9 @@ interface BaseAppComponent {
 
     fun schedulerProvider(): SchedulerProvider
 
-    fun getUsersUseCase(): GetUsers
+    fun getUsers(): GetUsers
 
     fun crashReporter(): CrashReporter
+
+    fun locationProvider(): LocationProvider
 }

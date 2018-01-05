@@ -10,6 +10,8 @@ import com.kaciula.archiman.infrastructure.boundary.CrashlyticsCrashReporter
 import com.kaciula.archiman.infrastructure.boundary.DummyCrashReporter
 import com.kaciula.archiman.infrastructure.boundary.UserRepositoryImpl
 import com.kaciula.archiman.infrastructure.data.local.database.UserLocalDataStore
+import com.kaciula.archiman.infrastructure.data.local.system.LocationProvider
+import com.kaciula.archiman.infrastructure.data.local.system.LocationProviderImpl
 import com.kaciula.archiman.infrastructure.data.remote.StackExchangeApi
 import com.kaciula.archiman.infrastructure.data.remote.UserRemoteDataStore
 import com.kaciula.archiman.infrastructure.data.util.moshi.MoshiLocalDateAdapter
@@ -50,5 +52,11 @@ class InfrastructureModule {
     @Singleton
     fun provideCrashReporter(context: Context): CrashReporter {
         return if (BuildConfig.DEBUG) DummyCrashReporter() else CrashlyticsCrashReporter(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLocationProvider(context: Context): LocationProvider {
+        return LocationProviderImpl(context)
     }
 }

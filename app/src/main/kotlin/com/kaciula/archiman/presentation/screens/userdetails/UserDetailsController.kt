@@ -1,5 +1,6 @@
 package com.kaciula.archiman.presentation.screens.userdetails
 
+import android.Manifest
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import com.kaciula.archiman.injection.Injector
 import com.kaciula.archiman.presentation.screens.home.UserViewModel
 import com.kaciula.archiman.presentation.util.BaseController
 import com.kaciula.archiman.presentation.util.BundleBuilder
+import com.tbruyelle.rxpermissions2.RxPermissions
+import io.reactivex.Single
 import javax.inject.Inject
 
 class UserDetailsController(args: Bundle) : BaseController(args), UserDetailsContract.View {
@@ -61,6 +64,12 @@ class UserDetailsController(args: Bundle) : BaseController(args), UserDetailsCon
 
     override fun render(state: UserDetailsState) {
         tvUserName.text = state.userName
+    }
+
+    override fun ensureLocationPermission(): Single<Boolean> {
+        return RxPermissions(activity!!)
+                .request(Manifest.permission.ACCESS_FINE_LOCATION)
+                .first(false)
     }
 
     companion object {

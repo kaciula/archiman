@@ -5,7 +5,7 @@ import com.kaciula.archiman.injection.AppComponent
 import dagger.Component
 
 @ActivityScope
-@Component(dependencies = arrayOf(AppComponent::class), modules = arrayOf(HomeModule::class))
+@Component(dependencies = [AppComponent::class], modules = [HomeModule::class])
 interface HomeComponent {
 
     fun inject(homeController: HomeController)
