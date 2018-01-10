@@ -63,18 +63,18 @@ class HomePresenter(
 
     override fun update(msg: Msg, state: HomeState): Pair<HomeState, Cmd> {
         return when (msg) {
-            is InitMsg -> Pair(state, OneShotCmd(ResetInitMsg))
+            is InitMsg -> msg.reduceAndCmd(state)
             is ResetInitMsg -> msg.reduceAndCmd(state)
             is GetUsersMsg -> msg.reduceAndCmd(state)
-            is RecreateMsg -> Pair(msg.reduce(state), OneShotCmd(ResetInitMsg))
+            is RecreateMsg -> msg.reduceAndCmd(state)
 
-            is UsersDataMsg -> msg.reduceAndCmd()
+            is UsersDataMsg -> msg.reduceAndCmd(state)
             is ClickRetryMsg -> msg.reduceAndCmd(state)
 
-            is ClickUserMsg -> Pair(msg.reduce(state), OneShotCmd(ResetClickUserMsg))
+            is ClickUserMsg -> msg.reduceAndCmd(state)
             is ResetClickUserMsg -> msg.reduceAndCmd(state)
-            is ClickOkUserDialogMsg -> Pair(msg.reduce(state), None)
-            is CancelUserDialogMsg -> Pair(msg.reduce(state), None)
+            is ClickOkUserDialogMsg -> msg.reduceAndCmd(state)
+            is CancelUserDialogMsg -> msg.reduceAndCmd(state)
 
             is ErrorMsg -> {
                 Timber.d("Error ${msg.err.message} for ${msg.cmd}")

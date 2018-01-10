@@ -1,27 +1,36 @@
 package com.kaciula.archiman.presentation.screens.home
 
 import com.kaciula.archiman.domain.usecases.GetUsers
-import com.kaciula.archiman.presentation.util.Cmd
-import com.kaciula.archiman.presentation.util.HighPriorityMsg
-import com.kaciula.archiman.presentation.util.Msg
-import com.kaciula.archiman.presentation.util.None
+import com.kaciula.archiman.presentation.util.*
 import java.util.*
 
 // Commands
 object GetUsersCmd : Cmd()
 
 // Messages
-object InitMsg : Msg()
+sealed class HomeMsg : Msg() {
+    abstract fun reduceAndCmd(oldState: HomeState): Pair<HomeState, Cmd>
+}
 
-object GetUsersMsg : Msg() {
-    fun reduceAndCmd(oldState: HomeState): Pair<HomeState, Cmd> {
+sealed class HomeHighPriorityMsg : HighPriorityMsg() {
+    abstract fun reduceAndCmd(oldState: HomeState): Pair<HomeState, Cmd>
+}
+
+object InitMsg : HomeMsg() {
+    override fun reduceAndCmd(oldState: HomeState): Pair<HomeState, Cmd> {
+        return Pair(oldState, OneShotCmd(ResetInitMsg))
+    }
+}
+
+object GetUsersMsg : HomeMsg() {
+    override fun reduceAndCmd(oldState: HomeState): Pair<HomeState, Cmd> {
         val state = oldState.copy(isProgress = true, isContent = false, isError = false)
         return Pair(state, GetUsersCmd)
     }
 }
 
-data class UsersDataMsg(private val response: GetUsers.ResponseModel) : Msg() {
-    fun reduceAndCmd(): Pair<HomeState, Cmd> {
+data class UsersDataMsg(private val response: GetUsers.ResponseModel) : HomeMsg() {
+    override fun reduceAndCmd(oldState: HomeState): Pair<HomeState, Cmd> {
         val users = ArrayList<UserViewModel>(response.users.size)
         for ((_, name) in response.users) {
             users.add(UserViewModel(name))
@@ -30,45 +39,45 @@ data class UsersDataMsg(private val response: GetUsers.ResponseModel) : Msg() {
     }
 }
 
-data class ClickUserMsg(private val user: UserViewModel) : Msg() {
-    fun reduce(oldState: HomeState): HomeState {
-        return oldState.copy(showUserDialog = true, dialogUser = user)
+data class ClickUserMsg(private val user: UserViewModel) : HomeMsg() {
+    override fun reduceAndCmd(oldState: HomeState): Pair<HomeState, Cmd> {
+        return Pair(oldState.copy(showUserDialog = true, dialogUser = user), OneShotCmd(ResetClickUserMsg))
     }
 }
 
-object ResetClickUserMsg : HighPriorityMsg() {
-    fun reduceAndCmd(oldState: HomeState): Pair<HomeState, Cmd> =
+object ResetClickUserMsg : HomeHighPriorityMsg() {
+    override fun reduceAndCmd(oldState: HomeState): Pair<HomeState, Cmd> =
             Pair(oldState.copy(showUserDialog = false, dialogUser = null), None)
 }
 
-object ClickOkUserDialogMsg : Msg() {
-    fun reduce(oldState: HomeState): HomeState {
-        return oldState.copy()
+object ClickOkUserDialogMsg : HomeMsg() {
+    override fun reduceAndCmd(oldState: HomeState): Pair<HomeState, Cmd> {
+        return Pair(oldState.copy(), None)
     }
 }
 
-object CancelUserDialogMsg : Msg() {
-    fun reduce(oldState: HomeState): HomeState {
-        return oldState.copy()
+object CancelUserDialogMsg : HomeMsg() {
+    override fun reduceAndCmd(oldState: HomeState): Pair<HomeState, Cmd> {
+        return Pair(oldState.copy(), None)
     }
 }
 
-object ClickRetryMsg : Msg() {
-    fun reduceAndCmd(oldState: HomeState): Pair<HomeState, Cmd> {
+object ClickRetryMsg : HomeMsg() {
+    override fun reduceAndCmd(oldState: HomeState): Pair<HomeState, Cmd> {
         val state = oldState.copy(isProgress = true, isContent = false, isError = false)
         return Pair(state, GetUsersCmd)
     }
 }
 
 /* This event is triggered whenever there is an orientation change or we're coming back to this screen */
-object RecreateMsg : Msg() {
-    fun reduce(oldState: HomeState): HomeState {
-        return oldState.copy(initialize = true)
+object RecreateMsg : HomeMsg() {
+    override fun reduceAndCmd(oldState: HomeState): Pair<HomeState, Cmd> {
+        return Pair(oldState.copy(initialize = true), OneShotCmd(ResetInitMsg))
     }
 }
 
-object ResetInitMsg : HighPriorityMsg() {
-    fun reduceAndCmd(oldState: HomeState): Pair<HomeState, Cmd> {
+object ResetInitMsg : HomeHighPriorityMsg() {
+    override fun reduceAndCmd(oldState: HomeState): Pair<HomeState, Cmd> {
         val state = oldState.copy(initialize = false)
         return Pair(state, None)
     }
