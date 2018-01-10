@@ -22,6 +22,7 @@ class UserDetailsController(args: Bundle) : BaseController(args), UserDetailsCon
     private val component: UserDetailsComponent
 
     @BindView(R.id.tv_user_name) lateinit var tvUserName: TextView
+    @BindView(R.id.tv_status) lateinit var tvStatus: TextView
 
     init {
         val user = getArgs().getParcelable<UserViewModel>(KEY_USER)
@@ -63,7 +64,16 @@ class UserDetailsController(args: Bundle) : BaseController(args), UserDetailsCon
     }
 
     override fun render(state: UserDetailsState) {
-        tvUserName.text = state.userName
+        if (state.initialize) {
+            tvUserName.text = state.userName
+        }
+        if (state.isProgressLocation) {
+            tvStatus.text = "Fetching last known location"
+        } else if (state.isErrorLocation) {
+            tvStatus.text = "Error fetching location"
+        } else if (state.isContentLocation) {
+            tvStatus.text = "Current location = ${state.lastKnownLocation}"
+        }
     }
 
     override fun ensureLocationPermission(): Single<Boolean> {

@@ -1,6 +1,7 @@
 package com.kaciula.archiman.presentation.screens.userdetails
 
 import com.kaciula.archiman.presentation.util.BasePresenter
+import com.kaciula.archiman.presentation.util.ElmPresenter
 import io.reactivex.Single
 
 interface UserDetailsContract {
@@ -12,5 +13,5 @@ interface UserDetailsContract {
     }
 
 
-    interface Presenter : BasePresenter
+    interface Presenter : BasePresenter, ElmPresenter<UserDetailsState>
 }
