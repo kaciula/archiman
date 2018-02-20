@@ -7,23 +7,12 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.OnCompleteListener
+import com.kaciula.archiman.domain.boundary.infrastructure.LatLng
+import com.kaciula.archiman.domain.boundary.infrastructure.LocationProvider
 import io.reactivex.Single
 import timber.log.Timber
 
-interface LocationProvider {
-
-    fun getLastKnownLocation(): Single<LatLng>
-}
-
-data class LatLng(val latitude: Double, val longitude: Double) {
-
-    companion object {
-        @JvmField
-        val UNAVAILABLE = LatLng(0.0, 0.0)
-    }
-}
-
-class LocationProviderImpl(private val context: Context) : LocationProvider {
+class LocationProviderImpl(context: Context) : LocationProvider {
 
     private val locationClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
 

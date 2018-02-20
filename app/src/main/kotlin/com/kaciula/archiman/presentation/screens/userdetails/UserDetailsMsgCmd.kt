@@ -1,6 +1,6 @@
 package com.kaciula.archiman.presentation.screens.userdetails
 
-import com.kaciula.archiman.infrastructure.data.local.system.LatLng
+import com.kaciula.archiman.domain.boundary.infrastructure.LatLng
 import com.kaciula.archiman.presentation.util.*
 
 // Commands

@@ -1,7 +1,7 @@
 package com.kaciula.archiman.presentation.screens.userdetails
 
+import com.kaciula.archiman.domain.boundary.infrastructure.LocationProvider
 import com.kaciula.archiman.domain.util.SchedulerProvider
-import com.kaciula.archiman.infrastructure.data.local.system.LocationProvider
 import com.kaciula.archiman.injection.ActivityScope
 import com.kaciula.archiman.presentation.screens.home.UserViewModel
 import dagger.Module
