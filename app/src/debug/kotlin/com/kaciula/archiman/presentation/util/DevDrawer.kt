@@ -14,26 +14,10 @@ class DevDrawer(activity: Activity) {
     private val debugDrawer: DebugDrawer = DebugDrawer.Builder(activity)
         .modules(
             TimberModule(),
-            DeviceModule(activity),
-            BuildModule(activity)
+            DeviceModule(),
+            BuildModule()
         )
         .build()
-
-    fun onStart() {
-        debugDrawer.onStart()
-    }
-
-    fun onResume() {
-        debugDrawer.onResume()
-    }
-
-    fun onPause() {
-        debugDrawer.onPause()
-    }
-
-    fun onStop() {
-        debugDrawer.onStop()
-    }
 
     companion object {
 

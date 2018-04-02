@@ -47,14 +47,8 @@ class MainActivity : BaseActivity(), ActionBarProvider, ComponentProvider, Dialo
         setupDevDrawer()
     }
 
-    override fun onStart() {
-        super.onStart()
-        devDrawer.onStart()
-    }
-
     override fun onResume() {
         super.onResume()
-        devDrawer.onResume()
         Timber.i("Resuming ...")
     }
 
@@ -62,16 +56,6 @@ class MainActivity : BaseActivity(), ActionBarProvider, ComponentProvider, Dialo
         if (!router.handleBack()) {
             super.onBackPressed()
         }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        devDrawer.onPause()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        devDrawer.onStop()
     }
 
     override fun getHomeComponent(): HomeComponent {
