@@ -10,11 +10,12 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.kaciula.archiman.R
 
-class UserAdapter(var items: List<UserViewModel>, private val presenter: HomeContract.Presenter)
-    : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+class UserAdapter(var items: List<UserViewModel>, private val presenter: HomeContract.Presenter) :
+    RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val convertView = LayoutInflater.from(parent.context).inflate(R.layout.item_user, parent, false)
+        val convertView =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_user, parent, false)
         return ViewHolder(convertView)
     }
 
@@ -28,7 +29,8 @@ class UserAdapter(var items: List<UserViewModel>, private val presenter: HomeCon
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
 
-        @BindView(R.id.tv_username) lateinit var tvUsername: TextView
+        @BindView(R.id.tv_username)
+        lateinit var tvUsername: TextView
 
         init {
             ButterKnife.bind(this, view)

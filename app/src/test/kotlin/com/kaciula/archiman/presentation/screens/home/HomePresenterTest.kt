@@ -8,8 +8,10 @@ import org.mockito.MockitoAnnotations
 
 class HomePresenterTest {
 
-    @Mock lateinit var view: HomeContract.View
-    @Mock lateinit var getUsers: GetUsers
+    @Mock
+    lateinit var view: HomeContract.View
+    @Mock
+    lateinit var getUsers: GetUsers
 
     private lateinit var presenter: HomePresenter
 

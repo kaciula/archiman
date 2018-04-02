@@ -148,8 +148,10 @@ class BundleBuilder(private val bundle: Bundle) {
         return this
     }
 
-    fun putSparseParcelableArray(key: String,
-                                 value: SparseArray<out Parcelable>): BundleBuilder {
+    fun putSparseParcelableArray(
+        key: String,
+        value: SparseArray<out Parcelable>
+    ): BundleBuilder {
         bundle.putSparseParcelableArray(key, value)
         return this
     }

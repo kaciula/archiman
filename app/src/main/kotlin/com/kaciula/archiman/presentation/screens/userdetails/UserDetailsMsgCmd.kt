@@ -30,12 +30,24 @@ object ResetInitMsg : UserDetailsHighPriorityMsg() {
 
 object GetLastKnownLocationMsg : UserDetailsMsg() {
     override fun reduceAndCmd(oldState: UserDetailsState): Pair<UserDetailsState, Cmd> {
-        return Pair(oldState.copy(isProgressLocation = true, isErrorLocation = false, isContentLocation = false), GetLastKnownLocationCmd)
+        return Pair(
+            oldState.copy(
+                isProgressLocation = true,
+                isErrorLocation = false,
+                isContentLocation = false
+            ), GetLastKnownLocationCmd
+        )
     }
 }
 
 data class LastKnownLocationMsg(private val lastLocation: LatLng) : UserDetailsMsg() {
     override fun reduceAndCmd(oldState: UserDetailsState): Pair<UserDetailsState, Cmd> {
-        return Pair(oldState.copy(isProgressLocation = false, isContentLocation = true, lastKnownLocation = lastLocation), None)
+        return Pair(
+            oldState.copy(
+                isProgressLocation = false,
+                isContentLocation = true,
+                lastKnownLocation = lastLocation
+            ), None
+        )
     }
 }

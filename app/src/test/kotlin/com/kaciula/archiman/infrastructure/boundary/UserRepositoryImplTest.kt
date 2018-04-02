@@ -14,8 +14,10 @@ import java.util.*
 
 class UserRepositoryImplTest {
 
-    @Mock lateinit var usersRemoteDataStore: UserDataStore
-    @Mock lateinit var usersLocalDataStore: UserDataStore
+    @Mock
+    lateinit var usersRemoteDataStore: UserDataStore
+    @Mock
+    lateinit var usersLocalDataStore: UserDataStore
 
     private lateinit var usersRepository: UserRepositoryImpl
 

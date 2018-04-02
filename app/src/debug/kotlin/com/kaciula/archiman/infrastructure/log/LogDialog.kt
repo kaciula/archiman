@@ -59,19 +59,23 @@ class LogDialog(context: Context) : AlertDialog(context) {
 
     private fun share() {
         LumberYard.getInstance(context)
-                .save(object : LumberYard.OnSaveLogListener {
-                    override fun onSave(file: File) {
-                        val sendIntent = Intent(Intent.ACTION_SEND)
-                        sendIntent.type = "text/plain"
-                        sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                        sendIntent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(context,
-                                BuildConfig.FILE_PROVIDER_AUTHORITY, file))
-                        Intents.maybeStartActivity(context, sendIntent)
-                    }
+            .save(object : LumberYard.OnSaveLogListener {
+                override fun onSave(file: File) {
+                    val sendIntent = Intent(Intent.ACTION_SEND)
+                    sendIntent.type = "text/plain"
+                    sendIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    sendIntent.putExtra(
+                        Intent.EXTRA_STREAM, FileProvider.getUriForFile(
+                            context,
+                            BuildConfig.FILE_PROVIDER_AUTHORITY, file
+                        )
+                    )
+                    Intents.maybeStartActivity(context, sendIntent)
+                }
 
-                    override fun onError(message: String) {
-                        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-                    }
-                })
+                override fun onError(message: String) {
+                    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+                }
+            })
     }
 }

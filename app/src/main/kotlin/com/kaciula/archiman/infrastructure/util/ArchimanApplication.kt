@@ -13,8 +13,10 @@ import javax.inject.Inject
 
 abstract class ArchimanApplication : BaseApplication() {
 
-    @Inject lateinit var initColdStart: InitColdStart
-    @Inject lateinit var crashReporter: CrashReporter
+    @Inject
+    lateinit var initColdStart: InitColdStart
+    @Inject
+    lateinit var crashReporter: CrashReporter
 
     override fun onCreate() {
         super.onCreate()
@@ -30,8 +32,8 @@ abstract class ArchimanApplication : BaseApplication() {
         crashReporter.init()
 
         initColdStart
-                .execute(InitColdStart.RequestModel(BuildConfig.VERSION_CODE))
-                .subscribe()
+            .execute(InitColdStart.RequestModel(BuildConfig.VERSION_CODE))
+            .subscribe()
     }
 
     private fun setupRealm() {

@@ -8,10 +8,11 @@ import com.kaciula.archiman.presentation.util.*
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 
-class UserDetailsPresenter(private val view: UserDetailsContract.View,
-                           private val user: UserViewModel,
-                           private val locationProvider: LocationProvider,
-                           private val schedulerProvider: SchedulerProvider
+class UserDetailsPresenter(
+    private val view: UserDetailsContract.View,
+    private val user: UserViewModel,
+    private val locationProvider: LocationProvider,
+    private val schedulerProvider: SchedulerProvider
 ) : UserDetailsContract.Presenter {
 
     private val elm: Elm<UserDetailsState> = Elm()
@@ -39,7 +40,12 @@ class UserDetailsPresenter(private val view: UserDetailsContract.View,
             is GetLastKnownLocationMsg -> msg.reduceAndCmd(state)
             is LastKnownLocationMsg -> msg.reduceAndCmd(state)
             is ErrorMsg -> return when (msg.cmd) {
-                is GetLastKnownLocationCmd -> Pair(state.copy(isProgressLocation = false, isErrorLocation = true), None)
+                is GetLastKnownLocationCmd -> Pair(
+                    state.copy(
+                        isProgressLocation = false,
+                        isErrorLocation = true
+                    ), None
+                )
                 else -> Pair(state, None)
             }
             else -> Pair(state, None)
@@ -50,19 +56,28 @@ class UserDetailsPresenter(private val view: UserDetailsContract.View,
         return when (cmd) {
             is GetLastKnownLocationCmd ->
                 Single.just(0)
-                        .observeOn(schedulerProvider.ui())
-                        .flatMap({ _ ->
-                            view.ensureLocationPermission()
-                                    .flatMap({ granted ->
-                                        if (granted) {
-                                            locationProvider.getLastKnownLocation()
-                                                    .map { lastLocation -> LocationPermissionResult(granted, lastLocation) }
-                                        } else {
-                                            Single.just(LocationPermissionResult(granted))
+                    .observeOn(schedulerProvider.ui())
+                    .flatMap({ _ ->
+                        view.ensureLocationPermission()
+                            .flatMap({ granted ->
+                                if (granted) {
+                                    locationProvider.getLastKnownLocation()
+                                        .map { lastLocation ->
+                                            LocationPermissionResult(
+                                                granted,
+                                                lastLocation
+                                            )
                                         }
-                                    })
-                                    .map { locationPermissionResult -> LastKnownLocationMsg(locationPermissionResult.lastLocation) }
-                        })
+                                } else {
+                                    Single.just(LocationPermissionResult(granted))
+                                }
+                            })
+                            .map { locationPermissionResult ->
+                                LastKnownLocationMsg(
+                                    locationPermissionResult.lastLocation
+                                )
+                            }
+                    })
 
             else -> Single.just(Idle)
         }
@@ -77,5 +92,6 @@ class UserDetailsPresenter(private val view: UserDetailsContract.View,
 }
 
 data class LocationPermissionResult(
-        val granted: Boolean,
-        val lastLocation: LatLng = LatLng.UNAVAILABLE)
+    val granted: Boolean,
+    val lastLocation: LatLng = LatLng.UNAVAILABLE
+)

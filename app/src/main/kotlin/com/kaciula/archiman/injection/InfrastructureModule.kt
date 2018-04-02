@@ -29,17 +29,19 @@ class InfrastructureModule {
     @Singleton
     fun provideMoshi(): Moshi {
         return Moshi.Builder()
-                .add(MoshiLocalDateTimeAdapter())
-                .add(MoshiLocalDateAdapter())
-                .add(MoshiLocalTimeAdapter())
-                .build()
+            .add(MoshiLocalDateTimeAdapter())
+            .add(MoshiLocalDateAdapter())
+            .add(MoshiLocalTimeAdapter())
+            .build()
     }
 
     @Singleton
     @Provides
     fun providerUserRepository(stackExchangeApi: StackExchangeApi): UserRepository {
-        return UserRepositoryImpl(UserRemoteDataStore(stackExchangeApi),
-                UserLocalDataStore())
+        return UserRepositoryImpl(
+            UserRemoteDataStore(stackExchangeApi),
+            UserLocalDataStore()
+        )
     }
 
     @Provides

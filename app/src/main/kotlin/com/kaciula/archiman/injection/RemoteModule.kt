@@ -28,8 +28,8 @@ class RemoteModule {
     @Singleton
     fun provideRetrofit(moshi: Moshi, okHttpClient: OkHttpClient): StackExchangeApi {
         return Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(moshi))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl("https://api.stackexchange.com/2.2/").client(okHttpClient).build()
-                .create(StackExchangeApi::class.java)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .baseUrl("https://api.stackexchange.com/2.2/").client(okHttpClient).build()
+            .create(StackExchangeApi::class.java)
     }
 }

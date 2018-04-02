@@ -5,7 +5,8 @@ import com.kaciula.archiman.domain.usecases.util.CompletableUseCase
 import com.kaciula.archiman.domain.util.Timberific
 import io.reactivex.Completable
 
-class InitColdStart(private val appRepository: AppRepository) : CompletableUseCase<InitColdStart.RequestModel>() {
+class InitColdStart(private val appRepository: AppRepository) :
+    CompletableUseCase<InitColdStart.RequestModel>() {
 
     override fun execute(requestModel: RequestModel): Completable {
         return Completable.fromAction {

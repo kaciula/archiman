@@ -71,45 +71,45 @@ class Elm<S : ElmState> {
         this.state = initialState
         elmPresenter.sub(initialState)
         return msgRelay
-                .observeOn(uiScheduler)
-                .map { msg ->
-                    Timber.d("elm update msg:$msg ")
-                    val oldState = state
-                    val updateResult = elmPresenter.update(msg, oldState)
-                    state = updateResult.first
+            .observeOn(uiScheduler)
+            .map { msg ->
+                Timber.d("elm update msg:$msg ")
+                val oldState = state
+                val updateResult = elmPresenter.update(msg, oldState)
+                state = updateResult.first
 
-                    if (msg is HighPriorityMsg && highPriorityMsgQueue.size > 0) {
-                        highPriorityMsgQueue.removeFirst()
-                    } else if (msgQueue.size > 0) {
-                        msgQueue.removeFirst()
-                    }
-
-                    lock = false
-                    if (state != oldState) {
-                        elmPresenter.render(state)
-                    }
-                    elmPresenter.sub(state)
-                    loop()
-                    return@map updateResult
+                if (msg is HighPriorityMsg && highPriorityMsgQueue.size > 0) {
+                    highPriorityMsgQueue.removeFirst()
+                } else if (msgQueue.size > 0) {
+                    msgQueue.removeFirst()
                 }
-                .filter { (_, cmd) -> cmd !is None }
-                .observeOn(Schedulers.io())
-                .flatMap { (state, cmd) ->
-                    Timber.d("elm call cmd:$cmd state:$state ")
-                    call(cmd)
-                }
-                .observeOn(uiScheduler)
-                .subscribe({ msg ->
-                    Timber.d("elm subscribe msg:${msg.javaClass.simpleName}")
-                    when (msg) {
-                        is Idle -> {
-                        }
-                        is HighPriorityMsg -> highPriorityMsgQueue.addLast(msg)
-                        else -> msgQueue.addLast(msg)
-                    }
 
-                    loop()
-                })
+                lock = false
+                if (state != oldState) {
+                    elmPresenter.render(state)
+                }
+                elmPresenter.sub(state)
+                loop()
+                return@map updateResult
+            }
+            .filter { (_, cmd) -> cmd !is None }
+            .observeOn(Schedulers.io())
+            .flatMap { (state, cmd) ->
+                Timber.d("elm call cmd:$cmd state:$state ")
+                call(cmd)
+            }
+            .observeOn(uiScheduler)
+            .subscribe({ msg ->
+                Timber.d("elm subscribe msg:${msg.javaClass.simpleName}")
+                when (msg) {
+                    is Idle -> {
+                    }
+                    is HighPriorityMsg -> highPriorityMsgQueue.addLast(msg)
+                    else -> msgQueue.addLast(msg)
+                }
+
+                loop()
+            })
     }
 
     private fun call(cmd: Cmd): Observable<Msg> {
@@ -126,8 +126,8 @@ class Elm<S : ElmState> {
         return when (cmd) {
             is OneShotCmd -> Observable.just(cmd.msg)
             else -> elmPresenter.call(cmd)
-                    .onErrorResumeNext { err -> Single.just(ErrorMsg(err, cmd)) }
-                    .toObservable()
+                .onErrorResumeNext { err -> Single.just(ErrorMsg(err, cmd)) }
+                .toObservable()
         }
     }
 
@@ -171,7 +171,7 @@ class Elm<S : ElmState> {
             val disposable = disposableMap[useCaseStream.javaClass.canonicalName]
             disposable?.dispose()
             disposableMap.put(useCaseStream.javaClass.canonicalName,
-                    sub.subscribe { msg -> accept(msg) })
+                sub.subscribe { msg -> accept(msg) })
         }
     }
 

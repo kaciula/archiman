@@ -12,7 +12,8 @@ import org.mockito.MockitoAnnotations
 
 class GetUsersTest {
 
-    @Mock private lateinit var userRepository: UserRepository
+    @Mock
+    private lateinit var userRepository: UserRepository
 
     private lateinit var useCase: GetUsers
 

@@ -23,14 +23,18 @@ class RxGlobalErrorHandler : Consumer<Throwable> {
         }
         if (e is NullPointerException || e is IllegalArgumentException) {
             // that's likely a bug in the application
-            Thread.currentThread().uncaughtExceptionHandler.uncaughtException(Thread
-                    .currentThread(), e)
+            Thread.currentThread().uncaughtExceptionHandler.uncaughtException(
+                Thread
+                    .currentThread(), e
+            )
             return
         }
         if (e is IllegalStateException) {
             // that's a bug in RxJava or in a custom operator
-            Thread.currentThread().uncaughtExceptionHandler.uncaughtException(Thread
-                    .currentThread(), e)
+            Thread.currentThread().uncaughtExceptionHandler.uncaughtException(
+                Thread
+                    .currentThread(), e
+            )
             return
         }
         Timber.w(e, "Undeliverable exception received, not sure what to do")

@@ -7,11 +7,13 @@ import org.joda.time.format.DateTimeFormat
 
 class MoshiLocalTimeAdapter {
 
-    @ToJson fun toJson(value: LocalTime?): String? {
+    @ToJson
+    fun toJson(value: LocalTime?): String? {
         return value?.toString(TIME_FORMAT)
     }
 
-    @FromJson fun fromJson(value: String?): LocalTime? {
+    @FromJson
+    fun fromJson(value: String?): LocalTime? {
         return if (value != null) TIME_FORMATTER.parseLocalTime(value) else null
     }
 

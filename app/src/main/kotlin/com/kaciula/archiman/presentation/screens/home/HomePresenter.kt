@@ -7,8 +7,8 @@ import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 
 class HomePresenter(
-        private val view: HomeContract.View,
-        private val getUsers: GetUsers
+    private val view: HomeContract.View,
+    private val getUsers: GetUsers
 ) : HomeContract.Presenter {
 
     private val elm: Elm<HomeState> = Elm()
@@ -88,7 +88,7 @@ class HomePresenter(
     override fun call(cmd: Cmd): Single<Msg> {
         return when (cmd) {
             is GetUsersCmd -> getUsers.execute(GetUsers.RequestModel)
-                    .map { responseModel -> UsersDataMsg(responseModel) }
+                .map { responseModel -> UsersDataMsg(responseModel) }
             else -> Single.just(Idle)
         }
     }

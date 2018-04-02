@@ -11,7 +11,8 @@ import org.mockito.MockitoAnnotations
 
 class InitColdStartTest {
 
-    @Mock private lateinit var appRepository: AppRepository
+    @Mock
+    private lateinit var appRepository: AppRepository
 
     private lateinit var useCase: InitColdStart
 

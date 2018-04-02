@@ -31,8 +31,12 @@ class LumberYard(context: Context) {
     fun tree(): Timber.Tree {
         return object : Timber.DebugTree() {
             override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
-                addEntry(LogEntry(priority, tag!!, message,
-                        logDatePattern.format(Calendar.getInstance().time)))
+                addEntry(
+                    LogEntry(
+                        priority, tag!!, message,
+                        logDatePattern.format(Calendar.getInstance().time)
+                    )
+                )
             }
         }
     }
@@ -41,7 +45,8 @@ class LumberYard(context: Context) {
         this.onLogListener = onLogListener
     }
 
-    @Synchronized private fun addEntry(entry: LogEntry) {
+    @Synchronized
+    private fun addEntry(entry: LogEntry) {
         entries.addLast(entry)
 
         if (entries.size > BUFFER_SIZE) {
@@ -162,7 +167,8 @@ class LumberYard(context: Context) {
 
         private val LOG_FILE_END = ".log"
 
-        @SuppressLint("StaticFieldLeak") private var sInstance: LumberYard? = null
+        @SuppressLint("StaticFieldLeak")
+        private var sInstance: LumberYard? = null
 
         fun getInstance(context: Context): LumberYard {
             if (sInstance == null) {

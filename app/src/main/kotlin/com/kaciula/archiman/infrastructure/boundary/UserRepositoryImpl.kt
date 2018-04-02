@@ -9,8 +9,10 @@ import org.joda.time.LocalDateTime
 import timber.log.Timber
 import java.util.*
 
-class UserRepositoryImpl(private val usersRemoteDataStore: UserDataStore,
-                         private val usersLocalDataStore: UserDataStore) : UserRepository {
+class UserRepositoryImpl(
+    private val usersRemoteDataStore: UserDataStore,
+    private val usersLocalDataStore: UserDataStore
+) : UserRepository {
 
     private var lastTimeUsedRemote: LocalDateTime = LocalDateTime().minusMonths(1)
 
@@ -22,8 +24,8 @@ class UserRepositoryImpl(private val usersRemoteDataStore: UserDataStore,
             usersLocalDataStore.createOrUpdateUsers(users).blockingAwait()
         }
         val local = usersLocalDataStore.getUsers()
-                .filter { LocalDateTime().minusMinutes(1).isBefore(lastTimeUsedRemote) }
-                .doOnSuccess { Timber.d("Local called") }
+            .filter { LocalDateTime().minusMinutes(1).isBefore(lastTimeUsedRemote) }
+            .doOnSuccess { Timber.d("Local called") }
         return Maybe.concat(local, remoteWithSave.toMaybe()).first(ArrayList())
     }
 }

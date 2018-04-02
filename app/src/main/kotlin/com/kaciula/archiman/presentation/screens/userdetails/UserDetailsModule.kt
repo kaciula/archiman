@@ -8,12 +8,17 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class UserDetailsModule(private val view: UserDetailsContract.View, private val user: UserViewModel) {
+class UserDetailsModule(
+    private val view: UserDetailsContract.View,
+    private val user: UserViewModel
+) {
 
     @Provides
     @ActivityScope
-    fun providePresenter(locationProvider: LocationProvider,
-                         schedulerProvider: SchedulerProvider): UserDetailsContract.Presenter {
+    fun providePresenter(
+        locationProvider: LocationProvider,
+        schedulerProvider: SchedulerProvider
+    ): UserDetailsContract.Presenter {
         return UserDetailsPresenter(view, user, locationProvider, schedulerProvider)
     }
 }

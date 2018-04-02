@@ -21,10 +21,13 @@ import com.kaciula.archiman.presentation.util.DevDrawer
 import timber.log.Timber
 import java.util.*
 
-class MainActivity : BaseActivity(), ActionBarProvider, ComponentProvider, DialogShowman, Navigator {
+class MainActivity : BaseActivity(), ActionBarProvider, ComponentProvider, DialogShowman,
+    Navigator {
 
-    @BindView(R.id.toolbar) lateinit var toolbar: Toolbar
-    @BindView(R.id.controller_container) lateinit var container: ViewGroup
+    @BindView(R.id.toolbar)
+    lateinit var toolbar: Toolbar
+    @BindView(R.id.controller_container)
+    lateinit var container: ViewGroup
 
     private lateinit var router: Router
     private lateinit var devDrawer: DevDrawer
@@ -88,7 +91,8 @@ class MainActivity : BaseActivity(), ActionBarProvider, ComponentProvider, Dialo
 
     override fun goToUserDetailsScreen(user: UserViewModel) {
         router.pushController(
-                RouterTransaction.with(UserDetailsController(user)).tag(TAG_CONTROLLER_USER_DETAILS))
+            RouterTransaction.with(UserDetailsController(user)).tag(TAG_CONTROLLER_USER_DETAILS)
+        )
     }
 
     companion object {

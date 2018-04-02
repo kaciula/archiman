@@ -14,7 +14,8 @@ import timber.log.Timber
 
 class LocationProviderImpl(context: Context) : LocationProvider {
 
-    private val locationClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
+    private val locationClient: FusedLocationProviderClient =
+        LocationServices.getFusedLocationProviderClient(context)
 
     @SuppressLint("MissingPermission")
     override fun getLastKnownLocation(): Single<LatLng> {
@@ -22,7 +23,10 @@ class LocationProviderImpl(context: Context) : LocationProvider {
             val completeListener = OnCompleteListener<Location?> { task ->
                 if (task.isSuccessful) {
                     val location = task.result
-                    val latLng = if (location != null) LatLng(location.latitude, location.longitude) else LatLng.UNAVAILABLE
+                    val latLng = if (location != null) LatLng(
+                        location.latitude,
+                        location.longitude
+                    ) else LatLng.UNAVAILABLE
                     emitter.onSuccess(latLng)
                 } else {
                     if (task.exception is ApiException) {

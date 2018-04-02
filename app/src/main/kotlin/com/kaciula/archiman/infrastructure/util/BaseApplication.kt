@@ -18,13 +18,13 @@ abstract class BaseApplication : Application() {
    */
     protected fun enableFullStrictMode() {
         StrictMode
-                .setThreadPolicy(StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build())
+            .setThreadPolicy(StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build())
         StrictMode.setVmPolicy(StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build())
     }
 
     protected fun enableFullStrictModePenaltyDeath() {
         StrictMode
-                .setThreadPolicy(StrictMode.ThreadPolicy.Builder().detectAll().penaltyDeath().build())
+            .setThreadPolicy(StrictMode.ThreadPolicy.Builder().detectAll().penaltyDeath().build())
         StrictMode.setVmPolicy(StrictMode.VmPolicy.Builder().detectAll().penaltyDeath().build())
     }
 

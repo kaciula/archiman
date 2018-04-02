@@ -17,14 +17,17 @@ import javax.inject.Inject
 
 class HomeController : BaseController(), HomeContract.View {
 
-    @Inject lateinit var presenter: HomeContract.Presenter
+    @Inject
+    lateinit var presenter: HomeContract.Presenter
     private val component: HomeComponent = DaggerHomeComponent.builder()
-            .appComponent(Injector.appComponent)
-            .homeModule(HomeModule(this))
-            .build()
+        .appComponent(Injector.appComponent)
+        .homeModule(HomeModule(this))
+        .build()
 
-    @BindView(R.id.flipper) lateinit var flipper: ViewFlipper
-    @BindView(R.id.recycler_view) lateinit var recyclerView: RecyclerView
+    @BindView(R.id.flipper)
+    lateinit var flipper: ViewFlipper
+    @BindView(R.id.recycler_view)
+    lateinit var recyclerView: RecyclerView
 
     private lateinit var adapter: UserAdapter
 
@@ -35,7 +38,7 @@ class HomeController : BaseController(), HomeContract.View {
     fun component(): HomeComponent = component
 
     override fun inflateView(inflater: LayoutInflater, container: ViewGroup): View =
-            inflater.inflate(R.layout.controller_home, container, false)
+        inflater.inflate(R.layout.controller_home, container, false)
 
     override fun onViewBound(view: View) {
         presenter.init()
@@ -59,7 +62,8 @@ class HomeController : BaseController(), HomeContract.View {
     override fun render(state: HomeState) {
         if (state.initialize) {
             recyclerView.addItemDecoration(DividerItemDecoration(activity!!))
-            recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+            recyclerView.layoutManager =
+                    LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             adapter = UserAdapter(emptyList(), presenter)
             recyclerView.adapter = adapter
         }

@@ -18,23 +18,31 @@ import javax.inject.Inject
 
 class UserDetailsController(args: Bundle) : BaseController(args), UserDetailsContract.View {
 
-    @Inject lateinit var presenter: UserDetailsContract.Presenter
+    @Inject
+    lateinit var presenter: UserDetailsContract.Presenter
     private val component: UserDetailsComponent
 
-    @BindView(R.id.tv_user_name) lateinit var tvUserName: TextView
-    @BindView(R.id.tv_status) lateinit var tvStatus: TextView
+    @BindView(R.id.tv_user_name)
+    lateinit var tvUserName: TextView
+    @BindView(R.id.tv_status)
+    lateinit var tvStatus: TextView
 
     init {
         val user = getArgs().getParcelable<UserViewModel>(KEY_USER)
 
         component = DaggerUserDetailsComponent.builder()
-                .appComponent(Injector.appComponent)
-                .userDetailsModule(UserDetailsModule(this, user!!))
-                .build()
+            .appComponent(Injector.appComponent)
+            .userDetailsModule(UserDetailsModule(this, user!!))
+            .build()
         component.inject(this)
     }
 
-    constructor(user: UserViewModel) : this(BundleBuilder(Bundle()).putParcelable(KEY_USER, user).build())
+    constructor(user: UserViewModel) : this(
+        BundleBuilder(Bundle()).putParcelable(
+            KEY_USER,
+            user
+        ).build()
+    )
 
     fun component(): UserDetailsComponent {
         return component
@@ -78,8 +86,8 @@ class UserDetailsController(args: Bundle) : BaseController(args), UserDetailsCon
 
     override fun ensureLocationPermission(): Single<Boolean> {
         return RxPermissions(activity!!)
-                .request(Manifest.permission.ACCESS_FINE_LOCATION)
-                .first(false)
+            .request(Manifest.permission.ACCESS_FINE_LOCATION)
+            .first(false)
     }
 
     companion object {

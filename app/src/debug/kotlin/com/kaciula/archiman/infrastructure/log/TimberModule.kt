@@ -13,7 +13,7 @@ class TimberModule : DebugModule {
         val view = inflater.inflate(R.layout.dd_debug_drawer_module_log, parent, false)
 
         view.findViewById<Button>(R.id.dd_button_log)
-                .setOnClickListener { LogDialog(parent.context).show() }
+            .setOnClickListener { LogDialog(parent.context).show() }
 
         return view
     }

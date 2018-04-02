@@ -12,10 +12,12 @@ import timber.log.Timber
 class DevDrawer(activity: Activity) {
 
     private val debugDrawer: DebugDrawer = DebugDrawer.Builder(activity)
-            .modules(TimberModule(),
-                    DeviceModule(activity),
-                    BuildModule(activity))
-            .build()
+        .modules(
+            TimberModule(),
+            DeviceModule(activity),
+            BuildModule(activity)
+        )
+        .build()
 
     fun onStart() {
         debugDrawer.onStart()

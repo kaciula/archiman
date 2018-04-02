@@ -41,13 +41,16 @@ data class UsersDataMsg(private val response: GetUsers.ResponseModel) : HomeMsg(
 
 data class ClickUserMsg(private val user: UserViewModel) : HomeMsg() {
     override fun reduceAndCmd(oldState: HomeState): Pair<HomeState, Cmd> {
-        return Pair(oldState.copy(showUserDialog = true, dialogUser = user), OneShotCmd(ResetClickUserMsg))
+        return Pair(
+            oldState.copy(showUserDialog = true, dialogUser = user),
+            OneShotCmd(ResetClickUserMsg)
+        )
     }
 }
 
 object ResetClickUserMsg : HomeHighPriorityMsg() {
     override fun reduceAndCmd(oldState: HomeState): Pair<HomeState, Cmd> =
-            Pair(oldState.copy(showUserDialog = false, dialogUser = null), None)
+        Pair(oldState.copy(showUserDialog = false, dialogUser = null), None)
 }
 
 object ClickOkUserDialogMsg : HomeMsg() {

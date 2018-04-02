@@ -6,7 +6,8 @@ import android.provider.Settings
 object AndroidUtils {
 
     fun getDeviceId(context: Context): String {
-        val deviceId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+        val deviceId =
+            Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         return if (!deviceId.isBlank()) deviceId else "THISISASTATICID"
     }
 

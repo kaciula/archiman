@@ -23,10 +23,10 @@ class RxJavaTest {
 
     private fun provideApi(): StackExchangeApi {
         return Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(provideMoshi()))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl("https://api.stackexchange.com/2.2/").client(OkHttpClient.Builder().build())
-                .build()
-                .create(StackExchangeApi::class.java)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .baseUrl("https://api.stackexchange.com/2.2/").client(OkHttpClient.Builder().build())
+            .build()
+            .create(StackExchangeApi::class.java)
     }
 
     private fun provideMoshi() = Moshi.Builder().build()
@@ -38,9 +38,9 @@ class RxJavaTest {
         val latch = CountDownLatch(1)
 
         val disposable = api.getUsers()
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe({ latch.countDown() }, { latch.countDown() })
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe({ latch.countDown() }, { latch.countDown() })
         disposables.add(disposable)
 
         disposables.dispose()

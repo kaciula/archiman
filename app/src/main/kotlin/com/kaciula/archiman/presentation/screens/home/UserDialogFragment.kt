@@ -15,9 +15,11 @@ import javax.inject.Inject
 
 class UserDialogFragment : AppCompatDialogFragment() {
 
-    @Inject lateinit var presenter: HomeContract.Presenter
+    @Inject
+    lateinit var presenter: HomeContract.Presenter
 
-    @BindView(R.id.tv_user_name) lateinit var tvUserName: TextView
+    @BindView(R.id.tv_user_name)
+    lateinit var tvUserName: TextView
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

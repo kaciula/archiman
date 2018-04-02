@@ -30,7 +30,7 @@ class LogAdapter : BaseAdapter() {
 
         if (view == null) {
             view = LayoutInflater
-                    .from(parent.context).inflate(R.layout.dd_item_log_entry, parent, false)
+                .from(parent.context).inflate(R.layout.dd_item_log_entry, parent, false)
             viewHolder = ViewHolder(view)
 
             view!!.tag = viewHolder

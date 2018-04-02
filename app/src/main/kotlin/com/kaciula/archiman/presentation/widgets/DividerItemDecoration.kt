@@ -29,8 +29,10 @@ class DividerItemDecoration : RecyclerView.ItemDecoration {
         drawLastDivider = true
     }
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView,
-                                state: RecyclerView.State?) {
+    override fun getItemOffsets(
+        outRect: Rect, view: View, parent: RecyclerView,
+        state: RecyclerView.State?
+    ) {
         super.getItemOffsets(outRect, view, parent, state)
         if (getOrientation(parent) == LinearLayoutManager.VERTICAL) {
             outRect.bottom = divider.intrinsicHeight
@@ -79,7 +81,8 @@ class DividerItemDecoration : RecyclerView.ItemDecoration {
             return layoutManager.orientation
         } else {
             throw IllegalStateException(
-                    "DividerItemDecoration can only be used with a LinearLayoutManager.")
+                "DividerItemDecoration can only be used with a LinearLayoutManager."
+            )
         }
     }
 }
