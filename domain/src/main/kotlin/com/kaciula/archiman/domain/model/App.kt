@@ -12,8 +12,8 @@ data class App(
     }
 
     fun bumpVersion(currentVersionCode: Int) {
+        Timberific.i("Old version code $versionCode is replaced with new version code $currentVersionCode")
         isFirstTime = false
         versionCode = currentVersionCode
-        Timberific.i("Old version code $versionCode is replaced with new version code $currentVersionCode")
     }
 }
