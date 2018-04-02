@@ -30,7 +30,6 @@ android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
 
     compileSdkVersion globalConfiguration["COMPILE_SDK"]
-    buildToolsVersion globalConfiguration["BUILD_TOOLS_VERSION"]
 
     Properties versionProps = loadVersionProperties()
     def versionMajor = versionProps['versionMajor'].toInteger()
