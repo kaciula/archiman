@@ -6,7 +6,7 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [AppModule::class, DomainModule::class, InfrastructureModule::class])
-interface AppComponent : BaseAppComponent {
+interface AppComponent : BuildTypeAppComponent {
 
     fun inject(appRepository: AppRepository)
 }

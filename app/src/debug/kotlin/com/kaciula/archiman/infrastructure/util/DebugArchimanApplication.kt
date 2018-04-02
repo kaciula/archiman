@@ -9,8 +9,7 @@ import timber.log.Timber
 
 class DebugArchimanApplication : ArchimanApplication() {
 
-    override fun onCreate() {
-        super.onCreate()
+    override fun onSetup() {
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return
         }

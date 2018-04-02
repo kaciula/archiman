@@ -2,7 +2,6 @@ package com.kaciula.archiman.infrastructure.util
 
 import com.chibatching.kotpref.Kotpref
 import com.kaciula.archiman.BuildConfig
-import com.kaciula.archiman.domain.boundary.infrastructure.CrashReporter
 import com.kaciula.archiman.domain.usecases.InitColdStart
 import com.kaciula.archiman.domain.util.Timberific
 import com.kaciula.archiman.injection.Injector
@@ -15,8 +14,6 @@ abstract class ArchimanApplication : BaseApplication() {
 
     @Inject
     lateinit var initColdStart: InitColdStart
-    @Inject
-    lateinit var crashReporter: CrashReporter
 
     override fun onCreate() {
         super.onCreate()
@@ -27,14 +24,17 @@ abstract class ArchimanApplication : BaseApplication() {
         Timberific.init(BuildConfig.DEBUG)
         RxJavaPlugins.setErrorHandler(RxGlobalErrorHandler())
 
+        onSetup()
+
         setupRealm()
         Kotpref.init(this)
-        crashReporter.init()
 
         initColdStart
             .execute(InitColdStart.RequestModel(BuildConfig.VERSION_CODE))
             .subscribe()
     }
+
+    abstract fun onSetup()
 
     private fun setupRealm() {
         Realm.init(this)
