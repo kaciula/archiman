@@ -1,14 +1,14 @@
 final SUPPORT_LIBRARY_VERSION = '27.0.2'
-final PLAY_SERVICES_VERSION = '11.8.0'
-final DAGGER_VERSION = '2.14.1'
+final PLAY_SERVICES_VERSION = '12.0.1'
+final DAGGER_VERSION = '2.15'
 final LEAK_CANARY_VERSION = '1.5.4'
 final BUTTER_KNIFE_VERSION = '8.8.1'
-final RETROFIT_VERSION = '2.3.0'
-final OKHTTP_VERSION = '3.9.1'
+final RETROFIT_VERSION = '2.4.0'
+final OKHTTP_VERSION = '3.10.0'
 final CONDUCTOR_VERSION = '2.1.4'
 final DEBUG_DRAWER = '0.7.0'
 final RUNNER_VERSION = '0.5'
-final JODA_TIME_ANDROID_VERSION = '2.9.9.1'
+final JODA_TIME_ANDROID_VERSION = '2.9.9.3'
 final JODA_TIME_VERSION = '2.9.9'
 final STETHO_VERSION = '1.5.0'
 
@@ -28,7 +28,7 @@ def core = dependencyGroup {
 
     implementation "com.google.android.gms:play-services-location:$PLAY_SERVICES_VERSION"
 
-    implementation 'com.jakewharton.timber:timber:4.6.0'
+    implementation 'com.jakewharton.timber:timber:4.7.0'
     implementation "com.jakewharton:butterknife:$BUTTER_KNIFE_VERSION"
     kapt "com.jakewharton:butterknife-compiler:$BUTTER_KNIFE_VERSION"
 
@@ -43,21 +43,21 @@ def core = dependencyGroup {
     kapt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
 
     implementation deps.rxjava
-    implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
+    implementation "io.reactivex.rxjava2:rxandroid:2.0.2"
     implementation "com.jakewharton.rxrelay2:rxrelay:2.0.0"
 
-    implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
+    implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
 
     implementation "com.bluelinelabs:conductor:$CONDUCTOR_VERSION"
     implementation "com.bluelinelabs:conductor-support:$CONDUCTOR_VERSION"
     implementation "com.bluelinelabs:conductor-rxlifecycle2:$CONDUCTOR_VERSION"
 
-    implementation('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {
         transitive = true
     }
     implementation 'com.squareup.moshi:moshi:1.5.0'
     implementation "net.danlew:android.joda:$JODA_TIME_ANDROID_VERSION"
-    implementation "com.chibatching.kotpref:kotpref:2.2.0"
+    implementation "com.chibatching.kotpref:kotpref:2.5.0"
     implementation 'com.dmitrymalkovich.android:material-design-dimens:1.4'
 
     implementation "com.android.support:support-annotations:$SUPPORT_LIBRARY_VERSION"
@@ -68,7 +68,7 @@ def debug = dependencyGroup {
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$LEAK_CANARY_VERSION"
     debugImplementation 'com.squareup.haha:haha:2.0.3'
 
-    debugImplementation 'com.amitshekhar.android:debug-db:1.0.1'
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.3'
     debugImplementation "io.palaima.debugdrawer:debugdrawer:$DEBUG_DRAWER"
     debugImplementation "io.palaima.debugdrawer:debugdrawer-commons:$DEBUG_DRAWER"
     debugImplementation "io.palaima.debugdrawer:debugdrawer-actions:$DEBUG_DRAWER"
