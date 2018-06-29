@@ -5,6 +5,7 @@ import com.kaciula.archiman.domain.boundary.infrastructure.LocationProvider
 import com.kaciula.archiman.domain.usecases.GetUsers
 import com.kaciula.archiman.domain.util.SchedulerProvider
 import com.kaciula.archiman.infrastructure.util.ArchimanApplication
+import com.kaciula.archiman.presentation.screens.main.Coordinator
 
 interface BaseAppComponent {
 
@@ -17,4 +18,6 @@ interface BaseAppComponent {
     fun crashReporter(): CrashReporter
 
     fun locationProvider(): LocationProvider
+
+    fun coordinator(): Coordinator
 }

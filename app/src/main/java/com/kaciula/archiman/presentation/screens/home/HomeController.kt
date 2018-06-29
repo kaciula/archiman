@@ -10,6 +10,7 @@ import butterknife.BindView
 import butterknife.OnClick
 import com.kaciula.archiman.R
 import com.kaciula.archiman.injection.Injector
+import com.kaciula.archiman.presentation.screens.main.Coordinator
 import com.kaciula.archiman.presentation.util.base.BaseController
 import com.kaciula.archiman.presentation.widgets.DividerItemDecoration
 import timber.log.Timber
@@ -19,6 +20,9 @@ class HomeController : BaseController(), HomeContract.View {
 
     @Inject
     lateinit var presenter: HomeContract.Presenter
+    @Inject
+    lateinit var coordinator: Coordinator
+
     private val component: HomeComponent = DaggerHomeComponent.builder()
         .appComponent(Injector.appComponent)
         .homeModule(HomeModule(this))
@@ -78,7 +82,7 @@ class HomeController : BaseController(), HomeContract.View {
         }
 
         if (state.showUserDialog) {
-            getDialogShowman().show(UserDialogFragment.newInstance(state.dialogUser!!))
+            coordinator.showUserInfo(state.dialogUser!!)
         }
     }
 
@@ -93,13 +97,10 @@ class HomeController : BaseController(), HomeContract.View {
     }
 
     override fun goToUserDetailsScreen(user: UserViewModel) {
-        getNavigator().goToUserDetailsScreen(user)
-    }
-
-    companion object {
-
-        private val CHILD_CONTENT = 0
-        private val CHILD_PROGRESS = 1
-        private val CHILD_ERROR = 2
+        coordinator.goToUserDetailsScreen(user)
     }
 }
+
+private const val CHILD_CONTENT = 0
+private const val CHILD_PROGRESS = 1
+private const val CHILD_ERROR = 2

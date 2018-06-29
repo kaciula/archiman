@@ -4,13 +4,10 @@ import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.view.View
 import com.kaciula.archiman.presentation.screens.main.ActionBarProvider
-import com.kaciula.archiman.presentation.screens.main.Coordinator
-import com.kaciula.archiman.presentation.screens.main.DialogShowman
 import com.kaciula.archiman.presentation.util.conductor.ButterKnifeController
 import timber.log.Timber
 
-abstract class BaseController :
-    ButterKnifeController {
+abstract class BaseController : ButterKnifeController {
 
     protected constructor()
 
@@ -47,8 +44,4 @@ abstract class BaseController :
     }
 
     protected fun getTitle(): String? = null
-
-    protected fun getDialogShowman(): DialogShowman = activity as DialogShowman
-
-    protected fun getNavigator(): Coordinator = activity as Coordinator
 }

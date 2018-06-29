@@ -10,5 +10,5 @@ interface HomeComponent {
 
     fun inject(homeController: HomeController)
 
-    fun inject(userDialogFragment: UserDialogFragment)
+    fun inject(userInfoController: UserInfoController)
 }
