@@ -1,4 +1,4 @@
-final SUPPORT_LIBRARY_VERSION = '27.0.2'
+final SUPPORT_LIBRARY_VERSION = '27.1.1'
 final PLAY_SERVICES_VERSION = '12.0.1'
 final DAGGER_VERSION = '2.15'
 final LEAK_CANARY_VERSION = '1.5.4'
@@ -9,8 +9,8 @@ final CONDUCTOR_VERSION = '2.1.4'
 final DEBUG_DRAWER = '0.8.0'
 final RUNNER_VERSION = '0.5'
 final JODA_TIME_ANDROID_VERSION = '2.9.9.3'
-final JODA_TIME_VERSION = '2.9.9'
 final STETHO_VERSION = '1.5.0'
+final KOTPREF_VERSION = '2.5.0'
 
 def dependencyGroup(Closure closure) {
     closure.delegate = dependencies
@@ -19,7 +19,9 @@ def dependencyGroup(Closure closure) {
 
 def core = dependencyGroup {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':domain')
+    implementation(project(':domain')) {
+        exclude module: 'joda-time'
+    }
 
     implementation "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
     implementation "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION"
@@ -57,11 +59,16 @@ def core = dependencyGroup {
     }
     implementation 'com.squareup.moshi:moshi:1.5.0'
     implementation "net.danlew:android.joda:$JODA_TIME_ANDROID_VERSION"
-    implementation "com.chibatching.kotpref:kotpref:2.5.0"
+    implementation "com.chibatching.kotpref:kotpref:$KOTPREF_VERSION"
+    implementation "com.chibatching.kotpref:enum-support:$KOTPREF_VERSION"
     implementation 'com.dmitrymalkovich.android:material-design-dimens:1.4'
 
     implementation "com.android.support:support-annotations:$SUPPORT_LIBRARY_VERSION"
     implementation deps.kotlin
+
+    implementation "io.palaima.debugdrawer:debugdrawer:$DEBUG_DRAWER"
+    implementation "io.palaima.debugdrawer:debugdrawer-commons:$DEBUG_DRAWER"
+    implementation "io.palaima.debugdrawer:debugdrawer-actions:$DEBUG_DRAWER"
 }
 
 def debug = dependencyGroup {
@@ -69,9 +76,6 @@ def debug = dependencyGroup {
     debugImplementation 'com.squareup.haha:haha:2.0.3'
 
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.3'
-    debugImplementation "io.palaima.debugdrawer:debugdrawer:$DEBUG_DRAWER"
-    debugImplementation "io.palaima.debugdrawer:debugdrawer-commons:$DEBUG_DRAWER"
-    debugImplementation "io.palaima.debugdrawer:debugdrawer-actions:$DEBUG_DRAWER"
     debugImplementation 'jp.wasabeef:takt:1.0.5'
     debugImplementation "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
     debugImplementation 'com.github.simonpercic:oklog3:2.3.0'
@@ -90,7 +94,7 @@ def unitTests = dependencyGroup {
     testImplementation deps.junit
     testImplementation deps.mockito
     testImplementation deps.hamcrest
-    testImplementation "joda-time:joda-time:$JODA_TIME_VERSION"
+    testImplementation deps.joda
 }
 
 def androidTests = dependencyGroup {
