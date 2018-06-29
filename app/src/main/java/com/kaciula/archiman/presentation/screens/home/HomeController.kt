@@ -10,7 +10,7 @@ import butterknife.BindView
 import butterknife.OnClick
 import com.kaciula.archiman.R
 import com.kaciula.archiman.injection.Injector
-import com.kaciula.archiman.presentation.util.BaseController
+import com.kaciula.archiman.presentation.util.base.BaseController
 import com.kaciula.archiman.presentation.widgets.DividerItemDecoration
 import timber.log.Timber
 import javax.inject.Inject

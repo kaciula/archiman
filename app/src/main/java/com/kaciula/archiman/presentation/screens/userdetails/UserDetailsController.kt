@@ -10,8 +10,8 @@ import butterknife.BindView
 import com.kaciula.archiman.R
 import com.kaciula.archiman.injection.Injector
 import com.kaciula.archiman.presentation.screens.home.UserViewModel
-import com.kaciula.archiman.presentation.util.BaseController
-import com.kaciula.archiman.presentation.util.BundleBuilder
+import com.kaciula.archiman.presentation.util.base.BaseController
+import com.kaciula.archiman.presentation.util.conductor.BundleBuilder
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.Single
 import javax.inject.Inject

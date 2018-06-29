@@ -1,7 +1,7 @@
 package com.kaciula.archiman.presentation.screens.home
 
-import com.kaciula.archiman.presentation.util.BasePresenter
 import com.kaciula.archiman.presentation.util.ElmPresenter
+import com.kaciula.archiman.presentation.util.base.BasePresenter
 
 interface HomeContract {
 

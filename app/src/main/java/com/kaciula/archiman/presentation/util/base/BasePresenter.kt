@@ -1,4 +1,4 @@
-package com.kaciula.archiman.presentation.util
+package com.kaciula.archiman.presentation.util.base
 
 interface BasePresenter {
 

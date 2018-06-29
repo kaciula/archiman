@@ -1,4 +1,4 @@
-package com.kaciula.archiman.presentation.util
+package com.kaciula.archiman.presentation.util.conductor
 
 import android.os.Bundle
 import android.view.LayoutInflater

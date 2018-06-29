@@ -16,8 +16,8 @@ import com.kaciula.archiman.presentation.screens.home.HomeComponent
 import com.kaciula.archiman.presentation.screens.home.HomeController
 import com.kaciula.archiman.presentation.screens.home.UserViewModel
 import com.kaciula.archiman.presentation.screens.userdetails.UserDetailsController
-import com.kaciula.archiman.presentation.util.BaseActivity
 import com.kaciula.archiman.presentation.util.DevDrawer
+import com.kaciula.archiman.presentation.util.base.BaseActivity
 import timber.log.Timber
 import java.util.*
 
