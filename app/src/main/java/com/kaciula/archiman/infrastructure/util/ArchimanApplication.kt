@@ -19,15 +19,16 @@ abstract class ArchimanApplication : BaseApplication() {
         super.onCreate()
 
         Injector.init(applicationContext)
-        Injector.appComponent.inject(this)
 
         Timberific.init(BuildConfig.DEBUG)
         RxJavaPlugins.setErrorHandler(RxGlobalErrorHandler())
 
-        onSetup()
-
         setupRealm()
         Kotpref.init(this)
+
+        onSetup()
+
+        Injector.appComponent.inject(this)
 
         initColdStart
             .execute(InitColdStart.RequestModel(BuildConfig.VERSION_CODE))

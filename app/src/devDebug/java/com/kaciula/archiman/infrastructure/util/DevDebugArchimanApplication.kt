@@ -2,12 +2,13 @@ package com.kaciula.archiman.infrastructure.util
 
 import com.facebook.stetho.Stetho
 import com.facebook.stetho.timber.StethoTree
+import com.kaciula.archiman.domain.util.Timberific
 import com.kaciula.archiman.presentation.util.DevDrawer
 import com.squareup.leakcanary.LeakCanary
 import jp.wasabeef.takt.Takt
 import timber.log.Timber
 
-class DebugArchimanApplication : ArchimanApplication() {
+class DevDebugArchimanApplication : ArchimanApplication() {
 
     override fun onSetup() {
         if (LeakCanary.isInAnalyzerProcess(this)) {
@@ -15,6 +16,7 @@ class DebugArchimanApplication : ArchimanApplication() {
         }
 
         Timber.plant(Timber.DebugTree())
+        Timberific.init(true)
         DevDrawer.setupLogging(this)
         LeakCanary.install(this)
         Takt.stock(this).play()

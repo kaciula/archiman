@@ -1,0 +1,21 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.kaciula.archiman">
+
+    <application
+        android:name=".infrastructure.util.DevReleaseArchimanApplication"
+        android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_rules"
+        tools:replace="android:name">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${fileProviderAuthority}"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" />
+        </provider>
+    </application>
+</manifest>
