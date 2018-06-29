@@ -22,7 +22,7 @@ import timber.log.Timber
 import java.util.*
 
 class MainActivity : BaseActivity(), ActionBarProvider, ComponentProvider, DialogShowman,
-    Navigator {
+    Coordinator {
 
     @BindView(R.id.toolbar)
     lateinit var toolbar: Toolbar
