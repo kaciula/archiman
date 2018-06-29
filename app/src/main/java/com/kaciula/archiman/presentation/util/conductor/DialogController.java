@@ -61,6 +61,12 @@ public abstract class DialogController extends RestoreViewOnCreateController {
                 dialog.onRestoreInstanceState(dialogState);
             }
         }
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                DialogController.this.onCancel();
+            }
+        });
         return new View(getActivity());//stub view
     }
 
@@ -119,6 +125,9 @@ public abstract class DialogController extends RestoreViewOnCreateController {
     @Nullable
     protected Dialog getDialog() {
         return dialog;
+    }
+
+    protected void onCancel() {
     }
 
     /**

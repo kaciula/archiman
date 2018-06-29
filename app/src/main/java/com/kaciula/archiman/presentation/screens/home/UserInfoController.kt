@@ -41,6 +41,11 @@ class UserInfoController(args: Bundle) : DialogController(args) {
         return builder.create()
     }
 
+    override fun onCancel() {
+        super.onCancel()
+        presenter.onCancelUserDialog()
+    }
+
     private fun render() {
         tvUserName.text = user.name
     }
