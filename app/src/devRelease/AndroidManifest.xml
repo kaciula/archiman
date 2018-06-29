@@ -2,20 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.kaciula.archiman">
 
+    <!-- Needed for sharing logs from dev drawer -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:name=".infrastructure.util.DevReleaseArchimanApplication"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_rules"
-        tools:replace="android:name">
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="${fileProviderAuthority}"
-            android:exported="false"
-            android:grantUriPermissions="true"
-            tools:replace="android:authorities">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_provider_paths" />
-        </provider>
-    </application>
+        tools:replace="android:name" />
 </manifest>

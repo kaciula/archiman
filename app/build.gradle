@@ -64,7 +64,8 @@ android {
     }
 
     // FIXME Replace with your app's package name followed by fileprovider
-    final FILE_PROVIDER_DEV = "com.kaciula.archiman.fileprovider"
+    final FILE_PROVIDER_DEBUG = "com.kaciula.archiman.debug.fileprovider"
+    final FILE_PROVIDER_RELEASE = "com.kaciula.archiman.fileprovider"
     final FILE_PROVIDER_AUTHORITY = "FILE_PROVIDER_AUTHORITY"
 
     buildTypes {
@@ -73,6 +74,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguardTest-rules.pro'
             signingConfig signingConfigs.release
+
+            buildConfigField "String", FILE_PROVIDER_AUTHORITY, "\"" + FILE_PROVIDER_RELEASE + "\""
+            manifestPlaceholders = [fileProviderAuthority: FILE_PROVIDER_RELEASE]
         }
         debug {
             debuggable true
@@ -81,6 +85,9 @@ android {
             testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguardTest-rules.pro'
             applicationIdSuffix ".debug"
             testCoverageEnabled false
+
+            buildConfigField "String", FILE_PROVIDER_AUTHORITY, "\"" + FILE_PROVIDER_DEBUG + "\""
+            manifestPlaceholders = [fileProviderAuthority: FILE_PROVIDER_DEBUG]
         }
     }
     flavorDimensions "one"
@@ -91,9 +98,6 @@ android {
         dev {
             dimension "one"
             versionNameSuffix "-dev-" + buildTime
-
-            buildConfigField "String", FILE_PROVIDER_AUTHORITY, "\"" + FILE_PROVIDER_DEV + "\""
-            manifestPlaceholders = [fileProviderAuthority: FILE_PROVIDER_DEV]
         }
     }
     variantFilter { variant ->
