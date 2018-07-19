@@ -3,10 +3,6 @@ package com.kaciula.archiman.presentation.screens.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
-import android.view.ViewGroup
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
@@ -16,6 +12,7 @@ import com.kaciula.archiman.presentation.screens.home.HomeComponent
 import com.kaciula.archiman.presentation.screens.home.HomeController
 import com.kaciula.archiman.presentation.util.DevDrawer
 import com.kaciula.archiman.presentation.util.base.BaseActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -24,11 +21,6 @@ class MainActivity : BaseActivity(), ActionBarProvider, ComponentProvider {
     @Inject
     lateinit var coordinator: Coordinator
 
-    @BindView(R.id.toolbar)
-    lateinit var toolbar: Toolbar
-    @BindView(R.id.controller_container)
-    lateinit var container: ViewGroup
-
     private lateinit var router: Router
     private lateinit var devDrawer: DevDrawer
 
@@ -36,11 +28,10 @@ class MainActivity : BaseActivity(), ActionBarProvider, ComponentProvider {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Injector.appComponent.inject(this)
-        ButterKnife.bind(this)
 
         setSupportActionBar(toolbar)
 
-        router = Conductor.attachRouter(this, container, savedInstanceState)
+        router = Conductor.attachRouter(this, controller_container, savedInstanceState)
         (coordinator as CoordinatorImpl).init(router)
         if (!router.hasRootController()) {
             router.setRoot(RouterTransaction.with(HomeController()).tag(TAG_CONTROLLER_HOME))

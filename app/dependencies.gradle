@@ -2,7 +2,6 @@ final SUPPORT_LIBRARY_VERSION = '27.1.1'
 final PLAY_SERVICES_VERSION = '12.0.1'
 final DAGGER_VERSION = '2.15'
 final LEAK_CANARY_VERSION = '1.5.4'
-final BUTTER_KNIFE_VERSION = '8.8.1'
 final RETROFIT_VERSION = '2.4.0'
 final OKHTTP_VERSION = '3.10.0'
 final CONDUCTOR_VERSION = '2.1.4'
@@ -31,8 +30,6 @@ def core = dependencyGroup {
     implementation "com.google.android.gms:play-services-location:$PLAY_SERVICES_VERSION"
 
     implementation 'com.jakewharton.timber:timber:4.7.0'
-    implementation "com.jakewharton:butterknife:$BUTTER_KNIFE_VERSION"
-    kapt "com.jakewharton:butterknife-compiler:$BUTTER_KNIFE_VERSION"
 
     implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
     implementation "com.squareup.retrofit2:converter-moshi:$RETROFIT_VERSION"

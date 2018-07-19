@@ -1,22 +1,21 @@
 package com.kaciula.archiman.presentation.screens.home
 
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ViewFlipper
-import butterknife.BindView
-import butterknife.OnClick
 import com.kaciula.archiman.R
 import com.kaciula.archiman.injection.Injector
 import com.kaciula.archiman.presentation.screens.main.Coordinator
 import com.kaciula.archiman.presentation.util.base.BaseController
 import com.kaciula.archiman.presentation.widgets.DividerItemDecoration
+import kotlinx.android.synthetic.main.controller_home.*
+import kotlinx.android.synthetic.main.widget_error.*
 import timber.log.Timber
 import javax.inject.Inject
 
 class HomeController : BaseController(), HomeContract.View {
+
+    override val layoutRes: Int
+        get() = R.layout.controller_home
 
     @Inject
     lateinit var presenter: HomeContract.Presenter
@@ -28,11 +27,6 @@ class HomeController : BaseController(), HomeContract.View {
         .homeModule(HomeModule(this))
         .build()
 
-    @BindView(R.id.flipper)
-    lateinit var flipper: ViewFlipper
-    @BindView(R.id.recycler_view)
-    lateinit var recyclerView: RecyclerView
-
     private lateinit var adapter: UserAdapter
 
     init {
@@ -40,9 +34,6 @@ class HomeController : BaseController(), HomeContract.View {
     }
 
     fun component(): HomeComponent = component
-
-    override fun inflateView(inflater: LayoutInflater, container: ViewGroup): View =
-        inflater.inflate(R.layout.controller_home, container, false)
 
     override fun onViewBound(view: View) {
         presenter.init()
@@ -70,6 +61,10 @@ class HomeController : BaseController(), HomeContract.View {
                     LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             adapter = UserAdapter(emptyList(), presenter)
             recyclerView.adapter = adapter
+
+            btnRetry.setOnClickListener {
+                presenter.onClickRetry()
+            }
         }
 
         if (state.isProgress) {
@@ -89,11 +84,6 @@ class HomeController : BaseController(), HomeContract.View {
     private fun showContent(state: HomeState) {
         adapter.items = state.users!!
         flipper.displayedChild = CHILD_CONTENT
-    }
-
-    @OnClick(R.id.btn_retry)
-    fun onClickRetry() {
-        presenter.onClickRetry()
     }
 
     override fun goToUserDetailsScreen(user: UserViewModel) {

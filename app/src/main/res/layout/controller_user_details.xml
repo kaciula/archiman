@@ -2,27 +2,27 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:paddingLeft="@dimen/material_layout_keylines_screen_edge_margin"
     android:paddingRight="@dimen/material_layout_keylines_screen_edge_margin">
 
     <TextView
-        android:id="@+id/tv_user_name"
-        android:layout_height="wrap_content"
+        android:id="@+id/tvUserName"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Jane Doe" />
 
     <TextView
-        android:id="@+id/tv_status"
+        android:id="@+id/tvStatus"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_width="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

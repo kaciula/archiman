@@ -4,14 +4,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
 import com.kaciula.archiman.R
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.item_user.*
 
-class UserAdapter(var items: List<UserViewModel>, private val presenter: HomeContract.Presenter) :
-    RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+class UserAdapter(
+    var items: List<UserViewModel>,
+    private val presenter: HomeContract.Presenter
+) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val convertView =
@@ -21,31 +21,26 @@ class UserAdapter(var items: List<UserViewModel>, private val presenter: HomeCon
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user = items[position]
-        holder.tvUsername.text = user.name
-        holder.view.setOnClickListener(holder)
+        holder.bind(user)
     }
 
     override fun getItemCount(): Int = items.size
 
-    inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+    inner class ViewHolder(
+        override val containerView: View
+    ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-        @BindView(R.id.tv_username)
-        lateinit var tvUsername: TextView
-
-        init {
-            ButterKnife.bind(this, view)
-        }
-
-        override fun onClick(view: View) {
-            if (adapterPosition != RecyclerView.NO_POSITION) {
-                presenter.onClickUser(items[adapterPosition])
+        fun bind(user: UserViewModel) {
+            tvUsername.text = user.name
+            containerView.setOnClickListener {
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    presenter.onClickUser(items[adapterPosition])
+                }
             }
-        }
-
-        @OnClick(R.id.btn_details)
-        fun onClickDetails() {
-            if (adapterPosition != RecyclerView.NO_POSITION) {
-                presenter.onClickUserDetails(items[adapterPosition])
+            btnDetails.setOnClickListener {
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    presenter.onClickUserDetails(items[adapterPosition])
+                }
             }
         }
     }

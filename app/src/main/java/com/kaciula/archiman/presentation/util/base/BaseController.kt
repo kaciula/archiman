@@ -4,14 +4,10 @@ import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.view.View
 import com.kaciula.archiman.presentation.screens.main.ActionBarProvider
-import com.kaciula.archiman.presentation.util.conductor.ButterKnifeController
+import com.kaciula.archiman.presentation.util.conductor.KotlinController
 import timber.log.Timber
 
-abstract class BaseController : ButterKnifeController {
-
-    protected constructor()
-
-    protected constructor(args: Bundle) : super(args)
+abstract class BaseController(args: Bundle = Bundle()) : KotlinController(args) {
 
     protected fun getActionBar(): ActionBar? {
         val actionBarProvider = activity as ActionBarProvider?
