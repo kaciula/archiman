@@ -42,21 +42,21 @@ class UserDetailsController(args: Bundle) : BaseController(args), UserDetailsCon
     }
 
     override fun onViewBound(view: View) {
-        presenter.init()
+        presenter.onInit()
     }
 
     override fun onAttach(view: View) {
         super.onAttach(view)
-        presenter.start()
+        presenter.onAttach()
     }
 
     override fun onDetach(view: View) {
-        presenter.stop()
+        presenter.onDetach()
         super.onDetach(view)
     }
 
     override fun onDestroy() {
-        presenter.destroy()
+        presenter.onTerminate()
         super.onDestroy()
     }
 

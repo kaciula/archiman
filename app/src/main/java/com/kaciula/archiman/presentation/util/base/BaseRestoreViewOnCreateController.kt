@@ -4,14 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.kaciula.archiman.presentation.util.conductor.KotlinController
+import com.kaciula.archiman.presentation.util.conductor.KotlinRestoreViewOnCreateController
 import timber.log.Timber
 
-abstract class BaseController(args: Bundle = Bundle()) : KotlinController(args) {
+abstract class BaseRestoreViewOnCreateController(args: Bundle = Bundle()) :
+    KotlinRestoreViewOnCreateController(args) {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup,
+        savedViewState: Bundle?
+    ): View {
         Timber.i("CREATE VIEW -> ${javaClass.simpleName}")
-        return super.onCreateView(inflater, container)
+        return super.onCreateView(inflater, container, savedViewState)
     }
 
     override fun onAttach(view: View) {

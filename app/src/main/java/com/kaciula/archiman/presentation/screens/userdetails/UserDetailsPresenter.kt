@@ -18,18 +18,18 @@ class UserDetailsPresenter(
     private val elm: Elm<UserDetailsState> = Elm()
     private val disposables: CompositeDisposable = CompositeDisposable()
 
-    override fun init() {
+    override fun onInit() {
         val initialState = UserDetailsState(initialize = true, userName = user.name)
         disposables.add(elm.init(initialState, this))
         elm.accept(InitMsg)
         elm.accept(GetLastKnownLocationMsg)
     }
 
-    override fun start() {}
+    override fun onAttach() {}
 
-    override fun stop() {}
+    override fun onDetach() {}
 
-    override fun destroy() {
+    override fun onTerminate() {
         disposables.clear()
     }
 

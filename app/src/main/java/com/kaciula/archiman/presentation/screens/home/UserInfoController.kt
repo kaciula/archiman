@@ -28,6 +28,7 @@ class UserInfoController(args: Bundle) : KotlinDialogController(args) {
     )
 
     override fun onViewBound(view: View): Dialog {
+        // fixme: on orientation change, the home component is not yet created and it crashes. maybe this controller should have its own component and presenter
         (activity as MainActivity).getHomeComponent().inject(this)
         val builder = AlertDialog.Builder(activity)
         builder.setTitle(user.name)

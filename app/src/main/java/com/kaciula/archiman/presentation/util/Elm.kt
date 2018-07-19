@@ -99,7 +99,7 @@ class Elm<S : ElmState> {
                 call(cmd)
             }
             .observeOn(uiScheduler)
-            .subscribe({ msg ->
+            .subscribe { msg ->
                 Timber.d("elm subscribe msg:${msg.javaClass.simpleName}")
                 when (msg) {
                     is Idle -> {
@@ -109,7 +109,7 @@ class Elm<S : ElmState> {
                 }
 
                 loop()
-            })
+            }
     }
 
     private fun call(cmd: Cmd): Observable<Msg> {

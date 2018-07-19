@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
-import com.bluelinelabs.conductor.RouterTransaction
 import com.kaciula.archiman.R
 import com.kaciula.archiman.injection.Injector
 import com.kaciula.archiman.presentation.screens.home.HomeComponent
@@ -16,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 import javax.inject.Inject
 
-class MainActivity : BaseActivity(), ActionBarProvider, ComponentProvider {
+class MainActivity : BaseActivity(), ComponentProvider {
 
     @Inject
     lateinit var coordinator: Coordinator
@@ -33,9 +32,7 @@ class MainActivity : BaseActivity(), ActionBarProvider, ComponentProvider {
 
         router = Conductor.attachRouter(this, controller_container, savedInstanceState)
         (coordinator as CoordinatorImpl).init(router)
-        if (!router.hasRootController()) {
-            router.setRoot(RouterTransaction.with(HomeController()).tag(TAG_CONTROLLER_HOME))
-        }
+        coordinator.start()
 
         setupDevDrawer()
     }
@@ -46,7 +43,7 @@ class MainActivity : BaseActivity(), ActionBarProvider, ComponentProvider {
     }
 
     override fun onBackPressed() {
-        if (!router.handleBack()) {
+        if (!coordinator.handleBack()) {
             super.onBackPressed()
         }
     }

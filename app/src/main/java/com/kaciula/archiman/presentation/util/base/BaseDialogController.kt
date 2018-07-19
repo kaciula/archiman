@@ -1,17 +1,16 @@
 package com.kaciula.archiman.presentation.util.base
 
+import android.app.Dialog
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import com.kaciula.archiman.presentation.util.conductor.KotlinController
+import com.kaciula.archiman.presentation.util.conductor.KotlinDialogController
 import timber.log.Timber
 
-abstract class BaseController(args: Bundle = Bundle()) : KotlinController(args) {
+abstract class BaseDialogController(args: Bundle = Bundle()) : KotlinDialogController(args) {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
+    override fun onCreateDialog(savedViewState: Bundle?): Dialog {
         Timber.i("CREATE VIEW -> ${javaClass.simpleName}")
-        return super.onCreateView(inflater, container)
+        return super.onCreateDialog(savedViewState)
     }
 
     override fun onAttach(view: View) {

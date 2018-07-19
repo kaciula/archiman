@@ -15,7 +15,7 @@ class HomePresenter(
     private val disposables: CompositeDisposable = CompositeDisposable()
     private var isFirstInit: Boolean = true
 
-    override fun init() {
+    override fun onInit() {
         Timber.d("presenter init")
         if (isFirstInit) {
             isFirstInit = false
@@ -28,15 +28,15 @@ class HomePresenter(
         }
     }
 
-    override fun start() {
+    override fun onAttach() {
         Timber.d("presenter start")
     }
 
-    override fun stop() {
+    override fun onDetach() {
         Timber.d("presenter stop")
     }
 
-    override fun destroy() {
+    override fun onTerminate() {
         Timber.d("presenter destroy")
         disposables.clear()
     }

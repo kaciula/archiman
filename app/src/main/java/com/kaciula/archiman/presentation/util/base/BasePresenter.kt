@@ -2,11 +2,11 @@ package com.kaciula.archiman.presentation.util.base
 
 interface BasePresenter {
 
-    fun init()
+    fun onInit()
 
-    fun start()
+    fun onAttach()
 
-    fun stop()
+    fun onDetach()
 
-    fun destroy()
+    fun onTerminate()
 }

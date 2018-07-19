@@ -7,27 +7,35 @@ import timber.log.Timber
 
 abstract class BaseActivity : AppCompatActivity() {
 
-    private var wasCalledSaveInstanceState = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Timber.i("CREATE SCREEN -> ${javaClass.simpleName}")
+        val reinitialized = if (savedInstanceState != null) "re-initialized" else ""
+        Timber.i("CREATE SCREEN -> ${javaClass.simpleName} $reinitialized")
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        wasCalledSaveInstanceState = true
+    override fun onStart() {
+        super.onStart()
+        Timber.i("START SCREEN -> ${javaClass.simpleName}")
     }
 
     override fun onResume() {
         super.onResume()
         Timber.i("RESUME SCREEN -> ${javaClass.simpleName}")
-        wasCalledSaveInstanceState = false
     }
 
     override fun onPause() {
         super.onPause()
         Timber.i("PAUSE SCREEN -> ${javaClass.simpleName}")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Timber.i("STOP SCREEN -> ${javaClass.simpleName}")
+    }
+
+    override fun onDestroy() {
+        Timber.i("DESTROY SCREEN -> ${javaClass.simpleName}")
+        super.onDestroy()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -38,11 +46,4 @@ abstract class BaseActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
-    override fun onDestroy() {
-        Timber.i("DESTROY SCREEN -> ${javaClass.simpleName}")
-        super.onDestroy()
-    }
-
-    fun canShowDialogs(): Boolean = !wasCalledSaveInstanceState
 }
