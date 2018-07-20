@@ -2,6 +2,7 @@ package com.kaciula.archiman.infrastructure.util
 
 import com.kaciula.archiman.domain.boundary.infrastructure.CrashReporter
 import org.koin.android.ext.android.inject
+import org.koin.log.Logger
 
 class ReleaseArchimanApplication : ArchimanApplication() {
 
@@ -14,4 +15,6 @@ class ReleaseArchimanApplication : ArchimanApplication() {
         // FIXME: Uncomment this when set up fabric key
 //        crashReporter.init()
     }
+
+    override fun koinLogger(): Logger = EmptyKoinLogger()
 }

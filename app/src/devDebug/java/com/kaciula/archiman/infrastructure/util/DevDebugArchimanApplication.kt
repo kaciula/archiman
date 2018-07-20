@@ -6,6 +6,8 @@ import com.kaciula.archiman.domain.util.Timberific
 import com.kaciula.archiman.presentation.util.DevDrawer
 import com.squareup.leakcanary.LeakCanary
 import jp.wasabeef.takt.Takt
+import org.koin.android.logger.AndroidLogger
+import org.koin.log.Logger
 import timber.log.Timber
 
 class DevDebugArchimanApplication : ArchimanApplication() {
@@ -23,6 +25,8 @@ class DevDebugArchimanApplication : ArchimanApplication() {
         Stetho.initializeWithDefaults(this)
         Timber.plant(StethoTree())
     }
+
+    override fun koinLogger(): Logger = AndroidLogger()
 
     override fun onTerminate() {
         Takt.finish()

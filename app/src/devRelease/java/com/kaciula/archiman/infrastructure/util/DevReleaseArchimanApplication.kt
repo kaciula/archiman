@@ -4,6 +4,7 @@ import com.kaciula.archiman.domain.boundary.infrastructure.CrashReporter
 import com.kaciula.archiman.domain.util.Timberific
 import com.kaciula.archiman.presentation.util.DevDrawer
 import org.koin.android.ext.android.inject
+import org.koin.log.Logger
 
 class DevReleaseArchimanApplication : ArchimanApplication() {
 
@@ -19,4 +20,6 @@ class DevReleaseArchimanApplication : ArchimanApplication() {
         // FIXME: Uncomment this when set up fabric key
 //        crashReporter.init()
     }
+
+    override fun koinLogger(): Logger = EmptyKoinLogger()
 }

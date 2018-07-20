@@ -10,6 +10,7 @@ import io.realm.Realm
 import io.realm.RealmConfiguration
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.android.startKoin
+import org.koin.log.Logger
 
 abstract class ArchimanApplication : BaseApplication() {
 
@@ -26,7 +27,7 @@ abstract class ArchimanApplication : BaseApplication() {
 
         onSetup()
 
-        startKoin(this, archimanAppModules)
+        startKoin(this, archimanAppModules, logger = koinLogger())
 
         initColdStart
             .execute(InitColdStart.RequestModel(BuildConfig.VERSION_CODE))
@@ -34,6 +35,8 @@ abstract class ArchimanApplication : BaseApplication() {
     }
 
     abstract fun onSetup()
+
+    abstract fun koinLogger(): Logger
 
     private fun setupRealm() {
         Realm.init(this)
