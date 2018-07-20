@@ -1,6 +1,8 @@
-package com.kaciula.archiman.injection
+package com.kaciula.archiman.di
 
 import android.content.Context
+import com.kaciula.archiman.di.ScreenContext.HOME
+import com.kaciula.archiman.di.ScreenContext.USER_DETAILS
 import com.kaciula.archiman.domain.boundary.infrastructure.AppRepository
 import com.kaciula.archiman.domain.boundary.infrastructure.CrashReporter
 import com.kaciula.archiman.domain.boundary.infrastructure.LocationProvider
@@ -19,8 +21,6 @@ import com.kaciula.archiman.infrastructure.data.util.moshi.MoshiLocalDateAdapter
 import com.kaciula.archiman.infrastructure.data.util.moshi.MoshiLocalDateTimeAdapter
 import com.kaciula.archiman.infrastructure.data.util.moshi.MoshiLocalTimeAdapter
 import com.kaciula.archiman.infrastructure.util.AndroidSchedulerProvider
-import com.kaciula.archiman.injection.ScreenContext.HOME
-import com.kaciula.archiman.injection.ScreenContext.USER_DETAILS
 import com.kaciula.archiman.presentation.screens.home.HomeContract
 import com.kaciula.archiman.presentation.screens.home.HomePresenter
 import com.kaciula.archiman.presentation.screens.main.Coordinator

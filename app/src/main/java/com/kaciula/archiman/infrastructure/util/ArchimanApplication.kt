@@ -2,9 +2,9 @@ package com.kaciula.archiman.infrastructure.util
 
 import com.chibatching.kotpref.Kotpref
 import com.kaciula.archiman.BuildConfig
+import com.kaciula.archiman.di.archimanAppModules
 import com.kaciula.archiman.domain.usecases.InitColdStart
 import com.kaciula.archiman.domain.util.Timberific
-import com.kaciula.archiman.injection.archimanAppModules
 import io.reactivex.plugins.RxJavaPlugins
 import io.realm.Realm
 import io.realm.RealmConfiguration

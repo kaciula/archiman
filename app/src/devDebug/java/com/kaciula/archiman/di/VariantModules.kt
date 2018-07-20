@@ -1,4 +1,4 @@
-package com.kaciula.archiman.injection
+package com.kaciula.archiman.di
 
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.github.simonpercic.oklog3.OkLogInterceptor

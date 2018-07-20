@@ -1,17 +1,13 @@
 package com.kaciula.archiman.infrastructure.util
 
 import com.kaciula.archiman.domain.boundary.infrastructure.CrashReporter
-import com.kaciula.archiman.injection.Injector
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
 class ReleaseArchimanApplication : ArchimanApplication() {
 
-    @Inject
-    lateinit var crashReporter: CrashReporter
+    private val crashReporter: CrashReporter by inject()
 
     override fun onSetup() {
-        Injector.appComponent.inject(this)
-
         val uncaughtExceptionHandler = ArchimanUncaughtExceptionHandler(this)
         Thread.setDefaultUncaughtExceptionHandler(uncaughtExceptionHandler)
 

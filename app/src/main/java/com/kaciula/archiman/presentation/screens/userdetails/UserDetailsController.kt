@@ -4,8 +4,8 @@ import android.Manifest
 import android.os.Bundle
 import android.view.View
 import com.kaciula.archiman.R
-import com.kaciula.archiman.injection.KoinParam
-import com.kaciula.archiman.injection.ScreenContext
+import com.kaciula.archiman.di.KoinParam
+import com.kaciula.archiman.di.ScreenContext
 import com.kaciula.archiman.presentation.screens.home.UserViewModel
 import com.kaciula.archiman.presentation.util.base.BaseController
 import com.kaciula.archiman.presentation.util.conductor.BundleBuilder

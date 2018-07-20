@@ -3,8 +3,8 @@ package com.kaciula.archiman.presentation.screens.home
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.kaciula.archiman.R
-import com.kaciula.archiman.injection.KoinParam
-import com.kaciula.archiman.injection.ScreenContext
+import com.kaciula.archiman.di.KoinParam
+import com.kaciula.archiman.di.ScreenContext
 import com.kaciula.archiman.presentation.screens.main.Coordinator
 import com.kaciula.archiman.presentation.util.base.BaseController
 import com.kaciula.archiman.presentation.widgets.DividerItemDecoration
