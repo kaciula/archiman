@@ -1,6 +1,5 @@
 final SUPPORT_LIBRARY_VERSION = '27.1.1'
 final PLAY_SERVICES_VERSION = '12.0.1'
-final DAGGER_VERSION = '2.15'
 final LEAK_CANARY_VERSION = '1.5.4'
 final RETROFIT_VERSION = '2.4.0'
 final OKHTTP_VERSION = '3.10.0'
@@ -37,10 +36,6 @@ def core = dependencyGroup {
 
     implementation "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
 
-    implementation "com.google.dagger:dagger:$DAGGER_VERSION"
-    compileOnly 'org.glassfish:javax.annotation:10.0-b28' //Required by Dagger2
-    kapt "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
-
     implementation deps.rxjava
     implementation "io.reactivex.rxjava2:rxandroid:2.0.2"
     implementation "com.jakewharton.rxrelay2:rxrelay:2.0.0"
@@ -62,6 +57,7 @@ def core = dependencyGroup {
 
     implementation "com.android.support:support-annotations:$SUPPORT_LIBRARY_VERSION"
     implementation deps.kotlin
+    implementation "org.koin:koin-android:0.9.3"
 
     implementation "io.palaima.debugdrawer:debugdrawer:$DEBUG_DRAWER"
     implementation "io.palaima.debugdrawer:debugdrawer-commons:$DEBUG_DRAWER"

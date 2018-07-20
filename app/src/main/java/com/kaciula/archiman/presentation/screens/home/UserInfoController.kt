@@ -5,19 +5,18 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import com.kaciula.archiman.R
-import com.kaciula.archiman.presentation.screens.main.MainActivity
 import com.kaciula.archiman.presentation.util.conductor.BundleBuilder
 import com.kaciula.archiman.presentation.util.conductor.KotlinDialogController
 import kotlinx.android.synthetic.main.controller_user.*
-import javax.inject.Inject
+import org.koin.standalone.KoinComponent
+import org.koin.standalone.inject
 
-class UserInfoController(args: Bundle) : KotlinDialogController(args) {
+class UserInfoController(args: Bundle) : KotlinDialogController(args), KoinComponent {
 
     override val layoutRes: Int
         get() = R.layout.controller_user
 
-    @Inject
-    lateinit var presenter: HomeContract.Presenter
+    private val presenter: HomeContract.Presenter by inject()
 
     private val user: UserViewModel = args.getParcelable(KEY_USER)
 
@@ -28,8 +27,6 @@ class UserInfoController(args: Bundle) : KotlinDialogController(args) {
     )
 
     override fun onViewBound(view: View): Dialog {
-        // fixme: on orientation change, the home component is not yet created and it crashes. maybe this controller should have its own component and presenter
-        (activity as MainActivity).getHomeComponent().inject(this)
         val builder = AlertDialog.Builder(activity)
         builder.setTitle(user.name)
         builder.setView(view)

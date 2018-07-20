@@ -6,19 +6,15 @@ import android.os.Bundle
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
 import com.kaciula.archiman.R
-import com.kaciula.archiman.injection.Injector
-import com.kaciula.archiman.presentation.screens.home.HomeComponent
-import com.kaciula.archiman.presentation.screens.home.HomeController
 import com.kaciula.archiman.presentation.util.DevDrawer
 import com.kaciula.archiman.presentation.util.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.inject
 import timber.log.Timber
-import javax.inject.Inject
 
-class MainActivity : BaseActivity(), ComponentProvider {
+class MainActivity : BaseActivity() {
 
-    @Inject
-    lateinit var coordinator: Coordinator
+    private val coordinator: Coordinator by inject()
 
     private lateinit var router: Router
     private lateinit var devDrawer: DevDrawer
@@ -26,7 +22,6 @@ class MainActivity : BaseActivity(), ComponentProvider {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Injector.appComponent.inject(this)
 
         setSupportActionBar(toolbar)
 
@@ -46,11 +41,6 @@ class MainActivity : BaseActivity(), ComponentProvider {
         if (!coordinator.handleBack()) {
             super.onBackPressed()
         }
-    }
-
-    override fun getHomeComponent(): HomeComponent {
-        val homeController = router.getControllerWithTag(TAG_CONTROLLER_HOME) as HomeController?
-        return homeController!!.component()
     }
 
     private fun setupDevDrawer() {

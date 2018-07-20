@@ -7,6 +7,7 @@ import com.kaciula.archiman.presentation.screens.home.UserViewModel
 import com.kaciula.archiman.presentation.util.*
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import timber.log.Timber
 
 class UserDetailsPresenter(
     private val view: UserDetailsContract.View,
@@ -17,6 +18,10 @@ class UserDetailsPresenter(
 
     private val elm: Elm<UserDetailsState> = Elm()
     private val disposables: CompositeDisposable = CompositeDisposable()
+
+    init {
+        Timber.i("Created user details presenter")
+    }
 
     override fun onInit() {
         val initialState = UserDetailsState(initialize = true, userName = user.name)

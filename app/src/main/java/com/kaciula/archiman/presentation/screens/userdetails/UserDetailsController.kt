@@ -4,42 +4,33 @@ import android.Manifest
 import android.os.Bundle
 import android.view.View
 import com.kaciula.archiman.R
-import com.kaciula.archiman.injection.Injector
+import com.kaciula.archiman.injection.KoinParam
+import com.kaciula.archiman.injection.ScreenContext
 import com.kaciula.archiman.presentation.screens.home.UserViewModel
 import com.kaciula.archiman.presentation.util.base.BaseController
 import com.kaciula.archiman.presentation.util.conductor.BundleBuilder
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.Single
 import kotlinx.android.synthetic.main.controller_user_details.*
-import javax.inject.Inject
+import org.koin.standalone.KoinComponent
+import org.koin.standalone.inject
+import org.koin.standalone.releaseContext
 
-class UserDetailsController(args: Bundle) : BaseController(args), UserDetailsContract.View {
+class UserDetailsController(args: Bundle) : BaseController(args), UserDetailsContract.View,
+    KoinComponent {
 
     override val layoutRes: Int
         get() = R.layout.controller_user_details
 
-    @Inject
-    lateinit var presenter: UserDetailsContract.Presenter
-    private val component: UserDetailsComponent
-
-    init {
-        val user = getArgs().getParcelable<UserViewModel>(KEY_USER)
-
-        component = DaggerUserDetailsComponent.builder()
-            .appComponent(Injector.appComponent)
-            .userDetailsModule(UserDetailsModule(this, user!!))
-            .build()
-        component.inject(this)
-    }
+    private val user = args.getParcelable<UserViewModel>(KEY_USER)
+    private val presenter: UserDetailsContract.Presenter
+            by inject { mapOf(KoinParam.VIEW to this, KoinParam.EXTRA to user) }
 
     constructor(user: UserViewModel) : this(
-        BundleBuilder(Bundle()).putParcelable(KEY_USER, user)
+        BundleBuilder(Bundle())
+            .putParcelable(KEY_USER, user)
             .build()
     )
-
-    fun component(): UserDetailsComponent {
-        return component
-    }
 
     override fun onViewBound(view: View) {
         presenter.onInit()
@@ -57,6 +48,7 @@ class UserDetailsController(args: Bundle) : BaseController(args), UserDetailsCon
 
     override fun onDestroy() {
         presenter.onTerminate()
+        releaseContext(ScreenContext.USER_DETAILS)
         super.onDestroy()
     }
 

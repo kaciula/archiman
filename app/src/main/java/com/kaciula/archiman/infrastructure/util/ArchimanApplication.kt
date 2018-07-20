@@ -4,21 +4,19 @@ import com.chibatching.kotpref.Kotpref
 import com.kaciula.archiman.BuildConfig
 import com.kaciula.archiman.domain.usecases.InitColdStart
 import com.kaciula.archiman.domain.util.Timberific
-import com.kaciula.archiman.injection.Injector
+import com.kaciula.archiman.injection.archimanAppModules
 import io.reactivex.plugins.RxJavaPlugins
 import io.realm.Realm
 import io.realm.RealmConfiguration
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
+import org.koin.android.ext.android.startKoin
 
 abstract class ArchimanApplication : BaseApplication() {
 
-    @Inject
-    lateinit var initColdStart: InitColdStart
+    private val initColdStart: InitColdStart by inject()
 
     override fun onCreate() {
         super.onCreate()
-
-        Injector.init(applicationContext)
 
         Timberific.init(BuildConfig.DEBUG)
         RxJavaPlugins.setErrorHandler(RxGlobalErrorHandler())
@@ -28,7 +26,7 @@ abstract class ArchimanApplication : BaseApplication() {
 
         onSetup()
 
-        Injector.appComponent.inject(this)
+        startKoin(this, archimanAppModules)
 
         initColdStart
             .execute(InitColdStart.RequestModel(BuildConfig.VERSION_CODE))

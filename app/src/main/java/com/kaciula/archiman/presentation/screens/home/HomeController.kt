@@ -3,37 +3,27 @@ package com.kaciula.archiman.presentation.screens.home
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.kaciula.archiman.R
-import com.kaciula.archiman.injection.Injector
+import com.kaciula.archiman.injection.KoinParam
+import com.kaciula.archiman.injection.ScreenContext
 import com.kaciula.archiman.presentation.screens.main.Coordinator
 import com.kaciula.archiman.presentation.util.base.BaseController
 import com.kaciula.archiman.presentation.widgets.DividerItemDecoration
 import kotlinx.android.synthetic.main.controller_home.*
 import kotlinx.android.synthetic.main.widget_error.*
+import org.koin.standalone.KoinComponent
+import org.koin.standalone.inject
+import org.koin.standalone.releaseContext
 import timber.log.Timber
-import javax.inject.Inject
 
-class HomeController : BaseController(), HomeContract.View {
+class HomeController : BaseController(), HomeContract.View, KoinComponent {
 
     override val layoutRes: Int
         get() = R.layout.controller_home
 
-    @Inject
-    lateinit var presenter: HomeContract.Presenter
-    @Inject
-    lateinit var coordinator: Coordinator
-
-    private val component: HomeComponent = DaggerHomeComponent.builder()
-        .appComponent(Injector.appComponent)
-        .homeModule(HomeModule(this))
-        .build()
+    private val presenter: HomeContract.Presenter by inject { mapOf(KoinParam.VIEW to this) }
+    private val coordinator: Coordinator by inject()
 
     private lateinit var adapter: UserAdapter
-
-    init {
-        component.inject(this)
-    }
-
-    fun component(): HomeComponent = component
 
     override fun onViewBound(view: View) {
         presenter.onInit()
@@ -51,6 +41,7 @@ class HomeController : BaseController(), HomeContract.View {
 
     override fun onDestroy() {
         presenter.onTerminate()
+        releaseContext(ScreenContext.HOME)
         super.onDestroy()
     }
 

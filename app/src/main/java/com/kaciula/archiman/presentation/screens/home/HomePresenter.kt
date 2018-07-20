@@ -15,6 +15,10 @@ class HomePresenter(
     private val disposables: CompositeDisposable = CompositeDisposable()
     private var isFirstInit: Boolean = true
 
+    init {
+        Timber.i("Created home presenter")
+    }
+
     override fun onInit() {
         Timber.d("presenter init")
         if (isFirstInit) {
