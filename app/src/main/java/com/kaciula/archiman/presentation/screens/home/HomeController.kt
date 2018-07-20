@@ -10,12 +10,11 @@ import com.kaciula.archiman.presentation.util.base.BaseController
 import com.kaciula.archiman.presentation.widgets.DividerItemDecoration
 import kotlinx.android.synthetic.main.controller_home.*
 import kotlinx.android.synthetic.main.widget_error.*
-import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 import org.koin.standalone.releaseContext
 import timber.log.Timber
 
-class HomeController : BaseController(), HomeContract.View, KoinComponent {
+class HomeController : BaseController(), HomeContract.View {
 
     override val layoutRes: Int
         get() = R.layout.controller_home

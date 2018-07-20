@@ -4,9 +4,11 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import com.kaciula.archiman.presentation.util.conductor.KotlinDialogController
+import org.koin.standalone.KoinComponent
 import timber.log.Timber
 
-abstract class BaseDialogController(args: Bundle = Bundle()) : KotlinDialogController(args) {
+abstract class BaseDialogController(args: Bundle = Bundle()) : KotlinDialogController(args),
+    KoinComponent {
 
     override fun onCreateDialog(savedViewState: Bundle?): Dialog {
         Timber.i("CREATE VIEW -> ${javaClass.simpleName}")

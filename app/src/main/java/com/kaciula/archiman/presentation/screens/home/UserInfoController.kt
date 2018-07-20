@@ -5,13 +5,12 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import com.kaciula.archiman.R
+import com.kaciula.archiman.presentation.util.base.BaseDialogController
 import com.kaciula.archiman.presentation.util.conductor.BundleBuilder
-import com.kaciula.archiman.presentation.util.conductor.KotlinDialogController
 import kotlinx.android.synthetic.main.controller_user.*
-import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
-class UserInfoController(args: Bundle) : KotlinDialogController(args), KoinComponent {
+class UserInfoController(args: Bundle) : BaseDialogController(args) {
 
     override val layoutRes: Int
         get() = R.layout.controller_user

@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kaciula.archiman.presentation.util.conductor.KotlinRestoreViewOnCreateController
+import org.koin.standalone.KoinComponent
 import timber.log.Timber
 
 abstract class BaseRestoreViewOnCreateController(args: Bundle = Bundle()) :
-    KotlinRestoreViewOnCreateController(args) {
+    KotlinRestoreViewOnCreateController(args), KoinComponent {
 
     override fun onCreateView(
         inflater: LayoutInflater,

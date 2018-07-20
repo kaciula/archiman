@@ -12,12 +12,10 @@ import com.kaciula.archiman.presentation.util.conductor.BundleBuilder
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.Single
 import kotlinx.android.synthetic.main.controller_user_details.*
-import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 import org.koin.standalone.releaseContext
 
-class UserDetailsController(args: Bundle) : BaseController(args), UserDetailsContract.View,
-    KoinComponent {
+class UserDetailsController(args: Bundle) : BaseController(args), UserDetailsContract.View {
 
     override val layoutRes: Int
         get() = R.layout.controller_user_details
@@ -70,9 +68,7 @@ class UserDetailsController(args: Bundle) : BaseController(args), UserDetailsCon
             .request(Manifest.permission.ACCESS_FINE_LOCATION)
             .first(false)
     }
-
-    companion object {
-
-        private val KEY_USER = "key.user"
-    }
 }
+
+private const val KEY_USER = "key.user"
+

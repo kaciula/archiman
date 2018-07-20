@@ -16,10 +16,8 @@ class MoshiLocalDateAdapter {
     fun fromJson(value: String?): LocalDate? {
         return if (value != null) DATE_TIME_FORMATTER.parseLocalDate(value) else null
     }
-
-    companion object {
-        private val DATE_FORMAT = "yyyy-MM-dd"
-        private val DATE_TIME_FORMATTER = DateTimeFormat.forPattern(DATE_FORMAT)
-    }
 }
+
+private const val DATE_FORMAT = "yyyy-MM-dd"
+private val DATE_TIME_FORMATTER = DateTimeFormat.forPattern(DATE_FORMAT)
 

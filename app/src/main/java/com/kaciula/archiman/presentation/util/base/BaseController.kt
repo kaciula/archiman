@@ -5,9 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kaciula.archiman.presentation.util.conductor.KotlinController
+import org.koin.standalone.KoinComponent
 import timber.log.Timber
 
-abstract class BaseController(args: Bundle = Bundle()) : KotlinController(args) {
+abstract class BaseController(args: Bundle = Bundle()) : KotlinController(args), KoinComponent {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         Timber.i("CREATE VIEW -> ${javaClass.simpleName}")
