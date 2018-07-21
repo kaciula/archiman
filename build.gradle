@@ -16,7 +16,7 @@ buildscript {
 
 allprojects {
     ext.COMPILE_SDK = 27
-    ext.MIN_SDK = 16
+    ext.MIN_SDK = 21
     ext.TARGET_SDK = 27
 
     ext.RXJAVA_VERSION = '2.1.12'

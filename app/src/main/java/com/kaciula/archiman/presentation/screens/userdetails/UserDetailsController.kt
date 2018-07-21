@@ -14,6 +14,7 @@ import io.reactivex.Single
 import kotlinx.android.synthetic.main.controller_user_details.*
 import org.koin.standalone.inject
 import org.koin.standalone.releaseContext
+import timber.log.Timber
 
 class UserDetailsController(args: Bundle) : BaseController(args), UserDetailsContract.View {
 
@@ -50,15 +51,14 @@ class UserDetailsController(args: Bundle) : BaseController(args), UserDetailsCon
         super.onDestroy()
     }
 
-    override fun render(state: UserDetailsState) {
-        if (state.initialize) {
-            tvUserName.text = state.userName
-        }
-        if (state.isProgressLocation) {
+    override fun render(state: UserDetailsModel) {
+        Timber.i("Render user details model")
+        tvUserName.text = state.userName
+        if (state.isProgressGetLocation) {
             tvStatus.text = "Fetching last known location"
-        } else if (state.isErrorLocation) {
+        } else if (state.isErrorGetLocation) {
             tvStatus.text = "Error fetching location"
-        } else if (state.isContentLocation) {
+        } else if (state.isContentGetLocation) {
             tvStatus.text = "Current location = ${state.lastKnownLocation}"
         }
     }

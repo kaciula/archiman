@@ -9,6 +9,7 @@ final RUNNER_VERSION = '0.5'
 final JODA_TIME_ANDROID_VERSION = '2.9.9.3'
 final STETHO_VERSION = '1.5.0'
 final KOTPREF_VERSION = '2.5.0'
+final MOBIUS_VERSION = '1.2.0'
 
 def dependencyGroup(Closure closure) {
     closure.delegate = dependencies
@@ -59,6 +60,11 @@ def core = dependencyGroup {
     implementation deps.kotlin
     implementation "org.koin:koin-android:0.9.3"
 
+    implementation "com.spotify.mobius:mobius-core:$MOBIUS_VERSION"
+    implementation "com.spotify.mobius:mobius-rx2:$MOBIUS_VERSION"
+    implementation "com.spotify.mobius:mobius-android:$MOBIUS_VERSION"
+    implementation "com.spotify.mobius:mobius-extras:$MOBIUS_VERSION"
+
     implementation "io.palaima.debugdrawer:debugdrawer:$DEBUG_DRAWER"
     implementation "io.palaima.debugdrawer:debugdrawer-commons:$DEBUG_DRAWER"
     implementation "io.palaima.debugdrawer:debugdrawer-actions:$DEBUG_DRAWER"
@@ -88,6 +94,7 @@ def unitTests = dependencyGroup {
     testImplementation deps.mockito
     testImplementation deps.hamcrest
     testImplementation deps.joda
+    testImplementation "com.spotify.mobius:mobius-test:$MOBIUS_VERSION"
 }
 
 def androidTests = dependencyGroup {

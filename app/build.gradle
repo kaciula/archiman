@@ -43,6 +43,7 @@ android {
 
         minSdkVersion globalConfiguration["MIN_SDK"]
         targetSdkVersion globalConfiguration["TARGET_SDK"]
+        multiDexEnabled true
 
         versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
@@ -81,7 +82,7 @@ android {
         }
         debug {
             debuggable true
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguardTest-rules.pro'
             applicationIdSuffix ".debug"

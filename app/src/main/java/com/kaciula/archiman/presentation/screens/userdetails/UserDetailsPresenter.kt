@@ -3,11 +3,11 @@ package com.kaciula.archiman.presentation.screens.userdetails
 import com.kaciula.archiman.domain.boundary.infrastructure.LatLng
 import com.kaciula.archiman.domain.boundary.infrastructure.LocationProvider
 import com.kaciula.archiman.domain.util.SchedulerProvider
+import com.kaciula.archiman.infrastructure.util.MobiusLogger
 import com.kaciula.archiman.presentation.screens.home.UserViewModel
-import com.kaciula.archiman.presentation.util.*
-import io.reactivex.Single
-import io.reactivex.disposables.CompositeDisposable
-import timber.log.Timber
+import com.spotify.mobius.MobiusLoop
+import com.spotify.mobius.rx2.RxMobius
+import io.reactivex.ObservableTransformer
 
 class UserDetailsPresenter(
     private val view: UserDetailsContract.View,
@@ -16,85 +16,59 @@ class UserDetailsPresenter(
     private val schedulerProvider: SchedulerProvider
 ) : UserDetailsContract.Presenter {
 
-    private val elm: Elm<UserDetailsState> = Elm()
-    private val disposables: CompositeDisposable = CompositeDisposable()
-
-    init {
-        Timber.i("Created user details presenter")
-    }
+    private val effectHandler = RxMobius
+        .subtypeEffectHandler<UserDetailsEffect, UserDetailsEvent>()
+        .addTransformer(GetLastKnownLocation::class.java, handleGetLastKnownLocation())
+        .build()
+    private lateinit var loop: MobiusLoop<UserDetailsModel, UserDetailsEvent, UserDetailsEffect>
 
     override fun onInit() {
-        val initialState = UserDetailsState(initialize = true, userName = user.name)
-        disposables.add(elm.init(initialState, this))
-        elm.accept(InitMsg)
-        elm.accept(GetLastKnownLocationMsg)
+        loop = RxMobius.loop(UserDetailsUpdate(), effectHandler)
+            .logger(MobiusLogger())
+            .init(UserDetailsInit())
+            .startFrom(UserDetailsModel(userName = user.name))
+        loop.observe { view.render(it) }
     }
 
-    override fun onAttach() {}
+    override fun onAttach() {
+    }
 
-    override fun onDetach() {}
+    override fun onDetach() {
+    }
 
     override fun onTerminate() {
-        disposables.clear()
+        loop.dispose()
     }
 
-    override fun update(msg: Msg, state: UserDetailsState): Pair<UserDetailsState, Cmd> {
-        return when (msg) {
-            is InitMsg -> msg.reduceAndCmd(state)
-            is ResetInitMsg -> msg.reduceAndCmd(state)
-            is GetLastKnownLocationMsg -> msg.reduceAndCmd(state)
-            is LastKnownLocationMsg -> msg.reduceAndCmd(state)
-            is ErrorMsg -> return when (msg.cmd) {
-                is GetLastKnownLocationCmd -> Pair(
-                    state.copy(
-                        isProgressLocation = false,
-                        isErrorLocation = true
-                    ), None
-                )
-                else -> Pair(state, None)
+    private fun handleGetLastKnownLocation()
+            : ObservableTransformer<GetLastKnownLocation, UserDetailsEvent> {
+        return ObservableTransformer { effect ->
+            effect.map {
+                LastKnownLocationReceived(LatLng(1.2, 3.4))
             }
-            else -> Pair(state, None)
         }
-    }
-
-    override fun call(cmd: Cmd): Single<Msg> {
-        return when (cmd) {
-            is GetLastKnownLocationCmd ->
-                Single.just(0)
-                    .observeOn(schedulerProvider.ui())
-                    .flatMap({ _ ->
-                        view.ensureLocationPermission()
-                            .flatMap({ granted ->
-                                if (granted) {
-                                    locationProvider.getLastKnownLocation()
-                                        .map { lastLocation ->
-                                            LocationPermissionResult(
-                                                granted,
-                                                lastLocation
-                                            )
-                                        }
-                                } else {
-                                    Single.just(LocationPermissionResult(granted))
-                                }
-                            })
-                            .map { locationPermissionResult ->
-                                LastKnownLocationMsg(
-                                    locationPermissionResult.lastLocation
-                                )
-                            }
-                    })
-
-            else -> Single.just(Idle)
-        }
-    }
-
-    override fun sub(state: UserDetailsState) {
-    }
-
-    override fun render(state: UserDetailsState) {
-        view.render(state)
     }
 }
+/*
+view.ensureLocationPermission()
+.flatMap({ granted ->
+    if (granted) {
+        locationProvider.getLastKnownLocation()
+            .map { lastLocation ->
+                LocationPermissionResult(
+                    granted,
+                    lastLocation
+                )
+            }
+    } else {
+        Single.just(LocationPermissionResult(granted))
+    }
+})
+.map { locationPermissionResult ->
+    LastKnownLocationMsg(
+        locationPermissionResult.lastLocation
+    )
+}*/
 
 data class LocationPermissionResult(
     val granted: Boolean,
