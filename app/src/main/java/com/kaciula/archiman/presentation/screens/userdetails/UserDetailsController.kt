@@ -2,6 +2,7 @@ package com.kaciula.archiman.presentation.screens.userdetails
 
 import android.Manifest
 import android.os.Bundle
+import android.os.Looper
 import android.view.View
 import com.kaciula.archiman.R
 import com.kaciula.archiman.di.KoinParam
@@ -9,6 +10,8 @@ import com.kaciula.archiman.di.ScreenContext
 import com.kaciula.archiman.presentation.screens.home.UserViewModel
 import com.kaciula.archiman.presentation.util.base.BaseController
 import com.kaciula.archiman.presentation.util.conductor.BundleBuilder
+import com.spotify.mobius.Connection
+import com.spotify.mobius.functions.Consumer
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.Single
 import kotlinx.android.synthetic.main.controller_user_details.*
@@ -53,9 +56,10 @@ class UserDetailsController(args: Bundle) : BaseController(args), UserDetailsCon
 
     override fun render(state: UserDetailsModel) {
         Timber.i("Render user details model")
+        Timber.d("Render Current thread main? ${Looper.myLooper() === Looper.getMainLooper()}")
         tvUserName.text = state.userName
         if (state.isProgressGetLocation) {
-            tvStatus.text = "Fetching last known location"
+            tvStatus.text = "Fetching last known location..."
         } else if (state.isErrorGetLocation) {
             tvStatus.text = "Error fetching location"
         } else if (state.isContentGetLocation) {
@@ -67,6 +71,17 @@ class UserDetailsController(args: Bundle) : BaseController(args), UserDetailsCon
         return RxPermissions(activity!!)
             .request(Manifest.permission.ACCESS_FINE_LOCATION)
             .first(false)
+    }
+
+    override fun connect(output: Consumer<UserDetailsEvent>): Connection<UserDetailsModel> {
+        return object : Connection<UserDetailsModel> {
+            override fun accept(value: UserDetailsModel) {
+                render(value)
+            }
+
+            override fun dispose() {
+            }
+        }
     }
 }
 

@@ -19,11 +19,11 @@ class LocationProviderImpl(context: Context) : LocationProvider {
 
     @SuppressLint("MissingPermission")
     override fun getLastKnownLocation(): Single<LatLng> {
-        return Single.create({ emitter ->
+        return Single.create { emitter ->
             val completeListener = OnCompleteListener<Location?> { task ->
                 if (task.isSuccessful) {
                     val location = task.result
-                    val latLng = if (location != null) LatLng(
+                    val latLng = if (location != null) LatLng.Value(
                         location.latitude,
                         location.longitude
                     ) else LatLng.UNAVAILABLE
@@ -39,6 +39,6 @@ class LocationProviderImpl(context: Context) : LocationProvider {
                 }
             }
             locationClient.lastLocation.addOnCompleteListener(completeListener)
-        })
+        }
     }
 }

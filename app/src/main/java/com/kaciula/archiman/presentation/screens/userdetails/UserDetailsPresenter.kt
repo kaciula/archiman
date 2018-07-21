@@ -5,9 +5,10 @@ import com.kaciula.archiman.domain.boundary.infrastructure.LocationProvider
 import com.kaciula.archiman.domain.util.SchedulerProvider
 import com.kaciula.archiman.infrastructure.util.MobiusLogger
 import com.kaciula.archiman.presentation.screens.home.UserViewModel
-import com.spotify.mobius.MobiusLoop
+import com.spotify.mobius.android.MobiusAndroid
 import com.spotify.mobius.rx2.RxMobius
 import io.reactivex.ObservableTransformer
+import java.util.concurrent.TimeUnit
 
 class UserDetailsPresenter(
     private val view: UserDetailsContract.View,
@@ -20,14 +21,18 @@ class UserDetailsPresenter(
         .subtypeEffectHandler<UserDetailsEffect, UserDetailsEvent>()
         .addTransformer(GetLastKnownLocation::class.java, handleGetLastKnownLocation())
         .build()
-    private lateinit var loop: MobiusLoop<UserDetailsModel, UserDetailsEvent, UserDetailsEffect>
+    private val loopFactory = RxMobius
+        .loop(UserDetailsUpdate(), effectHandler)
+        .init(UserDetailsInit())
+        .logger(MobiusLogger())
+    private val controller = MobiusAndroid
+        .controller(loopFactory, UserDetailsModel(userName = user.name))
 
     override fun onInit() {
-        loop = RxMobius.loop(UserDetailsUpdate(), effectHandler)
-            .logger(MobiusLogger())
-            .init(UserDetailsInit())
-            .startFrom(UserDetailsModel(userName = user.name))
-        loop.observe { view.render(it) }
+        if (!controller.isRunning) {
+            controller.connect(view)
+        }
+        controller.start()
     }
 
     override fun onAttach() {
@@ -37,15 +42,19 @@ class UserDetailsPresenter(
     }
 
     override fun onTerminate() {
-        loop.dispose()
+        controller.stop()
+        controller.disconnect()
     }
 
     private fun handleGetLastKnownLocation()
             : ObservableTransformer<GetLastKnownLocation, UserDetailsEvent> {
         return ObservableTransformer { effect ->
-            effect.map {
-                LastKnownLocationReceived(LatLng(1.2, 3.4))
-            }
+            effect
+                .flatMapSingle {
+                    locationProvider.getLastKnownLocation()
+                }
+                .delay(10, TimeUnit.SECONDS)
+                .map<UserDetailsEvent> { LastKnownLocationReceived(it) }
         }
     }
 }

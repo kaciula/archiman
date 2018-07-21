@@ -7,10 +7,7 @@ interface LocationProvider {
     fun getLastKnownLocation(): Single<LatLng>
 }
 
-data class LatLng(val latitude: Double, val longitude: Double) {
-
-    companion object {
-        @JvmField
-        val UNAVAILABLE = LatLng(0.0, 0.0)
-    }
+sealed class LatLng {
+    data class Value(val latitude: Double, val longitude: Double) : LatLng()
+    object UNAVAILABLE : LatLng()
 }
