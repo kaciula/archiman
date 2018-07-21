@@ -2,7 +2,6 @@ package com.kaciula.archiman.di
 
 import android.content.Context
 import com.kaciula.archiman.di.ScreenContext.HOME
-import com.kaciula.archiman.di.ScreenContext.USER_DETAILS
 import com.kaciula.archiman.domain.boundary.infrastructure.AppRepository
 import com.kaciula.archiman.domain.boundary.infrastructure.CrashReporter
 import com.kaciula.archiman.domain.boundary.infrastructure.LocationProvider
@@ -25,8 +24,6 @@ import com.kaciula.archiman.presentation.screens.home.HomeContract
 import com.kaciula.archiman.presentation.screens.home.HomePresenter
 import com.kaciula.archiman.presentation.screens.main.Coordinator
 import com.kaciula.archiman.presentation.screens.main.CoordinatorImpl
-import com.kaciula.archiman.presentation.screens.userdetails.UserDetailsContract
-import com.kaciula.archiman.presentation.screens.userdetails.UserDetailsPresenter
 import com.squareup.moshi.Moshi
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -84,13 +81,6 @@ val ScreensModule = applicationContext {
     context(HOME) {
         bean { params -> HomePresenter(params[KoinParam.VIEW], get()) as HomeContract.Presenter }
     }
-
-    context(USER_DETAILS) {
-        bean { params ->
-            UserDetailsPresenter(params[KoinParam.VIEW], params[KoinParam.EXTRA], get(), get())
-                    as UserDetailsContract.Presenter
-        }
-    }
 }
 
 val archimanAppModules = listOf(
@@ -104,10 +94,8 @@ val archimanAppModules = listOf(
 
 object KoinParam {
     const val VIEW = "VIEW"
-    const val EXTRA = "EXTRA"
 }
 
 object ScreenContext {
     const val HOME = "HOME"
-    const val USER_DETAILS = "USER_DETAILS"
 }

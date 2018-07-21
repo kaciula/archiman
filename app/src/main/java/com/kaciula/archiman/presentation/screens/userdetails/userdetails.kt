@@ -8,14 +8,22 @@ data class UserDetailsModel(
     val isProgressGetLocation: Boolean = false,
     val isContentGetLocation: Boolean = false,
     val isErrorGetLocation: Boolean = false,
-    val lastKnownLocation: LatLng = LatLng.UNAVAILABLE
+    val lastKnownLocation: LatLng = LatLng.UNAVAILABLE,
+    val getLocationWaitingForPermission: Boolean = false
 )
 
-sealed class UserDetailsEffect
-object GetLastKnownLocation : UserDetailsEffect()
 
 sealed class UserDetailsEvent
 data class LastKnownLocationReceived(val location: LatLng) : UserDetailsEvent()
+object LastKnownLocationRefreshRequested : UserDetailsEvent()
+object GetLocationPermissionDenied : UserDetailsEvent()
+object LocationPermissionDenied : UserDetailsEvent()
+object LocationPermissionGranted : UserDetailsEvent()
+
+sealed class UserDetailsEffect
+object GetLastKnownLocation : UserDetailsEffect()
+object RequestLocationPermission : UserDetailsEffect()
+
 
 class UserDetailsInit : Init<UserDetailsModel, UserDetailsEffect> {
     override fun init(model: UserDetailsModel): First<UserDetailsModel, UserDetailsEffect> {
@@ -28,6 +36,7 @@ class UserDetailsInit : Init<UserDetailsModel, UserDetailsEffect> {
         return First.first(model)
     }
 }
+
 
 class UserDetailsUpdate : Update<UserDetailsModel, UserDetailsEvent, UserDetailsEffect> {
 
@@ -44,6 +53,29 @@ class UserDetailsUpdate : Update<UserDetailsModel, UserDetailsEvent, UserDetails
                     lastKnownLocation = event.location
                 )
             )
+            is LastKnownLocationRefreshRequested -> Next.next(
+                model.copy(
+                    isProgressGetLocation = true,
+                    isErrorGetLocation = false,
+                    isContentGetLocation = false
+                ), Effects.effects(GetLastKnownLocation)
+            )
+            is GetLocationPermissionDenied -> Next.next(
+                model.copy(getLocationWaitingForPermission = true),
+                Effects.effects(RequestLocationPermission)
+            )
+            is LocationPermissionGranted -> {
+                if (model.getLocationWaitingForPermission) {
+                    Next.next(
+                        model.copy(getLocationWaitingForPermission = false),
+                        Effects.effects(GetLastKnownLocation as UserDetailsEffect)
+                    )
+                } else {
+                    Next.noChange()
+                }
+
+            }
+            is LocationPermissionDenied -> Next.dispatch(Effects.effects(RequestLocationPermission))
         }
     }
 }

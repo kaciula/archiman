@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingLeft="@dimen/material_layout_keylines_screen_edge_margin"
     android:paddingRight="@dimen/material_layout_keylines_screen_edge_margin">
 
@@ -27,4 +28,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-</android.support.constraint.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btnRefreshLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Refresh location" />
+</LinearLayout>
