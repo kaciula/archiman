@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kaciula.archiman.R
+import com.spotify.mobius.functions.Consumer
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_user.*
 
 class UserAdapter(
-    var items: List<UserViewModel>,
-    private val presenter: HomeContract.Presenter
+    private var items: List<UserViewModel>,
+    private val output: Consumer<HomeEvent>
 ) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,6 +27,11 @@ class UserAdapter(
 
     override fun getItemCount(): Int = items.size
 
+    fun setItems(items: List<UserViewModel>) {
+        this.items = items
+        notifyDataSetChanged()
+    }
+
     inner class ViewHolder(
         override val containerView: View
     ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
@@ -34,12 +40,12 @@ class UserAdapter(
             tvUsername.text = user.name
             containerView.setOnClickListener {
                 if (adapterPosition != RecyclerView.NO_POSITION) {
-                    presenter.onClickUser(items[adapterPosition])
+                    output.accept(UserClicked(items[adapterPosition]))
                 }
             }
             btnDetails.setOnClickListener {
                 if (adapterPosition != RecyclerView.NO_POSITION) {
-                    presenter.onClickUserDetails(items[adapterPosition])
+                    output.accept(UserDetailsClicked(items[adapterPosition]))
                 }
             }
         }

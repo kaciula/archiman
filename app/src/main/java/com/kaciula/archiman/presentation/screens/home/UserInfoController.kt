@@ -8,14 +8,11 @@ import com.kaciula.archiman.R
 import com.kaciula.archiman.presentation.util.base.BaseDialogController
 import com.kaciula.archiman.presentation.util.conductor.BundleBuilder
 import kotlinx.android.synthetic.main.controller_user.*
-import org.koin.standalone.inject
 
 class UserInfoController(args: Bundle) : BaseDialogController(args) {
 
     override val layoutRes: Int
         get() = R.layout.controller_user
-
-    private val presenter: HomeContract.Presenter by inject()
 
     private val user: UserViewModel = args.getParcelable(KEY_USER)
 
@@ -29,19 +26,23 @@ class UserInfoController(args: Bundle) : BaseDialogController(args) {
         val builder = AlertDialog.Builder(activity)
         builder.setTitle(user.name)
         builder.setView(view)
-        builder.setPositiveButton(R.string.all_ok) { _, _ -> presenter.onClickOkUserDialog(user) }
+        builder.setPositiveButton(R.string.all_ok) { _, _ ->
+            homeController().onClickOkUserInfoDialog(user)
+        }
         render()
         return builder.create()
     }
 
     override fun onCancel() {
         super.onCancel()
-        presenter.onCancelUserDialog()
+        homeController().onCancelUserInfoDialog()
     }
 
     private fun render() {
         tvUserName.text = user.name
     }
+
+    private fun homeController() = parentController as HomeController
 }
 
 private const val KEY_USER = "key_user"

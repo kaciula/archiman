@@ -1,7 +1,6 @@
 package com.kaciula.archiman.di
 
 import android.content.Context
-import com.kaciula.archiman.di.ScreenContext.HOME
 import com.kaciula.archiman.domain.boundary.infrastructure.AppRepository
 import com.kaciula.archiman.domain.boundary.infrastructure.CrashReporter
 import com.kaciula.archiman.domain.boundary.infrastructure.LocationProvider
@@ -20,8 +19,6 @@ import com.kaciula.archiman.infrastructure.data.util.moshi.MoshiLocalDateAdapter
 import com.kaciula.archiman.infrastructure.data.util.moshi.MoshiLocalDateTimeAdapter
 import com.kaciula.archiman.infrastructure.data.util.moshi.MoshiLocalTimeAdapter
 import com.kaciula.archiman.infrastructure.util.AndroidSchedulerProvider
-import com.kaciula.archiman.presentation.screens.home.HomeContract
-import com.kaciula.archiman.presentation.screens.home.HomePresenter
 import com.kaciula.archiman.presentation.screens.main.Coordinator
 import com.kaciula.archiman.presentation.screens.main.CoordinatorImpl
 import com.squareup.moshi.Moshi
@@ -77,25 +74,10 @@ fun createMoshi(): Moshi {
         .build()
 }
 
-val ScreensModule = applicationContext {
-    context(HOME) {
-        bean { params -> HomePresenter(params[KoinParam.VIEW], get()) as HomeContract.Presenter }
-    }
-}
-
 val archimanAppModules = listOf(
     AppModule,
     InfrastructureModule,
     RemoteModule,
     DomainModule,
-    OkHttpModule,
-    ScreensModule
+    OkHttpModule
 )
-
-object KoinParam {
-    const val VIEW = "VIEW"
-}
-
-object ScreenContext {
-    const val HOME = "HOME"
-}

@@ -67,6 +67,7 @@ class UserDetailsController(args: Bundle) : BaseController(args),
 
     override fun connect(output: Consumer<UserDetailsEvent>): Connection<UserDetailsModel> {
         btnRefreshLocation.setOnClickListener { output.accept(LastKnownLocationRefreshRequested) }
+
         return object : Connection<UserDetailsModel> {
             override fun accept(value: UserDetailsModel) {
                 render(value)
@@ -79,17 +80,17 @@ class UserDetailsController(args: Bundle) : BaseController(args),
     }
 
     @SuppressLint("SetTextI18n")
-    private fun render(state: UserDetailsModel) {
+    private fun render(model: UserDetailsModel) {
         Timber.i("Render user details model")
-        tvUserName.text = state.userName
-        if (state.isProgressGetLocation) {
+        tvUserName.text = model.userName
+        if (model.isProgressGetLocation) {
             tvStatus.text = "Fetching last known location..."
             btnRefreshLocation.visibility = View.INVISIBLE
-        } else if (state.isErrorGetLocation) {
+        } else if (model.isErrorGetLocation) {
             tvStatus.text = "Error fetching location"
             btnRefreshLocation.visibility = View.VISIBLE
-        } else if (state.isContentGetLocation) {
-            tvStatus.text = "Current location = ${state.lastKnownLocation}"
+        } else if (model.isContentGetLocation) {
+            tvStatus.text = "Current location = ${model.lastKnownLocation}"
             btnRefreshLocation.visibility = View.VISIBLE
         }
     }

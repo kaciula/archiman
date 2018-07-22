@@ -10,7 +10,9 @@ interface Coordinator {
 
     fun handleBack(): Boolean
 
-    fun showUserInfo(user: UserViewModel)
+    fun showUserInfoDialog(user: UserViewModel)
+
+    fun showUserInfoOkDialog(title: String, description: String)
 
     fun goToUserDetailsScreen(user: UserViewModel)
 }

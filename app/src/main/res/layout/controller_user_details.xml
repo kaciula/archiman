@@ -33,5 +33,7 @@
         android:id="@+id/btnRefreshLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Refresh location" />
+        android:text="Refresh location"
+        android:visibility="invisible"
+        tools:visibility="visible" />
 </LinearLayout>
