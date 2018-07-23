@@ -17,7 +17,6 @@ import com.spotify.mobius.android.MobiusAndroid
 import com.spotify.mobius.functions.Consumer
 import com.spotify.mobius.rx2.RxMobius
 import io.reactivex.Observable
-import io.reactivex.ObservableTransformer
 import kotlinx.android.synthetic.main.controller_home.*
 import kotlinx.android.synthetic.main.widget_error.*
 import org.koin.standalone.inject
@@ -34,10 +33,10 @@ class HomeController : BaseController(), Connectable<HomeModel, HomeEvent> {
 
     private val effectHandler = RxMobius
         .subtypeEffectHandler<HomeEffect, HomeEvent>()
-        .addTransformer(GetUsersEffect::class.java, handleGetUsers())
-        .addTransformer(GoToUserDetailsScreen::class.java, handleGoToUserDetailsScreen())
-        .addTransformer(ShowUserInfoDialog::class.java, handleShowUserInfoDialog())
-        .addTransformer(ShowUserInfoOkDialog::class.java, handleShowUserInfoOkDialog())
+        .addTransformer(GetUsersEffect::class.java, ::handleGetUsers)
+        .addTransformer(GoToUserDetailsScreen::class.java, ::handleGoToUserDetailsScreen)
+        .addTransformer(ShowUserInfoDialog::class.java, ::handleShowUserInfoDialog)
+        .addTransformer(ShowUserInfoOkDialog::class.java, ::handleShowUserInfoOkDialog)
         .build()
 
     private val loopFactory = RxMobius
@@ -110,45 +109,37 @@ class HomeController : BaseController(), Connectable<HomeModel, HomeEvent> {
         flipper.displayedChild = CHILD_CONTENT
     }
 
-    private fun handleGetUsers(): ObservableTransformer<GetUsersEffect, HomeEvent> {
-        return ObservableTransformer { effect ->
-            effect
-                .observeOn(schedulerProvider.io())
-                .flatMapSingle { getUsers.execute(GetUsers.RequestModel) }
-                .map<HomeEvent> { UsersReceived(it.users) }
-        }
+    private fun handleGetUsers(request: Observable<GetUsersEffect>): Observable<HomeEvent> {
+        return request
+            .observeOn(schedulerProvider.io())
+            .flatMapSingle { getUsers.execute(GetUsers.RequestModel) }
+            .map<HomeEvent> { UsersReceived(it.users) }
     }
 
-    private fun handleGoToUserDetailsScreen(): ObservableTransformer<GoToUserDetailsScreen, HomeEvent> {
-        return ObservableTransformer { effect ->
-            effect
-                .observeOn(schedulerProvider.ui())
-                .doOnNext { coordinator.goToUserDetailsScreen(it.user) }
-                .flatMap { Observable.empty<HomeEvent>() }
-        }
+    private fun handleGoToUserDetailsScreen(request: Observable<GoToUserDetailsScreen>): Observable<HomeEvent> {
+        return request
+            .observeOn(schedulerProvider.ui())
+            .doOnNext { coordinator.goToUserDetailsScreen(it.user) }
+            .flatMap { Observable.empty<HomeEvent>() }
     }
 
-    private fun handleShowUserInfoDialog(): ObservableTransformer<ShowUserInfoDialog, HomeEvent> {
-        return ObservableTransformer { effect ->
-            effect
-                .observeOn(schedulerProvider.ui())
-                .doOnNext { coordinator.showUserInfoDialog(it.user) }
-                .flatMap { Observable.empty<HomeEvent>() }
-        }
+    private fun handleShowUserInfoDialog(request: Observable<ShowUserInfoDialog>): Observable<HomeEvent> {
+        return request
+            .observeOn(schedulerProvider.ui())
+            .doOnNext { coordinator.showUserInfoDialog(it.user) }
+            .flatMap { Observable.empty<HomeEvent>() }
     }
 
-    private fun handleShowUserInfoOkDialog(): ObservableTransformer<ShowUserInfoOkDialog, HomeEvent> {
-        return ObservableTransformer { effect ->
-            effect
-                .observeOn(schedulerProvider.ui())
-                .doOnNext {
-                    coordinator.showUserInfoOkDialog(
-                        "Success",
-                        "Clicked OK on user info dialog for ${it.user}"
-                    )
-                }
-                .flatMap { Observable.empty<HomeEvent>() }
-        }
+    private fun handleShowUserInfoOkDialog(request: Observable<ShowUserInfoOkDialog>): Observable<HomeEvent> {
+        return request
+            .observeOn(schedulerProvider.ui())
+            .doOnNext {
+                coordinator.showUserInfoOkDialog(
+                    "Success",
+                    "Clicked OK on user info dialog for ${it.user}"
+                )
+            }
+            .flatMap { Observable.empty<HomeEvent>() }
     }
 
     fun onCancelUserInfoDialog() {

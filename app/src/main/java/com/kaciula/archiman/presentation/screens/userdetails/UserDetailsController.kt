@@ -17,7 +17,7 @@ import com.spotify.mobius.android.MobiusAndroid
 import com.spotify.mobius.functions.Consumer
 import com.spotify.mobius.rx2.RxMobius
 import com.tbruyelle.rxpermissions2.RxPermissions
-import io.reactivex.ObservableTransformer
+import io.reactivex.Observable
 import io.reactivex.Single
 import kotlinx.android.synthetic.main.controller_user_details.*
 import org.koin.standalone.inject
@@ -37,8 +37,8 @@ class UserDetailsController(args: Bundle) : BaseController(args),
 
     private val effectHandler = RxMobius
         .subtypeEffectHandler<UserDetailsEffect, UserDetailsEvent>()
-        .addTransformer(GetLastKnownLocation::class.java, handleGetLastKnownLocation())
-        .addTransformer(RequestLocationPermission::class.java, handleRequestLocationPermission())
+        .addTransformer(GetLastKnownLocation::class.java, ::handleGetLastKnownLocation)
+        .addTransformer(RequestLocationPermission::class.java, ::handleRequestLocationPermission)
         .build()
 
     private val loopFactory = RxMobius
@@ -101,42 +101,38 @@ class UserDetailsController(args: Bundle) : BaseController(args),
             .first(false)
     }
 
-    private fun handleGetLastKnownLocation()
-            : ObservableTransformer<GetLastKnownLocation, UserDetailsEvent> {
-        return ObservableTransformer { effect ->
-            effect
-                .observeOn(schedulerProvider.ui())
-                .flatMapSingle {
-                    ensureLocationPermission()
-                        .flatMap { granted ->
-                            if (granted) {
-                                locationProvider.getLastKnownLocation()
-                                    .map<UserDetailsEvent> { LastKnownLocationReceived(it) }
-                                    .delay(10, TimeUnit.SECONDS)
-                            } else {
-                                Single.just(GetLocationPermissionDenied)
-                            }
+    private fun handleGetLastKnownLocation(request: Observable<GetLastKnownLocation>)
+            : Observable<UserDetailsEvent> {
+        return request
+            .observeOn(schedulerProvider.ui())
+            .flatMapSingle {
+                ensureLocationPermission()
+                    .flatMap { granted ->
+                        if (granted) {
+                            locationProvider.getLastKnownLocation()
+                                .map<UserDetailsEvent> { LastKnownLocationReceived(it) }
+                                .delay(10, TimeUnit.SECONDS)
+                        } else {
+                            Single.just(GetLocationPermissionDenied)
                         }
-                }
-        }
+                    }
+            }
     }
 
-    private fun handleRequestLocationPermission()
-            : ObservableTransformer<RequestLocationPermission, UserDetailsEvent> {
-        return ObservableTransformer { effect ->
-            effect
-                .observeOn(schedulerProvider.ui())
-                .flatMapSingle {
-                    ensureLocationPermission()
-                        .map { granted ->
-                            if (granted) {
-                                LocationPermissionGranted
-                            } else {
-                                LocationPermissionDenied
-                            }
+    private fun handleRequestLocationPermission(request: Observable<RequestLocationPermission>)
+            : Observable<UserDetailsEvent> {
+        return request
+            .observeOn(schedulerProvider.ui())
+            .flatMapSingle {
+                ensureLocationPermission()
+                    .map { granted ->
+                        if (granted) {
+                            LocationPermissionGranted
+                        } else {
+                            LocationPermissionDenied
                         }
-                }
-        }
+                    }
+            }
     }
 }
 
