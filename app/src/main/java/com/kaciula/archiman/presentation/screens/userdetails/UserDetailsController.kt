@@ -1,12 +1,11 @@
 package com.kaciula.archiman.presentation.screens.userdetails
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import com.kaciula.archiman.R
-import com.kaciula.archiman.domain.boundary.infrastructure.LocationProvider
-import com.kaciula.archiman.domain.util.SchedulerProvider
+import com.kaciula.archiman.di.KoinParam
+import com.kaciula.archiman.di.ScreenContext
 import com.kaciula.archiman.infrastructure.util.MobiusLogger
 import com.kaciula.archiman.presentation.screens.home.UserViewModel
 import com.kaciula.archiman.presentation.util.base.BaseController
@@ -16,13 +15,10 @@ import com.spotify.mobius.Connection
 import com.spotify.mobius.android.MobiusAndroid
 import com.spotify.mobius.functions.Consumer
 import com.spotify.mobius.rx2.RxMobius
-import com.tbruyelle.rxpermissions2.RxPermissions
-import io.reactivex.Observable
-import io.reactivex.Single
 import kotlinx.android.synthetic.main.controller_user_details.*
 import org.koin.standalone.inject
+import org.koin.standalone.releaseContext
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
 
 class UserDetailsController(args: Bundle) : BaseController(args),
     Connectable<UserDetailsModel, UserDetailsEvent> {
@@ -32,17 +28,10 @@ class UserDetailsController(args: Bundle) : BaseController(args),
 
     private val user = args.getParcelable<UserViewModel>(KEY_USER)
 
-    private val locationProvider: LocationProvider by inject()
-    private val schedulerProvider: SchedulerProvider by inject()
-
-    private val effectHandler = RxMobius
-        .subtypeEffectHandler<UserDetailsEffect, UserDetailsEvent>()
-        .addTransformer(GetLastKnownLocation::class.java, ::handleGetLastKnownLocation)
-        .addTransformer(RequestLocationPermission::class.java, ::handleRequestLocationPermission)
-        .build()
+    private val effectHandlers: UserDetailsEffectHandlers  by inject { mapOf(KoinParam.CONTROLLER to this) }
 
     private val loopFactory = RxMobius
-        .loop(UserDetailsUpdate(), effectHandler)
+        .loop(UserDetailsUpdate(), effectHandlers.build())
         .init(UserDetailsInit())
         .logger(MobiusLogger())
     private val controller = MobiusAndroid
@@ -63,6 +52,11 @@ class UserDetailsController(args: Bundle) : BaseController(args),
         controller.stop()
         controller.disconnect()
         super.onViewDestroyed()
+    }
+
+    override fun onDestroy() {
+        releaseContext(ScreenContext.USER_DETAILS)
+        super.onDestroy()
     }
 
     override fun connect(output: Consumer<UserDetailsEvent>): Connection<UserDetailsModel> {
@@ -93,46 +87,6 @@ class UserDetailsController(args: Bundle) : BaseController(args),
             tvStatus.text = "Current location = ${model.lastKnownLocation}"
             btnRefreshLocation.visibility = View.VISIBLE
         }
-    }
-
-    private fun ensureLocationPermission(): Single<Boolean> {
-        return RxPermissions(activity!!)
-            .request(Manifest.permission.ACCESS_FINE_LOCATION)
-            .first(false)
-    }
-
-    private fun handleGetLastKnownLocation(request: Observable<GetLastKnownLocation>)
-            : Observable<UserDetailsEvent> {
-        return request
-            .observeOn(schedulerProvider.ui())
-            .flatMapSingle {
-                ensureLocationPermission()
-                    .flatMap { granted ->
-                        if (granted) {
-                            locationProvider.getLastKnownLocation()
-                                .map<UserDetailsEvent> { LastKnownLocationReceived(it) }
-                                .delay(10, TimeUnit.SECONDS)
-                        } else {
-                            Single.just(GetLocationPermissionDenied)
-                        }
-                    }
-            }
-    }
-
-    private fun handleRequestLocationPermission(request: Observable<RequestLocationPermission>)
-            : Observable<UserDetailsEvent> {
-        return request
-            .observeOn(schedulerProvider.ui())
-            .flatMapSingle {
-                ensureLocationPermission()
-                    .map { granted ->
-                        if (granted) {
-                            LocationPermissionGranted
-                        } else {
-                            LocationPermissionDenied
-                        }
-                    }
-            }
     }
 }
 

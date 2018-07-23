@@ -45,10 +45,7 @@ class HomeUpdate : Update<HomeModel, HomeEvent, HomeEffect> {
         return when (event) {
             is UsersReceived -> Next.next(
                 model.copy(
-                    isProgress = false,
-                    isError = false,
-                    isContent = true,
-                    users = map(event.users)
+                    isProgress = false, isError = false, isContent = true, users = map(event.users)
                 )
             )
             GetUsersRequested -> Next.dispatch(Effects.effects(GetUsersEffect))
