@@ -5,14 +5,18 @@ import android.content.Context
 import android.location.Location
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.tasks.OnCompleteListener
 import com.kaciula.archiman.domain.boundary.infrastructure.LatLng
 import com.kaciula.archiman.domain.boundary.infrastructure.LocationProvider
 import io.reactivex.Single
 import timber.log.Timber
 
-class LocationProviderImpl(context: Context) : LocationProvider {
+class LocationProviderImpl(
+    private val context: Context
+) : LocationProvider {
 
     private val locationClient: FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(context)
@@ -39,6 +43,27 @@ class LocationProviderImpl(context: Context) : LocationProvider {
                 }
             }
             locationClient.lastLocation.addOnCompleteListener(completeListener)
+        }
+    }
+
+    override fun checkNeededSettingsEnabled(): Single<Boolean> {
+        return Single.create { emitter ->
+            val locationRequest = LocationRequest.create()
+                .apply {
+                    interval = 10000
+                    fastestInterval = 5000
+                    priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+                }
+            val settingsClient = LocationServices.getSettingsClient(context)
+            val locationSettingsRequest =
+                LocationSettingsRequest.Builder().addLocationRequest(locationRequest).build()
+            settingsClient.checkLocationSettings(locationSettingsRequest)
+                .addOnSuccessListener {
+                    emitter.onSuccess(true)
+                }
+                .addOnFailureListener {
+                    emitter.onSuccess(false)
+                }
         }
     }
 }

@@ -19,11 +19,12 @@ object LastKnownLocationRefreshRequested : UserDetailsEvent()
 object GetLocationPermissionDenied : UserDetailsEvent()
 object LocationPermissionDenied : UserDetailsEvent()
 object LocationPermissionGranted : UserDetailsEvent()
+object LocationSettingsInsufficient : UserDetailsEvent()
 
 sealed class UserDetailsEffect
 object GetLastKnownLocation : UserDetailsEffect()
 object RequestLocationPermission : UserDetailsEffect()
-
+object RequestMoreLocationSettings : UserDetailsEffect()
 
 class UserDetailsInit : Init<UserDetailsModel, UserDetailsEffect> {
     override fun init(model: UserDetailsModel): First<UserDetailsModel, UserDetailsEffect> {
@@ -76,6 +77,9 @@ class UserDetailsUpdate : Update<UserDetailsModel, UserDetailsEvent, UserDetails
 
             }
             is LocationPermissionDenied -> Next.dispatch(Effects.effects(RequestLocationPermission))
+            is LocationSettingsInsufficient -> Next.dispatch(
+                Effects.effects(RequestMoreLocationSettings)
+            )
         }
     }
 }

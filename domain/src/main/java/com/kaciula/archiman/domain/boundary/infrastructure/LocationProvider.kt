@@ -5,6 +5,8 @@ import io.reactivex.Single
 interface LocationProvider {
 
     fun getLastKnownLocation(): Single<LatLng>
+
+    fun checkNeededSettingsEnabled(): Single<Boolean>
 }
 
 sealed class LatLng {
