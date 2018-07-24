@@ -54,7 +54,6 @@ class HomeController : BaseController(), Connectable<HomeModel, HomeEvent> {
     }
 
     override fun connect(output: Consumer<HomeEvent>): Connection<HomeModel> {
-        this.output = output
         initialize(output)
 
         return object : Connection<HomeModel> {
@@ -84,6 +83,7 @@ class HomeController : BaseController(), Connectable<HomeModel, HomeEvent> {
     }
 
     private fun initialize(output: Consumer<HomeEvent>) {
+        this.output = output
         recyclerView.addItemDecoration(DividerItemDecoration(activity!!))
         recyclerView.layoutManager =
                 LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
