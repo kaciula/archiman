@@ -19,12 +19,16 @@ object LastKnownLocationRefreshRequested : UserDetailsEvent()
 object GetLocationPermissionDenied : UserDetailsEvent()
 object LocationPermissionDenied : UserDetailsEvent()
 object LocationPermissionGranted : UserDetailsEvent()
-object LocationSettingsInsufficient : UserDetailsEvent()
+object LocationSettingsInsufficientResolvable : UserDetailsEvent()
+object LocationSettingsInsufficientNoResolution : UserDetailsEvent()
+object LocationSettingsResolved : UserDetailsEvent()
+object LocationSettingsStillNotResolved : UserDetailsEvent()
 
 sealed class UserDetailsEffect
 object GetLastKnownLocation : UserDetailsEffect()
 object RequestLocationPermission : UserDetailsEffect()
 object RequestMoreLocationSettings : UserDetailsEffect()
+object ShowLocationSettingsNoResolution : UserDetailsEffect()
 
 class UserDetailsInit : Init<UserDetailsModel, UserDetailsEffect> {
     override fun init(model: UserDetailsModel): First<UserDetailsModel, UserDetailsEffect> {
@@ -54,18 +58,18 @@ class UserDetailsUpdate : Update<UserDetailsModel, UserDetailsEvent, UserDetails
                     lastKnownLocation = event.location
                 )
             )
-            is LastKnownLocationRefreshRequested -> Next.next(
+            LastKnownLocationRefreshRequested -> Next.next(
                 model.copy(
                     isProgressGetLocation = true,
                     isErrorGetLocation = false,
                     isContentGetLocation = false
                 ), Effects.effects(GetLastKnownLocation)
             )
-            is GetLocationPermissionDenied -> Next.next(
+            GetLocationPermissionDenied -> Next.next(
                 model.copy(getLocationWaitingForPermission = true),
                 Effects.effects(RequestLocationPermission)
             )
-            is LocationPermissionGranted -> {
+            LocationPermissionGranted -> {
                 if (model.getLocationWaitingForPermission) {
                     Next.next(
                         model.copy(getLocationWaitingForPermission = false),
@@ -74,10 +78,24 @@ class UserDetailsUpdate : Update<UserDetailsModel, UserDetailsEvent, UserDetails
                 } else {
                     Next.noChange()
                 }
-
             }
-            is LocationPermissionDenied -> Next.dispatch(Effects.effects(RequestLocationPermission))
-            is LocationSettingsInsufficient -> Next.dispatch(
+            LocationPermissionDenied -> Next.dispatch(Effects.effects(RequestLocationPermission))
+            LocationSettingsInsufficientResolvable -> Next.dispatch(
+                Effects.effects(RequestMoreLocationSettings)
+            )
+            LocationSettingsInsufficientNoResolution -> Next.dispatch(
+                Effects.effects(ShowLocationSettingsNoResolution)
+            )
+            LocationSettingsResolved ->
+                if (model.getLocationWaitingForPermission) {
+                    Next.next(
+                        model.copy(getLocationWaitingForPermission = false),
+                        Effects.effects(GetLastKnownLocation as UserDetailsEffect)
+                    )
+                } else {
+                    Next.noChange()
+                }
+            LocationSettingsStillNotResolved -> Next.dispatch(
                 Effects.effects(RequestMoreLocationSettings)
             )
         }

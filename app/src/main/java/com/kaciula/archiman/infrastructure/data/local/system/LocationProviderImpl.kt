@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Location
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
@@ -11,6 +12,7 @@ import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.tasks.OnCompleteListener
 import com.kaciula.archiman.domain.boundary.infrastructure.LatLng
 import com.kaciula.archiman.domain.boundary.infrastructure.LocationProvider
+import com.kaciula.archiman.domain.boundary.infrastructure.LocationSettingsNeeded
 import io.reactivex.Single
 import timber.log.Timber
 
@@ -20,6 +22,7 @@ class LocationProviderImpl(
 
     private val locationClient: FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(context)
+    lateinit var settingsResolvableApiException: ResolvableApiException
 
     @SuppressLint("MissingPermission")
     override fun getLastKnownLocation(): Single<LatLng> {
@@ -46,7 +49,7 @@ class LocationProviderImpl(
         }
     }
 
-    override fun checkNeededSettingsEnabled(): Single<Boolean> {
+    override fun checkNeededSettingsAvailable(): Single<LocationSettingsNeeded> {
         return Single.create { emitter ->
             val locationRequest = LocationRequest.create()
                 .apply {
@@ -59,10 +62,17 @@ class LocationProviderImpl(
                 LocationSettingsRequest.Builder().addLocationRequest(locationRequest).build()
             settingsClient.checkLocationSettings(locationSettingsRequest)
                 .addOnSuccessListener {
-                    emitter.onSuccess(true)
+                    emitter.onSuccess(LocationSettingsNeeded.AVAILABLE)
                 }
                 .addOnFailureListener {
-                    emitter.onSuccess(false)
+                    if (it is ResolvableApiException) {
+                        // Location settings are not satisfied, but this can be fixed
+                        // by showing the user a dialog.
+                        settingsResolvableApiException = it
+                        emitter.onSuccess(LocationSettingsNeeded.UNAVAILABLE_RESOLVABLE)
+                    } else {
+                        emitter.onSuccess(LocationSettingsNeeded.UNAVAILABLE_NO_RESOLUTION)
+                    }
                 }
         }
     }

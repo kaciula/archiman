@@ -2,9 +2,11 @@ package com.kaciula.archiman.presentation.screens.userdetails
 
 import android.Manifest
 import android.widget.Toast
-import com.bluelinelabs.conductor.Controller
 import com.kaciula.archiman.domain.boundary.infrastructure.LocationProvider
+import com.kaciula.archiman.domain.boundary.infrastructure.LocationSettingsNeeded
 import com.kaciula.archiman.domain.util.SchedulerProvider
+import com.kaciula.archiman.infrastructure.data.local.system.LocationProviderImpl
+import com.kaciula.archiman.presentation.screens.main.MainActivity
 import com.spotify.mobius.rx2.RxMobius
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.Completable
@@ -14,7 +16,7 @@ import io.reactivex.Single
 import java.util.concurrent.TimeUnit
 
 class UserDetailsEffectHandlers(
-    private val controller: Controller,
+    private val controller: UserDetailsController,
     private val schedulerProvider: SchedulerProvider,
     private val locationProvider: LocationProvider
 ) {
@@ -29,6 +31,10 @@ class UserDetailsEffectHandlers(
             .addTransformer(
                 RequestMoreLocationSettings::class.java, ::handleRequestMoreLocationSettings
             )
+            .addTransformer(
+                ShowLocationSettingsNoResolution::class.java,
+                ::handleShowLocationSettingsNoResolution
+            )
             .build()
     }
 
@@ -42,14 +48,21 @@ class UserDetailsEffectHandlers(
                     .flatMap { granted ->
                         if (granted) {
                             locationProvider
-                                .checkNeededSettingsEnabled()
-                                .flatMap { hasNeededSettingsEnabled ->
-                                    if (hasNeededSettingsEnabled) {
-                                        locationProvider.getLastKnownLocation()
-                                            .map<UserDetailsEvent> { LastKnownLocationReceived(it) }
-                                            .delay(10, TimeUnit.SECONDS)
-                                    } else {
-                                        Single.just(LocationSettingsInsufficient)
+                                .checkNeededSettingsAvailable()
+                                .flatMap { locationSettingsNeeded ->
+                                    when (locationSettingsNeeded) {
+                                        LocationSettingsNeeded.AVAILABLE ->
+                                            locationProvider.getLastKnownLocation()
+                                                .map<UserDetailsEvent> {
+                                                    LastKnownLocationReceived(it)
+                                                }
+                                                .delay(10, TimeUnit.SECONDS)
+                                        LocationSettingsNeeded.UNAVAILABLE_RESOLVABLE -> Single.just(
+                                            LocationSettingsInsufficientResolvable
+                                        )
+                                        LocationSettingsNeeded.UNAVAILABLE_NO_RESOLUTION -> Single.just(
+                                            LocationSettingsInsufficientNoResolution
+                                        )
                                     }
                                 }
                         } else {
@@ -88,9 +101,24 @@ class UserDetailsEffectHandlers(
             .flatMapCompletable {
                 Completable
                     .fromAction {
+                        (controller.activity as MainActivity).showLocationSettingsDialog(
+                            (locationProvider as LocationProviderImpl).settingsResolvableApiException
+                        )
+                    }
+            }
+            .toObservable()
+    }
+
+    private fun handleShowLocationSettingsNoResolution(request: Observable<ShowLocationSettingsNoResolution>)
+            : Observable<UserDetailsEvent> {
+        return request
+            .observeOn(schedulerProvider.ui())
+            .flatMapCompletable {
+                Completable
+                    .fromAction {
                         Toast.makeText(
                             controller.activity,
-                            "Not enough location settings",
+                            "The device does not have the necessary capabilities for the location feature!",
                             Toast.LENGTH_SHORT
                         ).show()
                     }

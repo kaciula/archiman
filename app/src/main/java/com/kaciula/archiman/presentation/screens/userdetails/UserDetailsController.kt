@@ -36,6 +36,7 @@ class UserDetailsController(args: Bundle) : BaseController(args),
         .logger(MobiusLogger())
     private val controller = MobiusAndroid
         .controller(loopFactory, UserDetailsModel(userName = user.name))
+    private lateinit var output: Consumer<UserDetailsEvent>
 
     constructor(user: UserViewModel) : this(
         BundleBuilder(Bundle())
@@ -60,7 +61,7 @@ class UserDetailsController(args: Bundle) : BaseController(args),
     }
 
     override fun connect(output: Consumer<UserDetailsEvent>): Connection<UserDetailsModel> {
-        btnRefreshLocation.setOnClickListener { output.accept(LastKnownLocationRefreshRequested) }
+        initialize(output)
 
         return object : Connection<UserDetailsModel> {
             override fun accept(value: UserDetailsModel) {
@@ -68,9 +69,18 @@ class UserDetailsController(args: Bundle) : BaseController(args),
             }
 
             override fun dispose() {
-                btnRefreshLocation.setOnClickListener(null)
+                tearDown()
             }
         }
+    }
+
+    private fun initialize(output: Consumer<UserDetailsEvent>) {
+        this.output = output
+        btnRefreshLocation.setOnClickListener { output.accept(LastKnownLocationRefreshRequested) }
+    }
+
+    private fun tearDown() {
+        btnRefreshLocation.setOnClickListener(null)
     }
 
     @SuppressLint("SetTextI18n")
@@ -87,6 +97,10 @@ class UserDetailsController(args: Bundle) : BaseController(args),
             tvStatus.text = "Current location = ${model.lastKnownLocation}"
             btnRefreshLocation.visibility = View.VISIBLE
         }
+    }
+
+    fun accept(event: UserDetailsEvent) {
+        output.accept(event)
     }
 }
 

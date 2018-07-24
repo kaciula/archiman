@@ -48,6 +48,10 @@ class CoordinatorImpl(val context: Context) : Coordinator {
         )
     }
 
+    override fun userDetailsController(): UserDetailsController {
+        return router.getControllerWithTag(TAG_CONTROLLER_USER_DETAILS) as UserDetailsController
+    }
+
     private fun homeController(): HomeController {
         return router.getControllerWithTag(TAG_CONTROLLER_HOME) as HomeController
     }
