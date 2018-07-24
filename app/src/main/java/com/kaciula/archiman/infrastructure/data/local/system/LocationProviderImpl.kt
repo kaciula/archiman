@@ -5,15 +5,13 @@ import android.content.Context
 import android.location.Location
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.LocationSettingsRequest
+import com.google.android.gms.location.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.kaciula.archiman.domain.boundary.infrastructure.LatLng
 import com.kaciula.archiman.domain.boundary.infrastructure.LocationProvider
 import com.kaciula.archiman.domain.boundary.infrastructure.LocationSettingsNeeded
 import io.reactivex.Single
+import io.reactivex.SingleEmitter
 import timber.log.Timber
 
 class LocationProviderImpl(
@@ -22,6 +20,12 @@ class LocationProviderImpl(
 
     private val locationClient: FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(context)
+    private val locationRequest = LocationRequest.create()
+        .apply {
+            interval = 2000
+            fastestInterval = 0
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
     lateinit var settingsResolvableApiException: ResolvableApiException
 
     @SuppressLint("MissingPermission")
@@ -30,11 +34,11 @@ class LocationProviderImpl(
             val completeListener = OnCompleteListener<Location?> { task ->
                 if (task.isSuccessful) {
                     val location = task.result
-                    val latLng = if (location != null) LatLng.Value(
-                        location.latitude,
-                        location.longitude
-                    ) else LatLng.UNAVAILABLE
-                    emitter.onSuccess(latLng)
+                    if (location != null) {
+                        emitter.onSuccess(LatLng.Value(location.latitude, location.longitude))
+                    } else {
+                        requestFreshLocation(emitter)
+                    }
                 } else {
                     if (task.exception is ApiException) {
                         val apiException = task.exception as ApiException
@@ -49,14 +53,20 @@ class LocationProviderImpl(
         }
     }
 
+    @SuppressLint("MissingPermission")
+    private fun requestFreshLocation(emitter: SingleEmitter<LatLng>) {
+        locationClient
+            .requestLocationUpdates(locationRequest, object : LocationCallback() {
+                override fun onLocationResult(locationResult: LocationResult) {
+                    locationClient.removeLocationUpdates(this)
+                    val location = locationResult.lastLocation
+                    emitter.onSuccess(LatLng.Value(location.latitude, location.longitude))
+                }
+            }, null)
+    }
+
     override fun checkNeededSettingsAvailable(): Single<LocationSettingsNeeded> {
         return Single.create { emitter ->
-            val locationRequest = LocationRequest.create()
-                .apply {
-                    interval = 10000
-                    fastestInterval = 5000
-                    priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-                }
             val settingsClient = LocationServices.getSettingsClient(context)
             val locationSettingsRequest =
                 LocationSettingsRequest.Builder().addLocationRequest(locationRequest).build()

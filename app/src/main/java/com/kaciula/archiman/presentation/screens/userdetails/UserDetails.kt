@@ -8,8 +8,7 @@ data class UserDetailsModel(
     val isProgressGetLocation: Boolean = false,
     val isContentGetLocation: Boolean = false,
     val isErrorGetLocation: Boolean = false,
-    val lastKnownLocation: LatLng = LatLng.UNAVAILABLE,
-    val getLocationWaitingForPermission: Boolean = false
+    val lastKnownLocation: LatLng = LatLng.UNAVAILABLE
 )
 
 
@@ -65,16 +64,12 @@ class UserDetailsUpdate : Update<UserDetailsModel, UserDetailsEvent, UserDetails
                     isContentGetLocation = false
                 ), Effects.effects(GetLastKnownLocation)
             )
-            GetLocationPermissionDenied -> Next.next(
-                model.copy(getLocationWaitingForPermission = true),
+            GetLocationPermissionDenied -> Next.dispatch(
                 Effects.effects(RequestLocationPermission)
             )
             LocationPermissionGranted -> {
-                if (model.getLocationWaitingForPermission) {
-                    Next.next(
-                        model.copy(getLocationWaitingForPermission = false),
-                        Effects.effects(GetLastKnownLocation as UserDetailsEffect)
-                    )
+                if (model.isProgressGetLocation) {
+                    Next.dispatch(Effects.effects(GetLastKnownLocation as UserDetailsEffect))
                 } else {
                     Next.noChange()
                 }
@@ -87,11 +82,8 @@ class UserDetailsUpdate : Update<UserDetailsModel, UserDetailsEvent, UserDetails
                 Effects.effects(ShowLocationSettingsNoResolution)
             )
             LocationSettingsResolved ->
-                if (model.getLocationWaitingForPermission) {
-                    Next.next(
-                        model.copy(getLocationWaitingForPermission = false),
-                        Effects.effects(GetLastKnownLocation as UserDetailsEffect)
-                    )
+                if (model.isProgressGetLocation) {
+                    Next.dispatch(Effects.effects(GetLastKnownLocation as UserDetailsEffect))
                 } else {
                     Next.noChange()
                 }
