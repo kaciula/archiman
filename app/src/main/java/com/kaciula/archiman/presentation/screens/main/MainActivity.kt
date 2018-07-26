@@ -7,12 +7,14 @@ import android.content.IntentSender
 import android.os.Bundle
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
+import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.api.ResolvableApiException
 import com.kaciula.archiman.R
 import com.kaciula.archiman.presentation.screens.userdetails.LocationSettingsResolved
 import com.kaciula.archiman.presentation.screens.userdetails.LocationSettingsStillNotResolved
 import com.kaciula.archiman.presentation.util.DevDrawer
 import com.kaciula.archiman.presentation.util.base.BaseActivity
+import io.reactivex.Single
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 import timber.log.Timber
@@ -35,11 +37,18 @@ class MainActivity : BaseActivity() {
         coordinator.start()
 
         setupDevDrawer()
+
+        checkPlayServices().subscribe { isAvailable ->
+            Timber.i("Play services available $isAvailable")
+        }
     }
 
     override fun onResume() {
         super.onResume()
         Timber.i("Resuming ...")
+        checkPlayServices().subscribe { isAvailable ->
+            Timber.i("Play services available $isAvailable")
+        }
     }
 
     override fun onBackPressed() {
@@ -55,7 +64,9 @@ class MainActivity : BaseActivity() {
             } else {
                 coordinator.userDetailsController().accept(LocationSettingsStillNotResolved)
             }
-        }
+        } /*else if (requestCode == REQUEST_PLAY_SERVICES_RESOLUTION) {
+            Toast.makeText(this, "Play Services resolution", Toast.LENGTH_SHORT).show()
+        }*/
     }
 
     fun showLocationSettingsDialog(settingsResolvableApiException: ResolvableApiException) {
@@ -64,9 +75,40 @@ class MainActivity : BaseActivity() {
             settingsResolvableApiException
                 .startResolutionForResult(this, REQUEST_SHOW_LOCATION_SETTINGS)
         } catch (sendEx: IntentSender.SendIntentException) {
-            Timber.w(sendEx)
-            // Problem starting the location screen
+            Timber.e(sendEx, "Could not open location settings dialog")
         }
+    }
+
+    /**
+     * Check the device to make sure it has the Google Play Services APK. If
+     * it doesn't, display a dialog that allows users to download the APK from
+     * the Google Play Store or enable it in the device's system settings.
+     */
+    private fun checkPlayServices(): Single<Boolean> {
+        return Single.create { emitter ->
+            GoogleApiAvailability.getInstance()
+                .makeGooglePlayServicesAvailable(this)
+                .addOnSuccessListener {
+                    emitter.onSuccess(true)
+                }.addOnFailureListener {
+                    emitter.onSuccess(false)
+                }
+        }
+
+
+        /*val apiAvailability = GoogleApiAvailability.getInstance()
+        val resultCode = apiAvailability.isGooglePlayServicesAvailable(this)
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability
+                    .getErrorDialog(this, resultCode, REQUEST_PLAY_SERVICES_RESOLUTION)
+                    .show()
+            } else {
+                Timber.e(Throwable("Play Services not available"))
+            }
+            return false
+        }
+        return true*/
     }
 
     private fun setupDevDrawer() {
@@ -81,3 +123,4 @@ class MainActivity : BaseActivity() {
 }
 
 private const val REQUEST_SHOW_LOCATION_SETTINGS = 1
+private const val REQUEST_PLAY_SERVICES_RESOLUTION = 9000
