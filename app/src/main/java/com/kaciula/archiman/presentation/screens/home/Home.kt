@@ -1,7 +1,13 @@
 package com.kaciula.archiman.presentation.screens.home
 
 import com.kaciula.archiman.domain.model.User
-import com.spotify.mobius.*
+import com.spotify.mobius.Effects.effects
+import com.spotify.mobius.First
+import com.spotify.mobius.Init
+import com.spotify.mobius.Next
+import com.spotify.mobius.Next.dispatch
+import com.spotify.mobius.Next.next
+import com.spotify.mobius.Update
 import java.util.*
 
 data class HomeModel(
@@ -31,7 +37,7 @@ class HomeInit : Init<HomeModel, HomeEffect> {
         if (!model.isContent) {
             return First.first(
                 model.copy(isProgress = true, isError = false),
-                Effects.effects(GetUsersEffect as HomeEffect)
+                effects(GetUsersEffect as HomeEffect)
             )
         }
         return First.first(model)
@@ -43,16 +49,39 @@ class HomeUpdate : Update<HomeModel, HomeEvent, HomeEffect> {
 
     override fun update(model: HomeModel, event: HomeEvent): Next<HomeModel, HomeEffect> {
         return when (event) {
-            is UsersReceived -> Next.next(
-                model.copy(
-                    isProgress = false, isError = false, isContent = true, users = map(event.users)
-                )
-            )
-            GetUsersRequested -> Next.dispatch(Effects.effects(GetUsersEffect))
-            is UserClicked -> Next.dispatch(Effects.effects(ShowUserInfoDialog(event.user)))
-            is UserDetailsClicked -> Next.dispatch(Effects.effects(GoToUserDetailsScreen(event.user)))
-            is UserInfoDialogOkClicked -> Next.dispatch(Effects.effects(ShowUserInfoOkDialog(event.user)))
+            is UsersReceived -> onUsersReceived(model, event)
+            GetUsersRequested -> getUsers()
+            is UserClicked -> showUserInfoDialog(event.user)
+            is UserDetailsClicked -> goToUserDetailsScreen(event.user)
+            is UserInfoDialogOkClicked -> showUserInfoOkDialog(event.user)
         }
+    }
+
+    private fun onUsersReceived(
+        model: HomeModel,
+        event: UsersReceived
+    ): Next<HomeModel, HomeEffect> {
+        return next(
+            model.copy(
+                isProgress = false, isError = false, isContent = true, users = map(event.users)
+            )
+        )
+    }
+
+    private fun getUsers(): Next<HomeModel, HomeEffect> {
+        return dispatch(effects(GetUsersEffect))
+    }
+
+    private fun showUserInfoDialog(user: UserViewModel): Next<HomeModel, HomeEffect> {
+        return dispatch(effects(ShowUserInfoDialog(user)))
+    }
+
+    private fun goToUserDetailsScreen(user: UserViewModel): Next<HomeModel, HomeEffect> {
+        return dispatch(effects(GoToUserDetailsScreen(user)))
+    }
+
+    private fun showUserInfoOkDialog(user: UserViewModel): Next<HomeModel, HomeEffect> {
+        return dispatch(effects(ShowUserInfoOkDialog(user)))
     }
 
     private fun map(users: List<User>): List<UserViewModel> {
