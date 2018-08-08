@@ -18,4 +18,6 @@ interface Coordinator {
     fun showUserInfoOkDialog(title: String, description: String)
 
     fun goToUserDetailsScreen(user: UserViewModel)
+
+    fun showToast(text: String)
 }

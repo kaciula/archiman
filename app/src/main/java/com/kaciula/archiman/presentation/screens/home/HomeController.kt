@@ -1,5 +1,6 @@
 package com.kaciula.archiman.presentation.screens.home
 
+import android.arch.lifecycle.Lifecycle
 import android.os.Looper
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -13,12 +14,16 @@ import com.spotify.mobius.Connectable
 import com.spotify.mobius.Connection
 import com.spotify.mobius.android.MobiusAndroid
 import com.spotify.mobius.functions.Consumer
+import com.spotify.mobius.rx2.RxEventSources
 import com.spotify.mobius.rx2.RxMobius
+import io.reactivex.Observable
 import kotlinx.android.synthetic.main.controller_home.*
 import kotlinx.android.synthetic.main.widget_error.*
+import org.joda.time.LocalDateTime
 import org.koin.standalone.inject
 import org.koin.standalone.releaseContext
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 
 class HomeController : BaseController(), Connectable<HomeModel, HomeEvent> {
 
@@ -27,9 +32,21 @@ class HomeController : BaseController(), Connectable<HomeModel, HomeEvent> {
 
     private val effectHandlers: HomeEffectHandlers by inject()
 
+    private val lifecycleAwarePoll = lifecycleObservable()
+        .switchMap {
+            if (it == Lifecycle.State.RESUMED) {
+                Observable.interval(0, 10, TimeUnit.SECONDS)
+                    .switchMap { Observable.just(LocalDateTime()) }
+            } else {
+                Observable.empty()
+            }
+        }
+        .map { TimeTickEvent(it) as HomeEvent }
+
     private val loopFactory = RxMobius
         .loop(HomeUpdate(), effectHandlers.build())
         .init(HomeInit())
+        .eventSource(RxEventSources.fromObservables(lifecycleAwarePoll))
         .logger(MobiusLogger())
     private val controller = MobiusAndroid
         .controller(loopFactory, HomeModel())

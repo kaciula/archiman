@@ -1,6 +1,7 @@
 package com.kaciula.archiman.presentation.screens.main
 
 import android.content.Context
+import android.widget.Toast
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
 import com.kaciula.archiman.presentation.screens.home.HomeController
@@ -58,6 +59,10 @@ class CoordinatorImpl(val context: Context) : Coordinator {
 
     private fun homeDialogRouter(): Router {
         return homeController().dialogRouter()
+    }
+
+    override fun showToast(text: String) {
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
     }
 }
 

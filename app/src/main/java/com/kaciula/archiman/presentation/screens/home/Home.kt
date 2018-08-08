@@ -8,6 +8,7 @@ import com.spotify.mobius.Next
 import com.spotify.mobius.Next.dispatch
 import com.spotify.mobius.Next.next
 import com.spotify.mobius.Update
+import org.joda.time.LocalDateTime
 import java.util.*
 
 data class HomeModel(
@@ -25,12 +26,14 @@ object GetUsersRequested : HomeEvent()
 data class UserClicked(val user: UserViewModel) : HomeEvent()
 data class UserDetailsClicked(val user: UserViewModel) : HomeEvent()
 data class UserInfoDialogOkClicked(val user: UserViewModel) : HomeEvent()
+data class TimeTickEvent(val dateTime: LocalDateTime) : HomeEvent()
 
 sealed class HomeEffect
 object GetUsersEffect : HomeEffect()
 data class GoToUserDetailsScreen(val user: UserViewModel) : HomeEffect()
 data class ShowUserInfoDialog(val user: UserViewModel) : HomeEffect()
 data class ShowUserInfoOkDialog(val user: UserViewModel) : HomeEffect()
+data class ShowToast(val text: String) : HomeEffect()
 
 class HomeInit : Init<HomeModel, HomeEffect> {
     override fun init(model: HomeModel): First<HomeModel, HomeEffect> {
@@ -54,6 +57,7 @@ class HomeUpdate : Update<HomeModel, HomeEvent, HomeEffect> {
             is UserClicked -> showUserInfoDialog(event.user)
             is UserDetailsClicked -> goToUserDetailsScreen(event.user)
             is UserInfoDialogOkClicked -> showUserInfoOkDialog(event.user)
+            is TimeTickEvent -> showToastWithText(event.dateTime.toString("HH:mm:ss"))
         }
     }
 
@@ -90,5 +94,9 @@ class HomeUpdate : Update<HomeModel, HomeEvent, HomeEffect> {
             usersList.add(UserViewModel(user.name))
         }
         return usersList
+    }
+
+    private fun showToastWithText(text: String): Next<HomeModel, HomeEffect> {
+        return dispatch(effects(ShowToast(text)))
     }
 }

@@ -20,6 +20,7 @@ class HomeEffectHandlers(
             .addTransformer(GoToUserDetailsScreen::class.java, ::handleGoToUserDetailsScreen)
             .addTransformer(ShowUserInfoDialog::class.java, ::handleShowUserInfoDialog)
             .addTransformer(ShowUserInfoOkDialog::class.java, ::handleShowUserInfoOkDialog)
+            .addTransformer(ShowToast::class.java, ::handleShowToast)
             .build()
     }
 
@@ -52,6 +53,15 @@ class HomeEffectHandlers(
                     "Success",
                     "Clicked OK on user info dialog for ${it.user}"
                 )
+            }
+            .flatMap { Observable.empty<HomeEvent>() }
+    }
+
+    private fun handleShowToast(request: Observable<ShowToast>): Observable<HomeEvent> {
+        return request
+            .observeOn(schedulerProvider.ui())
+            .doOnNext {
+                coordinator.showToast(it.text)
             }
             .flatMap { Observable.empty<HomeEvent>() }
     }

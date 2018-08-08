@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bluelinelabs.conductor.Controller
+import com.bluelinelabs.conductor.archlifecycle.LifecycleController
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.*
 
-abstract class KotlinController(args: Bundle = Bundle()) : Controller(args),
+abstract class KotlinController(args: Bundle = Bundle()) : LifecycleController(args),
     LayoutContainer {
 
     abstract val layoutRes: Int

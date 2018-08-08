@@ -3,7 +3,7 @@ final PLAY_SERVICES_VERSION = '12.0.1'
 final LEAK_CANARY_VERSION = '1.5.4'
 final RETROFIT_VERSION = '2.4.0'
 final OKHTTP_VERSION = '3.10.0'
-final CONDUCTOR_VERSION = '2.1.4'
+final CONDUCTOR_VERSION = '2.1.5'
 final DEBUG_DRAWER = '0.8.0'
 final RUNNER_VERSION = '0.5'
 final JODA_TIME_ANDROID_VERSION = '2.9.9.3'
@@ -27,6 +27,9 @@ def core = dependencyGroup {
     implementation "com.android.support:design:$SUPPORT_LIBRARY_VERSION"
     implementation "com.android.support.constraint:constraint-layout:1.0.2"
 
+    implementation "android.arch.core:runtime:1.1.1"
+    implementation "android.arch.core:common:1.1.1"
+
     implementation "com.google.android.gms:play-services-location:$PLAY_SERVICES_VERSION"
 
     implementation 'com.jakewharton.timber:timber:4.7.0'
@@ -45,6 +48,7 @@ def core = dependencyGroup {
 
     implementation "com.bluelinelabs:conductor:$CONDUCTOR_VERSION"
     implementation "com.bluelinelabs:conductor-support:$CONDUCTOR_VERSION"
+    implementation "com.bluelinelabs:conductor-archlifecycle:$CONDUCTOR_VERSION"
 
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {
         transitive = true

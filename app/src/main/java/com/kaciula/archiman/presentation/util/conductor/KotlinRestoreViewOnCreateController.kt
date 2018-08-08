@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bluelinelabs.conductor.RestoreViewOnCreateController
+import com.bluelinelabs.conductor.archlifecycle.LifecycleRestoreViewOnCreateController
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.*
 
 abstract class KotlinRestoreViewOnCreateController(args: Bundle = Bundle()) :
-    RestoreViewOnCreateController(args), LayoutContainer {
+    LifecycleRestoreViewOnCreateController(args), LayoutContainer {
 
     abstract val layoutRes: Int
 
