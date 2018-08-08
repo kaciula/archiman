@@ -9,8 +9,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.*
 
 abstract class KotlinRestoreViewOnCreateController(args: Bundle = Bundle()) :
-    RestoreViewOnCreateController(args),
-    LayoutContainer {
+    RestoreViewOnCreateController(args), LayoutContainer {
 
     abstract val layoutRes: Int
 

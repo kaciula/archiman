@@ -8,7 +8,8 @@ import com.bluelinelabs.conductor.Controller
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.*
 
-abstract class KotlinController(args: Bundle = Bundle()) : Controller(args), LayoutContainer {
+abstract class KotlinController(args: Bundle = Bundle()) : Controller(args),
+    LayoutContainer {
 
     abstract val layoutRes: Int
 
