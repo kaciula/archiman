@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.kaciula.archiman.di.KoinParam
 import com.kaciula.archiman.di.ScreenContext
 import com.kaciula.archiman.infrastructure.util.MobiusLogger
@@ -19,6 +20,7 @@ import com.kaciula.archiman.presentation.util.conductor.BundleBuilder
 import com.spotify.mobius.android.MobiusAndroid
 import com.spotify.mobius.rx2.RxEventSources
 import com.spotify.mobius.rx2.RxMobius
+import io.reactivex.functions.Action
 import io.reactivex.subjects.PublishSubject
 import org.koin.standalone.inject
 import org.koin.standalone.releaseContext
@@ -32,7 +34,9 @@ class UserDetailsController(args: Bundle) : BaseController(args) {
     private val eventSource: PublishSubject<UserDetailsEvent> = PublishSubject.create()
 
     private val loopFactory = RxMobius
-        .loop(UserDetailsUpdate(), effectHandlers.build())
+        .loop(UserDetailsUpdate(), effectHandlers.build(Action {
+            showToast("The device does not have the necessary capabilities for the location feature!")
+        }))
         .init(UserDetailsInit())
         .eventSource(RxEventSources.fromObservables(eventSource))
         .logger(MobiusLogger())
@@ -64,6 +68,10 @@ class UserDetailsController(args: Bundle) : BaseController(args) {
     override fun onDestroy() {
         releaseContext(ScreenContext.USER_DETAILS)
         super.onDestroy()
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
 
     fun publishEvent(event: UserDetailsEvent) {

@@ -1,7 +1,6 @@
 package com.kaciula.archiman.presentation.screens.userdetails.effecthandlers
 
 import android.Manifest
-import android.widget.Toast
 import com.kaciula.archiman.domain.boundary.infrastructure.LocationProvider
 import com.kaciula.archiman.domain.boundary.infrastructure.LocationSettingsNeeded
 import com.kaciula.archiman.domain.util.SchedulerProvider
@@ -15,6 +14,8 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.Action
 import java.util.concurrent.TimeUnit
 
 class UserDetailsEffectHandlers(
@@ -23,7 +24,7 @@ class UserDetailsEffectHandlers(
     private val locationProvider: LocationProvider
 ) {
 
-    fun build(): ObservableTransformer<UserDetailsEffect, UserDetailsEvent> {
+    fun build(showLocationSettingsNoResolution: Action): ObservableTransformer<UserDetailsEffect, UserDetailsEvent> {
         return RxMobius
             .subtypeEffectHandler<UserDetailsEffect, UserDetailsEvent>()
             .addTransformer(GetLastKnownLocation::class.java, ::handleGetLastKnownLocation)
@@ -33,9 +34,10 @@ class UserDetailsEffectHandlers(
             .addTransformer(
                 RequestMoreLocationSettings::class.java, ::handleRequestMoreLocationSettings
             )
-            .addTransformer(
+            .addAction(
                 ShowLocationSettingsNoResolution::class.java,
-                ::handleShowLocationSettingsNoResolution
+                showLocationSettingsNoResolution,
+                AndroidSchedulers.mainThread()
             )
             .build()
     }
@@ -106,23 +108,6 @@ class UserDetailsEffectHandlers(
                         (controller.activity as MainActivity).showLocationSettingsDialog(
                             (locationProvider as LocationProviderImpl).settingsResolvableApiException
                         )
-                    }
-            }
-            .toObservable()
-    }
-
-    private fun handleShowLocationSettingsNoResolution(request: Observable<ShowLocationSettingsNoResolution>)
-            : Observable<UserDetailsEvent> {
-        return request
-            .observeOn(schedulerProvider.ui())
-            .flatMapCompletable {
-                Completable
-                    .fromAction {
-                        Toast.makeText(
-                            controller.activity,
-                            "The device does not have the necessary capabilities for the location feature!",
-                            Toast.LENGTH_SHORT
-                        ).show()
                     }
             }
             .toObservable()
