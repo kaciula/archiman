@@ -60,9 +60,9 @@ class MainActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_SHOW_LOCATION_SETTINGS) {
             if (resultCode == Activity.RESULT_OK) {
-                coordinator.userDetailsController().accept(LocationSettingsResolved)
+                coordinator.userDetailsController().publishEvent(LocationSettingsResolved)
             } else {
-                coordinator.userDetailsController().accept(LocationSettingsStillNotResolved)
+                coordinator.userDetailsController().publishEvent(LocationSettingsStillNotResolved)
             }
         } /*else if (requestCode == REQUEST_PLAY_SERVICES_RESOLUTION) {
             Toast.makeText(this, "Play Services resolution", Toast.LENGTH_SHORT).show()

@@ -4,20 +4,13 @@ import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import com.kaciula.archiman.presentation.util.conductor.KotlinController
+import com.bluelinelabs.conductor.archlifecycle.LifecycleController
 import io.reactivex.Observable
 import org.koin.standalone.KoinComponent
 import timber.log.Timber
 
-abstract class BaseController(args: Bundle = Bundle()) : KotlinController(args), KoinComponent {
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
-        Timber.i("CREATE VIEW -> ${javaClass.simpleName}")
-        return super.onCreateView(inflater, container)
-    }
+abstract class BaseController(args: Bundle = Bundle()) : LifecycleController(args), KoinComponent {
 
     override fun onAttach(view: View) {
         super.onAttach(view)
@@ -29,8 +22,9 @@ abstract class BaseController(args: Bundle = Bundle()) : KotlinController(args),
         super.onDetach(view)
     }
 
-    override fun onViewDestroyed() {
+    override fun onDestroyView(view: View) {
         Timber.i("DESTROY VIEW -> ${javaClass.simpleName}")
+        super.onDestroyView(view)
     }
 
     override fun onDestroy() {
