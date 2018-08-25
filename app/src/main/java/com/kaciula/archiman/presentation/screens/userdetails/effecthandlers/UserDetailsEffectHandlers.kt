@@ -56,9 +56,7 @@ class UserDetailsEffectHandlers(
                                         LocationSettingsNeeded.AVAILABLE ->
                                             locationProvider.getLastKnownLocation()
                                                 .map<UserDetailsEvent> {
-                                                    LastKnownLocationReceived(
-                                                        it
-                                                    )
+                                                    LastKnownLocationReceived(it)
                                                 }
                                                 .delay(10, TimeUnit.SECONDS)
                                         LocationSettingsNeeded.UNAVAILABLE_RESOLVABLE -> Single.just(

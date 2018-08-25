@@ -47,11 +47,7 @@ class HomeController : BaseController() {
     private val controller = MobiusAndroid.controller(loopFactory, HomeModel())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
-        val theView = HomeView(
-            inflater,
-            container,
-            activity!!
-        )
+        val theView = HomeView(inflater, container, activity!!)
         controller.connect(theView)
         controller.start()
         return theView.containerView!!
@@ -75,10 +71,10 @@ class HomeController : BaseController() {
     }
 
     fun onClickOkUserInfoDialog(user: UserViewModel) {
-        eventSource.onNext(
-            UserInfoDialogOkClicked(
-                user
-            )
-        )
+        publishEvent(UserInfoDialogOkClicked(user))
+    }
+
+    private fun publishEvent(event: HomeEvent) {
+        eventSource.onNext(event)
     }
 }

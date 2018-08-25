@@ -44,20 +44,12 @@ class UserAdapter(
             tvUsername.text = user.name
             containerView.setOnClickListener {
                 if (adapterPosition != RecyclerView.NO_POSITION) {
-                    output.accept(
-                        UserClicked(
-                            items[adapterPosition]
-                        )
-                    )
+                    output.accept(UserClicked(items[adapterPosition]))
                 }
             }
             btnDetails.setOnClickListener {
                 if (adapterPosition != RecyclerView.NO_POSITION) {
-                    output.accept(
-                        UserDetailsClicked(
-                            items[adapterPosition]
-                        )
-                    )
+                    output.accept(UserDetailsClicked(items[adapterPosition]))
                 }
             }
         }

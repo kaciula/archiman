@@ -49,10 +49,7 @@ class UserDetailsController(args: Bundle) : BaseController(args) {
     )
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
-        val theView = UserDetailsView(
-            inflater,
-            container
-        )
+        val theView = UserDetailsView(inflater, container)
         controller.connect(theView)
         controller.start()
         return theView.containerView!!
