@@ -8,6 +8,9 @@ import android.widget.Toast
 import com.kaciula.archiman.R
 import com.kaciula.archiman.di.ScreenContext
 import com.kaciula.archiman.infrastructure.util.MobiusLogger
+import com.kaciula.archiman.presentation.screens.home.domain.*
+import com.kaciula.archiman.presentation.screens.home.effecthandlers.HomeEffectHandlers
+import com.kaciula.archiman.presentation.screens.home.view.HomeView
 import com.kaciula.archiman.presentation.util.base.BaseController
 import com.spotify.mobius.android.MobiusAndroid
 import com.spotify.mobius.rx2.RxEventSources
@@ -41,11 +44,14 @@ class HomeController : BaseController() {
         .init(HomeInit())
         .eventSource(RxEventSources.fromObservables(eventSource, lifecycleAwarePoll))
         .logger(MobiusLogger())
-    private val controller = MobiusAndroid
-        .controller(loopFactory, HomeModel())
+    private val controller = MobiusAndroid.controller(loopFactory, HomeModel())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
-        val theView = HomeView(inflater, container, activity!!)
+        val theView = HomeView(
+            inflater,
+            container,
+            activity!!
+        )
         controller.connect(theView)
         controller.start()
         return theView.containerView!!
@@ -69,6 +75,10 @@ class HomeController : BaseController() {
     }
 
     fun onClickOkUserInfoDialog(user: UserViewModel) {
-        eventSource.onNext(UserInfoDialogOkClicked(user))
+        eventSource.onNext(
+            UserInfoDialogOkClicked(
+                user
+            )
+        )
     }
 }

@@ -10,8 +10,8 @@ import com.bluelinelabs.conductor.Router
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.api.ResolvableApiException
 import com.kaciula.archiman.R
-import com.kaciula.archiman.presentation.screens.userdetails.LocationSettingsResolved
-import com.kaciula.archiman.presentation.screens.userdetails.LocationSettingsStillNotResolved
+import com.kaciula.archiman.presentation.screens.userdetails.domain.LocationSettingsResolved
+import com.kaciula.archiman.presentation.screens.userdetails.domain.LocationSettingsStillNotResolved
 import com.kaciula.archiman.presentation.util.DevDrawer
 import com.kaciula.archiman.presentation.util.base.BaseActivity
 import io.reactivex.Single

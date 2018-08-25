@@ -1,10 +1,13 @@
-package com.kaciula.archiman.presentation.screens.userdetails
+package com.kaciula.archiman.presentation.screens.userdetails.view
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kaciula.archiman.R
+import com.kaciula.archiman.presentation.screens.userdetails.domain.LastKnownLocationRefreshRequested
+import com.kaciula.archiman.presentation.screens.userdetails.domain.UserDetailsEvent
+import com.kaciula.archiman.presentation.screens.userdetails.domain.UserDetailsModel
 import com.kaciula.archiman.presentation.util.KotlinView
 import com.spotify.mobius.Connectable
 import com.spotify.mobius.Connection

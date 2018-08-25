@@ -1,45 +1,13 @@
-package com.kaciula.archiman.presentation.screens.userdetails
+package com.kaciula.archiman.presentation.screens.userdetails.domain
 
-import com.kaciula.archiman.domain.boundary.infrastructure.LatLng
-import com.spotify.mobius.Effects.effects
-import com.spotify.mobius.First
-import com.spotify.mobius.Init
-import com.spotify.mobius.Next
-import com.spotify.mobius.Next.*
-import com.spotify.mobius.Update
-
-data class UserDetailsModel(
-    val userName: String,
-    val isProgressGetLocation: Boolean = false,
-    val isContentGetLocation: Boolean = false,
-    val isErrorGetLocation: Boolean = false,
-    val lastKnownLocation: LatLng = LatLng.UNAVAILABLE
-)
-
-
-sealed class UserDetailsEvent
-data class LastKnownLocationReceived(val location: LatLng) : UserDetailsEvent()
-object LastKnownLocationRefreshRequested : UserDetailsEvent()
-object GetLocationPermissionDenied : UserDetailsEvent()
-object LocationPermissionDenied : UserDetailsEvent()
-object LocationPermissionGranted : UserDetailsEvent()
-object LocationSettingsInsufficientResolvable : UserDetailsEvent()
-object LocationSettingsInsufficientNoResolution : UserDetailsEvent()
-object LocationSettingsResolved : UserDetailsEvent()
-object LocationSettingsStillNotResolved : UserDetailsEvent()
-
-sealed class UserDetailsEffect
-object GetLastKnownLocation : UserDetailsEffect()
-object RequestLocationPermission : UserDetailsEffect()
-object RequestMoreLocationSettings : UserDetailsEffect()
-object ShowLocationSettingsNoResolution : UserDetailsEffect()
+import com.spotify.mobius.*
 
 class UserDetailsInit : Init<UserDetailsModel, UserDetailsEffect> {
     override fun init(model: UserDetailsModel): First<UserDetailsModel, UserDetailsEffect> {
         if (!model.isContentGetLocation) {
             return First.first(
                 model.copy(isProgressGetLocation = true, isErrorGetLocation = false),
-                effects(GetLastKnownLocation as UserDetailsEffect)
+                Effects.effects(GetLastKnownLocation as UserDetailsEffect)
             )
         }
         return First.first(model)
@@ -70,7 +38,7 @@ class UserDetailsUpdate : Update<UserDetailsModel, UserDetailsEvent, UserDetails
         model: UserDetailsModel,
         event: LastKnownLocationReceived
     ): Next<UserDetailsModel, UserDetailsEffect> {
-        return next(
+        return Next.next(
             model.copy(
                 isProgressGetLocation = false,
                 isErrorGetLocation = false,
@@ -83,40 +51,40 @@ class UserDetailsUpdate : Update<UserDetailsModel, UserDetailsEvent, UserDetails
     private fun onLastKnownLocationRefreshRequested(
         model: UserDetailsModel
     ): Next<UserDetailsModel, UserDetailsEffect> {
-        return next(
+        return Next.next(
             model.copy(
                 isProgressGetLocation = true,
                 isErrorGetLocation = false,
                 isContentGetLocation = false
-            ), effects(GetLastKnownLocation)
+            ), Effects.effects(GetLastKnownLocation)
         )
     }
 
     private fun requestLocationPermission(): Next<UserDetailsModel, UserDetailsEffect> {
-        return dispatch(effects(RequestLocationPermission))
+        return Next.dispatch(Effects.effects(RequestLocationPermission))
     }
 
     private fun onLocationPermissionGranted(model: UserDetailsModel): Next<UserDetailsModel, UserDetailsEffect> {
         return if (model.isProgressGetLocation) {
-            dispatch(effects(GetLastKnownLocation as UserDetailsEffect))
+            Next.dispatch(Effects.effects(GetLastKnownLocation as UserDetailsEffect))
         } else {
-            noChange()
+            Next.noChange()
         }
     }
 
     private fun requestMoreLocationSettings(): Next<UserDetailsModel, UserDetailsEffect> {
-        return dispatch(effects(RequestMoreLocationSettings))
+        return Next.dispatch(Effects.effects(RequestMoreLocationSettings))
     }
 
     private fun showLocationSettingsNoResolution(): Next<UserDetailsModel, UserDetailsEffect> {
-        return dispatch(effects(ShowLocationSettingsNoResolution))
+        return Next.dispatch(Effects.effects(ShowLocationSettingsNoResolution))
     }
 
     private fun onLocationSettingsResolved(model: UserDetailsModel): Next<UserDetailsModel, UserDetailsEffect> {
         return if (model.isProgressGetLocation) {
-            dispatch(effects(GetLastKnownLocation as UserDetailsEffect))
+            Next.dispatch(Effects.effects(GetLastKnownLocation as UserDetailsEffect))
         } else {
-            noChange()
+            Next.noChange()
         }
     }
 }

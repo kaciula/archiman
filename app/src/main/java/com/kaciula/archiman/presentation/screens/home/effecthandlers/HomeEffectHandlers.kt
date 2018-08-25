@@ -1,7 +1,8 @@
-package com.kaciula.archiman.presentation.screens.home
+package com.kaciula.archiman.presentation.screens.home.effecthandlers
 
 import com.kaciula.archiman.domain.usecases.GetUsers
 import com.kaciula.archiman.domain.util.SchedulerProvider
+import com.kaciula.archiman.presentation.screens.home.domain.*
 import com.kaciula.archiman.presentation.screens.main.Coordinator
 import com.spotify.mobius.rx2.RxMobius
 import io.reactivex.Observable
@@ -60,9 +61,7 @@ class HomeEffectHandlers(
     private fun handleShowToast(request: Observable<ShowToast>): Observable<HomeEvent> {
         return request
             .observeOn(schedulerProvider.ui())
-            .doOnNext {
-                coordinator.showToast(it.text)
-            }
+            .doOnNext { coordinator.showToast(it.text) }
             .flatMap { Observable.empty<HomeEvent>() }
     }
 }

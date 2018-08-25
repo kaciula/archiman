@@ -8,6 +8,12 @@ import com.kaciula.archiman.di.KoinParam
 import com.kaciula.archiman.di.ScreenContext
 import com.kaciula.archiman.infrastructure.util.MobiusLogger
 import com.kaciula.archiman.presentation.screens.home.UserViewModel
+import com.kaciula.archiman.presentation.screens.userdetails.domain.UserDetailsEvent
+import com.kaciula.archiman.presentation.screens.userdetails.domain.UserDetailsInit
+import com.kaciula.archiman.presentation.screens.userdetails.domain.UserDetailsModel
+import com.kaciula.archiman.presentation.screens.userdetails.domain.UserDetailsUpdate
+import com.kaciula.archiman.presentation.screens.userdetails.effecthandlers.UserDetailsEffectHandlers
+import com.kaciula.archiman.presentation.screens.userdetails.view.UserDetailsView
 import com.kaciula.archiman.presentation.util.base.BaseController
 import com.kaciula.archiman.presentation.util.conductor.BundleBuilder
 import com.spotify.mobius.android.MobiusAndroid
@@ -31,7 +37,10 @@ class UserDetailsController(args: Bundle) : BaseController(args) {
         .eventSource(RxEventSources.fromObservables(eventSource))
         .logger(MobiusLogger())
     private val controller = MobiusAndroid
-        .controller(loopFactory, UserDetailsModel(userName = user.name))
+        .controller(
+            loopFactory,
+            UserDetailsModel(userName = user.name)
+        )
 
     constructor(user: UserViewModel) : this(
         BundleBuilder(Bundle())
@@ -40,7 +49,10 @@ class UserDetailsController(args: Bundle) : BaseController(args) {
     )
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
-        val theView = UserDetailsView(inflater, container)
+        val theView = UserDetailsView(
+            inflater,
+            container
+        )
         controller.connect(theView)
         controller.start()
         return theView.containerView!!

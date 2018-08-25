@@ -19,10 +19,10 @@ import com.kaciula.archiman.infrastructure.data.util.moshi.MoshiLocalDateAdapter
 import com.kaciula.archiman.infrastructure.data.util.moshi.MoshiLocalDateTimeAdapter
 import com.kaciula.archiman.infrastructure.data.util.moshi.MoshiLocalTimeAdapter
 import com.kaciula.archiman.infrastructure.util.AndroidSchedulerProvider
-import com.kaciula.archiman.presentation.screens.home.HomeEffectHandlers
+import com.kaciula.archiman.presentation.screens.home.effecthandlers.HomeEffectHandlers
 import com.kaciula.archiman.presentation.screens.main.Coordinator
 import com.kaciula.archiman.presentation.screens.main.CoordinatorImpl
-import com.kaciula.archiman.presentation.screens.userdetails.UserDetailsEffectHandlers
+import com.kaciula.archiman.presentation.screens.userdetails.effecthandlers.UserDetailsEffectHandlers
 import com.squareup.moshi.Moshi
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -79,10 +79,22 @@ fun createMoshi(): Moshi {
 
 val ScreensModule = applicationContext {
     context(ScreenContext.HOME) {
-        bean { HomeEffectHandlers(get(), get(), get()) }
+        bean {
+            HomeEffectHandlers(
+                get(),
+                get(),
+                get()
+            )
+        }
     }
     context(ScreenContext.USER_DETAILS) {
-        bean { params -> UserDetailsEffectHandlers(params[KoinParam.CONTROLLER], get(), get()) }
+        bean { params ->
+            UserDetailsEffectHandlers(
+                params[KoinParam.CONTROLLER],
+                get(),
+                get()
+            )
+        }
     }
 }
 

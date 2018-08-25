@@ -1,4 +1,4 @@
-package com.kaciula.archiman.presentation.screens.userdetails
+package com.kaciula.archiman.presentation.screens.userdetails.effecthandlers
 
 import android.Manifest
 import android.widget.Toast
@@ -7,6 +7,8 @@ import com.kaciula.archiman.domain.boundary.infrastructure.LocationSettingsNeede
 import com.kaciula.archiman.domain.util.SchedulerProvider
 import com.kaciula.archiman.infrastructure.data.local.system.LocationProviderImpl
 import com.kaciula.archiman.presentation.screens.main.MainActivity
+import com.kaciula.archiman.presentation.screens.userdetails.UserDetailsController
+import com.kaciula.archiman.presentation.screens.userdetails.domain.*
 import com.spotify.mobius.rx2.RxMobius
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.Completable
@@ -54,7 +56,9 @@ class UserDetailsEffectHandlers(
                                         LocationSettingsNeeded.AVAILABLE ->
                                             locationProvider.getLastKnownLocation()
                                                 .map<UserDetailsEvent> {
-                                                    LastKnownLocationReceived(it)
+                                                    LastKnownLocationReceived(
+                                                        it
+                                                    )
                                                 }
                                                 .delay(10, TimeUnit.SECONDS)
                                         LocationSettingsNeeded.UNAVAILABLE_RESOLVABLE -> Single.just(
