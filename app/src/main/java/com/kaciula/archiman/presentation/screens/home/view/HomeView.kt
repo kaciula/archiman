@@ -1,7 +1,6 @@
 package com.kaciula.archiman.presentation.screens.home.view
 
 import android.app.Activity
-import android.os.Looper
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -25,8 +24,6 @@ class HomeView(
 ) : KotlinView(R.layout.controller_home, inflater, container),
     Connectable<HomeModel, HomeEvent> {
 
-    private lateinit var output: Consumer<HomeEvent>
-
     private lateinit var adapter: UserAdapter
 
     override fun connect(output: Consumer<HomeEvent>): Connection<HomeModel> {
@@ -44,22 +41,18 @@ class HomeView(
     }
 
     private fun initialize(output: Consumer<HomeEvent>) {
-        this.output = output
         recyclerView.addItemDecoration(DividerItemDecoration(activity))
         recyclerView.layoutManager =
                 LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        adapter =
-                UserAdapter(emptyList(), output)
+        adapter = UserAdapter(emptyList(), output)
         recyclerView.adapter = adapter
 
         btnRetry.setOnClickListener { output.accept(GetUsersRequested) }
     }
 
     private fun render(model: HomeModel) {
-        Timber.d("Render home thread ${Looper.myLooper() === Looper.getMainLooper()}")
         if (model.isProgress) {
-            flipper.displayedChild =
-                    CHILD_PROGRESS
+            flipper.displayedChild = CHILD_PROGRESS
         } else if (model.isError) {
             flipper.displayedChild = CHILD_ERROR
             Timber.w("Encountered an error: ${model.error}")

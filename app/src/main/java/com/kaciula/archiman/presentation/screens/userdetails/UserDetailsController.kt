@@ -33,18 +33,17 @@ class UserDetailsController(args: Bundle) : BaseController(args) {
 
     private val eventSource: PublishSubject<UserDetailsEvent> = PublishSubject.create()
 
+    private val showLocationSettingsNoResolution = Action {
+        showToast("The device does not have the necessary capabilities for the location feature!")
+    }
+
     private val loopFactory = RxMobius
-        .loop(UserDetailsUpdate(), effectHandlers.build(Action {
-            showToast("The device does not have the necessary capabilities for the location feature!")
-        }))
+        .loop(UserDetailsUpdate(), effectHandlers.build(showLocationSettingsNoResolution))
         .init(UserDetailsInit())
         .eventSource(RxEventSources.fromObservables(eventSource))
         .logger(MobiusLogger())
-    private val controller = MobiusAndroid
-        .controller(
-            loopFactory,
-            UserDetailsModel(userName = user.name)
-        )
+    private val controller =
+        MobiusAndroid.controller(loopFactory, UserDetailsModel(userName = user.name))
 
     constructor(user: UserViewModel) : this(
         BundleBuilder(Bundle())
