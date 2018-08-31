@@ -4,13 +4,10 @@ import android.Manifest
 import com.kaciula.archiman.domain.boundary.infrastructure.LocationProvider
 import com.kaciula.archiman.domain.boundary.infrastructure.LocationSettingsNeeded
 import com.kaciula.archiman.domain.util.SchedulerProvider
-import com.kaciula.archiman.infrastructure.data.local.system.LocationProviderImpl
-import com.kaciula.archiman.presentation.screens.main.MainActivity
 import com.kaciula.archiman.presentation.screens.userdetails.UserDetailsController
 import com.kaciula.archiman.presentation.screens.userdetails.domain.*
 import com.spotify.mobius.rx2.RxMobius
 import com.tbruyelle.rxpermissions2.RxPermissions
-import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.Single
@@ -24,15 +21,21 @@ class UserDetailsEffectHandlers(
     private val locationProvider: LocationProvider
 ) {
 
-    fun build(showLocationSettingsNoResolution: Action): ObservableTransformer<UserDetailsEffect, UserDetailsEvent> {
+    fun build(
+        showLocationSettingsNoResolution: Action,
+        showLocationSettingsDialog: Action
+    ): ObservableTransformer<UserDetailsEffect, UserDetailsEvent> {
         return RxMobius
             .subtypeEffectHandler<UserDetailsEffect, UserDetailsEvent>()
             .addTransformer(GetLastKnownLocation::class.java, ::handleGetLastKnownLocation)
             .addTransformer(
-                RequestLocationPermission::class.java, ::handleRequestLocationPermission
+                RequestLocationPermission::class.java,
+                ::handleRequestLocationPermission
             )
-            .addTransformer(
-                RequestMoreLocationSettings::class.java, ::handleRequestMoreLocationSettings
+            .addAction(
+                RequestMoreLocationSettings::class.java,
+                showLocationSettingsDialog,
+                AndroidSchedulers.mainThread()
             )
             .addAction(
                 ShowLocationSettingsNoResolution::class.java,
@@ -96,20 +99,5 @@ class UserDetailsEffectHandlers(
         return RxPermissions(controller.activity!!)
             .request(Manifest.permission.ACCESS_FINE_LOCATION)
             .first(false)
-    }
-
-    private fun handleRequestMoreLocationSettings(request: Observable<RequestMoreLocationSettings>)
-            : Observable<UserDetailsEvent> {
-        return request
-            .observeOn(schedulerProvider.ui())
-            .flatMapCompletable {
-                Completable
-                    .fromAction {
-                        (controller.activity as MainActivity).showLocationSettingsDialog(
-                            (locationProvider as LocationProviderImpl).settingsResolvableApiException
-                        )
-                    }
-            }
-            .toObservable()
     }
 }

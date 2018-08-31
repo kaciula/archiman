@@ -7,8 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.kaciula.archiman.di.KoinParam
 import com.kaciula.archiman.di.ScreenContext
+import com.kaciula.archiman.domain.boundary.infrastructure.LocationProvider
+import com.kaciula.archiman.infrastructure.data.local.system.LocationProviderImpl
 import com.kaciula.archiman.infrastructure.util.MobiusLogger
 import com.kaciula.archiman.presentation.screens.home.UserViewModel
+import com.kaciula.archiman.presentation.screens.main.MainActivity
 import com.kaciula.archiman.presentation.screens.userdetails.domain.UserDetailsEvent
 import com.kaciula.archiman.presentation.screens.userdetails.domain.UserDetailsInit
 import com.kaciula.archiman.presentation.screens.userdetails.domain.UserDetailsModel
@@ -29,6 +32,8 @@ class UserDetailsController(args: Bundle) : BaseController(args) {
 
     private val user = args.getParcelable<UserViewModel>(KEY_USER)
 
+    private val locationProvider: LocationProvider by inject()
+
     private val effectHandlers: UserDetailsEffectHandlers by inject { mapOf(KoinParam.CONTROLLER to this) }
 
     private val eventSource: PublishSubject<UserDetailsEvent> = PublishSubject.create()
@@ -37,8 +42,16 @@ class UserDetailsController(args: Bundle) : BaseController(args) {
         showToast("The device does not have the necessary capabilities for the location feature!")
     }
 
+    private val showLocationSettingsDialog = Action {
+        (activity as MainActivity).showLocationSettingsDialog(
+            (locationProvider as LocationProviderImpl).settingsResolvableApiException
+        )
+    }
     private val loopFactory = RxMobius
-        .loop(UserDetailsUpdate(), effectHandlers.build(showLocationSettingsNoResolution))
+        .loop(
+            UserDetailsUpdate(),
+            effectHandlers.build(showLocationSettingsNoResolution, showLocationSettingsDialog)
+        )
         .init(UserDetailsInit())
         .eventSource(RxEventSources.fromObservables(eventSource))
         .logger(MobiusLogger())
