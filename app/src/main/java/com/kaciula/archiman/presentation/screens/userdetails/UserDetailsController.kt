@@ -4,14 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.kaciula.archiman.di.KoinParam
 import com.kaciula.archiman.di.ScreenContext
-import com.kaciula.archiman.domain.boundary.infrastructure.LocationProvider
-import com.kaciula.archiman.infrastructure.data.local.system.LocationProviderImpl
 import com.kaciula.archiman.infrastructure.util.MobiusLogger
 import com.kaciula.archiman.presentation.screens.home.UserViewModel
-import com.kaciula.archiman.presentation.screens.main.MainActivity
 import com.kaciula.archiman.presentation.screens.userdetails.domain.UserDetailsEvent
 import com.kaciula.archiman.presentation.screens.userdetails.domain.UserDetailsInit
 import com.kaciula.archiman.presentation.screens.userdetails.domain.UserDetailsModel
@@ -23,7 +19,6 @@ import com.kaciula.archiman.presentation.util.conductor.BundleBuilder
 import com.spotify.mobius.android.MobiusAndroid
 import com.spotify.mobius.rx2.RxEventSources
 import com.spotify.mobius.rx2.RxMobius
-import io.reactivex.functions.Action
 import io.reactivex.subjects.PublishSubject
 import org.koin.standalone.inject
 import org.koin.standalone.releaseContext
@@ -32,25 +27,14 @@ class UserDetailsController(args: Bundle) : BaseController(args) {
 
     private val user = args.getParcelable<UserViewModel>(KEY_USER)
 
-    private val locationProvider: LocationProvider by inject()
-
     private val effectHandlers: UserDetailsEffectHandlers by inject { mapOf(KoinParam.CONTROLLER to this) }
 
     private val eventSource: PublishSubject<UserDetailsEvent> = PublishSubject.create()
 
-    private val showLocationSettingsNoResolution = Action {
-        showToast("The device does not have the necessary capabilities for the location feature!")
-    }
-
-    private val showLocationSettingsDialog = Action {
-        (activity as MainActivity).showLocationSettingsDialog(
-            (locationProvider as LocationProviderImpl).settingsResolvableApiException
-        )
-    }
     private val loopFactory = RxMobius
         .loop(
             UserDetailsUpdate(),
-            effectHandlers.build(showLocationSettingsNoResolution, showLocationSettingsDialog)
+            effectHandlers.build()
         )
         .init(UserDetailsInit())
         .eventSource(RxEventSources.fromObservables(eventSource))
@@ -80,10 +64,6 @@ class UserDetailsController(args: Bundle) : BaseController(args) {
     override fun onDestroy() {
         releaseContext(ScreenContext.USER_DETAILS)
         super.onDestroy()
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
 
     fun publishEvent(event: UserDetailsEvent) {

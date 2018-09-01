@@ -92,6 +92,7 @@ val ScreensModule = applicationContext {
             UserDetailsEffectHandlers(
                 params[KoinParam.CONTROLLER],
                 get(),
+                get(),
                 get()
             )
         }
