@@ -12,8 +12,8 @@ import com.google.android.gms.common.api.ResolvableApiException
 import com.kaciula.archiman.R
 import com.kaciula.archiman.presentation.screens.userdetails.domain.LocationSettingsResolved
 import com.kaciula.archiman.presentation.screens.userdetails.domain.LocationSettingsStillNotResolved
+import com.kaciula.archiman.presentation.util.BaseActivity
 import com.kaciula.archiman.presentation.util.DevDrawer
-import com.kaciula.archiman.presentation.util.base.BaseActivity
 import io.reactivex.Single
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject

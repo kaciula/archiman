@@ -1,4 +1,4 @@
-package com.kaciula.archiman.presentation.util.base
+package com.kaciula.archiman.presentation.util.conductor
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver

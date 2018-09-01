@@ -1,9 +1,8 @@
-package com.kaciula.archiman.presentation.util.base
+package com.kaciula.archiman.presentation.util.conductor
 
 import android.app.Dialog
 import android.os.Bundle
 import android.view.View
-import com.kaciula.archiman.presentation.util.conductor.KotlinDialogController
 import org.koin.standalone.KoinComponent
 import timber.log.Timber
 

@@ -14,7 +14,7 @@ import com.kaciula.archiman.presentation.screens.userdetails.domain.UserDetailsM
 import com.kaciula.archiman.presentation.screens.userdetails.domain.UserDetailsUpdate
 import com.kaciula.archiman.presentation.screens.userdetails.effecthandlers.UserDetailsEffectHandlers
 import com.kaciula.archiman.presentation.screens.userdetails.view.UserDetailsView
-import com.kaciula.archiman.presentation.util.base.BaseController
+import com.kaciula.archiman.presentation.util.conductor.BaseController
 import com.kaciula.archiman.presentation.util.conductor.BundleBuilder
 import com.spotify.mobius.android.MobiusAndroid
 import com.spotify.mobius.rx2.RxEventSources

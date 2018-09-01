@@ -7,7 +7,7 @@ import android.view.View
 import com.kaciula.archiman.R
 import com.kaciula.archiman.presentation.screens.home.domain.UserInfoDialogCancelled
 import com.kaciula.archiman.presentation.screens.home.domain.UserInfoDialogOkClicked
-import com.kaciula.archiman.presentation.util.base.BaseDialogController
+import com.kaciula.archiman.presentation.util.conductor.BaseDialogController
 import com.kaciula.archiman.presentation.util.conductor.BundleBuilder
 import kotlinx.android.synthetic.main.controller_user.*
 

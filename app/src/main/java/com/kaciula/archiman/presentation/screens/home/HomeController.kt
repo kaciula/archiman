@@ -10,7 +10,7 @@ import com.kaciula.archiman.infrastructure.util.MobiusLogger
 import com.kaciula.archiman.presentation.screens.home.domain.*
 import com.kaciula.archiman.presentation.screens.home.effecthandlers.HomeEffectHandlers
 import com.kaciula.archiman.presentation.screens.home.view.HomeView
-import com.kaciula.archiman.presentation.util.base.BaseController
+import com.kaciula.archiman.presentation.util.conductor.BaseController
 import com.spotify.mobius.android.MobiusAndroid
 import com.spotify.mobius.rx2.RxEventSources
 import com.spotify.mobius.rx2.RxMobius

@@ -37,10 +37,8 @@ class CoordinatorImpl(val context: Context) : Coordinator {
     }
 
     override fun showUserInfoOkDialog(title: String, description: String) {
-        AlertDialogController(title, description).showDialog(
-            homeDialogRouter(),
-            "tag_user_info_ok_dialog"
-        )
+        AlertDialogController(title, description)
+            .showDialog(homeDialogRouter(), "tag_user_info_ok_dialog")
     }
 
     override fun goToUserDetailsScreen(user: UserViewModel) {

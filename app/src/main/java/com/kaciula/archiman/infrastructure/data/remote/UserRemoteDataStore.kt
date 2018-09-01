@@ -6,7 +6,9 @@ import com.kaciula.archiman.infrastructure.data.remote.mapper.UsersRemoteMapper
 import io.reactivex.Completable
 import io.reactivex.Single
 
-class UserRemoteDataStore(private val stackExchangeApi: StackExchangeApi) : UserDataStore {
+class UserRemoteDataStore(
+    private val stackExchangeApi: StackExchangeApi
+) : UserDataStore {
 
     override fun getUsers(): Single<List<User>> {
         return stackExchangeApi.getUsers().map(UsersRemoteMapper())

@@ -1,4 +1,4 @@
-package com.kaciula.archiman.presentation.util.base
+package com.kaciula.archiman.presentation.util.conductor
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.kaciula.archiman.presentation.util.conductor.KotlinRestoreViewOnCreateController
 import io.reactivex.Observable
 import org.koin.standalone.KoinComponent
 import timber.log.Timber
