@@ -4,7 +4,6 @@ import android.arch.lifecycle.Lifecycle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.kaciula.archiman.R
 import com.kaciula.archiman.di.ScreenContext
 import com.kaciula.archiman.infrastructure.util.MobiusLogger
@@ -27,8 +26,8 @@ class HomeController : BaseController() {
     private val effectHandlers: HomeEffectHandlers by inject()
 
     private val lifecycleAwarePoll = lifecycleObservable()
-        .switchMap {
-            if (it == Lifecycle.State.RESUMED) {
+        .switchMap { state ->
+            if (state == Lifecycle.State.RESUMED) {
                 Observable.interval(0, 10, TimeUnit.SECONDS)
                     .switchMap { Observable.just(LocalDateTime()) }
             } else {
@@ -44,6 +43,7 @@ class HomeController : BaseController() {
         .init(HomeInit())
         .eventSource(RxEventSources.fromObservables(eventSource, lifecycleAwarePoll))
         .logger(MobiusLogger())
+
     private val controller = MobiusAndroid.controller(loopFactory, HomeModel())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
@@ -66,15 +66,7 @@ class HomeController : BaseController() {
 
     fun dialogRouter() = getChildRouter(view!!.findViewById(R.id.containerDialogs))
 
-    fun onCancelUserInfoDialog() {
-        Toast.makeText(activity, "Cancelled user info dialog", Toast.LENGTH_SHORT).show()
-    }
-
-    fun onClickOkUserInfoDialog(user: UserViewModel) {
-        publishEvent(UserInfoDialogOkClicked(user))
-    }
-
-    private fun publishEvent(event: HomeEvent) {
+    fun publishEvent(event: HomeEvent) {
         eventSource.onNext(event)
     }
 }

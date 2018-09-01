@@ -79,22 +79,11 @@ fun createMoshi(): Moshi {
 
 val ScreensModule = applicationContext {
     context(ScreenContext.HOME) {
-        bean {
-            HomeEffectHandlers(
-                get(),
-                get(),
-                get()
-            )
-        }
+        bean { HomeEffectHandlers(get(), get(), get()) }
     }
     context(ScreenContext.USER_DETAILS) {
         bean { params ->
-            UserDetailsEffectHandlers(
-                params[KoinParam.CONTROLLER],
-                get(),
-                get(),
-                get()
-            )
+            UserDetailsEffectHandlers(params[KoinParam.CONTROLLER], get(), get(), get())
         }
     }
 }

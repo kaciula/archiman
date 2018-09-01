@@ -39,6 +39,7 @@ class UserDetailsController(args: Bundle) : BaseController(args) {
         .init(UserDetailsInit())
         .eventSource(RxEventSources.fromObservables(eventSource))
         .logger(MobiusLogger())
+
     private val controller =
         MobiusAndroid.controller(loopFactory, UserDetailsModel(userName = user.name))
 

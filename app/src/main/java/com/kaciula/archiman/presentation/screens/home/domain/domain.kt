@@ -22,6 +22,7 @@ object GetUsersRequested : HomeEvent()
 data class UserClicked(val user: UserViewModel) : HomeEvent()
 data class UserDetailsClicked(val user: UserViewModel) : HomeEvent()
 data class UserInfoDialogOkClicked(val user: UserViewModel) : HomeEvent()
+object UserInfoDialogCancelled : HomeEvent()
 data class TimeTickEvent(val dateTime: LocalDateTime) : HomeEvent()
 
 /** Things we'll do **/

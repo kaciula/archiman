@@ -5,6 +5,8 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import com.kaciula.archiman.R
+import com.kaciula.archiman.presentation.screens.home.domain.UserInfoDialogCancelled
+import com.kaciula.archiman.presentation.screens.home.domain.UserInfoDialogOkClicked
 import com.kaciula.archiman.presentation.util.base.BaseDialogController
 import com.kaciula.archiman.presentation.util.conductor.BundleBuilder
 import kotlinx.android.synthetic.main.controller_user.*
@@ -27,7 +29,7 @@ class UserInfoController(args: Bundle) : BaseDialogController(args) {
         builder.setTitle(user.name)
         builder.setView(view)
         builder.setPositiveButton(R.string.all_ok) { _, _ ->
-            homeController().onClickOkUserInfoDialog(user)
+            homeController().publishEvent(UserInfoDialogOkClicked(user))
         }
         render()
         return builder.create()
@@ -35,7 +37,7 @@ class UserInfoController(args: Bundle) : BaseDialogController(args) {
 
     override fun onCancel() {
         super.onCancel()
-        homeController().onCancelUserInfoDialog()
+        homeController().publishEvent(UserInfoDialogCancelled)
     }
 
     private fun render() {

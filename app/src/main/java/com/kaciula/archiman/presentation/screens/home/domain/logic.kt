@@ -27,6 +27,7 @@ class HomeUpdate : Update<HomeModel, HomeEvent, HomeEffect> {
             is UserClicked -> showUserInfoDialog(event.user)
             is UserDetailsClicked -> goToUserDetailsScreen(event.user)
             is UserInfoDialogOkClicked -> showUserInfoOkDialog(event.user)
+            UserInfoDialogCancelled -> showToastWithText("Cancelled user info dialog")
             is TimeTickEvent -> showToastWithText(event.dateTime.toString("HH:mm:ss"))
         }
     }

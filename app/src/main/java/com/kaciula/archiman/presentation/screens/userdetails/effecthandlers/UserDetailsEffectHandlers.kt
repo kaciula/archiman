@@ -50,7 +50,7 @@ class UserDetailsEffectHandlers(
             : Observable<UserDetailsEvent> {
         return request
             .observeOn(schedulerProvider.ui())
-            .flatMapSingle {
+            .flatMapSingle { _ ->
                 ensureLocationPermission()
                     .flatMap { granted ->
                         if (granted) {
