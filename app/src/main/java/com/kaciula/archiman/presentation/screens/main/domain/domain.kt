@@ -8,7 +8,10 @@ data class MainModel(
 /** Things we react to **/
 sealed class MainEvent
 
+object ScreenResumed : MainEvent()
+
 /** Things we'll do **/
 sealed class MainEffect
 
 data class ShowMessage(val text: String) : MainEffect()
+object CheckPlayServices : MainEffect()

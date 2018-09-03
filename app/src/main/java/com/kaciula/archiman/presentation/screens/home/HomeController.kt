@@ -42,7 +42,7 @@ class HomeController : BaseController() {
         .loop(HomeUpdate(), effectHandlers.build())
         .init(HomeInit())
         .eventSource(RxEventSources.fromObservables(eventSource, lifecycleAwarePoll))
-        .logger(MobiusLogger())
+        .logger(MobiusLogger("Home"))
 
     private val controller = MobiusAndroid.controller(loopFactory, HomeModel())
 

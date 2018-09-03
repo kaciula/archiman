@@ -80,7 +80,9 @@ fun createMoshi(): Moshi {
 
 val ScreensModule = applicationContext {
     context(ScreenContext.MAIN) {
-        bean { MainEffectHandlers(get(), get()) }
+        bean { params ->
+            MainEffectHandlers(params[KoinParam.ACTIVITY], get(), get())
+        }
     }
     context(ScreenContext.HOME) {
         bean { HomeEffectHandlers(get(), get(), get()) }
@@ -103,6 +105,7 @@ val archimanAppModules = listOf(
 
 object KoinParam {
     const val CONTROLLER = "CONTROLLER"
+    const val ACTIVITY = "ACTIVITY"
 }
 
 object ScreenContext {

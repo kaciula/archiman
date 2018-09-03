@@ -12,7 +12,7 @@ class MainInit : Init<MainModel, MainEffect> {
         } else {
             First.first(
                 model,
-                Effects.effects(ShowMessage("Warm start") as MainEffect)
+                Effects.effects(ShowMessage("Warm start!") as MainEffect)
             )
         }
     }
@@ -22,6 +22,12 @@ class MainInit : Init<MainModel, MainEffect> {
 class MainUpdate : Update<MainModel, MainEvent, MainEffect> {
 
     override fun update(model: MainModel, event: MainEvent): Next<MainModel, MainEffect> {
-        return Next.noChange()
+        return when (event) {
+            is ScreenResumed -> checkPlayServices()
+        }
+    }
+
+    private fun checkPlayServices(): Next<MainModel, MainEffect> {
+        return Next.dispatch(Effects.effects(CheckPlayServices))
     }
 }

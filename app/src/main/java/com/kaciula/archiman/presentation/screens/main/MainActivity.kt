@@ -7,15 +7,12 @@ import android.content.IntentSender
 import android.os.Bundle
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
-import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.api.ResolvableApiException
 import com.kaciula.archiman.R
+import com.kaciula.archiman.di.KoinParam
 import com.kaciula.archiman.di.ScreenContext
 import com.kaciula.archiman.infrastructure.util.MobiusLogger
-import com.kaciula.archiman.presentation.screens.main.domain.MainEvent
-import com.kaciula.archiman.presentation.screens.main.domain.MainInit
-import com.kaciula.archiman.presentation.screens.main.domain.MainModel
-import com.kaciula.archiman.presentation.screens.main.domain.MainUpdate
+import com.kaciula.archiman.presentation.screens.main.domain.*
 import com.kaciula.archiman.presentation.screens.main.effecthandlers.MainEffectHandlers
 import com.kaciula.archiman.presentation.screens.userdetails.domain.LocationSettingsResolved
 import com.kaciula.archiman.presentation.screens.userdetails.domain.LocationSettingsStillNotResolved
@@ -26,8 +23,9 @@ import com.spotify.mobius.Connection
 import com.spotify.mobius.MobiusLoop
 import com.spotify.mobius.android.MobiusAndroid
 import com.spotify.mobius.functions.Consumer
+import com.spotify.mobius.rx2.RxEventSources
 import com.spotify.mobius.rx2.RxMobius
-import io.reactivex.Single
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.android.releaseContext
@@ -37,12 +35,15 @@ class MainActivity : BaseActivity(), Connectable<MainModel, MainEvent> {
 
     private val coordinator: Coordinator by inject()
 
-    private val effectHandlers: MainEffectHandlers by inject()
+    private val effectHandlers: MainEffectHandlers by inject { mapOf(KoinParam.ACTIVITY to this) }
+
+    private val eventSource: PublishSubject<MainEvent> = PublishSubject.create()
 
     private val loopFactory = RxMobius
         .loop(MainUpdate(), effectHandlers.build())
         .init(MainInit())
-        .logger(MobiusLogger())
+        .eventSource(RxEventSources.fromObservables(eventSource))
+        .logger(MobiusLogger("Main"))
 
     private lateinit var controller: MobiusLoop.Controller<MainModel, MainEvent>
 
@@ -61,10 +62,6 @@ class MainActivity : BaseActivity(), Connectable<MainModel, MainEvent> {
 
         setupDevDrawer()
 
-        checkPlayServices().subscribe { isAvailable ->
-            Timber.i("Play services available $isAvailable")
-        }
-
         controller = MobiusAndroid.controller(
             loopFactory,
             BundlePacker.resolveDefaultModel(savedInstanceState)
@@ -75,10 +72,8 @@ class MainActivity : BaseActivity(), Connectable<MainModel, MainEvent> {
     override fun onResume() {
         super.onResume()
         Timber.i("Resuming ...")
-        checkPlayServices().subscribe { isAvailable ->
-            Timber.i("Play services available $isAvailable")
-        }
         controller.start()
+        publishEvent(ScreenResumed)
     }
 
     override fun onPause() {
@@ -135,40 +130,13 @@ class MainActivity : BaseActivity(), Connectable<MainModel, MainEvent> {
         }
     }
 
-    /**
-     * Check the device to make sure it has the Google Play Services APK. If
-     * it doesn't, display a dialog that allows users to download the APK from
-     * the Google Play Store or enable it in the device's system settings.
-     */
-    private fun checkPlayServices(): Single<Boolean> {
-        return Single.create { emitter ->
-            GoogleApiAvailability.getInstance()
-                .makeGooglePlayServicesAvailable(this)
-                .addOnSuccessListener {
-                    emitter.onSuccess(true)
-                }.addOnFailureListener {
-                    emitter.onSuccess(false)
-                }
-        }
-
-
-        /*val apiAvailability = GoogleApiAvailability.getInstance()
-        val resultCode = apiAvailability.isGooglePlayServicesAvailable(this)
-        if (resultCode != ConnectionResult.SUCCESS) {
-            if (apiAvailability.isUserResolvableError(resultCode)) {
-                apiAvailability
-                    .getErrorDialog(this, resultCode, REQUEST_PLAY_SERVICES_RESOLUTION)
-                    .show()
-            } else {
-                Timber.e(Throwable("Play Services not available"))
-            }
-            return false
-        }
-        return true*/
-    }
-
     private fun setupDevDrawer() {
         devDrawer = DevDrawer(this)
+    }
+
+
+    private fun publishEvent(event: MainEvent) {
+        eventSource.onNext(event)
     }
 
     companion object {
