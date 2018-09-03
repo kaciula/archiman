@@ -22,6 +22,7 @@ import com.kaciula.archiman.infrastructure.util.AndroidSchedulerProvider
 import com.kaciula.archiman.presentation.screens.home.effecthandlers.HomeEffectHandlers
 import com.kaciula.archiman.presentation.screens.main.Coordinator
 import com.kaciula.archiman.presentation.screens.main.CoordinatorImpl
+import com.kaciula.archiman.presentation.screens.main.effecthandlers.MainEffectHandlers
 import com.kaciula.archiman.presentation.screens.userdetails.effecthandlers.UserDetailsEffectHandlers
 import com.squareup.moshi.Moshi
 import okhttp3.Cache
@@ -78,6 +79,9 @@ fun createMoshi(): Moshi {
 
 
 val ScreensModule = applicationContext {
+    context(ScreenContext.MAIN) {
+        bean { MainEffectHandlers(get(), get()) }
+    }
     context(ScreenContext.HOME) {
         bean { HomeEffectHandlers(get(), get(), get()) }
     }
@@ -102,6 +106,7 @@ object KoinParam {
 }
 
 object ScreenContext {
+    const val MAIN = "MAIN"
     const val HOME = "HOME"
     const val USER_DETAILS = "USER_DETAILS"
 }

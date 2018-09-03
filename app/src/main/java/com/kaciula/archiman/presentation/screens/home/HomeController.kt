@@ -28,7 +28,7 @@ class HomeController : BaseController() {
     private val lifecycleAwarePoll = lifecycleObservable()
         .switchMap { state ->
             if (state == Lifecycle.State.RESUMED) {
-                Observable.interval(0, 10, TimeUnit.SECONDS)
+                Observable.interval(10, 10, TimeUnit.SECONDS)
                     .switchMap { Observable.just(LocalDateTime()) }
             } else {
                 Observable.empty()

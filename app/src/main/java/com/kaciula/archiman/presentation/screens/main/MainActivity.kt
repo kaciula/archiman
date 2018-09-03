@@ -10,18 +10,41 @@ import com.bluelinelabs.conductor.Router
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.api.ResolvableApiException
 import com.kaciula.archiman.R
+import com.kaciula.archiman.di.ScreenContext
+import com.kaciula.archiman.infrastructure.util.MobiusLogger
+import com.kaciula.archiman.presentation.screens.main.domain.MainEvent
+import com.kaciula.archiman.presentation.screens.main.domain.MainInit
+import com.kaciula.archiman.presentation.screens.main.domain.MainModel
+import com.kaciula.archiman.presentation.screens.main.domain.MainUpdate
+import com.kaciula.archiman.presentation.screens.main.effecthandlers.MainEffectHandlers
 import com.kaciula.archiman.presentation.screens.userdetails.domain.LocationSettingsResolved
 import com.kaciula.archiman.presentation.screens.userdetails.domain.LocationSettingsStillNotResolved
 import com.kaciula.archiman.presentation.util.BaseActivity
 import com.kaciula.archiman.presentation.util.DevDrawer
+import com.spotify.mobius.Connectable
+import com.spotify.mobius.Connection
+import com.spotify.mobius.MobiusLoop
+import com.spotify.mobius.android.MobiusAndroid
+import com.spotify.mobius.functions.Consumer
+import com.spotify.mobius.rx2.RxMobius
 import io.reactivex.Single
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
+import org.koin.android.ext.android.releaseContext
 import timber.log.Timber
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), Connectable<MainModel, MainEvent> {
 
     private val coordinator: Coordinator by inject()
+
+    private val effectHandlers: MainEffectHandlers by inject()
+
+    private val loopFactory = RxMobius
+        .loop(MainUpdate(), effectHandlers.build())
+        .init(MainInit())
+        .logger(MobiusLogger())
+
+    private lateinit var controller: MobiusLoop.Controller<MainModel, MainEvent>
 
     private lateinit var router: Router
     private lateinit var devDrawer: DevDrawer
@@ -41,6 +64,12 @@ class MainActivity : BaseActivity() {
         checkPlayServices().subscribe { isAvailable ->
             Timber.i("Play services available $isAvailable")
         }
+
+        controller = MobiusAndroid.controller(
+            loopFactory,
+            BundlePacker.resolveDefaultModel(savedInstanceState)
+        )
+        controller.connect(this)
     }
 
     override fun onResume() {
@@ -49,11 +78,38 @@ class MainActivity : BaseActivity() {
         checkPlayServices().subscribe { isAvailable ->
             Timber.i("Play services available $isAvailable")
         }
+        controller.start()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        controller.stop()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        BundlePacker.addModelToBundle(controller.model, outState)
+    }
+
+    override fun onDestroy() {
+        controller.disconnect()
+        releaseContext(ScreenContext.MAIN)
+        super.onDestroy()
     }
 
     override fun onBackPressed() {
         if (!coordinator.handleBack()) {
             super.onBackPressed()
+        }
+    }
+
+    override fun connect(output: Consumer<MainEvent>): Connection<MainModel> {
+        return object : Connection<MainModel> {
+            override fun accept(value: MainModel) {
+            }
+
+            override fun dispose() {
+            }
         }
     }
 
