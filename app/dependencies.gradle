@@ -18,9 +18,6 @@ def dependencyGroup(Closure closure) {
 
 def core = dependencyGroup {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation(project(':domain')) {
-        exclude module: 'joda-time'
-    }
 
     implementation "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
     implementation "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION"
@@ -92,7 +89,6 @@ def debug = dependencyGroup {
 }
 
 def unitTests = dependencyGroup {
-    testImplementation project(':domain')
     testImplementation deps.junit
     testImplementation deps.mockito
     testImplementation deps.hamcrest
