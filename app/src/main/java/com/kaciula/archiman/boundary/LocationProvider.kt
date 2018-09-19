@@ -1,4 +1,4 @@
-package com.kaciula.archiman.domain.boundary.infrastructure
+package com.kaciula.archiman.boundary
 
 import io.reactivex.Single
 

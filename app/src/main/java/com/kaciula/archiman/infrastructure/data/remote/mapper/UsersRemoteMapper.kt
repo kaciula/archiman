@@ -1,6 +1,6 @@
 package com.kaciula.archiman.infrastructure.data.remote.mapper
 
-import com.kaciula.archiman.domain.model.User
+import com.kaciula.archiman.boundary.User
 import com.kaciula.archiman.infrastructure.data.remote.response.UsersRemote
 import io.reactivex.functions.Function
 import java.util.*

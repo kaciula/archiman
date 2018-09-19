@@ -1,7 +1,7 @@
 package com.kaciula.archiman.domain.usecases
 
-import com.kaciula.archiman.domain.boundary.infrastructure.UserRepository
-import com.kaciula.archiman.domain.model.User
+import com.kaciula.archiman.boundary.User
+import com.kaciula.archiman.boundary.UserRepository
 import com.kaciula.archiman.domain.usecases.util.SingleUseCase
 import io.reactivex.Single
 

@@ -1,11 +1,10 @@
 package com.kaciula.archiman.infrastructure.boundary
 
-import com.kaciula.archiman.domain.boundary.infrastructure.AppRepository
-import com.kaciula.archiman.domain.model.App
+import com.kaciula.archiman.boundary.App
+import com.kaciula.archiman.boundary.AppRepository
 import com.kaciula.archiman.infrastructure.data.local.prefs.AppPref
 
 class AppRepositoryImpl : AppRepository {
-
 
     override fun get(): App {
         return App(AppPref.isFirstTime, AppPref.versionCode)

@@ -1,13 +1,9 @@
 package com.kaciula.archiman.di
 
 import android.content.Context
-import com.kaciula.archiman.domain.boundary.infrastructure.AppRepository
-import com.kaciula.archiman.domain.boundary.infrastructure.CrashReporter
-import com.kaciula.archiman.domain.boundary.infrastructure.LocationProvider
-import com.kaciula.archiman.domain.boundary.infrastructure.UserRepository
+import com.kaciula.archiman.boundary.*
 import com.kaciula.archiman.domain.usecases.GetUsers
 import com.kaciula.archiman.domain.usecases.InitColdStart
-import com.kaciula.archiman.domain.util.SchedulerProvider
 import com.kaciula.archiman.infrastructure.boundary.AppRepositoryImpl
 import com.kaciula.archiman.infrastructure.boundary.CrashlyticsCrashReporter
 import com.kaciula.archiman.infrastructure.boundary.UserRepositoryImpl

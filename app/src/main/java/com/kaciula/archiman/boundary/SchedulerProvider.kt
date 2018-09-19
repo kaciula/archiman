@@ -1,4 +1,4 @@
-package com.kaciula.archiman.domain.util
+package com.kaciula.archiman.boundary
 
 import io.reactivex.Scheduler
 

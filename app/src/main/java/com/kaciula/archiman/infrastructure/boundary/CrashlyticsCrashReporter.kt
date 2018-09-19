@@ -2,13 +2,14 @@ package com.kaciula.archiman.infrastructure.boundary
 
 import android.content.Context
 import com.crashlytics.android.Crashlytics
-import com.kaciula.archiman.domain.boundary.infrastructure.CrashReporter
+import com.kaciula.archiman.boundary.CrashReporter
 import com.kaciula.archiman.infrastructure.util.AndroidUtils
 import com.kaciula.archiman.infrastructure.util.CrashlyticsTree
 import io.fabric.sdk.android.Fabric
 import timber.log.Timber
 
-class CrashlyticsCrashReporter(private val context: Context) : CrashReporter {
+class CrashlyticsCrashReporter(private val context: Context) :
+    CrashReporter {
 
     override fun init() {
         Fabric.with(context, Crashlytics())

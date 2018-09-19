@@ -1,7 +1,7 @@
 package com.kaciula.archiman.presentation.screens.main.effecthandlers
 
 import com.google.android.gms.common.GoogleApiAvailability
-import com.kaciula.archiman.domain.util.SchedulerProvider
+import com.kaciula.archiman.boundary.SchedulerProvider
 import com.kaciula.archiman.presentation.screens.main.Coordinator
 import com.kaciula.archiman.presentation.screens.main.MainActivity
 import com.kaciula.archiman.presentation.screens.main.domain.CheckPlayServices
