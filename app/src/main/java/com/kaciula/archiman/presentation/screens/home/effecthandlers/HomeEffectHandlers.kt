@@ -1,7 +1,7 @@
 package com.kaciula.archiman.presentation.screens.home.effecthandlers
 
 import com.kaciula.archiman.boundary.SchedulerProvider
-import com.kaciula.archiman.domain.usecases.GetUsers
+import com.kaciula.archiman.boundary.UserRepository
 import com.kaciula.archiman.presentation.screens.home.domain.*
 import com.kaciula.archiman.presentation.screens.main.Coordinator
 import com.spotify.mobius.rx2.RxMobius
@@ -11,7 +11,7 @@ import io.reactivex.functions.Consumer
 
 class HomeEffectHandlers(
     private val schedulerProvider: SchedulerProvider,
-    private val getUsers: GetUsers,
+    private val userRepository: UserRepository,
     private val coordinator: Coordinator
 ) {
 
@@ -37,8 +37,8 @@ class HomeEffectHandlers(
     private fun handleGetUsers(request: Observable<GetUsersEffect>): Observable<HomeEvent> {
         return request
             .observeOn(schedulerProvider.io())
-            .flatMapSingle { getUsers.execute(GetUsers.RequestModel) }
-            .map<HomeEvent> { UsersReceived(it.users) }
+            .flatMapSingle { userRepository.getAll() }
+            .map<HomeEvent> { UsersReceived(it) }
     }
 
     private fun showToast(effect: ShowToast) {

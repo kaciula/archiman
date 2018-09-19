@@ -2,11 +2,8 @@ package com.kaciula.archiman.di
 
 import android.content.Context
 import com.kaciula.archiman.boundary.*
-import com.kaciula.archiman.domain.usecases.GetUsers
-import com.kaciula.archiman.domain.usecases.InitColdStart
-import com.kaciula.archiman.infrastructure.boundary.AppRepositoryImpl
-import com.kaciula.archiman.infrastructure.boundary.CrashlyticsCrashReporter
-import com.kaciula.archiman.infrastructure.boundary.UserRepositoryImpl
+import com.kaciula.archiman.infrastructure.data.AppRepositoryImpl
+import com.kaciula.archiman.infrastructure.data.UserRepositoryImpl
 import com.kaciula.archiman.infrastructure.data.local.database.UserLocalDataStore
 import com.kaciula.archiman.infrastructure.data.local.system.LocationProviderImpl
 import com.kaciula.archiman.infrastructure.data.remote.StackExchangeApi
@@ -15,6 +12,7 @@ import com.kaciula.archiman.infrastructure.data.util.moshi.MoshiLocalDateAdapter
 import com.kaciula.archiman.infrastructure.data.util.moshi.MoshiLocalDateTimeAdapter
 import com.kaciula.archiman.infrastructure.data.util.moshi.MoshiLocalTimeAdapter
 import com.kaciula.archiman.infrastructure.util.AndroidSchedulerProvider
+import com.kaciula.archiman.infrastructure.util.CrashlyticsCrashReporter
 import com.kaciula.archiman.presentation.screens.home.effecthandlers.HomeEffectHandlers
 import com.kaciula.archiman.presentation.screens.main.Coordinator
 import com.kaciula.archiman.presentation.screens.main.CoordinatorImpl
@@ -31,11 +29,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 val AppModule = applicationContext {
     bean { AndroidSchedulerProvider() as SchedulerProvider }
     bean { CoordinatorImpl(get()) as Coordinator }
-}
-
-val DomainModule = applicationContext {
-    bean { InitColdStart(get()) }
-    bean { GetUsers(get()) }
 }
 
 val RemoteModule = applicationContext {
@@ -60,7 +53,12 @@ fun createRetrofit(moshi: Moshi, okHttpClient: OkHttpClient): StackExchangeApi {
 val InfrastructureModule = applicationContext {
     bean { createMoshi() }
     bean { AppRepositoryImpl() as AppRepository }
-    bean { UserRepositoryImpl(UserRemoteDataStore(get()), UserLocalDataStore()) as UserRepository }
+    bean {
+        UserRepositoryImpl(
+            UserRemoteDataStore(get()),
+            UserLocalDataStore()
+        ) as UserRepository
+    }
     bean { CrashlyticsCrashReporter(get()) as CrashReporter }
     bean { LocationProviderImpl(get()) as LocationProvider }
 }
@@ -94,7 +92,6 @@ val archimanAppModules = listOf(
     AppModule,
     InfrastructureModule,
     RemoteModule,
-    DomainModule,
     OkHttpModule,
     ScreensModule
 )

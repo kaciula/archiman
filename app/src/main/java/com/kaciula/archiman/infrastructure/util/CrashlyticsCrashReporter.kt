@@ -1,10 +1,8 @@
-package com.kaciula.archiman.infrastructure.boundary
+package com.kaciula.archiman.infrastructure.util
 
 import android.content.Context
 import com.crashlytics.android.Crashlytics
 import com.kaciula.archiman.boundary.CrashReporter
-import com.kaciula.archiman.infrastructure.util.AndroidUtils
-import com.kaciula.archiman.infrastructure.util.CrashlyticsTree
 import io.fabric.sdk.android.Fabric
 import timber.log.Timber
 

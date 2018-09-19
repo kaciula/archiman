@@ -1,7 +1,6 @@
 package com.kaciula.archiman.presentation.screens.home
 
 
-import com.kaciula.archiman.domain.usecases.GetUsers
 import org.junit.Before
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations

@@ -1,4 +1,4 @@
-package com.kaciula.archiman.infrastructure.boundary
+package com.kaciula.archiman.infrastructure.data
 
 import com.kaciula.archiman.boundary.App
 import com.kaciula.archiman.boundary.AppRepository
