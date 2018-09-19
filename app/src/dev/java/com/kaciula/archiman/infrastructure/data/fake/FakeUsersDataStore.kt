@@ -6,7 +6,7 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import java.util.*
 
-class FakeUsersDataSource : UserDataStore {
+class FakeUsersDataStore : UserDataStore {
 
     override fun getUsers(): Single<List<User>> {
         val users = ArrayList<User>(6)
