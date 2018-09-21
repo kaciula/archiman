@@ -1,0 +1,17 @@
+<template format="4" revision="1" name="Screen"
+    description="Creates a new screen with all necessary classes">
+
+    <category value="Other" />
+
+    <parameter id="screenName" name="Screen Name" type="string" constraints="class|unique|nonempty"
+        default="Screen" help="The name of the screen" />
+
+    <parameter id="controllerLayout" type="string" constraints="layout|nonempty|unique"
+        default="controller_screen"
+        suggest="controller_${camelCaseToUnderscore(screenName)?lower_case}"
+        name="Object content layout file name" />
+
+    <globals file="globals.xml.ftl" />
+    <execute file="recipe.xml.ftl" />
+
+</template>
