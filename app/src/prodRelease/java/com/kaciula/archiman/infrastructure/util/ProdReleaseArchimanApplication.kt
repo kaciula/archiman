@@ -1,10 +1,10 @@
 package com.kaciula.archiman.infrastructure.util
 
-import com.kaciula.archiman.domain.boundary.infrastructure.CrashReporter
+import com.kaciula.archiman.boundary.CrashReporter
 import org.koin.android.ext.android.inject
 import org.koin.log.Logger
 
-class ReleaseArchimanApplication : ArchimanApplication() {
+class ProdReleaseArchimanApplication : ArchimanApplication() {
 
     private val crashReporter: CrashReporter by inject()
 

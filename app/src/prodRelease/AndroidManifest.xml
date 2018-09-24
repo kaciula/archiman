@@ -5,7 +5,7 @@
     <application
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_rules"
-        android:name=".infrastructure.util.ReleaseArchimanApplication"
+        android:name=".infrastructure.util.ProdReleaseArchimanApplication"
         tools:replace="android:name">
         <meta-data
             android:name="io.fabric.ApiKey"
