@@ -24,9 +24,9 @@ abstract class ArchimanApplication : BaseApplication() {
         setupRealm()
         Kotpref.init(this)
 
-        onSetup()
-
         startKoin(this, archimanAppModules, logger = koinLogger())
+
+        onSetup()
 
         initColdStart(BuildConfig.VERSION_CODE)
     }
