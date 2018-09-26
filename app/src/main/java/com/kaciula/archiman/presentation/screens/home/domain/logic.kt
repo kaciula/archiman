@@ -1,6 +1,6 @@
 package com.kaciula.archiman.presentation.screens.home.domain
 
-import com.kaciula.archiman.boundary.User
+import com.kaciula.archiman.domain.boundary.User
 import com.kaciula.archiman.presentation.screens.home.UserViewModel
 import com.spotify.mobius.*
 import java.util.*

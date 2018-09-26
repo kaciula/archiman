@@ -1,6 +1,6 @@
 package com.kaciula.archiman.infrastructure.data.remote
 
-import com.kaciula.archiman.boundary.User
+import com.kaciula.archiman.domain.boundary.User
 import com.kaciula.archiman.infrastructure.data.UserDataStore
 import com.kaciula.archiman.infrastructure.data.remote.mapper.UsersRemoteMapper
 import io.reactivex.Completable

@@ -2,7 +2,7 @@ package com.kaciula.archiman.infrastructure.util
 
 import android.content.Context
 import com.crashlytics.android.Crashlytics
-import com.kaciula.archiman.boundary.CrashReporter
+import com.kaciula.archiman.domain.boundary.CrashReporter
 import io.fabric.sdk.android.Fabric
 import timber.log.Timber
 

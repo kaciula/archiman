@@ -1,7 +1,7 @@
 package com.kaciula.archiman.infrastructure.data
 
-import com.kaciula.archiman.boundary.User
-import com.kaciula.archiman.boundary.UserRepository
+import com.kaciula.archiman.domain.boundary.User
+import com.kaciula.archiman.domain.boundary.UserRepository
 import io.reactivex.Maybe
 import io.reactivex.Single
 import org.joda.time.LocalDateTime

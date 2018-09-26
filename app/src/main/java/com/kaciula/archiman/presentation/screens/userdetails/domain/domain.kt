@@ -1,6 +1,6 @@
 package com.kaciula.archiman.presentation.screens.userdetails.domain
 
-import com.kaciula.archiman.boundary.LatLng
+import com.kaciula.archiman.domain.boundary.LatLng
 
 /** State definition **/
 data class UserDetailsModel(

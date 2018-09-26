@@ -1,0 +1,16 @@
+apply plugin: 'kotlin'
+apply plugin: 'idea'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation deps.rxjava
+    implementation deps.kotlin
+    implementation deps.joda
+    compileOnly 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
+
+    testImplementation deps.junit
+    testImplementation deps.mockito
+    testImplementation deps.hamcrest
+}
+

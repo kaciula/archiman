@@ -1,9 +1,9 @@
 package com.kaciula.archiman.presentation.screens.userdetails.effecthandlers
 
 import android.Manifest
-import com.kaciula.archiman.boundary.LocationProvider
-import com.kaciula.archiman.boundary.LocationSettingsNeeded
-import com.kaciula.archiman.boundary.SchedulerProvider
+import com.kaciula.archiman.domain.boundary.LocationProvider
+import com.kaciula.archiman.domain.boundary.LocationSettingsNeeded
+import com.kaciula.archiman.domain.boundary.SchedulerProvider
 import com.kaciula.archiman.infrastructure.data.local.system.LocationProviderImpl
 import com.kaciula.archiman.presentation.screens.main.Coordinator
 import com.kaciula.archiman.presentation.screens.main.MainActivity

@@ -1,7 +1,7 @@
 package com.kaciula.archiman.di
 
 import android.content.Context
-import com.kaciula.archiman.boundary.*
+import com.kaciula.archiman.domain.boundary.*
 import com.kaciula.archiman.infrastructure.data.AppRepositoryImpl
 import com.kaciula.archiman.infrastructure.data.UserRepositoryImpl
 import com.kaciula.archiman.infrastructure.data.local.database.UserLocalDataStore

@@ -1,7 +1,7 @@
 package com.kaciula.archiman.infrastructure.data
 
-import com.kaciula.archiman.boundary.App
-import com.kaciula.archiman.boundary.AppRepository
+import com.kaciula.archiman.domain.boundary.App
+import com.kaciula.archiman.domain.boundary.AppRepository
 import com.kaciula.archiman.infrastructure.data.local.prefs.AppPref
 
 class AppRepositoryImpl : AppRepository {

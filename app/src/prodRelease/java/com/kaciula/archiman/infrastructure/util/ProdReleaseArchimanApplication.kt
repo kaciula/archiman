@@ -1,6 +1,6 @@
 package com.kaciula.archiman.infrastructure.util
 
-import com.kaciula.archiman.boundary.CrashReporter
+import com.kaciula.archiman.domain.boundary.CrashReporter
 import org.koin.android.ext.android.inject
 import org.koin.log.Logger
 

@@ -1,6 +1,6 @@
 package com.kaciula.archiman.infrastructure.data.local.database
 
-import com.kaciula.archiman.boundary.User
+import com.kaciula.archiman.domain.boundary.User
 import com.kaciula.archiman.infrastructure.data.UserDataStore
 import io.reactivex.Completable
 import io.reactivex.Single

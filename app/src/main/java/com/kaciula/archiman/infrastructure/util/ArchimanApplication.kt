@@ -2,8 +2,9 @@ package com.kaciula.archiman.infrastructure.util
 
 import com.chibatching.kotpref.Kotpref
 import com.kaciula.archiman.BuildConfig
-import com.kaciula.archiman.boundary.AppRepository
 import com.kaciula.archiman.di.archimanAppModules
+import com.kaciula.archiman.domain.boundary.AppRepository
+import com.kaciula.archiman.domain.util.Timberific
 import io.reactivex.plugins.RxJavaPlugins
 import io.realm.Realm
 import io.realm.RealmConfiguration
@@ -19,6 +20,7 @@ abstract class ArchimanApplication : BaseApplication() {
     override fun onCreate() {
         super.onCreate()
 
+        Timberific.init(BuildConfig.DEBUG)
         RxJavaPlugins.setErrorHandler(RxGlobalErrorHandler())
 
         setupRealm()

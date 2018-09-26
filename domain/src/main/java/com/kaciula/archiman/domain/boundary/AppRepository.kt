@@ -1,6 +1,6 @@
-package com.kaciula.archiman.boundary
+package com.kaciula.archiman.domain.boundary
 
-import timber.log.Timber
+import com.kaciula.archiman.domain.util.Timberific
 
 interface AppRepository {
 
@@ -16,7 +16,7 @@ data class App(var isFirstTime: Boolean, var versionCode: Int) {
     }
 
     fun bumpVersion(currentVersionCode: Int) {
-        Timber.i("Old version code $versionCode is replaced with new version code $currentVersionCode")
+        Timberific.i("Old version code $versionCode is replaced with new version code $currentVersionCode")
         isFirstTime = false
         versionCode = currentVersionCode
     }

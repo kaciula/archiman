@@ -1,6 +1,6 @@
 package com.kaciula.archiman.infrastructure.util
 
-import com.kaciula.archiman.boundary.SchedulerProvider
+import com.kaciula.archiman.domain.boundary.SchedulerProvider
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

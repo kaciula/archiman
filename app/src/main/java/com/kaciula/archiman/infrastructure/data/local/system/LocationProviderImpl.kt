@@ -7,9 +7,9 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.OnCompleteListener
-import com.kaciula.archiman.boundary.LatLng
-import com.kaciula.archiman.boundary.LocationProvider
-import com.kaciula.archiman.boundary.LocationSettingsNeeded
+import com.kaciula.archiman.domain.boundary.LatLng
+import com.kaciula.archiman.domain.boundary.LocationProvider
+import com.kaciula.archiman.domain.boundary.LocationSettingsNeeded
 import io.reactivex.Single
 import io.reactivex.SingleEmitter
 import timber.log.Timber
