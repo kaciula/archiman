@@ -1,21 +1,16 @@
 package com.kaciula.archiman.presentation.screens.main
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.IntentSender
 import android.os.Bundle
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
-import com.google.android.gms.common.api.ResolvableApiException
 import com.kaciula.archiman.R
 import com.kaciula.archiman.di.KoinParam
 import com.kaciula.archiman.di.ScreenContext
 import com.kaciula.archiman.infrastructure.util.MobiusLogger
 import com.kaciula.archiman.presentation.screens.main.domain.*
 import com.kaciula.archiman.presentation.screens.main.effecthandlers.MainEffectHandlers
-import com.kaciula.archiman.presentation.screens.userdetails.domain.LocationSettingsResolved
-import com.kaciula.archiman.presentation.screens.userdetails.domain.LocationSettingsStillNotResolved
 import com.kaciula.archiman.presentation.util.BaseActivity
 import com.kaciula.archiman.presentation.util.DevDrawer
 import com.spotify.mobius.Connectable
@@ -108,28 +103,6 @@ class MainActivity : BaseActivity(), Connectable<MainModel, MainEvent> {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_SHOW_LOCATION_SETTINGS) {
-            if (resultCode == Activity.RESULT_OK) {
-                coordinator.userDetailsController().publishEvent(LocationSettingsResolved)
-            } else {
-                coordinator.userDetailsController().publishEvent(LocationSettingsStillNotResolved)
-            }
-        } /*else if (requestCode == REQUEST_PLAY_SERVICES_RESOLUTION) {
-            Toast.makeText(this, "Play Services resolution", Toast.LENGTH_SHORT).show()
-        }*/
-    }
-
-    fun showLocationSettingsDialog(settingsResolvableApiException: ResolvableApiException) {
-        try {
-            // Check the result in onActivityResult()
-            settingsResolvableApiException
-                .startResolutionForResult(this, REQUEST_SHOW_LOCATION_SETTINGS)
-        } catch (sendEx: IntentSender.SendIntentException) {
-            Timber.e(sendEx, "Could not open location settings dialog")
-        }
-    }
-
     private fun setupDevDrawer() {
         devDrawer = DevDrawer(this)
     }
@@ -145,6 +118,3 @@ class MainActivity : BaseActivity(), Connectable<MainModel, MainEvent> {
         }
     }
 }
-
-private const val REQUEST_SHOW_LOCATION_SETTINGS = 1
-private const val REQUEST_PLAY_SERVICES_RESOLUTION = 9000
