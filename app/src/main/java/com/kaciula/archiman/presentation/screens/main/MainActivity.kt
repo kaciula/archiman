@@ -49,7 +49,7 @@ class MainActivity : BaseActivity(), Connectable<MainModel, MainEvent> {
 
         setSupportActionBar(toolbar)
 
-        router = Conductor.attachRouter(this, controller_container, savedInstanceState)
+        router = Conductor.attachRouter(this, containerControllers, savedInstanceState)
         (coordinator as CoordinatorImpl).init(router)
         coordinator.start()
 

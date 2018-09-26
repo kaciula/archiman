@@ -27,6 +27,10 @@ apply plugin: 'com.github.ben-manes.versions'
 
 def buildTime = new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 
+// FIXME Replace with appropriate values
+final APPLICATION_ID = 'com.kaciula.archiman'
+final APP_NAME = 'Archiman'
+
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
 
@@ -38,8 +42,7 @@ android {
     def versionPatch = versionProps['versionPatch'].toInteger()
 
     defaultConfig {
-        // FIXME Replace with your app's package name
-        applicationId "com.kaciula.archiman"
+        applicationId "$APPLICATION_ID"
 
         minSdkVersion globalConfiguration["MIN_SDK"]
         targetSdkVersion globalConfiguration["TARGET_SDK"]
@@ -65,9 +68,8 @@ android {
         }
     }
 
-    // FIXME Replace with your app's package name followed by fileprovider
-    final FILE_PROVIDER_DEBUG = "com.kaciula.archiman.debug.fileprovider"
-    final FILE_PROVIDER_RELEASE = "com.kaciula.archiman.fileprovider"
+    final FILE_PROVIDER_DEBUG = "${APPLICATION_ID}.debug.fileprovider"
+    final FILE_PROVIDER_RELEASE = "${APPLICATION_ID}.fileprovider"
     final FILE_PROVIDER_AUTHORITY = "FILE_PROVIDER_AUTHORITY"
 
     buildTypes {
@@ -123,8 +125,7 @@ android {
     }
     applicationVariants.all { variant ->
         variant.outputs.all {
-            // FIXME Replace with your app's name
-            outputFileName = "Archiman-${variant.versionName}.apk"
+            outputFileName = "${APP_NAME}-${variant.versionName}.apk"
         }
     }
 }

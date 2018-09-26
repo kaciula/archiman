@@ -19,7 +19,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <com.bluelinelabs.conductor.ChangeHandlerFrameLayout
-        android:id="@+id/controller_container"
+        android:id="@+id/containerControllers"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />

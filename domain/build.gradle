@@ -7,7 +7,7 @@ dependencies {
     implementation deps.rxjava
     implementation deps.kotlin
     implementation deps.joda
-    compileOnly 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
+    compileOnly 'com.jakewharton.rxrelay2:rxrelay:2.1.0'
 
     testImplementation deps.junit
     testImplementation deps.mockito
