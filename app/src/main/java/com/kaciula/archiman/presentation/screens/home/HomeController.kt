@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kaciula.archiman.R
-import com.kaciula.archiman.di.ScreenContext
 import com.kaciula.archiman.infrastructure.util.MobiusLogger
 import com.kaciula.archiman.presentation.screens.home.domain.HomeEvent
 import com.kaciula.archiman.presentation.screens.home.domain.HomeInit
@@ -18,7 +17,6 @@ import com.spotify.mobius.rx2.RxEventSources
 import com.spotify.mobius.rx2.RxMobius
 import io.reactivex.subjects.PublishSubject
 import org.koin.standalone.inject
-import org.koin.standalone.releaseContext
 
 class HomeController : BaseController() {
 
@@ -45,11 +43,6 @@ class HomeController : BaseController() {
         controller.stop()
         controller.disconnect()
         super.onDestroyView(view)
-    }
-
-    override fun onDestroy() {
-        releaseContext(ScreenContext.HOME)
-        super.onDestroy()
     }
 
     fun dialogRouter() = getChildRouter(view!!.findViewById(R.id.containerDialogs))

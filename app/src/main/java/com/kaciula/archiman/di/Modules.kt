@@ -13,19 +13,20 @@ import com.kaciula.archiman.infrastructure.util.CrashlyticsCrashReporter
 import com.kaciula.archiman.presentation.screens.home.effecthandlers.HomeEffectHandlers
 import com.kaciula.archiman.presentation.screens.main.Coordinator
 import com.kaciula.archiman.presentation.screens.main.CoordinatorImpl
+import com.kaciula.archiman.presentation.screens.main.MainActivity
 import com.kaciula.archiman.presentation.screens.main.effecthandlers.MainEffectHandlers
 import com.squareup.moshi.Moshi
 import okhttp3.Cache
 import okhttp3.OkHttpClient
-import org.koin.dsl.module.applicationContext
+import org.koin.dsl.module.module
 
-val AppModule = applicationContext {
-    bean { AndroidSchedulerProvider() as SchedulerProvider }
-    bean { CoordinatorImpl(get()) as Coordinator }
+val appModule = module {
+    single { AndroidSchedulerProvider() as SchedulerProvider }
+    single { CoordinatorImpl(get()) as Coordinator }
 }
 
-val RemoteModule = applicationContext {
-    bean { createOkHttpClientBuilder(get()) }
+val remoteModule = module {
+    single { createOkHttpClientBuilder(get()) }
 }
 
 fun createOkHttpClientBuilder(context: Context): OkHttpClient.Builder {
@@ -35,10 +36,10 @@ fun createOkHttpClientBuilder(context: Context): OkHttpClient.Builder {
     return builder
 }
 
-val InfrastructureModule = applicationContext {
-    bean { createMoshi() }
-    bean { AppRepositoryImpl() as AppRepository }
-    bean { CrashlyticsCrashReporter(get()) as CrashReporter }
+val infrastructureModule = module {
+    single { createMoshi() }
+    single { AppRepositoryImpl() as AppRepository }
+    single { CrashlyticsCrashReporter(get()) as CrashReporter }
 }
 
 fun createMoshi(): Moshi {
@@ -49,32 +50,12 @@ fun createMoshi(): Moshi {
         .build()
 }
 
-
-val ScreensModule = applicationContext {
-    context(ScreenContext.MAIN) {
-        bean { params ->
-            MainEffectHandlers(params[KoinParam.ACTIVITY], get(), get())
-        }
+val screensModule = module {
+    factory { (activity: MainActivity) ->
+        MainEffectHandlers(activity, get(), get())
     }
-    context(ScreenContext.HOME) {
-        bean { HomeEffectHandlers(get(), get()) }
-    }
+    factory { HomeEffectHandlers(get(), get()) }
 }
 
-val archimanAppModules = listOf(
-    AppModule,
-    InfrastructureModule,
-    RemoteModule,
-    OkHttpModule,
-    ScreensModule
-)
-
-object KoinParam {
-    const val CONTROLLER = "CONTROLLER"
-    const val ACTIVITY = "ACTIVITY"
-}
-
-object ScreenContext {
-    const val MAIN = "MAIN"
-    const val HOME = "HOME"
-}
+val appModules =
+    listOf(appModule, infrastructureModule, remoteModule, screensModule, variantModule)

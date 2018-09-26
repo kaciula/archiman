@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.KOTLIN_VERSION = '1.2.51'
+    ext.KOTLIN_VERSION = '1.2.71'
 
     repositories {
         jcenter()
@@ -9,21 +9,21 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.4'
+        classpath 'com.android.tools.build:gradle:3.2.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
     }
 }
 
 allprojects {
-    ext.COMPILE_SDK = 27
+    ext.COMPILE_SDK = 28
     ext.MIN_SDK = 21
-    ext.TARGET_SDK = 27
+    ext.TARGET_SDK = 28
 
-    ext.RXJAVA_VERSION = '2.1.12'
+    ext.RXJAVA_VERSION = '2.2.2'
     ext.JUNIT_VERSION = '4.12'
-    ext.MOCKITO_VERSION = '2.17.0'
+    ext.MOCKITO_VERSION = '2.22.0'
     ext.HAMCREST_VERSION = '1.3'
-    ext.JODA_TIME_VERSION = '2.9.9'
+    ext.JODA_TIME_VERSION = '2.10'
 
     ext.deps = [
             rxjava  : "io.reactivex.rxjava2:rxjava:$RXJAVA_VERSION",

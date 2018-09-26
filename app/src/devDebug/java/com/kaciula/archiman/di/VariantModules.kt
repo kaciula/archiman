@@ -4,10 +4,10 @@ import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.github.simonpercic.oklog3.OkLogInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.dsl.module.applicationContext
+import org.koin.dsl.module.module
 
-val OkHttpModule = applicationContext {
-    bean { createOkHttpClient(get()) }
+val variantModule = module {
+    single { createOkHttpClient(get()) }
 }
 
 fun createOkHttpClient(builder: OkHttpClient.Builder): OkHttpClient {

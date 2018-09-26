@@ -31,7 +31,7 @@ class DividerItemDecoration : RecyclerView.ItemDecoration {
 
     override fun getItemOffsets(
         outRect: Rect, view: View, parent: RecyclerView,
-        state: RecyclerView.State?
+        state: RecyclerView.State
     ) {
         super.getItemOffsets(outRect, view, parent, state)
         if (getOrientation(parent) == LinearLayoutManager.VERTICAL) {
@@ -41,7 +41,7 @@ class DividerItemDecoration : RecyclerView.ItemDecoration {
         }
     }
 
-    override fun onDrawOver(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State?) {
+    override fun onDrawOver(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         if (getOrientation(parent) == LinearLayoutManager.VERTICAL) {
             val left = parent.paddingLeft
             val right = parent.width - parent.paddingRight

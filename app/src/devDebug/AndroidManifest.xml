@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".infrastructure.util.DevDebugArchimanApplication"
+        android:name=".infrastructure.util.DevDebugApplication"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_rules"
         tools:replace="android:name" />

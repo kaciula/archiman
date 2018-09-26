@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import com.kaciula.archiman.presentation.screens.main.MainActivity
 
-class ArchimanUncaughtExceptionHandler(private val context: Context) :
+class RestartUncaughtExceptionHandler(private val context: Context) :
     Thread.UncaughtExceptionHandler {
 
     override fun uncaughtException(thread: Thread, ex: Throwable) {

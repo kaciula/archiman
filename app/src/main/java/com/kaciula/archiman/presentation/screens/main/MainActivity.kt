@@ -6,8 +6,6 @@ import android.os.Bundle
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
 import com.kaciula.archiman.R
-import com.kaciula.archiman.di.KoinParam
-import com.kaciula.archiman.di.ScreenContext
 import com.kaciula.archiman.infrastructure.util.MobiusLogger
 import com.kaciula.archiman.presentation.screens.main.domain.*
 import com.kaciula.archiman.presentation.screens.main.effecthandlers.MainEffectHandlers
@@ -23,14 +21,14 @@ import com.spotify.mobius.rx2.RxMobius
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
-import org.koin.android.ext.android.releaseContext
+import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
 class MainActivity : BaseActivity(), Connectable<MainModel, MainEvent> {
 
     private val coordinator: Coordinator by inject()
 
-    private val effectHandlers: MainEffectHandlers by inject { mapOf(KoinParam.ACTIVITY to this) }
+    private val effectHandlers: MainEffectHandlers by inject { parametersOf(this) }
 
     private val eventSource: PublishSubject<MainEvent> = PublishSubject.create()
 
@@ -83,7 +81,6 @@ class MainActivity : BaseActivity(), Connectable<MainModel, MainEvent> {
 
     override fun onDestroy() {
         controller.disconnect()
-        releaseContext(ScreenContext.MAIN)
         super.onDestroy()
     }
 

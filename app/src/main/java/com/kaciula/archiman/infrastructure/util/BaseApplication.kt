@@ -1,38 +1,58 @@
 package com.kaciula.archiman.infrastructure.util
 
 import android.app.Application
-import android.os.StrictMode
+import com.chibatching.kotpref.Kotpref
+import com.kaciula.archiman.BuildConfig
+import com.kaciula.archiman.di.appModules
+import com.kaciula.archiman.domain.boundary.AppRepository
+import com.kaciula.archiman.domain.util.Timberific
+import io.reactivex.plugins.RxJavaPlugins
+import io.realm.Realm
+import io.realm.RealmConfiguration
 import net.danlew.android.joda.JodaTimeAndroid
+import org.koin.android.ext.android.inject
+import org.koin.android.ext.android.startKoin
+import org.koin.log.Logger
+import timber.log.Timber
 
 abstract class BaseApplication : Application() {
+
+    private val appRepository: AppRepository by inject()
 
     override fun onCreate() {
         super.onCreate()
 
         JodaTimeAndroid.init(this)
+        Timberific.init(BuildConfig.DEBUG)
+        RxJavaPlugins.setErrorHandler(RxGlobalErrorHandler())
+
+        setupRealm()
+        Kotpref.init(this)
+
+        startKoin(this, appModules, logger = koinLogger())
+
+        onSetup()
+
+        initColdStart(BuildConfig.VERSION_CODE)
     }
 
-    /*
-   * When in developer mode, we use StrictMode (if available) to detect accidental
-   * disk/network access on the application's main thread
-   */
-    protected fun enableFullStrictMode() {
-        StrictMode
-            .setThreadPolicy(StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build())
-        StrictMode.setVmPolicy(StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build())
+    abstract fun onSetup()
+
+    abstract fun koinLogger(): Logger
+
+    private fun setupRealm() {
+        Realm.init(this)
+        Realm.setDefaultConfiguration(RealmConfiguration.Builder().build())
     }
 
-    protected fun enableFullStrictModePenaltyDeath() {
-        StrictMode
-            .setThreadPolicy(StrictMode.ThreadPolicy.Builder().detectAll().penaltyDeath().build())
-        StrictMode.setVmPolicy(StrictMode.VmPolicy.Builder().detectAll().penaltyDeath().build())
-    }
-
-    protected fun allowThreadDiskReads() {
-        StrictMode.allowThreadDiskReads()
-    }
-
-    protected fun allowThreadDiskWrites() {
-        StrictMode.allowThreadDiskWrites()
+    private fun initColdStart(currentVersionCode: Int) {
+        Timber.i("Initialize every cold start")
+        val app = appRepository.get()
+        if (app.shouldBumpVersion(currentVersionCode)) {
+            app.bumpVersion(currentVersionCode)
+            appRepository.save(app)
+        } else {
+            Timber.i("Just a basic cold start")
+        }
     }
 }

@@ -9,7 +9,7 @@ import org.koin.android.logger.AndroidLogger
 import org.koin.log.Logger
 import timber.log.Timber
 
-class DevDebugArchimanApplication : ArchimanApplication() {
+class DevDebugApplication : BaseApplication() {
 
     override fun onSetup() {
         if (LeakCanary.isInAnalyzerProcess(this)) {
