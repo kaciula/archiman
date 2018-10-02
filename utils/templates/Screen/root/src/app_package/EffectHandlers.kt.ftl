@@ -1,6 +1,6 @@
 package ${mainSourceSetPackage}.presentation.screens.${screenName?lower_case}.effecthandlers
 
-import ${mainSourceSetPackage}.boundary.SchedulerProvider
+import ${mainSourceSetPackage}.domain.boundary.SchedulerProvider
 import ${mainSourceSetPackage}.presentation.screens.${screenName?lower_case}.domain.${screenName}Effect
 import ${mainSourceSetPackage}.presentation.screens.${screenName?lower_case}.domain.${screenName}Event
 import ${mainSourceSetPackage}.presentation.screens.main.Coordinator

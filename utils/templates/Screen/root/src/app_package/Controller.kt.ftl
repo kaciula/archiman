@@ -3,7 +3,6 @@ package ${mainSourceSetPackage}.presentation.screens.${screenName?lower_case}
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ${mainSourceSetPackage}.di.ScreenContext
 import ${mainSourceSetPackage}.infrastructure.util.MobiusLogger
 import ${mainSourceSetPackage}.presentation.screens.${screenName?lower_case}.domain.${screenName}Event
 import ${mainSourceSetPackage}.presentation.screens.${screenName?lower_case}.domain.${screenName}Init
@@ -44,11 +43,6 @@ class ${screenName}Controller : BaseController() {
         controller.stop()
         controller.disconnect()
         super.onDestroyView(view)
-    }
-
-    override fun onDestroy() {
-        releaseContext(ScreenContext.${screenName?upper_case})
-        super.onDestroy()
     }
 
     fun publishEvent(event: ${screenName}Event) {

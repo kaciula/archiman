@@ -12,7 +12,6 @@ class ${screenName}Init : Init<${screenName}Model, ${screenName}Effect> {
 class ${screenName}Update : Update<${screenName}Model, ${screenName}Event, ${screenName}Effect> {
 
     override fun update(model: ${screenName}Model, event: ${screenName}Event): Next<${screenName}Model, ${screenName}Effect> {
-        return when (event) {
-        }
+        return Next.noChange()
     }
 }
