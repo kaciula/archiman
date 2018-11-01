@@ -18,10 +18,12 @@ import com.kaciula.archiman.presentation.screens.userdetails.domain.LocationSett
 import com.kaciula.archiman.presentation.screens.userdetails.domain.LocationSettingsStillNotResolved
 import com.kaciula.archiman.presentation.util.BaseActivity
 import com.kaciula.archiman.presentation.util.DevDrawer
+import com.kaciula.archiman.presentation.util.mobius.ProfilingLogger
 import com.spotify.mobius.Connectable
 import com.spotify.mobius.Connection
 import com.spotify.mobius.MobiusLoop
 import com.spotify.mobius.android.MobiusAndroid
+import com.spotify.mobius.extras.CompositeLogger
 import com.spotify.mobius.functions.Consumer
 import com.spotify.mobius.rx2.RxEventSources
 import com.spotify.mobius.rx2.RxMobius
@@ -39,11 +41,14 @@ class MainActivity : BaseActivity(), Connectable<MainModel, MainEvent> {
 
     private val eventSource: PublishSubject<MainEvent> = PublishSubject.create()
 
+    private val profilingLogger: ProfilingLogger<MainModel, MainEvent, MainEffect> =
+        ProfilingLogger()
+
     private val loopFactory = RxMobius
         .loop(MainUpdate(), effectHandlers.build())
         .init(MainInit())
         .eventSource(RxEventSources.fromObservables(eventSource))
-        .logger(MobiusLogger("Main"))
+        .logger(CompositeLogger.from(MobiusLogger("Main"), profilingLogger))
 
     private lateinit var controller: MobiusLoop.Controller<MainModel, MainEvent>
 
@@ -87,6 +92,7 @@ class MainActivity : BaseActivity(), Connectable<MainModel, MainEvent> {
     }
 
     override fun onDestroy() {
+        profilingLogger.printPerformance()
         controller.disconnect()
         releaseContext(ScreenContext.MAIN)
         super.onDestroy()

@@ -11,7 +11,9 @@ import com.kaciula.archiman.presentation.screens.home.domain.*
 import com.kaciula.archiman.presentation.screens.home.effecthandlers.HomeEffectHandlers
 import com.kaciula.archiman.presentation.screens.home.view.HomeView
 import com.kaciula.archiman.presentation.util.conductor.BaseController
+import com.kaciula.archiman.presentation.util.mobius.ProfilingLogger
 import com.spotify.mobius.android.MobiusAndroid
+import com.spotify.mobius.extras.CompositeLogger
 import com.spotify.mobius.rx2.RxEventSources
 import com.spotify.mobius.rx2.RxMobius
 import io.reactivex.Observable
@@ -38,11 +40,14 @@ class HomeController : BaseController() {
 
     private val eventSource: PublishSubject<HomeEvent> = PublishSubject.create()
 
+    private val profilingLogger: ProfilingLogger<HomeModel, HomeEvent, HomeEffect> =
+        ProfilingLogger()
+
     private val loopFactory = RxMobius
         .loop(HomeUpdate(), effectHandlers.build())
         .init(HomeInit())
         .eventSource(RxEventSources.fromObservables(eventSource, lifecycleAwarePoll))
-        .logger(MobiusLogger("Home"))
+        .logger(CompositeLogger.from(MobiusLogger("Home"), profilingLogger))
 
     private val controller = MobiusAndroid.controller(loopFactory, HomeModel())
 
@@ -54,6 +59,7 @@ class HomeController : BaseController() {
     }
 
     override fun onDestroyView(view: View) {
+        profilingLogger.printPerformance()
         controller.stop()
         controller.disconnect()
         super.onDestroyView(view)

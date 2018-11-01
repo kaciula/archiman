@@ -8,15 +8,14 @@ import com.kaciula.archiman.di.KoinParam
 import com.kaciula.archiman.di.ScreenContext
 import com.kaciula.archiman.infrastructure.util.MobiusLogger
 import com.kaciula.archiman.presentation.screens.home.UserViewModel
-import com.kaciula.archiman.presentation.screens.userdetails.domain.UserDetailsEvent
-import com.kaciula.archiman.presentation.screens.userdetails.domain.UserDetailsInit
-import com.kaciula.archiman.presentation.screens.userdetails.domain.UserDetailsModel
-import com.kaciula.archiman.presentation.screens.userdetails.domain.UserDetailsUpdate
+import com.kaciula.archiman.presentation.screens.userdetails.domain.*
 import com.kaciula.archiman.presentation.screens.userdetails.effecthandlers.UserDetailsEffectHandlers
 import com.kaciula.archiman.presentation.screens.userdetails.view.UserDetailsView
 import com.kaciula.archiman.presentation.util.conductor.BaseController
 import com.kaciula.archiman.presentation.util.conductor.BundleBuilder
+import com.kaciula.archiman.presentation.util.mobius.ProfilingLogger
 import com.spotify.mobius.android.MobiusAndroid
+import com.spotify.mobius.extras.CompositeLogger
 import com.spotify.mobius.rx2.RxEventSources
 import com.spotify.mobius.rx2.RxMobius
 import io.reactivex.subjects.PublishSubject
@@ -31,14 +30,14 @@ class UserDetailsController(args: Bundle) : BaseController(args) {
 
     private val eventSource: PublishSubject<UserDetailsEvent> = PublishSubject.create()
 
+    private val profilingLogger: ProfilingLogger<UserDetailsModel, UserDetailsEvent, UserDetailsEffect> =
+        ProfilingLogger()
+
     private val loopFactory = RxMobius
-        .loop(
-            UserDetailsUpdate(),
-            effectHandlers.build()
-        )
+        .loop(UserDetailsUpdate(), effectHandlers.build())
         .init(UserDetailsInit())
         .eventSource(RxEventSources.fromObservables(eventSource))
-        .logger(MobiusLogger("User Details"))
+        .logger(CompositeLogger.from(MobiusLogger("User Details"), profilingLogger))
 
     private val controller =
         MobiusAndroid.controller(loopFactory, UserDetailsModel(userName = user.name))
@@ -57,6 +56,7 @@ class UserDetailsController(args: Bundle) : BaseController(args) {
     }
 
     override fun onDestroyView(view: View) {
+        profilingLogger.printPerformance()
         controller.stop()
         controller.disconnect()
         super.onDestroyView(view)
