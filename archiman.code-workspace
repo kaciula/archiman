@@ -1,0 +1,28 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "debug",
+				"request": "launch",
+				"type": "dart",
+				"flutterMode": "debug",
+				"program": "lib/main.dart"
+				// "program": "lib/start/main_debug.dart"
+			},
+			{
+				"name": "release",
+				"request": "launch",
+				"type": "dart",
+				"flutterMode": "release",
+				"program": "lib/start/main_release.dart"
+			}
+		]
+	}
+}

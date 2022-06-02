@@ -1,4 +1,4 @@
-package com.example.archiman
+package com.kaciula.archiman
 
 import io.flutter.embedding.android.FlutterActivity
 
