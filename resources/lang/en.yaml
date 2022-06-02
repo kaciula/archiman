@@ -1,0 +1,13 @@
+# Generic
+genericNoInternetTitle: Connect to the Internet
+genericNoInternetMsg: You have no Internet connection. Check your connection.
+genericErrorTitle: Oops!
+genericErrorMsg: Something unexpected happened. Please try again.
+genericRetry: Retry
+genericSearch: Search
+genericNoSearchResults: No results.
+genericYes: Yes
+genericNo: No
+genericYesterday: Yesterday
+genericOk: OK
+details: DETAILS

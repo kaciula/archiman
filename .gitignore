@@ -48,5 +48,4 @@ app.*.map.json
 
 temo.txt
 /metrics
-.fttemplates/
 .fvm/
