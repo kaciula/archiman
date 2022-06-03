@@ -136,4 +136,25 @@ class Strings {
       'en': '''DETAILS''',
     },
   );
+
+  static const required = PlainLocalizedString(
+    key: 'required',
+    values: {
+      'en': '''Required''',
+    },
+  );
+
+  static const validEmail = PlainLocalizedString(
+    key: 'validEmail',
+    values: {
+      'en': '''Please enter a valid email address''',
+    },
+  );
+
+  static const invalidPhoneNumber = PlainLocalizedString(
+    key: 'invalidPhoneNumber',
+    values: {
+      'en': '''Please enter a valid phone number''',
+    },
+  );
 }
