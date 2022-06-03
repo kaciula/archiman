@@ -1,6 +1,5 @@
 import 'package:archiman/app/app_locale.dart';
 import 'package:archiman/app/app_messenger.dart';
-import 'package:archiman/app/app_navigator.dart';
 import 'package:archiman/features/common/utils/generic/refresh_state.dart';
 import 'package:archiman/infrastructure/local_stores/app_info_store.dart';
 import 'package:archiman/start/service_locator.dart';
@@ -13,7 +12,6 @@ class SplashCubit extends Cubit<SplashState> {
   SplashCubit() : super(SplashState.initial());
 
   final AppInfoStore _appInfoStore = getIt<AppInfoStore>();
-  final AppNavigator _appNavigator = getIt<AppNavigator>();
   final AppMessenger _appMessenger = getIt<AppMessenger>();
 
   void appStarted() async {
