@@ -1,6 +1,7 @@
 import 'package:archiman/app/app_locale.dart';
-import 'package:archiman/app/app_messenger.dart';
+import 'package:archiman/app/app_navigator.dart';
 import 'package:archiman/features/common/utils/generic/refresh_state.dart';
+import 'package:archiman/features/main/pages/home/home_page.dart';
 import 'package:archiman/infrastructure/local_stores/app_info_store.dart';
 import 'package:archiman/start/service_locator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +13,7 @@ class SplashCubit extends Cubit<SplashState> {
   SplashCubit() : super(SplashState.initial());
 
   final AppInfoStore _appInfoStore = getIt<AppInfoStore>();
-  final AppMessenger _appMessenger = getIt<AppMessenger>();
+  final AppNavigator _appNavigator = getIt<AppNavigator>();
 
   void appStarted() async {
     await _onAppStart();
@@ -24,14 +25,11 @@ class SplashCubit extends Cubit<SplashState> {
   }
 
   Future<void> _decideWhatToDo() async {
-    await Future<void>.delayed(
-      Duration(seconds: 4),
-      () => emit(state.copyWith(refreshState: RefreshState.success())),
-    );
+    emit(state.copyWith(refreshState: RefreshState.inProgress()));
 
     await Future<void>.delayed(
-      Duration(seconds: 2),
-      () => _appMessenger.showInfoSnackBar('Hello'),
+      Duration(seconds: 4),
+      () => _appNavigator.moveToHome(HomeArgs()),
     );
   }
 

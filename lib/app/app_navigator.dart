@@ -1,4 +1,5 @@
 import 'package:archiman/features/common/pages/web_page/web_page.dart';
+import 'package:archiman/features/main/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 
 class AppNavigator {
@@ -19,4 +20,12 @@ class AppNavigator {
     navigatorKey.currentState!.pushNamed(WebPage.routeName, arguments: args);
   }
   // ---
+
+  Future<void> moveToHome(HomeArgs args) async {
+    navigatorKey.currentState!.pushNamedAndRemoveUntil(
+      HomePage.routeName,
+      (Route<dynamic> _) => false,
+      arguments: args,
+    );
+  }
 }
