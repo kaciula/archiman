@@ -70,6 +70,12 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  assets:
+    - assets/
+    - assets/animations/
+    - assets/images/
+    - assets/svgs/
+
 # flutter pub run flutter_launcher_icons:main
 flutter_icons:
   android: true
@@ -83,5 +89,6 @@ flutter_native_splash:
   color: "#F6F6F6"
 
 # Spider used to generate asset fields
+# flutter pub global activate spider
 # spider create
 # spider build --watch
