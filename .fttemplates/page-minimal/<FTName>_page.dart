@@ -19,6 +19,7 @@ class _<FTName | pascalcase>PageState extends State<<FTName | pascalcase>Page> {
   Widget build(BuildContext context) {
     return BlocBuilder<<FTName | pascalcase>Cubit, <FTName | pascalcase>State>(
         builder: _builder,
+        buildWhen: (<FTName | pascalcase>State previous, <FTName | pascalcase>State current) => previous != current,
     );
   }
 

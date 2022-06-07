@@ -26,6 +26,7 @@ class _<FTName | pascalcase>State extends State<<FTName | pascalcase>> {
       child: Builder(
           builder: (BuildContext context) => BlocBuilder<<FTName | pascalcase>Cubit, <FTName | pascalcase>State>(
           builder: _builder,
+          buildWhen: (<FTName | pascalcase>State previous, <FTName | pascalcase>State current) => previous != current,
         ),
       ),
     );
