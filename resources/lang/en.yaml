@@ -1,3 +1,5 @@
+selectedUserIs: Selected user is {1}
+
 # Generic
 genericNoInternetTitle: Connect to the Internet
 genericNoInternetMsg: You have no Internet connection. Check your connection.

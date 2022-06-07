@@ -1,7 +1,9 @@
+import 'package:archiman/app/app_navigator.dart';
 import 'package:archiman/features/common/utils/generic/refresh_state.dart';
 import 'package:archiman/features/main/data/data_store.dart';
 import 'package:archiman/features/main/models/stack_user.dart';
 import 'package:archiman/features/main/pages/home/home_page.dart';
+import 'package:archiman/features/main/pages/user_details/user_details_page.dart';
 import 'package:archiman/start/service_locator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kt_dart/kt.dart';
@@ -13,6 +15,7 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit(HomeArgs args) : super(HomeState.initial());
 
   final DataStore _dataStore = getIt<DataStore>();
+  final AppNavigator _appNavigator = getIt<AppNavigator>();
 
   Future<void> pageStarted() async {
     await _refresh();
@@ -20,6 +23,10 @@ class HomeCubit extends Cubit<HomeState> {
 
   void refreshRequested() async {
     await _refresh();
+  }
+
+  void userRequested(StackUser stackUser) {
+    _appNavigator.goToUserDetails(UserDetailsArgs(stackUser));
   }
 
   Future<void> _refresh() async {

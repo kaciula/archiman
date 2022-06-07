@@ -78,6 +78,7 @@ class _HomePageState extends State<HomePage> {
   Widget _stackUserItem(StackUser stackUser) {
     return ListTile(
       title: Text(stackUser.name),
+      onTap: () => _cubit.userRequested(stackUser),
     );
   }
 

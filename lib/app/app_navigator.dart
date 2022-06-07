@@ -1,5 +1,6 @@
 import 'package:archiman/features/common/pages/web_page/web_page.dart';
 import 'package:archiman/features/main/pages/home/home_page.dart';
+import 'package:archiman/features/main/pages/user_details/user_details_page.dart';
 import 'package:flutter/material.dart';
 
 class AppNavigator {
@@ -27,5 +28,10 @@ class AppNavigator {
       (Route<dynamic> _) => false,
       arguments: args,
     );
+  }
+
+  void goToUserDetails(UserDetailsArgs args) {
+    navigatorKey.currentState!
+        .pushNamed(UserDetailsPage.routeName, arguments: args);
   }
 }

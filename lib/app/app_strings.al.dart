@@ -53,6 +53,13 @@ extension AutoLocalizedContextExtension on BuildContext {
 @immutable
 class Strings {
   const Strings._();
+  static const selectedUserIs = ArgLocalizedString1(
+    key: 'selectedUserIs',
+    values: {
+      'en': '''Selected user is {1}''',
+    },
+  );
+
   static const genericNoInternetTitle = PlainLocalizedString(
     key: 'genericNoInternetTitle',
     values: {
