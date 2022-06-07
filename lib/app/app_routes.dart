@@ -7,12 +7,15 @@ import 'cubit/app_cubit.dart';
 
 Route<dynamic> appRoutes(RouteSettings settings, AppCubit appCubit) {
   if (settings.name == HomePage.routeName) {
-    return MaterialPageRoute<Object>(builder: (BuildContext context) {
-      return BlocProvider<HomeCubit>(
-        create: (BuildContext context) => HomeCubit(),
-        child: HomePage(),
-      );
-    });
+    final HomeArgs args = settings.arguments as HomeArgs;
+    return MaterialPageRoute<Object>(
+      builder: (BuildContext context) {
+        return BlocProvider<HomeCubit>(
+          create: (BuildContext context) => HomeCubit(args)..pageStarted(),
+          child: HomePage(),
+        );
+      },
+    );
   }
 
   throw Exception('Unknown route [${settings.name}]');

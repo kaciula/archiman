@@ -1,6 +1,8 @@
 import 'package:archiman/app/resources/resources.dart';
 import 'package:archiman/features/common/widgets/molecules/universal_animation.dart';
 import 'package:archiman/features/common/widgets/molecules/universal_image.dart';
+import 'package:archiman/features/common/widgets/templates/refresh_container.dart';
+import 'package:archiman/features/main/models/stack_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
@@ -22,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: _builder,
+      buildWhen: (HomeState previous, HomeState current) => previous != current,
     );
   }
 
@@ -33,22 +36,48 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _body(BuildContext context, HomeState state) {
+    return RefreshContainer(
+      refreshState: state.refreshState,
+      content: () => _content(context, state),
+      onRetry: () => _cubit.refreshRequested(),
+    );
+  }
+
+  Widget _content(BuildContext context, HomeState state) {
     return SafeArea(
       child: Column(
-        children: const [
+        children: [
           Expanded(
-            child: UniversalImage(Images.sampleImage),
-          ),
-          Expanded(
-            child: UniversalImage(Svgs.sampleSvg),
-          ),
-          Expanded(
-            child: UniversalAnimation(
-              url: Animations.sampleAnimation,
+            child: ListView.builder(
+              itemCount: state.stackUsers.size,
+              itemBuilder: (context, index) {
+                return _stackUserItem(state.stackUsers[index]);
+              },
             ),
+          ),
+          Row(
+            children: const [
+              Expanded(
+                child: UniversalImage(Images.sampleImage),
+              ),
+              Expanded(
+                child: UniversalImage(Svgs.sampleSvg),
+              ),
+              Expanded(
+                child: UniversalAnimation(
+                  url: Animations.sampleAnimation,
+                ),
+              ),
+            ],
           ),
         ],
       ),
+    );
+  }
+
+  Widget _stackUserItem(StackUser stackUser) {
+    return ListTile(
+      title: Text(stackUser.name),
     );
   }
 
