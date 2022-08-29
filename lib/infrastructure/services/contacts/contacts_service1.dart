@@ -1,16 +1,14 @@
-import 'dart:typed_data';
-
 import 'package:flutter_contacts/flutter_contacts.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kt_dart/kt.dart';
 import 'package:logging/logging.dart';
 
-part 'contacts_service.freezed.dart';
+import 'contacts_service.dart';
 
-class ContactsService {
+class ContactsService1 implements ContactsService {
+  @override
   Future<KtList<DeviceContact>> getDeviceContacts() async {
     final List<Contact> contacts = await FlutterContacts.getContacts(
-        withProperties: true, withPhoto: true);
+        withProperties: true, withThumbnail: true);
     return contacts
         .toImmutableList()
         .filter((Contact it) => it.phones.isNotEmpty || it.emails.isNotEmpty)
@@ -44,18 +42,5 @@ class ContactsService {
   }
 }
 
-@freezed
-class DeviceContact with _$DeviceContact {
-  factory DeviceContact({
-    required String id,
-    required String displayName,
-    required String initials,
-    required Uint8List? photo,
-    // Phone numbers can be in various formats so they need to be normalized/cleaned down the line
-    required KtList<String> phoneNums,
-    required KtList<String> emailAddresses,
-  }) = _DeviceContact;
-}
-
 // ignore: unused_element
-final Logger _logger = Logger('ContactsService');
+final Logger _logger = Logger('ContactsService1');

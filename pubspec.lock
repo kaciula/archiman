@@ -323,6 +323,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0"
+  fast_contacts:
+    dependency: "direct main"
+    description:
+      name: fast_contacts
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.1"
   ffi:
     dependency: transitive
     description:
@@ -378,7 +385,7 @@ packages:
       name: firebase_core_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.4.0"
+    version: "4.5.1"
   firebase_core_web:
     dependency: transitive
     description:
@@ -400,6 +407,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.2.7"
+  firebase_dynamic_links:
+    dependency: "direct main"
+    description:
+      name: firebase_dynamic_links
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.3.6"
+  firebase_dynamic_links_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_dynamic_links_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.3+11"
   fixnum:
     dependency: transitive
     description:
@@ -466,6 +487,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_native_timezone:
+    dependency: "direct main"
+    description:
+      name: flutter_native_timezone
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -1328,6 +1356,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.2.2"
+  timezone:
+    dependency: "direct main"
+    description:
+      name: timezone
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.0"
+  timezone_utc_offset:
+    dependency: "direct main"
+    description:
+      name: timezone_utc_offset
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   timing:
     dependency: transitive
     description:
