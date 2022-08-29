@@ -58,6 +58,8 @@ dependencies:
   device_info_plus: ^3.2.3
   path_provider: ^2.0.10
   app_settings: ^4.1.6 # Wait for support for Flutter 3
+  in_app_purchase: ^3.0.7
+  app_links: ^3.2.0
 
 dev_dependencies:
   flutter_test:
