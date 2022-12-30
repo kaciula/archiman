@@ -41,6 +41,7 @@ dependencies:
 
   # Services
   shared_preferences: ^2.0.15
+  flutter_secure_storage: ^6.1.0
   package_info_plus: ^1.4.2
   volume_controller: ^2.0.3
   audio_session: ^0.1.7

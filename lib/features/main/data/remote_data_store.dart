@@ -1,4 +1,4 @@
-import 'package:archiman/features/common/data/remote/utils.dart';
+import 'package:archiman/features/common/data/remote/json/utils.dart';
 import 'package:archiman/features/main/data/data_store.dart';
 import 'package:archiman/features/main/models/stack_user.dart';
 import 'package:archiman/services/generic/crash/crash_service.dart';
