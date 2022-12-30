@@ -1,11 +1,11 @@
-import 'package:archiman/infrastructure/misc/crash/crash_reporter.dart';
-import 'package:archiman/infrastructure/services/log_service.dart';
+import 'package:archiman/services/generic/crash/crash_service.dart';
+import 'package:archiman/services/generic/log_service.dart';
 import 'package:flutter/services.dart';
 
 import 'service_locator.dart';
 
 Future<void> init() async {
-  final CrashReporter crashReporter = getIt<CrashReporter>();
+  final CrashService crashService = getIt<CrashService>();
   final LogService logService = getIt<LogService>();
 
   await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
@@ -13,5 +13,5 @@ Future<void> init() async {
   ]);
 
   await logService.init();
-  await crashReporter.init();
+  await crashService.init();
 }

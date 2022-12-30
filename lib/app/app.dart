@@ -3,7 +3,7 @@ import 'package:archiman/app/app_strings.al.dart';
 import 'package:archiman/features/common/pages/splash/cubit/splash_cubit.dart';
 import 'package:archiman/features/common/pages/splash/splash_page.dart';
 import 'package:archiman/features/common/utils/generic/page_utils.dart';
-import 'package:archiman/infrastructure/misc/analytics.dart';
+import 'package:archiman/services/generic/analytics_service.dart';
 import 'package:archiman/start/service_locator.dart';
 import 'package:auto_localized/auto_localized.dart';
 import 'package:device_preview/device_preview.dart';
@@ -29,7 +29,7 @@ class ThisAppState extends State<ThisApp> {
   final AppCubit _appCubit = getIt<AppCubit>();
   final AppNavigator _appNavigator = getIt<AppNavigator>();
   final AppMessenger _appMessenger = getIt<AppMessenger>();
-  final Analytics _analytics = getIt<Analytics>();
+  final AnalyticsService _analytics = getIt<AnalyticsService>();
   final RouteObserver _routeObserver = getIt<RouteObserver>();
 
   @override

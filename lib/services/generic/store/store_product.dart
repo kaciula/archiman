@@ -1,20 +1,20 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 
-part 'purchasable_product.freezed.dart';
+part 'store_product.freezed.dart';
 
 @freezed
-class PurchasableProduct with _$PurchasableProduct {
-  factory PurchasableProduct({
+class StoreProduct with _$StoreProduct {
+  factory StoreProduct({
     required String id,
     required String title,
     required String description,
     required String price,
     required ProductStatus status,
     required ProductDetails productDetails,
-  }) = _PurchasableProduct;
+  }) = _StoreProduct;
 
-  PurchasableProduct._();
+  StoreProduct._();
 
   bool get isPurchased => status == ProductStatus.purchased;
 }

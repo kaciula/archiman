@@ -30,10 +30,19 @@ class AppInfoStore {
     final PackageInfo packageInfo = await PackageInfo.fromPlatform();
     return '${packageInfo.version} (${packageInfo.buildNumber})';
   }
+
+  Future<void> saveTrackLogsInFile(bool trackLogsInFile) async {
+    await prefs.setBool(_keyTrackLogsInFile, trackLogsInFile);
+  }
+
+  bool trackLogsInFile() {
+    return prefs.getBool(_keyTrackLogsInFile) ?? false;
+  }
 }
 
 const String _keyIsFirstTime = 'isFirstTime';
 const String _keyVersionCode = 'versionCode';
+const String _keyTrackLogsInFile = 'track_logs_in_file';
 
 class AppInfo {
   AppInfo(this.isFirstTime, this.oldVersionCode, this.currentVersionCode);

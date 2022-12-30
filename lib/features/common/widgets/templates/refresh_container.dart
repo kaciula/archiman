@@ -57,7 +57,7 @@ class RefreshContainer extends StatelessWidget {
             if (errorDetails != null && showErrorDetails)
               TextButton(
                 style: TextButton.styleFrom(
-                  primary: AppColors.red,
+                  foregroundColor: AppColors.red,
                 ),
                 onPressed: () =>
                     _showErrorDetails(context, errorMsg, errorDetails),

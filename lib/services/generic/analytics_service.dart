@@ -1,15 +1,13 @@
-import 'package:archiman/app/app_constants.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 
-class Analytics {
-  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
-
+class AnalyticsService {
   List<NavigatorObserver> navigatorObservers() {
-    return isProduction
+    return kReleaseMode
         ? <NavigatorObserver>[
-            FirebaseAnalyticsObserver(analytics: _analytics),
+            FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance),
           ]
         : [];
   }

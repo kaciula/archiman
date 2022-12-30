@@ -1,4 +1,3 @@
-import 'package:archiman/infrastructure/local_stores/app_info_store.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:universal_io/io.dart';
@@ -6,20 +5,32 @@ import 'package:universal_io/io.dart';
 import 'uncaught_error_handler.dart';
 
 class UncaughtErrorHandlerRelease extends UncaughtErrorHandler {
-  UncaughtErrorHandlerRelease(this.appInfoStore);
-
-  final AppInfoStore appInfoStore;
-
   @override
   Future<void> handleFlutterError(FlutterErrorDetails details) async {
-    await FirebaseCrashlytics.instance.recordFlutterError(details);
-    _kill();
+    final String sException = details.exceptionAsString();
+    final bool shouldKillApp = _shouldKillApp(sException);
+    await FirebaseCrashlytics.instance
+        .recordFlutterError(details, fatal: shouldKillApp);
+    if (shouldKillApp) {
+      _kill();
+    }
   }
 
   @override
   Future<void> handleZonedError(dynamic exception, dynamic stack) async {
-    await FirebaseCrashlytics.instance.recordError(exception, stack);
-    _kill();
+    final String sException = exception.toString();
+    final bool shouldKillApp = _shouldKillApp(sException);
+    await FirebaseCrashlytics.instance
+        .recordError(exception, stack, fatal: shouldKillApp);
+    if (shouldKillApp) {
+      _kill();
+    }
+  }
+
+  bool _shouldKillApp(String sException) {
+    return !sException.contains('Failed to load') &&
+        !sException.contains('VideoError') &&
+        !sException.contains('HttpException');
   }
 
   @override

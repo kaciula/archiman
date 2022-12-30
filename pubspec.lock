@@ -78,13 +78,34 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.9.0"
+  audio_service:
+    dependency: transitive
+    description:
+      name: audio_service
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.18.8"
+  audio_service_platform_interface:
+    dependency: transitive
+    description:
+      name: audio_service_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
+  audio_service_web:
+    dependency: transitive
+    description:
+      name: audio_service_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   audio_session:
     dependency: "direct main"
     description:
       name: audio_session
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.7"
+    version: "0.1.13"
   auto_localized:
     dependency: "direct main"
     description:
@@ -204,6 +225,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.16.0"
+  connectivity_plus:
+    dependency: "direct main"
+    description:
+      name: connectivity_plus
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.2"
+  connectivity_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: connectivity_plus_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.3"
   convert:
     dependency: transitive
     description:
@@ -461,6 +496,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.4"
+  flutter_email_sender:
+    dependency: "direct main"
+    description:
+      name: flutter_email_sender
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.2.0"
   flutter_image_compress:
     dependency: transitive
     description:
@@ -651,6 +693,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.1+1"
+  internet_connection_checker:
+    dependency: "direct main"
+    description:
+      name: internet_connection_checker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0+1"
   intl:
     dependency: "direct main"
     description:
@@ -692,14 +741,21 @@ packages:
       name: just_audio
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.24"
+    version: "0.9.30"
+  just_audio_background:
+    dependency: "direct main"
+    description:
+      name: just_audio_background
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1-beta.8"
   just_audio_platform_interface:
     dependency: transitive
     description:
       name: just_audio_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.1.0"
+    version: "4.2.0"
   just_audio_web:
     dependency: transitive
     description:
@@ -1114,12 +1170,12 @@ packages:
     source: hosted
     version: "4.1.0"
   rxdart:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.27.4"
+    version: "0.27.7"
   share_plus:
     dependency: "direct main"
     description:

@@ -2,7 +2,7 @@ import 'package:archiman/app/app_locale.dart';
 import 'package:archiman/app/app_navigator.dart';
 import 'package:archiman/features/common/utils/generic/refresh_state.dart';
 import 'package:archiman/features/main/pages/home/home_page.dart';
-import 'package:archiman/infrastructure/local_stores/app_info_store.dart';
+import 'package:archiman/features/common/data/local/app_info_store.dart';
 import 'package:archiman/start/service_locator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';

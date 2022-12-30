@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'purchasable_product.dart';
+part of 'store_product.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$PurchasableProduct {
+mixin _$StoreProduct {
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
@@ -24,15 +24,15 @@ mixin _$PurchasableProduct {
   ProductDetails get productDetails => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $PurchasableProductCopyWith<PurchasableProduct> get copyWith =>
+  $StoreProductCopyWith<StoreProduct> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $PurchasableProductCopyWith<$Res> {
-  factory $PurchasableProductCopyWith(
-          PurchasableProduct value, $Res Function(PurchasableProduct) then) =
-      _$PurchasableProductCopyWithImpl<$Res, PurchasableProduct>;
+abstract class $StoreProductCopyWith<$Res> {
+  factory $StoreProductCopyWith(
+          StoreProduct value, $Res Function(StoreProduct) then) =
+      _$StoreProductCopyWithImpl<$Res, StoreProduct>;
   @useResult
   $Res call(
       {String id,
@@ -44,9 +44,9 @@ abstract class $PurchasableProductCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$PurchasableProductCopyWithImpl<$Res, $Val extends PurchasableProduct>
-    implements $PurchasableProductCopyWith<$Res> {
-  _$PurchasableProductCopyWithImpl(this._value, this._then);
+class _$StoreProductCopyWithImpl<$Res, $Val extends StoreProduct>
+    implements $StoreProductCopyWith<$Res> {
+  _$StoreProductCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -93,11 +93,11 @@ class _$PurchasableProductCopyWithImpl<$Res, $Val extends PurchasableProduct>
 }
 
 /// @nodoc
-abstract class _$$_PurchasableProductCopyWith<$Res>
-    implements $PurchasableProductCopyWith<$Res> {
-  factory _$$_PurchasableProductCopyWith(_$_PurchasableProduct value,
-          $Res Function(_$_PurchasableProduct) then) =
-      __$$_PurchasableProductCopyWithImpl<$Res>;
+abstract class _$$_StoreProductCopyWith<$Res>
+    implements $StoreProductCopyWith<$Res> {
+  factory _$$_StoreProductCopyWith(
+          _$_StoreProduct value, $Res Function(_$_StoreProduct) then) =
+      __$$_StoreProductCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -110,11 +110,11 @@ abstract class _$$_PurchasableProductCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PurchasableProductCopyWithImpl<$Res>
-    extends _$PurchasableProductCopyWithImpl<$Res, _$_PurchasableProduct>
-    implements _$$_PurchasableProductCopyWith<$Res> {
-  __$$_PurchasableProductCopyWithImpl(
-      _$_PurchasableProduct _value, $Res Function(_$_PurchasableProduct) _then)
+class __$$_StoreProductCopyWithImpl<$Res>
+    extends _$StoreProductCopyWithImpl<$Res, _$_StoreProduct>
+    implements _$$_StoreProductCopyWith<$Res> {
+  __$$_StoreProductCopyWithImpl(
+      _$_StoreProduct _value, $Res Function(_$_StoreProduct) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -127,7 +127,7 @@ class __$$_PurchasableProductCopyWithImpl<$Res>
     Object? status = null,
     Object? productDetails = null,
   }) {
-    return _then(_$_PurchasableProduct(
+    return _then(_$_StoreProduct(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -158,8 +158,8 @@ class __$$_PurchasableProductCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_PurchasableProduct extends _PurchasableProduct {
-  _$_PurchasableProduct(
+class _$_StoreProduct extends _StoreProduct {
+  _$_StoreProduct(
       {required this.id,
       required this.title,
       required this.description,
@@ -183,14 +183,14 @@ class _$_PurchasableProduct extends _PurchasableProduct {
 
   @override
   String toString() {
-    return 'PurchasableProduct(id: $id, title: $title, description: $description, price: $price, status: $status, productDetails: $productDetails)';
+    return 'StoreProduct(id: $id, title: $title, description: $description, price: $price, status: $status, productDetails: $productDetails)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_PurchasableProduct &&
+            other is _$_StoreProduct &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
@@ -208,20 +208,19 @@ class _$_PurchasableProduct extends _PurchasableProduct {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_PurchasableProductCopyWith<_$_PurchasableProduct> get copyWith =>
-      __$$_PurchasableProductCopyWithImpl<_$_PurchasableProduct>(
-          this, _$identity);
+  _$$_StoreProductCopyWith<_$_StoreProduct> get copyWith =>
+      __$$_StoreProductCopyWithImpl<_$_StoreProduct>(this, _$identity);
 }
 
-abstract class _PurchasableProduct extends PurchasableProduct {
-  factory _PurchasableProduct(
+abstract class _StoreProduct extends StoreProduct {
+  factory _StoreProduct(
       {required final String id,
       required final String title,
       required final String description,
       required final String price,
       required final ProductStatus status,
-      required final ProductDetails productDetails}) = _$_PurchasableProduct;
-  _PurchasableProduct._() : super._();
+      required final ProductDetails productDetails}) = _$_StoreProduct;
+  _StoreProduct._() : super._();
 
   @override
   String get id;
@@ -237,6 +236,6 @@ abstract class _PurchasableProduct extends PurchasableProduct {
   ProductDetails get productDetails;
   @override
   @JsonKey(ignore: true)
-  _$$_PurchasableProductCopyWith<_$_PurchasableProduct> get copyWith =>
+  _$$_StoreProductCopyWith<_$_StoreProduct> get copyWith =>
       throw _privateConstructorUsedError;
 }

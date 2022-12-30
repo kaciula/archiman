@@ -1,18 +1,26 @@
 import 'dart:developer' as developer;
 import 'dart:math';
 
-import 'package:archiman/app/app_constants.dart';
-import 'package:archiman/infrastructure/misc/crash/crash_reporter.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logging/logging.dart';
+import 'package:universal_io/io.dart';
+
+import '../../features/common/data/local/app_info_store.dart';
+import 'crash/crash_service.dart';
+import 'file_storage_service.dart';
 
 class LogService {
-  LogService(this.crashReporter);
+  LogService(this.crashService, this.fileStorageService, this.appInfoStore);
 
-  final CrashReporter crashReporter;
+  final CrashService crashService;
+  final FileStorageService fileStorageService;
+  final AppInfoStore appInfoStore;
 
   final List<String> memoryLogs = <String>[];
   bool _keepLogsInMemory = false;
+  bool _keepLogsInFile = false;
+  late File logFile;
 
   bool get trackLogsInMemory => _keepLogsInMemory;
 
@@ -22,7 +30,21 @@ class LogService {
     memoryLogs.clear();
   }
 
+  bool get trackLogsInFile => _keepLogsInFile;
+
+  set trackLogsInFile(bool isEnabled) {
+    _keepLogsInFile = isEnabled;
+    _setLoggerLevel();
+
+    // Clear log file
+    logFile.writeAsStringSync('');
+
+    appInfoStore.saveTrackLogsInFile(isEnabled);
+  }
+
   Future<void> init() async {
+    _keepLogsInFile = appInfoStore.trackLogsInFile();
+    logFile = fileStorageService.appSupportFile('dev-logs.log');
     _setLoggerLevel();
     Logger.root.onRecord.listen(log);
   }
@@ -30,8 +52,8 @@ class LogService {
   void log(LogRecord record) {
     final String msg =
         '${record.time.hour}:${record.time.minute}:${record.time.second}.${record.time.millisecond} ${record.loggerName}: ${record.message}';
-    if (isProduction) {
-      crashReporter.log(msg);
+    if (kReleaseMode) {
+      crashService.log(msg);
     } else {
       const String lightGrey = '\x1b[90m';
       String start = lightGrey;
@@ -67,8 +89,12 @@ class LogService {
         time: record.time,
       );
     }
+
     if (_keepLogsInMemory) {
       memoryLogs.add(msg);
+    }
+    if (_keepLogsInFile) {
+      logFile.writeAsStringSync('$msg\n', mode: FileMode.append);
     }
   }
 
@@ -77,16 +103,17 @@ class LogService {
   }
 
   void _setLoggerLevel() {
-    Logger.root.level =
-        (isProduction && !_keepLogsInMemory) ? Level.INFO : Level.ALL;
+    Logger.root.level = (kReleaseMode && !_keepLogsInMemory && !_keepLogsInFile)
+        ? Level.INFO
+        : Level.ALL;
   }
 }
 
 // ignore: unused_element
 class _LoggingBlocObserver extends BlocObserver {
-  _LoggingBlocObserver(this.crashReporter);
+  _LoggingBlocObserver(this.crashService);
 
-  final CrashReporter crashReporter;
+  final CrashService crashService;
 
   @override
   void onEvent(Bloc<dynamic, dynamic> bloc, Object? event) {
@@ -97,7 +124,7 @@ class _LoggingBlocObserver extends BlocObserver {
   @override
   void onError(BlocBase<dynamic> bloc, Object error, StackTrace stackTrace) {
     super.onError(bloc, error, stackTrace);
-    crashReporter.reportUnexpectedError(
+    crashService.reportUnexpectedError(
       Exception(error.toString()),
       stackTrace,
       '${bloc.runtimeType.toString()} exploded!',

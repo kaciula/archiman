@@ -4,6 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   app_links_windows
+  connectivity_plus
   network_info_plus_windows
   pdfx
   permission_handler_windows
