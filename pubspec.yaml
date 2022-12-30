@@ -82,6 +82,9 @@ dependencies:
   path: ^1.8.2
   http_parser: ^4.0.2
   flutter_local_notifications: ^12.0.2
+  google_sign_in: ^5.4.2
+  flutter_facebook_auth: ^4.4.1 # various build bugs for version 5
+  sign_in_with_apple: ^4.2.0
 
 dev_dependencies:
   flutter_test:
