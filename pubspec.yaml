@@ -89,12 +89,37 @@ flutter:
     - assets/animations/
     - assets/images/
 
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/Poppins-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Poppins-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Poppins-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Poppins-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Poppins-Black.ttf
+          weight: 900
+
 # flutter pub run flutter_launcher_icons:main
 flutter_icons:
   android: true
   ios: true
-  image_path_android: "resources/app_icon/app_icon_android.png"
-  image_path_ios: "resources/app_icon/app_icon_ios.png"
+  image_path_android: "resources/app_icon/app_icon.png"
+  adaptive_icon_background: "resources/app_icon/app_icon_bg.png"
+  adaptive_icon_foreground: "resources/app_icon/app_icon_fg.png"
+  image_path_ios: "resources/app_icon/app_icon.png"
+  remove_alpha_ios: true
 
 # flutter pub run flutter_native_splash:create
 # flutter pub run flutter_native_splash:remove
