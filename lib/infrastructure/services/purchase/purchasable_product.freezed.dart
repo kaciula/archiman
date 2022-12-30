@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'purchasable_product.dart';
 
@@ -32,7 +32,8 @@ mixin _$PurchasableProduct {
 abstract class $PurchasableProductCopyWith<$Res> {
   factory $PurchasableProductCopyWith(
           PurchasableProduct value, $Res Function(PurchasableProduct) then) =
-      _$PurchasableProductCopyWithImpl<$Res>;
+      _$PurchasableProductCopyWithImpl<$Res, PurchasableProduct>;
+  @useResult
   $Res call(
       {String id,
       String title,
@@ -43,49 +44,51 @@ abstract class $PurchasableProductCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$PurchasableProductCopyWithImpl<$Res>
+class _$PurchasableProductCopyWithImpl<$Res, $Val extends PurchasableProduct>
     implements $PurchasableProductCopyWith<$Res> {
   _$PurchasableProductCopyWithImpl(this._value, this._then);
 
-  final PurchasableProduct _value;
   // ignore: unused_field
-  final $Res Function(PurchasableProduct) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? title = freezed,
-    Object? description = freezed,
-    Object? price = freezed,
-    Object? status = freezed,
-    Object? productDetails = freezed,
+    Object? id = null,
+    Object? title = null,
+    Object? description = null,
+    Object? price = null,
+    Object? status = null,
+    Object? productDetails = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      title: title == freezed
+      title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      price: price == freezed
+      price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as String,
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as ProductStatus,
-      productDetails: productDetails == freezed
+      productDetails: null == productDetails
           ? _value.productDetails
           : productDetails // ignore: cast_nullable_to_non_nullable
               as ProductDetails,
-    ));
+    ) as $Val);
   }
 }
 
@@ -96,6 +99,7 @@ abstract class _$$_PurchasableProductCopyWith<$Res>
           $Res Function(_$_PurchasableProduct) then) =
       __$$_PurchasableProductCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String id,
       String title,
@@ -107,46 +111,44 @@ abstract class _$$_PurchasableProductCopyWith<$Res>
 
 /// @nodoc
 class __$$_PurchasableProductCopyWithImpl<$Res>
-    extends _$PurchasableProductCopyWithImpl<$Res>
+    extends _$PurchasableProductCopyWithImpl<$Res, _$_PurchasableProduct>
     implements _$$_PurchasableProductCopyWith<$Res> {
   __$$_PurchasableProductCopyWithImpl(
       _$_PurchasableProduct _value, $Res Function(_$_PurchasableProduct) _then)
-      : super(_value, (v) => _then(v as _$_PurchasableProduct));
+      : super(_value, _then);
 
-  @override
-  _$_PurchasableProduct get _value => super._value as _$_PurchasableProduct;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? title = freezed,
-    Object? description = freezed,
-    Object? price = freezed,
-    Object? status = freezed,
-    Object? productDetails = freezed,
+    Object? id = null,
+    Object? title = null,
+    Object? description = null,
+    Object? price = null,
+    Object? status = null,
+    Object? productDetails = null,
   }) {
     return _then(_$_PurchasableProduct(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      title: title == freezed
+      title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      price: price == freezed
+      price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as String,
-      status: status == freezed
+      status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as ProductStatus,
-      productDetails: productDetails == freezed
+      productDetails: null == productDetails
           ? _value.productDetails
           : productDetails // ignore: cast_nullable_to_non_nullable
               as ProductDetails,
@@ -189,28 +191,23 @@ class _$_PurchasableProduct extends _PurchasableProduct {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PurchasableProduct &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.title, title) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.price, price) &&
-            const DeepCollectionEquality().equals(other.status, status) &&
-            const DeepCollectionEquality()
-                .equals(other.productDetails, productDetails));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.price, price) || other.price == price) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.productDetails, productDetails) ||
+                other.productDetails == productDetails));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(title),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(price),
-      const DeepCollectionEquality().hash(status),
-      const DeepCollectionEquality().hash(productDetails));
+      runtimeType, id, title, description, price, status, productDetails);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_PurchasableProductCopyWith<_$_PurchasableProduct> get copyWith =>
       __$$_PurchasableProductCopyWithImpl<_$_PurchasableProduct>(
           this, _$identity);
@@ -227,17 +224,17 @@ abstract class _PurchasableProduct extends PurchasableProduct {
   _PurchasableProduct._() : super._();
 
   @override
-  String get id => throw _privateConstructorUsedError;
+  String get id;
   @override
-  String get title => throw _privateConstructorUsedError;
+  String get title;
   @override
-  String get description => throw _privateConstructorUsedError;
+  String get description;
   @override
-  String get price => throw _privateConstructorUsedError;
+  String get price;
   @override
-  ProductStatus get status => throw _privateConstructorUsedError;
+  ProductStatus get status;
   @override
-  ProductDetails get productDetails => throw _privateConstructorUsedError;
+  ProductDetails get productDetails;
   @override
   @JsonKey(ignore: true)
   _$$_PurchasableProductCopyWith<_$_PurchasableProduct> get copyWith =>

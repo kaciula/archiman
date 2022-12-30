@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'contacts_service.dart';
 
@@ -33,7 +33,8 @@ mixin _$DeviceContact {
 abstract class $DeviceContactCopyWith<$Res> {
   factory $DeviceContactCopyWith(
           DeviceContact value, $Res Function(DeviceContact) then) =
-      _$DeviceContactCopyWithImpl<$Res>;
+      _$DeviceContactCopyWithImpl<$Res, DeviceContact>;
+  @useResult
   $Res call(
       {String id,
       String displayName,
@@ -44,49 +45,51 @@ abstract class $DeviceContactCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$DeviceContactCopyWithImpl<$Res>
+class _$DeviceContactCopyWithImpl<$Res, $Val extends DeviceContact>
     implements $DeviceContactCopyWith<$Res> {
   _$DeviceContactCopyWithImpl(this._value, this._then);
 
-  final DeviceContact _value;
   // ignore: unused_field
-  final $Res Function(DeviceContact) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? displayName = freezed,
-    Object? initials = freezed,
+    Object? id = null,
+    Object? displayName = null,
+    Object? initials = null,
     Object? photo = freezed,
-    Object? phoneNums = freezed,
-    Object? emailAddresses = freezed,
+    Object? phoneNums = null,
+    Object? emailAddresses = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      displayName: displayName == freezed
+      displayName: null == displayName
           ? _value.displayName
           : displayName // ignore: cast_nullable_to_non_nullable
               as String,
-      initials: initials == freezed
+      initials: null == initials
           ? _value.initials
           : initials // ignore: cast_nullable_to_non_nullable
               as String,
-      photo: photo == freezed
+      photo: freezed == photo
           ? _value.photo
           : photo // ignore: cast_nullable_to_non_nullable
               as Uint8List?,
-      phoneNums: phoneNums == freezed
+      phoneNums: null == phoneNums
           ? _value.phoneNums
           : phoneNums // ignore: cast_nullable_to_non_nullable
               as KtList<String>,
-      emailAddresses: emailAddresses == freezed
+      emailAddresses: null == emailAddresses
           ? _value.emailAddresses
           : emailAddresses // ignore: cast_nullable_to_non_nullable
               as KtList<String>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -97,6 +100,7 @@ abstract class _$$_DeviceContactCopyWith<$Res>
           _$_DeviceContact value, $Res Function(_$_DeviceContact) then) =
       __$$_DeviceContactCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String id,
       String displayName,
@@ -108,46 +112,44 @@ abstract class _$$_DeviceContactCopyWith<$Res>
 
 /// @nodoc
 class __$$_DeviceContactCopyWithImpl<$Res>
-    extends _$DeviceContactCopyWithImpl<$Res>
+    extends _$DeviceContactCopyWithImpl<$Res, _$_DeviceContact>
     implements _$$_DeviceContactCopyWith<$Res> {
   __$$_DeviceContactCopyWithImpl(
       _$_DeviceContact _value, $Res Function(_$_DeviceContact) _then)
-      : super(_value, (v) => _then(v as _$_DeviceContact));
+      : super(_value, _then);
 
-  @override
-  _$_DeviceContact get _value => super._value as _$_DeviceContact;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? displayName = freezed,
-    Object? initials = freezed,
+    Object? id = null,
+    Object? displayName = null,
+    Object? initials = null,
     Object? photo = freezed,
-    Object? phoneNums = freezed,
-    Object? emailAddresses = freezed,
+    Object? phoneNums = null,
+    Object? emailAddresses = null,
   }) {
     return _then(_$_DeviceContact(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      displayName: displayName == freezed
+      displayName: null == displayName
           ? _value.displayName
           : displayName // ignore: cast_nullable_to_non_nullable
               as String,
-      initials: initials == freezed
+      initials: null == initials
           ? _value.initials
           : initials // ignore: cast_nullable_to_non_nullable
               as String,
-      photo: photo == freezed
+      photo: freezed == photo
           ? _value.photo
           : photo // ignore: cast_nullable_to_non_nullable
               as Uint8List?,
-      phoneNums: phoneNums == freezed
+      phoneNums: null == phoneNums
           ? _value.phoneNums
           : phoneNums // ignore: cast_nullable_to_non_nullable
               as KtList<String>,
-      emailAddresses: emailAddresses == freezed
+      emailAddresses: null == emailAddresses
           ? _value.emailAddresses
           : emailAddresses // ignore: cast_nullable_to_non_nullable
               as KtList<String>,
@@ -190,28 +192,25 @@ class _$_DeviceContact implements _DeviceContact {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_DeviceContact &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality()
-                .equals(other.displayName, displayName) &&
-            const DeepCollectionEquality().equals(other.initials, initials) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.displayName, displayName) ||
+                other.displayName == displayName) &&
+            (identical(other.initials, initials) ||
+                other.initials == initials) &&
             const DeepCollectionEquality().equals(other.photo, photo) &&
-            const DeepCollectionEquality().equals(other.phoneNums, phoneNums) &&
-            const DeepCollectionEquality()
-                .equals(other.emailAddresses, emailAddresses));
+            (identical(other.phoneNums, phoneNums) ||
+                other.phoneNums == phoneNums) &&
+            (identical(other.emailAddresses, emailAddresses) ||
+                other.emailAddresses == emailAddresses));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(displayName),
-      const DeepCollectionEquality().hash(initials),
-      const DeepCollectionEquality().hash(photo),
-      const DeepCollectionEquality().hash(phoneNums),
-      const DeepCollectionEquality().hash(emailAddresses));
+  int get hashCode => Object.hash(runtimeType, id, displayName, initials,
+      const DeepCollectionEquality().hash(photo), phoneNums, emailAddresses);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_DeviceContactCopyWith<_$_DeviceContact> get copyWith =>
       __$$_DeviceContactCopyWithImpl<_$_DeviceContact>(this, _$identity);
 }
@@ -226,17 +225,17 @@ abstract class _DeviceContact implements DeviceContact {
       required final KtList<String> emailAddresses}) = _$_DeviceContact;
 
   @override
-  String get id => throw _privateConstructorUsedError;
+  String get id;
   @override
-  String get displayName => throw _privateConstructorUsedError;
+  String get displayName;
   @override
-  String get initials => throw _privateConstructorUsedError;
+  String get initials;
   @override
-  Uint8List? get photo => throw _privateConstructorUsedError;
+  Uint8List? get photo;
   @override // Phone numbers can be in various formats so they need to be normalized/cleaned down the line
-  KtList<String> get phoneNums => throw _privateConstructorUsedError;
+  KtList<String> get phoneNums;
   @override
-  KtList<String> get emailAddresses => throw _privateConstructorUsedError;
+  KtList<String> get emailAddresses;
   @override
   @JsonKey(ignore: true)
   _$$_DeviceContactCopyWith<_$_DeviceContact> get copyWith =>

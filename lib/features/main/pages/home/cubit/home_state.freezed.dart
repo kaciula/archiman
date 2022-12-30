@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'home_state.dart';
 
@@ -27,41 +27,46 @@ mixin _$HomeState {
 /// @nodoc
 abstract class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
-      _$HomeStateCopyWithImpl<$Res>;
+      _$HomeStateCopyWithImpl<$Res, HomeState>;
+  @useResult
   $Res call({RefreshState refreshState, KtList<StackUser> stackUsers});
 
   $RefreshStateCopyWith<$Res> get refreshState;
 }
 
 /// @nodoc
-class _$HomeStateCopyWithImpl<$Res> implements $HomeStateCopyWith<$Res> {
+class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
+    implements $HomeStateCopyWith<$Res> {
   _$HomeStateCopyWithImpl(this._value, this._then);
 
-  final HomeState _value;
   // ignore: unused_field
-  final $Res Function(HomeState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? refreshState = freezed,
-    Object? stackUsers = freezed,
+    Object? refreshState = null,
+    Object? stackUsers = null,
   }) {
     return _then(_value.copyWith(
-      refreshState: refreshState == freezed
+      refreshState: null == refreshState
           ? _value.refreshState
           : refreshState // ignore: cast_nullable_to_non_nullable
               as RefreshState,
-      stackUsers: stackUsers == freezed
+      stackUsers: null == stackUsers
           ? _value.stackUsers
           : stackUsers // ignore: cast_nullable_to_non_nullable
               as KtList<StackUser>,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $RefreshStateCopyWith<$Res> get refreshState {
     return $RefreshStateCopyWith<$Res>(_value.refreshState, (value) {
-      return _then(_value.copyWith(refreshState: value));
+      return _then(_value.copyWith(refreshState: value) as $Val);
     });
   }
 }
@@ -72,6 +77,7 @@ abstract class _$$_HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
           _$_HomeState value, $Res Function(_$_HomeState) then) =
       __$$_HomeStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({RefreshState refreshState, KtList<StackUser> stackUsers});
 
   @override
@@ -79,26 +85,25 @@ abstract class _$$_HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_HomeStateCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
+class __$$_HomeStateCopyWithImpl<$Res>
+    extends _$HomeStateCopyWithImpl<$Res, _$_HomeState>
     implements _$$_HomeStateCopyWith<$Res> {
   __$$_HomeStateCopyWithImpl(
       _$_HomeState _value, $Res Function(_$_HomeState) _then)
-      : super(_value, (v) => _then(v as _$_HomeState));
+      : super(_value, _then);
 
-  @override
-  _$_HomeState get _value => super._value as _$_HomeState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? refreshState = freezed,
-    Object? stackUsers = freezed,
+    Object? refreshState = null,
+    Object? stackUsers = null,
   }) {
     return _then(_$_HomeState(
-      refreshState: refreshState == freezed
+      refreshState: null == refreshState
           ? _value.refreshState
           : refreshState // ignore: cast_nullable_to_non_nullable
               as RefreshState,
-      stackUsers: stackUsers == freezed
+      stackUsers: null == stackUsers
           ? _value.stackUsers
           : stackUsers // ignore: cast_nullable_to_non_nullable
               as KtList<StackUser>,
@@ -126,20 +131,18 @@ class _$_HomeState implements _HomeState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_HomeState &&
-            const DeepCollectionEquality()
-                .equals(other.refreshState, refreshState) &&
-            const DeepCollectionEquality()
-                .equals(other.stackUsers, stackUsers));
+            (identical(other.refreshState, refreshState) ||
+                other.refreshState == refreshState) &&
+            (identical(other.stackUsers, stackUsers) ||
+                other.stackUsers == stackUsers));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(refreshState),
-      const DeepCollectionEquality().hash(stackUsers));
+  int get hashCode => Object.hash(runtimeType, refreshState, stackUsers);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_HomeStateCopyWith<_$_HomeState> get copyWith =>
       __$$_HomeStateCopyWithImpl<_$_HomeState>(this, _$identity);
 }
@@ -150,9 +153,9 @@ abstract class _HomeState implements HomeState {
       required final KtList<StackUser> stackUsers}) = _$_HomeState;
 
   @override
-  RefreshState get refreshState => throw _privateConstructorUsedError;
+  RefreshState get refreshState;
   @override
-  KtList<StackUser> get stackUsers => throw _privateConstructorUsedError;
+  KtList<StackUser> get stackUsers;
   @override
   @JsonKey(ignore: true)
   _$$_HomeStateCopyWith<_$_HomeState> get copyWith =>

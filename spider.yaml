@@ -21,13 +21,8 @@ package: app/resources
 groups:
   - path: assets/images/
     class_name: Images
-    types: [ .png, .jpg, .jpeg, .webp, .webm, .bmp ]
-
-  - paths: 
-      - assets/svgs/
-    class_name: Svgs
-    types: [ .svg ]
+    types: [.png, .jpg, .jpeg, .webp, .webm, .bmp, .svg]
 
   - path: assets/animations/
     class_name: Animations
-    types: [ .json ]
+    types: [.json]

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'purchase_service.dart';
 
@@ -24,8 +24,8 @@ mixin _$InAppProductsResult {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(KtList<PurchasableProduct> products)? success,
-    TResult Function(String errorMsg)? failure,
+    TResult? Function(KtList<PurchasableProduct> products)? success,
+    TResult? Function(String errorMsg)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -43,8 +43,8 @@ mixin _$InAppProductsResult {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(InAppProductsSuccess value)? success,
-    TResult Function(InAppProductsFailure value)? failure,
+    TResult? Function(InAppProductsSuccess value)? success,
+    TResult? Function(InAppProductsFailure value)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -60,17 +60,18 @@ mixin _$InAppProductsResult {
 abstract class $InAppProductsResultCopyWith<$Res> {
   factory $InAppProductsResultCopyWith(
           InAppProductsResult value, $Res Function(InAppProductsResult) then) =
-      _$InAppProductsResultCopyWithImpl<$Res>;
+      _$InAppProductsResultCopyWithImpl<$Res, InAppProductsResult>;
 }
 
 /// @nodoc
-class _$InAppProductsResultCopyWithImpl<$Res>
+class _$InAppProductsResultCopyWithImpl<$Res, $Val extends InAppProductsResult>
     implements $InAppProductsResultCopyWith<$Res> {
   _$InAppProductsResultCopyWithImpl(this._value, this._then);
 
-  final InAppProductsResult _value;
   // ignore: unused_field
-  final $Res Function(InAppProductsResult) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -78,26 +79,25 @@ abstract class _$$InAppProductsSuccessCopyWith<$Res> {
   factory _$$InAppProductsSuccessCopyWith(_$InAppProductsSuccess value,
           $Res Function(_$InAppProductsSuccess) then) =
       __$$InAppProductsSuccessCopyWithImpl<$Res>;
+  @useResult
   $Res call({KtList<PurchasableProduct> products});
 }
 
 /// @nodoc
 class __$$InAppProductsSuccessCopyWithImpl<$Res>
-    extends _$InAppProductsResultCopyWithImpl<$Res>
+    extends _$InAppProductsResultCopyWithImpl<$Res, _$InAppProductsSuccess>
     implements _$$InAppProductsSuccessCopyWith<$Res> {
   __$$InAppProductsSuccessCopyWithImpl(_$InAppProductsSuccess _value,
       $Res Function(_$InAppProductsSuccess) _then)
-      : super(_value, (v) => _then(v as _$InAppProductsSuccess));
+      : super(_value, _then);
 
-  @override
-  _$InAppProductsSuccess get _value => super._value as _$InAppProductsSuccess;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? products = freezed,
+    Object? products = null,
   }) {
     return _then(_$InAppProductsSuccess(
-      products: products == freezed
+      products: null == products
           ? _value.products
           : products // ignore: cast_nullable_to_non_nullable
               as KtList<PurchasableProduct>,
@@ -133,15 +133,16 @@ class _$InAppProductsSuccess
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InAppProductsSuccess &&
-            const DeepCollectionEquality().equals(other.products, products));
+            (identical(other.products, products) ||
+                other.products == products));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(products));
+  int get hashCode => Object.hash(runtimeType, products);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$InAppProductsSuccessCopyWith<_$InAppProductsSuccess> get copyWith =>
       __$$InAppProductsSuccessCopyWithImpl<_$InAppProductsSuccess>(
           this, _$identity);
@@ -158,8 +159,8 @@ class _$InAppProductsSuccess
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(KtList<PurchasableProduct> products)? success,
-    TResult Function(String errorMsg)? failure,
+    TResult? Function(KtList<PurchasableProduct> products)? success,
+    TResult? Function(String errorMsg)? failure,
   }) {
     return success?.call(products);
   }
@@ -189,8 +190,8 @@ class _$InAppProductsSuccess
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(InAppProductsSuccess value)? success,
-    TResult Function(InAppProductsFailure value)? failure,
+    TResult? Function(InAppProductsSuccess value)? success,
+    TResult? Function(InAppProductsFailure value)? failure,
   }) {
     return success?.call(this);
   }
@@ -214,7 +215,7 @@ abstract class InAppProductsSuccess implements InAppProductsResult {
           {required final KtList<PurchasableProduct> products}) =
       _$InAppProductsSuccess;
 
-  KtList<PurchasableProduct> get products => throw _privateConstructorUsedError;
+  KtList<PurchasableProduct> get products;
   @JsonKey(ignore: true)
   _$$InAppProductsSuccessCopyWith<_$InAppProductsSuccess> get copyWith =>
       throw _privateConstructorUsedError;
@@ -225,26 +226,25 @@ abstract class _$$InAppProductsFailureCopyWith<$Res> {
   factory _$$InAppProductsFailureCopyWith(_$InAppProductsFailure value,
           $Res Function(_$InAppProductsFailure) then) =
       __$$InAppProductsFailureCopyWithImpl<$Res>;
+  @useResult
   $Res call({String errorMsg});
 }
 
 /// @nodoc
 class __$$InAppProductsFailureCopyWithImpl<$Res>
-    extends _$InAppProductsResultCopyWithImpl<$Res>
+    extends _$InAppProductsResultCopyWithImpl<$Res, _$InAppProductsFailure>
     implements _$$InAppProductsFailureCopyWith<$Res> {
   __$$InAppProductsFailureCopyWithImpl(_$InAppProductsFailure _value,
       $Res Function(_$InAppProductsFailure) _then)
-      : super(_value, (v) => _then(v as _$InAppProductsFailure));
+      : super(_value, _then);
 
-  @override
-  _$InAppProductsFailure get _value => super._value as _$InAppProductsFailure;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? errorMsg = freezed,
+    Object? errorMsg = null,
   }) {
     return _then(_$InAppProductsFailure(
-      errorMsg: errorMsg == freezed
+      errorMsg: null == errorMsg
           ? _value.errorMsg
           : errorMsg // ignore: cast_nullable_to_non_nullable
               as String,
@@ -280,15 +280,16 @@ class _$InAppProductsFailure
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InAppProductsFailure &&
-            const DeepCollectionEquality().equals(other.errorMsg, errorMsg));
+            (identical(other.errorMsg, errorMsg) ||
+                other.errorMsg == errorMsg));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(errorMsg));
+  int get hashCode => Object.hash(runtimeType, errorMsg);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$InAppProductsFailureCopyWith<_$InAppProductsFailure> get copyWith =>
       __$$InAppProductsFailureCopyWithImpl<_$InAppProductsFailure>(
           this, _$identity);
@@ -305,8 +306,8 @@ class _$InAppProductsFailure
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(KtList<PurchasableProduct> products)? success,
-    TResult Function(String errorMsg)? failure,
+    TResult? Function(KtList<PurchasableProduct> products)? success,
+    TResult? Function(String errorMsg)? failure,
   }) {
     return failure?.call(errorMsg);
   }
@@ -336,8 +337,8 @@ class _$InAppProductsFailure
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(InAppProductsSuccess value)? success,
-    TResult Function(InAppProductsFailure value)? failure,
+    TResult? Function(InAppProductsSuccess value)? success,
+    TResult? Function(InAppProductsFailure value)? failure,
   }) {
     return failure?.call(this);
   }
@@ -360,7 +361,7 @@ abstract class InAppProductsFailure implements InAppProductsResult {
   factory InAppProductsFailure({required final String errorMsg}) =
       _$InAppProductsFailure;
 
-  String get errorMsg => throw _privateConstructorUsedError;
+  String get errorMsg;
   @JsonKey(ignore: true)
   _$$InAppProductsFailureCopyWith<_$InAppProductsFailure> get copyWith =>
       throw _privateConstructorUsedError;
@@ -376,8 +377,8 @@ mixin _$InAppProductResult {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(PurchasableProduct product)? success,
-    TResult Function(String errorMsg)? failure,
+    TResult? Function(PurchasableProduct product)? success,
+    TResult? Function(String errorMsg)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -395,8 +396,8 @@ mixin _$InAppProductResult {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(InAppProductSuccess value)? success,
-    TResult Function(InAppProductFailure value)? failure,
+    TResult? Function(InAppProductSuccess value)? success,
+    TResult? Function(InAppProductFailure value)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -412,17 +413,18 @@ mixin _$InAppProductResult {
 abstract class $InAppProductResultCopyWith<$Res> {
   factory $InAppProductResultCopyWith(
           InAppProductResult value, $Res Function(InAppProductResult) then) =
-      _$InAppProductResultCopyWithImpl<$Res>;
+      _$InAppProductResultCopyWithImpl<$Res, InAppProductResult>;
 }
 
 /// @nodoc
-class _$InAppProductResultCopyWithImpl<$Res>
+class _$InAppProductResultCopyWithImpl<$Res, $Val extends InAppProductResult>
     implements $InAppProductResultCopyWith<$Res> {
   _$InAppProductResultCopyWithImpl(this._value, this._then);
 
-  final InAppProductResult _value;
   // ignore: unused_field
-  final $Res Function(InAppProductResult) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -430,6 +432,7 @@ abstract class _$$InAppProductSuccessCopyWith<$Res> {
   factory _$$InAppProductSuccessCopyWith(_$InAppProductSuccess value,
           $Res Function(_$InAppProductSuccess) then) =
       __$$InAppProductSuccessCopyWithImpl<$Res>;
+  @useResult
   $Res call({PurchasableProduct product});
 
   $PurchasableProductCopyWith<$Res> get product;
@@ -437,21 +440,19 @@ abstract class _$$InAppProductSuccessCopyWith<$Res> {
 
 /// @nodoc
 class __$$InAppProductSuccessCopyWithImpl<$Res>
-    extends _$InAppProductResultCopyWithImpl<$Res>
+    extends _$InAppProductResultCopyWithImpl<$Res, _$InAppProductSuccess>
     implements _$$InAppProductSuccessCopyWith<$Res> {
   __$$InAppProductSuccessCopyWithImpl(
       _$InAppProductSuccess _value, $Res Function(_$InAppProductSuccess) _then)
-      : super(_value, (v) => _then(v as _$InAppProductSuccess));
+      : super(_value, _then);
 
-  @override
-  _$InAppProductSuccess get _value => super._value as _$InAppProductSuccess;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? product = freezed,
+    Object? product = null,
   }) {
     return _then(_$InAppProductSuccess(
-      product: product == freezed
+      product: null == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
               as PurchasableProduct,
@@ -459,6 +460,7 @@ class __$$InAppProductSuccessCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $PurchasableProductCopyWith<$Res> get product {
     return $PurchasableProductCopyWith<$Res>(_value.product, (value) {
       return _then(_value.copyWith(product: value));
@@ -494,15 +496,15 @@ class _$InAppProductSuccess
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InAppProductSuccess &&
-            const DeepCollectionEquality().equals(other.product, product));
+            (identical(other.product, product) || other.product == product));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(product));
+  int get hashCode => Object.hash(runtimeType, product);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$InAppProductSuccessCopyWith<_$InAppProductSuccess> get copyWith =>
       __$$InAppProductSuccessCopyWithImpl<_$InAppProductSuccess>(
           this, _$identity);
@@ -519,8 +521,8 @@ class _$InAppProductSuccess
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(PurchasableProduct product)? success,
-    TResult Function(String errorMsg)? failure,
+    TResult? Function(PurchasableProduct product)? success,
+    TResult? Function(String errorMsg)? failure,
   }) {
     return success?.call(product);
   }
@@ -550,8 +552,8 @@ class _$InAppProductSuccess
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(InAppProductSuccess value)? success,
-    TResult Function(InAppProductFailure value)? failure,
+    TResult? Function(InAppProductSuccess value)? success,
+    TResult? Function(InAppProductFailure value)? failure,
   }) {
     return success?.call(this);
   }
@@ -574,7 +576,7 @@ abstract class InAppProductSuccess implements InAppProductResult {
   factory InAppProductSuccess({required final PurchasableProduct product}) =
       _$InAppProductSuccess;
 
-  PurchasableProduct get product => throw _privateConstructorUsedError;
+  PurchasableProduct get product;
   @JsonKey(ignore: true)
   _$$InAppProductSuccessCopyWith<_$InAppProductSuccess> get copyWith =>
       throw _privateConstructorUsedError;
@@ -585,26 +587,25 @@ abstract class _$$InAppProductFailureCopyWith<$Res> {
   factory _$$InAppProductFailureCopyWith(_$InAppProductFailure value,
           $Res Function(_$InAppProductFailure) then) =
       __$$InAppProductFailureCopyWithImpl<$Res>;
+  @useResult
   $Res call({String errorMsg});
 }
 
 /// @nodoc
 class __$$InAppProductFailureCopyWithImpl<$Res>
-    extends _$InAppProductResultCopyWithImpl<$Res>
+    extends _$InAppProductResultCopyWithImpl<$Res, _$InAppProductFailure>
     implements _$$InAppProductFailureCopyWith<$Res> {
   __$$InAppProductFailureCopyWithImpl(
       _$InAppProductFailure _value, $Res Function(_$InAppProductFailure) _then)
-      : super(_value, (v) => _then(v as _$InAppProductFailure));
+      : super(_value, _then);
 
-  @override
-  _$InAppProductFailure get _value => super._value as _$InAppProductFailure;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? errorMsg = freezed,
+    Object? errorMsg = null,
   }) {
     return _then(_$InAppProductFailure(
-      errorMsg: errorMsg == freezed
+      errorMsg: null == errorMsg
           ? _value.errorMsg
           : errorMsg // ignore: cast_nullable_to_non_nullable
               as String,
@@ -640,15 +641,16 @@ class _$InAppProductFailure
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$InAppProductFailure &&
-            const DeepCollectionEquality().equals(other.errorMsg, errorMsg));
+            (identical(other.errorMsg, errorMsg) ||
+                other.errorMsg == errorMsg));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(errorMsg));
+  int get hashCode => Object.hash(runtimeType, errorMsg);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$InAppProductFailureCopyWith<_$InAppProductFailure> get copyWith =>
       __$$InAppProductFailureCopyWithImpl<_$InAppProductFailure>(
           this, _$identity);
@@ -665,8 +667,8 @@ class _$InAppProductFailure
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(PurchasableProduct product)? success,
-    TResult Function(String errorMsg)? failure,
+    TResult? Function(PurchasableProduct product)? success,
+    TResult? Function(String errorMsg)? failure,
   }) {
     return failure?.call(errorMsg);
   }
@@ -696,8 +698,8 @@ class _$InAppProductFailure
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(InAppProductSuccess value)? success,
-    TResult Function(InAppProductFailure value)? failure,
+    TResult? Function(InAppProductSuccess value)? success,
+    TResult? Function(InAppProductFailure value)? failure,
   }) {
     return failure?.call(this);
   }
@@ -720,7 +722,7 @@ abstract class InAppProductFailure implements InAppProductResult {
   factory InAppProductFailure({required final String errorMsg}) =
       _$InAppProductFailure;
 
-  String get errorMsg => throw _privateConstructorUsedError;
+  String get errorMsg;
   @JsonKey(ignore: true)
   _$$InAppProductFailureCopyWith<_$InAppProductFailure> get copyWith =>
       throw _privateConstructorUsedError;

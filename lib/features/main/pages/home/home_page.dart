@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                 child: UniversalImage(Images.sampleImage),
               ),
               Expanded(
-                child: UniversalImage(Svgs.sampleSvg),
+                child: UniversalImage(Images.sampleSvg),
               ),
               Expanded(
                 child: UniversalAnimation(

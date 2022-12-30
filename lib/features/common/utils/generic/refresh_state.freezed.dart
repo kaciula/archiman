@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'refresh_state.dart';
 
@@ -25,9 +25,9 @@ mixin _$RefreshState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? inProgress,
-    TResult Function()? success,
-    TResult Function(String? errorMsg, String? errorDetails)? error,
+    TResult? Function()? inProgress,
+    TResult? Function()? success,
+    TResult? Function(String? errorMsg, String? errorDetails)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -47,9 +47,9 @@ mixin _$RefreshState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(InProgress value)? inProgress,
-    TResult Function(Success value)? success,
-    TResult Function(Error value)? error,
+    TResult? Function(InProgress value)? inProgress,
+    TResult? Function(Success value)? success,
+    TResult? Function(Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -66,16 +66,18 @@ mixin _$RefreshState {
 abstract class $RefreshStateCopyWith<$Res> {
   factory $RefreshStateCopyWith(
           RefreshState value, $Res Function(RefreshState) then) =
-      _$RefreshStateCopyWithImpl<$Res>;
+      _$RefreshStateCopyWithImpl<$Res, RefreshState>;
 }
 
 /// @nodoc
-class _$RefreshStateCopyWithImpl<$Res> implements $RefreshStateCopyWith<$Res> {
+class _$RefreshStateCopyWithImpl<$Res, $Val extends RefreshState>
+    implements $RefreshStateCopyWith<$Res> {
   _$RefreshStateCopyWithImpl(this._value, this._then);
 
-  final RefreshState _value;
   // ignore: unused_field
-  final $Res Function(RefreshState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -86,14 +88,12 @@ abstract class _$$InProgressCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$InProgressCopyWithImpl<$Res> extends _$RefreshStateCopyWithImpl<$Res>
+class __$$InProgressCopyWithImpl<$Res>
+    extends _$RefreshStateCopyWithImpl<$Res, _$InProgress>
     implements _$$InProgressCopyWith<$Res> {
   __$$InProgressCopyWithImpl(
       _$InProgress _value, $Res Function(_$InProgress) _then)
-      : super(_value, (v) => _then(v as _$InProgress));
-
-  @override
-  _$InProgress get _value => super._value as _$InProgress;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -128,9 +128,9 @@ class _$InProgress implements InProgress {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? inProgress,
-    TResult Function()? success,
-    TResult Function(String? errorMsg, String? errorDetails)? error,
+    TResult? Function()? inProgress,
+    TResult? Function()? success,
+    TResult? Function(String? errorMsg, String? errorDetails)? error,
   }) {
     return inProgress?.call();
   }
@@ -162,9 +162,9 @@ class _$InProgress implements InProgress {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(InProgress value)? inProgress,
-    TResult Function(Success value)? success,
-    TResult Function(Error value)? error,
+    TResult? Function(InProgress value)? inProgress,
+    TResult? Function(Success value)? success,
+    TResult? Function(Error value)? error,
   }) {
     return inProgress?.call(this);
   }
@@ -195,13 +195,11 @@ abstract class _$$SuccessCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$SuccessCopyWithImpl<$Res> extends _$RefreshStateCopyWithImpl<$Res>
+class __$$SuccessCopyWithImpl<$Res>
+    extends _$RefreshStateCopyWithImpl<$Res, _$Success>
     implements _$$SuccessCopyWith<$Res> {
   __$$SuccessCopyWithImpl(_$Success _value, $Res Function(_$Success) _then)
-      : super(_value, (v) => _then(v as _$Success));
-
-  @override
-  _$Success get _value => super._value as _$Success;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -236,9 +234,9 @@ class _$Success implements Success {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? inProgress,
-    TResult Function()? success,
-    TResult Function(String? errorMsg, String? errorDetails)? error,
+    TResult? Function()? inProgress,
+    TResult? Function()? success,
+    TResult? Function(String? errorMsg, String? errorDetails)? error,
   }) {
     return success?.call();
   }
@@ -270,9 +268,9 @@ class _$Success implements Success {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(InProgress value)? inProgress,
-    TResult Function(Success value)? success,
-    TResult Function(Error value)? error,
+    TResult? Function(InProgress value)? inProgress,
+    TResult? Function(Success value)? success,
+    TResult? Function(Error value)? error,
   }) {
     return success?.call(this);
   }
@@ -300,29 +298,29 @@ abstract class Success implements RefreshState {
 abstract class _$$ErrorCopyWith<$Res> {
   factory _$$ErrorCopyWith(_$Error value, $Res Function(_$Error) then) =
       __$$ErrorCopyWithImpl<$Res>;
+  @useResult
   $Res call({String? errorMsg, String? errorDetails});
 }
 
 /// @nodoc
-class __$$ErrorCopyWithImpl<$Res> extends _$RefreshStateCopyWithImpl<$Res>
+class __$$ErrorCopyWithImpl<$Res>
+    extends _$RefreshStateCopyWithImpl<$Res, _$Error>
     implements _$$ErrorCopyWith<$Res> {
   __$$ErrorCopyWithImpl(_$Error _value, $Res Function(_$Error) _then)
-      : super(_value, (v) => _then(v as _$Error));
+      : super(_value, _then);
 
-  @override
-  _$Error get _value => super._value as _$Error;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? errorMsg = freezed,
     Object? errorDetails = freezed,
   }) {
     return _then(_$Error(
-      errorMsg: errorMsg == freezed
+      errorMsg: freezed == errorMsg
           ? _value.errorMsg
           : errorMsg // ignore: cast_nullable_to_non_nullable
               as String?,
-      errorDetails: errorDetails == freezed
+      errorDetails: freezed == errorDetails
           ? _value.errorDetails
           : errorDetails // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -350,19 +348,18 @@ class _$Error implements Error {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Error &&
-            const DeepCollectionEquality().equals(other.errorMsg, errorMsg) &&
-            const DeepCollectionEquality()
-                .equals(other.errorDetails, errorDetails));
+            (identical(other.errorMsg, errorMsg) ||
+                other.errorMsg == errorMsg) &&
+            (identical(other.errorDetails, errorDetails) ||
+                other.errorDetails == errorDetails));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(errorMsg),
-      const DeepCollectionEquality().hash(errorDetails));
+  int get hashCode => Object.hash(runtimeType, errorMsg, errorDetails);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$ErrorCopyWith<_$Error> get copyWith =>
       __$$ErrorCopyWithImpl<_$Error>(this, _$identity);
 
@@ -379,9 +376,9 @@ class _$Error implements Error {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? inProgress,
-    TResult Function()? success,
-    TResult Function(String? errorMsg, String? errorDetails)? error,
+    TResult? Function()? inProgress,
+    TResult? Function()? success,
+    TResult? Function(String? errorMsg, String? errorDetails)? error,
   }) {
     return error?.call(errorMsg, errorDetails);
   }
@@ -413,9 +410,9 @@ class _$Error implements Error {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(InProgress value)? inProgress,
-    TResult Function(Success value)? success,
-    TResult Function(Error value)? error,
+    TResult? Function(InProgress value)? inProgress,
+    TResult? Function(Success value)? success,
+    TResult? Function(Error value)? error,
   }) {
     return error?.call(this);
   }
@@ -438,8 +435,8 @@ class _$Error implements Error {
 abstract class Error implements RefreshState {
   factory Error({final String? errorMsg, final String? errorDetails}) = _$Error;
 
-  String? get errorMsg => throw _privateConstructorUsedError;
-  String? get errorDetails => throw _privateConstructorUsedError;
+  String? get errorMsg;
+  String? get errorDetails;
   @JsonKey(ignore: true)
   _$$ErrorCopyWith<_$Error> get copyWith => throw _privateConstructorUsedError;
 }

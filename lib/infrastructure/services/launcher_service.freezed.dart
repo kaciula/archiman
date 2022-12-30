@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'launcher_service.dart';
 
@@ -24,8 +24,8 @@ mixin _$ShareTextResult {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? success,
-    TResult Function(String? errorMsg, String? errorDetails)? failure,
+    TResult? Function()? success,
+    TResult? Function(String? errorMsg, String? errorDetails)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -43,8 +43,8 @@ mixin _$ShareTextResult {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ShareTextSuccess value)? success,
-    TResult Function(ShareTextFailure value)? failure,
+    TResult? Function(ShareTextSuccess value)? success,
+    TResult? Function(ShareTextFailure value)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -60,17 +60,18 @@ mixin _$ShareTextResult {
 abstract class $ShareTextResultCopyWith<$Res> {
   factory $ShareTextResultCopyWith(
           ShareTextResult value, $Res Function(ShareTextResult) then) =
-      _$ShareTextResultCopyWithImpl<$Res>;
+      _$ShareTextResultCopyWithImpl<$Res, ShareTextResult>;
 }
 
 /// @nodoc
-class _$ShareTextResultCopyWithImpl<$Res>
+class _$ShareTextResultCopyWithImpl<$Res, $Val extends ShareTextResult>
     implements $ShareTextResultCopyWith<$Res> {
   _$ShareTextResultCopyWithImpl(this._value, this._then);
 
-  final ShareTextResult _value;
   // ignore: unused_field
-  final $Res Function(ShareTextResult) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -82,14 +83,11 @@ abstract class _$$ShareTextSuccessCopyWith<$Res> {
 
 /// @nodoc
 class __$$ShareTextSuccessCopyWithImpl<$Res>
-    extends _$ShareTextResultCopyWithImpl<$Res>
+    extends _$ShareTextResultCopyWithImpl<$Res, _$ShareTextSuccess>
     implements _$$ShareTextSuccessCopyWith<$Res> {
   __$$ShareTextSuccessCopyWithImpl(
       _$ShareTextSuccess _value, $Res Function(_$ShareTextSuccess) _then)
-      : super(_value, (v) => _then(v as _$ShareTextSuccess));
-
-  @override
-  _$ShareTextSuccess get _value => super._value as _$ShareTextSuccess;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -123,8 +121,8 @@ class _$ShareTextSuccess implements ShareTextSuccess {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? success,
-    TResult Function(String? errorMsg, String? errorDetails)? failure,
+    TResult? Function()? success,
+    TResult? Function(String? errorMsg, String? errorDetails)? failure,
   }) {
     return success?.call();
   }
@@ -154,8 +152,8 @@ class _$ShareTextSuccess implements ShareTextSuccess {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ShareTextSuccess value)? success,
-    TResult Function(ShareTextFailure value)? failure,
+    TResult? Function(ShareTextSuccess value)? success,
+    TResult? Function(ShareTextFailure value)? failure,
   }) {
     return success?.call(this);
   }
@@ -183,31 +181,30 @@ abstract class _$$ShareTextFailureCopyWith<$Res> {
   factory _$$ShareTextFailureCopyWith(
           _$ShareTextFailure value, $Res Function(_$ShareTextFailure) then) =
       __$$ShareTextFailureCopyWithImpl<$Res>;
+  @useResult
   $Res call({String? errorMsg, String? errorDetails});
 }
 
 /// @nodoc
 class __$$ShareTextFailureCopyWithImpl<$Res>
-    extends _$ShareTextResultCopyWithImpl<$Res>
+    extends _$ShareTextResultCopyWithImpl<$Res, _$ShareTextFailure>
     implements _$$ShareTextFailureCopyWith<$Res> {
   __$$ShareTextFailureCopyWithImpl(
       _$ShareTextFailure _value, $Res Function(_$ShareTextFailure) _then)
-      : super(_value, (v) => _then(v as _$ShareTextFailure));
+      : super(_value, _then);
 
-  @override
-  _$ShareTextFailure get _value => super._value as _$ShareTextFailure;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? errorMsg = freezed,
     Object? errorDetails = freezed,
   }) {
     return _then(_$ShareTextFailure(
-      errorMsg: errorMsg == freezed
+      errorMsg: freezed == errorMsg
           ? _value.errorMsg
           : errorMsg // ignore: cast_nullable_to_non_nullable
               as String?,
-      errorDetails: errorDetails == freezed
+      errorDetails: freezed == errorDetails
           ? _value.errorDetails
           : errorDetails // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -235,19 +232,18 @@ class _$ShareTextFailure implements ShareTextFailure {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ShareTextFailure &&
-            const DeepCollectionEquality().equals(other.errorMsg, errorMsg) &&
-            const DeepCollectionEquality()
-                .equals(other.errorDetails, errorDetails));
+            (identical(other.errorMsg, errorMsg) ||
+                other.errorMsg == errorMsg) &&
+            (identical(other.errorDetails, errorDetails) ||
+                other.errorDetails == errorDetails));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(errorMsg),
-      const DeepCollectionEquality().hash(errorDetails));
+  int get hashCode => Object.hash(runtimeType, errorMsg, errorDetails);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$ShareTextFailureCopyWith<_$ShareTextFailure> get copyWith =>
       __$$ShareTextFailureCopyWithImpl<_$ShareTextFailure>(this, _$identity);
 
@@ -263,8 +259,8 @@ class _$ShareTextFailure implements ShareTextFailure {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? success,
-    TResult Function(String? errorMsg, String? errorDetails)? failure,
+    TResult? Function()? success,
+    TResult? Function(String? errorMsg, String? errorDetails)? failure,
   }) {
     return failure?.call(errorMsg, errorDetails);
   }
@@ -294,8 +290,8 @@ class _$ShareTextFailure implements ShareTextFailure {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ShareTextSuccess value)? success,
-    TResult Function(ShareTextFailure value)? failure,
+    TResult? Function(ShareTextSuccess value)? success,
+    TResult? Function(ShareTextFailure value)? failure,
   }) {
     return failure?.call(this);
   }
@@ -319,8 +315,8 @@ abstract class ShareTextFailure implements ShareTextResult {
       {final String? errorMsg,
       final String? errorDetails}) = _$ShareTextFailure;
 
-  String? get errorMsg => throw _privateConstructorUsedError;
-  String? get errorDetails => throw _privateConstructorUsedError;
+  String? get errorMsg;
+  String? get errorDetails;
   @JsonKey(ignore: true)
   _$$ShareTextFailureCopyWith<_$ShareTextFailure> get copyWith =>
       throw _privateConstructorUsedError;

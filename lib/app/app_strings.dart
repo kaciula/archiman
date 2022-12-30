@@ -4,7 +4,10 @@ import 'package:auto_localized/annotations.dart';
   locales: <AutoLocalizedLocale>[
     AutoLocalizedLocale(
       languageCode: 'en',
-      translationsFiles: ['resources/lang/en.yaml'],
+      translationsFiles: [
+        'resources/lang/en.yaml',
+        'resources/lang/en_generic.yaml',
+      ],
     ),
   ],
 )

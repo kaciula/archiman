@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'user_details_state.dart';
 
@@ -27,37 +27,41 @@ mixin _$UserDetailsState {
 abstract class $UserDetailsStateCopyWith<$Res> {
   factory $UserDetailsStateCopyWith(
           UserDetailsState value, $Res Function(UserDetailsState) then) =
-      _$UserDetailsStateCopyWithImpl<$Res>;
+      _$UserDetailsStateCopyWithImpl<$Res, UserDetailsState>;
+  @useResult
   $Res call({StackUser user});
 
   $StackUserCopyWith<$Res> get user;
 }
 
 /// @nodoc
-class _$UserDetailsStateCopyWithImpl<$Res>
+class _$UserDetailsStateCopyWithImpl<$Res, $Val extends UserDetailsState>
     implements $UserDetailsStateCopyWith<$Res> {
   _$UserDetailsStateCopyWithImpl(this._value, this._then);
 
-  final UserDetailsState _value;
   // ignore: unused_field
-  final $Res Function(UserDetailsState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? user = freezed,
+    Object? user = null,
   }) {
     return _then(_value.copyWith(
-      user: user == freezed
+      user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as StackUser,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $StackUserCopyWith<$Res> get user {
     return $StackUserCopyWith<$Res>(_value.user, (value) {
-      return _then(_value.copyWith(user: value));
+      return _then(_value.copyWith(user: value) as $Val);
     });
   }
 }
@@ -69,6 +73,7 @@ abstract class _$$_UserDetailsStateCopyWith<$Res>
           _$_UserDetailsState value, $Res Function(_$_UserDetailsState) then) =
       __$$_UserDetailsStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({StackUser user});
 
   @override
@@ -77,21 +82,19 @@ abstract class _$$_UserDetailsStateCopyWith<$Res>
 
 /// @nodoc
 class __$$_UserDetailsStateCopyWithImpl<$Res>
-    extends _$UserDetailsStateCopyWithImpl<$Res>
+    extends _$UserDetailsStateCopyWithImpl<$Res, _$_UserDetailsState>
     implements _$$_UserDetailsStateCopyWith<$Res> {
   __$$_UserDetailsStateCopyWithImpl(
       _$_UserDetailsState _value, $Res Function(_$_UserDetailsState) _then)
-      : super(_value, (v) => _then(v as _$_UserDetailsState));
+      : super(_value, _then);
 
-  @override
-  _$_UserDetailsState get _value => super._value as _$_UserDetailsState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? user = freezed,
+    Object? user = null,
   }) {
     return _then(_$_UserDetailsState(
-      user: user == freezed
+      user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as StackUser,
@@ -117,15 +120,15 @@ class _$_UserDetailsState implements _UserDetailsState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_UserDetailsState &&
-            const DeepCollectionEquality().equals(other.user, user));
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(user));
+  int get hashCode => Object.hash(runtimeType, user);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_UserDetailsStateCopyWith<_$_UserDetailsState> get copyWith =>
       __$$_UserDetailsStateCopyWithImpl<_$_UserDetailsState>(this, _$identity);
 }
@@ -135,7 +138,7 @@ abstract class _UserDetailsState implements UserDetailsState {
       _$_UserDetailsState;
 
   @override
-  StackUser get user => throw _privateConstructorUsedError;
+  StackUser get user;
   @override
   @JsonKey(ignore: true)
   _$$_UserDetailsStateCopyWith<_$_UserDetailsState> get copyWith =>

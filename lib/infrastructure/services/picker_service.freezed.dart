@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'picker_service.dart';
 
@@ -28,12 +28,12 @@ mixin _$PickResult {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(File file)? success,
-    TResult Function()? galleryPermissionDeniedFailure,
-    TResult Function()? cameraPermissionDeniedFailure,
-    TResult Function(double fileSizeInMB)? tooLargeFile,
-    TResult Function()? cancelled,
-    TResult Function(String? errorDetails)? failure,
+    TResult? Function(File file)? success,
+    TResult? Function()? galleryPermissionDeniedFailure,
+    TResult? Function()? cameraPermissionDeniedFailure,
+    TResult? Function(double fileSizeInMB)? tooLargeFile,
+    TResult? Function()? cancelled,
+    TResult? Function(String? errorDetails)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -61,14 +61,14 @@ mixin _$PickResult {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PickSuccess value)? success,
-    TResult Function(PickGalleryPermissionDeniedFailure value)?
+    TResult? Function(PickSuccess value)? success,
+    TResult? Function(PickGalleryPermissionDeniedFailure value)?
         galleryPermissionDeniedFailure,
-    TResult Function(PickCameraPermissionDeniedFailure value)?
+    TResult? Function(PickCameraPermissionDeniedFailure value)?
         cameraPermissionDeniedFailure,
-    TResult Function(PickTooLargeFile value)? tooLargeFile,
-    TResult Function(PickCancelled value)? cancelled,
-    TResult Function(PickFailure value)? failure,
+    TResult? Function(PickTooLargeFile value)? tooLargeFile,
+    TResult? Function(PickCancelled value)? cancelled,
+    TResult? Function(PickFailure value)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -90,16 +90,18 @@ mixin _$PickResult {
 abstract class $PickResultCopyWith<$Res> {
   factory $PickResultCopyWith(
           PickResult value, $Res Function(PickResult) then) =
-      _$PickResultCopyWithImpl<$Res>;
+      _$PickResultCopyWithImpl<$Res, PickResult>;
 }
 
 /// @nodoc
-class _$PickResultCopyWithImpl<$Res> implements $PickResultCopyWith<$Res> {
+class _$PickResultCopyWithImpl<$Res, $Val extends PickResult>
+    implements $PickResultCopyWith<$Res> {
   _$PickResultCopyWithImpl(this._value, this._then);
 
-  final PickResult _value;
   // ignore: unused_field
-  final $Res Function(PickResult) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -107,25 +109,25 @@ abstract class _$$PickSuccessCopyWith<$Res> {
   factory _$$PickSuccessCopyWith(
           _$PickSuccess value, $Res Function(_$PickSuccess) then) =
       __$$PickSuccessCopyWithImpl<$Res>;
+  @useResult
   $Res call({File file});
 }
 
 /// @nodoc
-class __$$PickSuccessCopyWithImpl<$Res> extends _$PickResultCopyWithImpl<$Res>
+class __$$PickSuccessCopyWithImpl<$Res>
+    extends _$PickResultCopyWithImpl<$Res, _$PickSuccess>
     implements _$$PickSuccessCopyWith<$Res> {
   __$$PickSuccessCopyWithImpl(
       _$PickSuccess _value, $Res Function(_$PickSuccess) _then)
-      : super(_value, (v) => _then(v as _$PickSuccess));
+      : super(_value, _then);
 
-  @override
-  _$PickSuccess get _value => super._value as _$PickSuccess;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? file = freezed,
+    Object? file = null,
   }) {
     return _then(_$PickSuccess(
-      file == freezed
+      null == file
           ? _value.file
           : file // ignore: cast_nullable_to_non_nullable
               as File,
@@ -151,15 +153,15 @@ class _$PickSuccess implements PickSuccess {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PickSuccess &&
-            const DeepCollectionEquality().equals(other.file, file));
+            (identical(other.file, file) || other.file == file));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(file));
+  int get hashCode => Object.hash(runtimeType, file);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$PickSuccessCopyWith<_$PickSuccess> get copyWith =>
       __$$PickSuccessCopyWithImpl<_$PickSuccess>(this, _$identity);
 
@@ -179,12 +181,12 @@ class _$PickSuccess implements PickSuccess {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(File file)? success,
-    TResult Function()? galleryPermissionDeniedFailure,
-    TResult Function()? cameraPermissionDeniedFailure,
-    TResult Function(double fileSizeInMB)? tooLargeFile,
-    TResult Function()? cancelled,
-    TResult Function(String? errorDetails)? failure,
+    TResult? Function(File file)? success,
+    TResult? Function()? galleryPermissionDeniedFailure,
+    TResult? Function()? cameraPermissionDeniedFailure,
+    TResult? Function(double fileSizeInMB)? tooLargeFile,
+    TResult? Function()? cancelled,
+    TResult? Function(String? errorDetails)? failure,
   }) {
     return success?.call(file);
   }
@@ -224,14 +226,14 @@ class _$PickSuccess implements PickSuccess {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PickSuccess value)? success,
-    TResult Function(PickGalleryPermissionDeniedFailure value)?
+    TResult? Function(PickSuccess value)? success,
+    TResult? Function(PickGalleryPermissionDeniedFailure value)?
         galleryPermissionDeniedFailure,
-    TResult Function(PickCameraPermissionDeniedFailure value)?
+    TResult? Function(PickCameraPermissionDeniedFailure value)?
         cameraPermissionDeniedFailure,
-    TResult Function(PickTooLargeFile value)? tooLargeFile,
-    TResult Function(PickCancelled value)? cancelled,
-    TResult Function(PickFailure value)? failure,
+    TResult? Function(PickTooLargeFile value)? tooLargeFile,
+    TResult? Function(PickCancelled value)? cancelled,
+    TResult? Function(PickFailure value)? failure,
   }) {
     return success?.call(this);
   }
@@ -259,7 +261,7 @@ class _$PickSuccess implements PickSuccess {
 abstract class PickSuccess implements PickResult {
   factory PickSuccess(final File file) = _$PickSuccess;
 
-  File get file => throw _privateConstructorUsedError;
+  File get file;
   @JsonKey(ignore: true)
   _$$PickSuccessCopyWith<_$PickSuccess> get copyWith =>
       throw _privateConstructorUsedError;
@@ -275,16 +277,12 @@ abstract class _$$PickGalleryPermissionDeniedFailureCopyWith<$Res> {
 
 /// @nodoc
 class __$$PickGalleryPermissionDeniedFailureCopyWithImpl<$Res>
-    extends _$PickResultCopyWithImpl<$Res>
+    extends _$PickResultCopyWithImpl<$Res, _$PickGalleryPermissionDeniedFailure>
     implements _$$PickGalleryPermissionDeniedFailureCopyWith<$Res> {
   __$$PickGalleryPermissionDeniedFailureCopyWithImpl(
       _$PickGalleryPermissionDeniedFailure _value,
       $Res Function(_$PickGalleryPermissionDeniedFailure) _then)
-      : super(_value, (v) => _then(v as _$PickGalleryPermissionDeniedFailure));
-
-  @override
-  _$PickGalleryPermissionDeniedFailure get _value =>
-      super._value as _$PickGalleryPermissionDeniedFailure;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -324,12 +322,12 @@ class _$PickGalleryPermissionDeniedFailure
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(File file)? success,
-    TResult Function()? galleryPermissionDeniedFailure,
-    TResult Function()? cameraPermissionDeniedFailure,
-    TResult Function(double fileSizeInMB)? tooLargeFile,
-    TResult Function()? cancelled,
-    TResult Function(String? errorDetails)? failure,
+    TResult? Function(File file)? success,
+    TResult? Function()? galleryPermissionDeniedFailure,
+    TResult? Function()? cameraPermissionDeniedFailure,
+    TResult? Function(double fileSizeInMB)? tooLargeFile,
+    TResult? Function()? cancelled,
+    TResult? Function(String? errorDetails)? failure,
   }) {
     return galleryPermissionDeniedFailure?.call();
   }
@@ -369,14 +367,14 @@ class _$PickGalleryPermissionDeniedFailure
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PickSuccess value)? success,
-    TResult Function(PickGalleryPermissionDeniedFailure value)?
+    TResult? Function(PickSuccess value)? success,
+    TResult? Function(PickGalleryPermissionDeniedFailure value)?
         galleryPermissionDeniedFailure,
-    TResult Function(PickCameraPermissionDeniedFailure value)?
+    TResult? Function(PickCameraPermissionDeniedFailure value)?
         cameraPermissionDeniedFailure,
-    TResult Function(PickTooLargeFile value)? tooLargeFile,
-    TResult Function(PickCancelled value)? cancelled,
-    TResult Function(PickFailure value)? failure,
+    TResult? Function(PickTooLargeFile value)? tooLargeFile,
+    TResult? Function(PickCancelled value)? cancelled,
+    TResult? Function(PickFailure value)? failure,
   }) {
     return galleryPermissionDeniedFailure?.call(this);
   }
@@ -416,16 +414,12 @@ abstract class _$$PickCameraPermissionDeniedFailureCopyWith<$Res> {
 
 /// @nodoc
 class __$$PickCameraPermissionDeniedFailureCopyWithImpl<$Res>
-    extends _$PickResultCopyWithImpl<$Res>
+    extends _$PickResultCopyWithImpl<$Res, _$PickCameraPermissionDeniedFailure>
     implements _$$PickCameraPermissionDeniedFailureCopyWith<$Res> {
   __$$PickCameraPermissionDeniedFailureCopyWithImpl(
       _$PickCameraPermissionDeniedFailure _value,
       $Res Function(_$PickCameraPermissionDeniedFailure) _then)
-      : super(_value, (v) => _then(v as _$PickCameraPermissionDeniedFailure));
-
-  @override
-  _$PickCameraPermissionDeniedFailure get _value =>
-      super._value as _$PickCameraPermissionDeniedFailure;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -465,12 +459,12 @@ class _$PickCameraPermissionDeniedFailure
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(File file)? success,
-    TResult Function()? galleryPermissionDeniedFailure,
-    TResult Function()? cameraPermissionDeniedFailure,
-    TResult Function(double fileSizeInMB)? tooLargeFile,
-    TResult Function()? cancelled,
-    TResult Function(String? errorDetails)? failure,
+    TResult? Function(File file)? success,
+    TResult? Function()? galleryPermissionDeniedFailure,
+    TResult? Function()? cameraPermissionDeniedFailure,
+    TResult? Function(double fileSizeInMB)? tooLargeFile,
+    TResult? Function()? cancelled,
+    TResult? Function(String? errorDetails)? failure,
   }) {
     return cameraPermissionDeniedFailure?.call();
   }
@@ -510,14 +504,14 @@ class _$PickCameraPermissionDeniedFailure
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PickSuccess value)? success,
-    TResult Function(PickGalleryPermissionDeniedFailure value)?
+    TResult? Function(PickSuccess value)? success,
+    TResult? Function(PickGalleryPermissionDeniedFailure value)?
         galleryPermissionDeniedFailure,
-    TResult Function(PickCameraPermissionDeniedFailure value)?
+    TResult? Function(PickCameraPermissionDeniedFailure value)?
         cameraPermissionDeniedFailure,
-    TResult Function(PickTooLargeFile value)? tooLargeFile,
-    TResult Function(PickCancelled value)? cancelled,
-    TResult Function(PickFailure value)? failure,
+    TResult? Function(PickTooLargeFile value)? tooLargeFile,
+    TResult? Function(PickCancelled value)? cancelled,
+    TResult? Function(PickFailure value)? failure,
   }) {
     return cameraPermissionDeniedFailure?.call(this);
   }
@@ -552,26 +546,25 @@ abstract class _$$PickTooLargeFileCopyWith<$Res> {
   factory _$$PickTooLargeFileCopyWith(
           _$PickTooLargeFile value, $Res Function(_$PickTooLargeFile) then) =
       __$$PickTooLargeFileCopyWithImpl<$Res>;
+  @useResult
   $Res call({double fileSizeInMB});
 }
 
 /// @nodoc
 class __$$PickTooLargeFileCopyWithImpl<$Res>
-    extends _$PickResultCopyWithImpl<$Res>
+    extends _$PickResultCopyWithImpl<$Res, _$PickTooLargeFile>
     implements _$$PickTooLargeFileCopyWith<$Res> {
   __$$PickTooLargeFileCopyWithImpl(
       _$PickTooLargeFile _value, $Res Function(_$PickTooLargeFile) _then)
-      : super(_value, (v) => _then(v as _$PickTooLargeFile));
+      : super(_value, _then);
 
-  @override
-  _$PickTooLargeFile get _value => super._value as _$PickTooLargeFile;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? fileSizeInMB = freezed,
+    Object? fileSizeInMB = null,
   }) {
     return _then(_$PickTooLargeFile(
-      fileSizeInMB: fileSizeInMB == freezed
+      fileSizeInMB: null == fileSizeInMB
           ? _value.fileSizeInMB
           : fileSizeInMB // ignore: cast_nullable_to_non_nullable
               as double,
@@ -597,16 +590,16 @@ class _$PickTooLargeFile implements PickTooLargeFile {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PickTooLargeFile &&
-            const DeepCollectionEquality()
-                .equals(other.fileSizeInMB, fileSizeInMB));
+            (identical(other.fileSizeInMB, fileSizeInMB) ||
+                other.fileSizeInMB == fileSizeInMB));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(fileSizeInMB));
+  int get hashCode => Object.hash(runtimeType, fileSizeInMB);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$PickTooLargeFileCopyWith<_$PickTooLargeFile> get copyWith =>
       __$$PickTooLargeFileCopyWithImpl<_$PickTooLargeFile>(this, _$identity);
 
@@ -626,12 +619,12 @@ class _$PickTooLargeFile implements PickTooLargeFile {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(File file)? success,
-    TResult Function()? galleryPermissionDeniedFailure,
-    TResult Function()? cameraPermissionDeniedFailure,
-    TResult Function(double fileSizeInMB)? tooLargeFile,
-    TResult Function()? cancelled,
-    TResult Function(String? errorDetails)? failure,
+    TResult? Function(File file)? success,
+    TResult? Function()? galleryPermissionDeniedFailure,
+    TResult? Function()? cameraPermissionDeniedFailure,
+    TResult? Function(double fileSizeInMB)? tooLargeFile,
+    TResult? Function()? cancelled,
+    TResult? Function(String? errorDetails)? failure,
   }) {
     return tooLargeFile?.call(fileSizeInMB);
   }
@@ -671,14 +664,14 @@ class _$PickTooLargeFile implements PickTooLargeFile {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PickSuccess value)? success,
-    TResult Function(PickGalleryPermissionDeniedFailure value)?
+    TResult? Function(PickSuccess value)? success,
+    TResult? Function(PickGalleryPermissionDeniedFailure value)?
         galleryPermissionDeniedFailure,
-    TResult Function(PickCameraPermissionDeniedFailure value)?
+    TResult? Function(PickCameraPermissionDeniedFailure value)?
         cameraPermissionDeniedFailure,
-    TResult Function(PickTooLargeFile value)? tooLargeFile,
-    TResult Function(PickCancelled value)? cancelled,
-    TResult Function(PickFailure value)? failure,
+    TResult? Function(PickTooLargeFile value)? tooLargeFile,
+    TResult? Function(PickCancelled value)? cancelled,
+    TResult? Function(PickFailure value)? failure,
   }) {
     return tooLargeFile?.call(this);
   }
@@ -707,7 +700,7 @@ abstract class PickTooLargeFile implements PickResult {
   factory PickTooLargeFile({required final double fileSizeInMB}) =
       _$PickTooLargeFile;
 
-  double get fileSizeInMB => throw _privateConstructorUsedError;
+  double get fileSizeInMB;
   @JsonKey(ignore: true)
   _$$PickTooLargeFileCopyWith<_$PickTooLargeFile> get copyWith =>
       throw _privateConstructorUsedError;
@@ -721,14 +714,12 @@ abstract class _$$PickCancelledCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$PickCancelledCopyWithImpl<$Res> extends _$PickResultCopyWithImpl<$Res>
+class __$$PickCancelledCopyWithImpl<$Res>
+    extends _$PickResultCopyWithImpl<$Res, _$PickCancelled>
     implements _$$PickCancelledCopyWith<$Res> {
   __$$PickCancelledCopyWithImpl(
       _$PickCancelled _value, $Res Function(_$PickCancelled) _then)
-      : super(_value, (v) => _then(v as _$PickCancelled));
-
-  @override
-  _$PickCancelled get _value => super._value as _$PickCancelled;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -766,12 +757,12 @@ class _$PickCancelled implements PickCancelled {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(File file)? success,
-    TResult Function()? galleryPermissionDeniedFailure,
-    TResult Function()? cameraPermissionDeniedFailure,
-    TResult Function(double fileSizeInMB)? tooLargeFile,
-    TResult Function()? cancelled,
-    TResult Function(String? errorDetails)? failure,
+    TResult? Function(File file)? success,
+    TResult? Function()? galleryPermissionDeniedFailure,
+    TResult? Function()? cameraPermissionDeniedFailure,
+    TResult? Function(double fileSizeInMB)? tooLargeFile,
+    TResult? Function()? cancelled,
+    TResult? Function(String? errorDetails)? failure,
   }) {
     return cancelled?.call();
   }
@@ -811,14 +802,14 @@ class _$PickCancelled implements PickCancelled {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PickSuccess value)? success,
-    TResult Function(PickGalleryPermissionDeniedFailure value)?
+    TResult? Function(PickSuccess value)? success,
+    TResult? Function(PickGalleryPermissionDeniedFailure value)?
         galleryPermissionDeniedFailure,
-    TResult Function(PickCameraPermissionDeniedFailure value)?
+    TResult? Function(PickCameraPermissionDeniedFailure value)?
         cameraPermissionDeniedFailure,
-    TResult Function(PickTooLargeFile value)? tooLargeFile,
-    TResult Function(PickCancelled value)? cancelled,
-    TResult Function(PickFailure value)? failure,
+    TResult? Function(PickTooLargeFile value)? tooLargeFile,
+    TResult? Function(PickCancelled value)? cancelled,
+    TResult? Function(PickFailure value)? failure,
   }) {
     return cancelled?.call(this);
   }
@@ -852,25 +843,25 @@ abstract class _$$PickFailureCopyWith<$Res> {
   factory _$$PickFailureCopyWith(
           _$PickFailure value, $Res Function(_$PickFailure) then) =
       __$$PickFailureCopyWithImpl<$Res>;
+  @useResult
   $Res call({String? errorDetails});
 }
 
 /// @nodoc
-class __$$PickFailureCopyWithImpl<$Res> extends _$PickResultCopyWithImpl<$Res>
+class __$$PickFailureCopyWithImpl<$Res>
+    extends _$PickResultCopyWithImpl<$Res, _$PickFailure>
     implements _$$PickFailureCopyWith<$Res> {
   __$$PickFailureCopyWithImpl(
       _$PickFailure _value, $Res Function(_$PickFailure) _then)
-      : super(_value, (v) => _then(v as _$PickFailure));
+      : super(_value, _then);
 
-  @override
-  _$PickFailure get _value => super._value as _$PickFailure;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? errorDetails = freezed,
   }) {
     return _then(_$PickFailure(
-      errorDetails == freezed
+      freezed == errorDetails
           ? _value.errorDetails
           : errorDetails // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -896,16 +887,16 @@ class _$PickFailure implements PickFailure {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PickFailure &&
-            const DeepCollectionEquality()
-                .equals(other.errorDetails, errorDetails));
+            (identical(other.errorDetails, errorDetails) ||
+                other.errorDetails == errorDetails));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(errorDetails));
+  int get hashCode => Object.hash(runtimeType, errorDetails);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$PickFailureCopyWith<_$PickFailure> get copyWith =>
       __$$PickFailureCopyWithImpl<_$PickFailure>(this, _$identity);
 
@@ -925,12 +916,12 @@ class _$PickFailure implements PickFailure {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(File file)? success,
-    TResult Function()? galleryPermissionDeniedFailure,
-    TResult Function()? cameraPermissionDeniedFailure,
-    TResult Function(double fileSizeInMB)? tooLargeFile,
-    TResult Function()? cancelled,
-    TResult Function(String? errorDetails)? failure,
+    TResult? Function(File file)? success,
+    TResult? Function()? galleryPermissionDeniedFailure,
+    TResult? Function()? cameraPermissionDeniedFailure,
+    TResult? Function(double fileSizeInMB)? tooLargeFile,
+    TResult? Function()? cancelled,
+    TResult? Function(String? errorDetails)? failure,
   }) {
     return failure?.call(errorDetails);
   }
@@ -970,14 +961,14 @@ class _$PickFailure implements PickFailure {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(PickSuccess value)? success,
-    TResult Function(PickGalleryPermissionDeniedFailure value)?
+    TResult? Function(PickSuccess value)? success,
+    TResult? Function(PickGalleryPermissionDeniedFailure value)?
         galleryPermissionDeniedFailure,
-    TResult Function(PickCameraPermissionDeniedFailure value)?
+    TResult? Function(PickCameraPermissionDeniedFailure value)?
         cameraPermissionDeniedFailure,
-    TResult Function(PickTooLargeFile value)? tooLargeFile,
-    TResult Function(PickCancelled value)? cancelled,
-    TResult Function(PickFailure value)? failure,
+    TResult? Function(PickTooLargeFile value)? tooLargeFile,
+    TResult? Function(PickCancelled value)? cancelled,
+    TResult? Function(PickFailure value)? failure,
   }) {
     return failure?.call(this);
   }
@@ -1005,7 +996,7 @@ class _$PickFailure implements PickFailure {
 abstract class PickFailure implements PickResult {
   factory PickFailure(final String? errorDetails) = _$PickFailure;
 
-  String? get errorDetails => throw _privateConstructorUsedError;
+  String? get errorDetails;
   @JsonKey(ignore: true)
   _$$PickFailureCopyWith<_$PickFailure> get copyWith =>
       throw _privateConstructorUsedError;

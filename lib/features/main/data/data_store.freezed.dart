@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'data_store.dart';
 
@@ -24,8 +24,8 @@ mixin _$StackUsersResult {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(KtList<StackUser> stackUsers)? success,
-    TResult Function(String? errorMsg, String? errorDetails)? failure,
+    TResult? Function(KtList<StackUser> stackUsers)? success,
+    TResult? Function(String? errorMsg, String? errorDetails)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -43,8 +43,8 @@ mixin _$StackUsersResult {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(StackUsersSuccess value)? success,
-    TResult Function(StackUsersFailure value)? failure,
+    TResult? Function(StackUsersSuccess value)? success,
+    TResult? Function(StackUsersFailure value)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -60,17 +60,18 @@ mixin _$StackUsersResult {
 abstract class $StackUsersResultCopyWith<$Res> {
   factory $StackUsersResultCopyWith(
           StackUsersResult value, $Res Function(StackUsersResult) then) =
-      _$StackUsersResultCopyWithImpl<$Res>;
+      _$StackUsersResultCopyWithImpl<$Res, StackUsersResult>;
 }
 
 /// @nodoc
-class _$StackUsersResultCopyWithImpl<$Res>
+class _$StackUsersResultCopyWithImpl<$Res, $Val extends StackUsersResult>
     implements $StackUsersResultCopyWith<$Res> {
   _$StackUsersResultCopyWithImpl(this._value, this._then);
 
-  final StackUsersResult _value;
   // ignore: unused_field
-  final $Res Function(StackUsersResult) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -78,26 +79,25 @@ abstract class _$$StackUsersSuccessCopyWith<$Res> {
   factory _$$StackUsersSuccessCopyWith(
           _$StackUsersSuccess value, $Res Function(_$StackUsersSuccess) then) =
       __$$StackUsersSuccessCopyWithImpl<$Res>;
+  @useResult
   $Res call({KtList<StackUser> stackUsers});
 }
 
 /// @nodoc
 class __$$StackUsersSuccessCopyWithImpl<$Res>
-    extends _$StackUsersResultCopyWithImpl<$Res>
+    extends _$StackUsersResultCopyWithImpl<$Res, _$StackUsersSuccess>
     implements _$$StackUsersSuccessCopyWith<$Res> {
   __$$StackUsersSuccessCopyWithImpl(
       _$StackUsersSuccess _value, $Res Function(_$StackUsersSuccess) _then)
-      : super(_value, (v) => _then(v as _$StackUsersSuccess));
+      : super(_value, _then);
 
-  @override
-  _$StackUsersSuccess get _value => super._value as _$StackUsersSuccess;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? stackUsers = freezed,
+    Object? stackUsers = null,
   }) {
     return _then(_$StackUsersSuccess(
-      stackUsers: stackUsers == freezed
+      stackUsers: null == stackUsers
           ? _value.stackUsers
           : stackUsers // ignore: cast_nullable_to_non_nullable
               as KtList<StackUser>,
@@ -123,16 +123,16 @@ class _$StackUsersSuccess implements StackUsersSuccess {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$StackUsersSuccess &&
-            const DeepCollectionEquality()
-                .equals(other.stackUsers, stackUsers));
+            (identical(other.stackUsers, stackUsers) ||
+                other.stackUsers == stackUsers));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(stackUsers));
+  int get hashCode => Object.hash(runtimeType, stackUsers);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$StackUsersSuccessCopyWith<_$StackUsersSuccess> get copyWith =>
       __$$StackUsersSuccessCopyWithImpl<_$StackUsersSuccess>(this, _$identity);
 
@@ -148,8 +148,8 @@ class _$StackUsersSuccess implements StackUsersSuccess {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(KtList<StackUser> stackUsers)? success,
-    TResult Function(String? errorMsg, String? errorDetails)? failure,
+    TResult? Function(KtList<StackUser> stackUsers)? success,
+    TResult? Function(String? errorMsg, String? errorDetails)? failure,
   }) {
     return success?.call(stackUsers);
   }
@@ -179,8 +179,8 @@ class _$StackUsersSuccess implements StackUsersSuccess {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(StackUsersSuccess value)? success,
-    TResult Function(StackUsersFailure value)? failure,
+    TResult? Function(StackUsersSuccess value)? success,
+    TResult? Function(StackUsersFailure value)? failure,
   }) {
     return success?.call(this);
   }
@@ -203,7 +203,7 @@ abstract class StackUsersSuccess implements StackUsersResult {
   factory StackUsersSuccess({required final KtList<StackUser> stackUsers}) =
       _$StackUsersSuccess;
 
-  KtList<StackUser> get stackUsers => throw _privateConstructorUsedError;
+  KtList<StackUser> get stackUsers;
   @JsonKey(ignore: true)
   _$$StackUsersSuccessCopyWith<_$StackUsersSuccess> get copyWith =>
       throw _privateConstructorUsedError;
@@ -214,31 +214,30 @@ abstract class _$$StackUsersFailureCopyWith<$Res> {
   factory _$$StackUsersFailureCopyWith(
           _$StackUsersFailure value, $Res Function(_$StackUsersFailure) then) =
       __$$StackUsersFailureCopyWithImpl<$Res>;
+  @useResult
   $Res call({String? errorMsg, String? errorDetails});
 }
 
 /// @nodoc
 class __$$StackUsersFailureCopyWithImpl<$Res>
-    extends _$StackUsersResultCopyWithImpl<$Res>
+    extends _$StackUsersResultCopyWithImpl<$Res, _$StackUsersFailure>
     implements _$$StackUsersFailureCopyWith<$Res> {
   __$$StackUsersFailureCopyWithImpl(
       _$StackUsersFailure _value, $Res Function(_$StackUsersFailure) _then)
-      : super(_value, (v) => _then(v as _$StackUsersFailure));
+      : super(_value, _then);
 
-  @override
-  _$StackUsersFailure get _value => super._value as _$StackUsersFailure;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? errorMsg = freezed,
     Object? errorDetails = freezed,
   }) {
     return _then(_$StackUsersFailure(
-      errorMsg: errorMsg == freezed
+      errorMsg: freezed == errorMsg
           ? _value.errorMsg
           : errorMsg // ignore: cast_nullable_to_non_nullable
               as String?,
-      errorDetails: errorDetails == freezed
+      errorDetails: freezed == errorDetails
           ? _value.errorDetails
           : errorDetails // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -266,19 +265,18 @@ class _$StackUsersFailure implements StackUsersFailure {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$StackUsersFailure &&
-            const DeepCollectionEquality().equals(other.errorMsg, errorMsg) &&
-            const DeepCollectionEquality()
-                .equals(other.errorDetails, errorDetails));
+            (identical(other.errorMsg, errorMsg) ||
+                other.errorMsg == errorMsg) &&
+            (identical(other.errorDetails, errorDetails) ||
+                other.errorDetails == errorDetails));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(errorMsg),
-      const DeepCollectionEquality().hash(errorDetails));
+  int get hashCode => Object.hash(runtimeType, errorMsg, errorDetails);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$StackUsersFailureCopyWith<_$StackUsersFailure> get copyWith =>
       __$$StackUsersFailureCopyWithImpl<_$StackUsersFailure>(this, _$identity);
 
@@ -294,8 +292,8 @@ class _$StackUsersFailure implements StackUsersFailure {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(KtList<StackUser> stackUsers)? success,
-    TResult Function(String? errorMsg, String? errorDetails)? failure,
+    TResult? Function(KtList<StackUser> stackUsers)? success,
+    TResult? Function(String? errorMsg, String? errorDetails)? failure,
   }) {
     return failure?.call(errorMsg, errorDetails);
   }
@@ -325,8 +323,8 @@ class _$StackUsersFailure implements StackUsersFailure {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(StackUsersSuccess value)? success,
-    TResult Function(StackUsersFailure value)? failure,
+    TResult? Function(StackUsersSuccess value)? success,
+    TResult? Function(StackUsersFailure value)? failure,
   }) {
     return failure?.call(this);
   }
@@ -350,8 +348,8 @@ abstract class StackUsersFailure implements StackUsersResult {
       {final String? errorMsg,
       final String? errorDetails}) = _$StackUsersFailure;
 
-  String? get errorMsg => throw _privateConstructorUsedError;
-  String? get errorDetails => throw _privateConstructorUsedError;
+  String? get errorMsg;
+  String? get errorDetails;
   @JsonKey(ignore: true)
   _$$StackUsersFailureCopyWith<_$StackUsersFailure> get copyWith =>
       throw _privateConstructorUsedError;

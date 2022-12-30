@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'splash_state.dart';
 
@@ -27,36 +27,41 @@ mixin _$SplashState {
 abstract class $SplashStateCopyWith<$Res> {
   factory $SplashStateCopyWith(
           SplashState value, $Res Function(SplashState) then) =
-      _$SplashStateCopyWithImpl<$Res>;
+      _$SplashStateCopyWithImpl<$Res, SplashState>;
+  @useResult
   $Res call({RefreshState refreshState});
 
   $RefreshStateCopyWith<$Res> get refreshState;
 }
 
 /// @nodoc
-class _$SplashStateCopyWithImpl<$Res> implements $SplashStateCopyWith<$Res> {
+class _$SplashStateCopyWithImpl<$Res, $Val extends SplashState>
+    implements $SplashStateCopyWith<$Res> {
   _$SplashStateCopyWithImpl(this._value, this._then);
 
-  final SplashState _value;
   // ignore: unused_field
-  final $Res Function(SplashState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? refreshState = freezed,
+    Object? refreshState = null,
   }) {
     return _then(_value.copyWith(
-      refreshState: refreshState == freezed
+      refreshState: null == refreshState
           ? _value.refreshState
           : refreshState // ignore: cast_nullable_to_non_nullable
               as RefreshState,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $RefreshStateCopyWith<$Res> get refreshState {
     return $RefreshStateCopyWith<$Res>(_value.refreshState, (value) {
-      return _then(_value.copyWith(refreshState: value));
+      return _then(_value.copyWith(refreshState: value) as $Val);
     });
   }
 }
@@ -68,6 +73,7 @@ abstract class _$$_SplashStateCopyWith<$Res>
           _$_SplashState value, $Res Function(_$_SplashState) then) =
       __$$_SplashStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({RefreshState refreshState});
 
   @override
@@ -75,21 +81,20 @@ abstract class _$$_SplashStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_SplashStateCopyWithImpl<$Res> extends _$SplashStateCopyWithImpl<$Res>
+class __$$_SplashStateCopyWithImpl<$Res>
+    extends _$SplashStateCopyWithImpl<$Res, _$_SplashState>
     implements _$$_SplashStateCopyWith<$Res> {
   __$$_SplashStateCopyWithImpl(
       _$_SplashState _value, $Res Function(_$_SplashState) _then)
-      : super(_value, (v) => _then(v as _$_SplashState));
+      : super(_value, _then);
 
-  @override
-  _$_SplashState get _value => super._value as _$_SplashState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? refreshState = freezed,
+    Object? refreshState = null,
   }) {
     return _then(_$_SplashState(
-      refreshState: refreshState == freezed
+      refreshState: null == refreshState
           ? _value.refreshState
           : refreshState // ignore: cast_nullable_to_non_nullable
               as RefreshState,
@@ -115,16 +120,16 @@ class _$_SplashState implements _SplashState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SplashState &&
-            const DeepCollectionEquality()
-                .equals(other.refreshState, refreshState));
+            (identical(other.refreshState, refreshState) ||
+                other.refreshState == refreshState));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(refreshState));
+  int get hashCode => Object.hash(runtimeType, refreshState);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_SplashStateCopyWith<_$_SplashState> get copyWith =>
       __$$_SplashStateCopyWithImpl<_$_SplashState>(this, _$identity);
 }
@@ -134,7 +139,7 @@ abstract class _SplashState implements SplashState {
       _$_SplashState;
 
   @override
-  RefreshState get refreshState => throw _privateConstructorUsedError;
+  RefreshState get refreshState;
   @override
   @JsonKey(ignore: true)
   _$$_SplashStateCopyWith<_$_SplashState> get copyWith =>

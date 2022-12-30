@@ -60,6 +60,55 @@ class Strings {
     },
   );
 
+  static const genericSearch = PlainLocalizedString(
+    key: 'genericSearch',
+    values: {
+      'en': '''Search''',
+    },
+  );
+
+  static const genericNoSearchResults = PlainLocalizedString(
+    key: 'genericNoSearchResults',
+    values: {
+      'en': '''No results.''',
+    },
+  );
+
+  static const genericYesterday = PlainLocalizedString(
+    key: 'genericYesterday',
+    values: {
+      'en': '''Yesterday''',
+    },
+  );
+
+  static const details = PlainLocalizedString(
+    key: 'details',
+    values: {
+      'en': '''DETAILS''',
+    },
+  );
+
+  static const required = PlainLocalizedString(
+    key: 'required',
+    values: {
+      'en': '''Required''',
+    },
+  );
+
+  static const validEmail = PlainLocalizedString(
+    key: 'validEmail',
+    values: {
+      'en': '''Please enter a valid email address''',
+    },
+  );
+
+  static const invalidPhoneNumber = PlainLocalizedString(
+    key: 'invalidPhoneNumber',
+    values: {
+      'en': '''Please enter a valid phone number''',
+    },
+  );
+
   static const genericNoInternetTitle = PlainLocalizedString(
     key: 'genericNoInternetTitle',
     values: {
@@ -95,20 +144,6 @@ class Strings {
     },
   );
 
-  static const genericSearch = PlainLocalizedString(
-    key: 'genericSearch',
-    values: {
-      'en': '''Search''',
-    },
-  );
-
-  static const genericNoSearchResults = PlainLocalizedString(
-    key: 'genericNoSearchResults',
-    values: {
-      'en': '''No results.''',
-    },
-  );
-
   static const genericYes = PlainLocalizedString(
     key: 'genericYes',
     values: {
@@ -123,45 +158,10 @@ class Strings {
     },
   );
 
-  static const genericYesterday = PlainLocalizedString(
-    key: 'genericYesterday',
-    values: {
-      'en': '''Yesterday''',
-    },
-  );
-
   static const genericOk = PlainLocalizedString(
     key: 'genericOk',
     values: {
       'en': '''OK''',
-    },
-  );
-
-  static const details = PlainLocalizedString(
-    key: 'details',
-    values: {
-      'en': '''DETAILS''',
-    },
-  );
-
-  static const required = PlainLocalizedString(
-    key: 'required',
-    values: {
-      'en': '''Required''',
-    },
-  );
-
-  static const validEmail = PlainLocalizedString(
-    key: 'validEmail',
-    values: {
-      'en': '''Please enter a valid email address''',
-    },
-  );
-
-  static const invalidPhoneNumber = PlainLocalizedString(
-    key: 'invalidPhoneNumber',
-    values: {
-      'en': '''Please enter a valid phone number''',
     },
   );
 }
