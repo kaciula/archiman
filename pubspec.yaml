@@ -57,7 +57,8 @@ dependencies:
   share_plus: ^4.0.4
   location: ^4.4.0
   flutter_cache_manager: ^3.3.0
-  device_info_plus: ^3.2.3
+  device_info_plus: ^3.2.3 # pdfx >=2.0.1+3 requires device_info_plus ^3.2.4
+
   path_provider: ^2.0.10
   app_settings: ^4.1.6 # Wait for support for Flutter 3
   in_app_purchase: ^3.0.7
