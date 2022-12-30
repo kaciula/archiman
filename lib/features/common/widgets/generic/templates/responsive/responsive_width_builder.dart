@@ -2,11 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:universal_io/io.dart';
 
-import 'responsive_breakpoints.dart';
 import 'responsive_sizing_info.dart';
+import 'responsive_width_breakpoints.dart';
 
-class ResponsiveBuilder extends StatelessWidget {
-  const ResponsiveBuilder({
+class ResponsiveWidthBuilder extends StatelessWidget {
+  const ResponsiveWidthBuilder({
     Key? key,
     required this.builder,
   }) : super(key: key);
@@ -32,15 +32,15 @@ class ResponsiveBuilder extends StatelessWidget {
         return builder(
           context,
           ResponsiveSizingInfo(screenSize, localWidgetSize, deviceType),
-          ResponsiveBreakpoints(),
+          ResponsivWidthBreakpoints(),
         );
       },
     );
   }
 }
 
-typedef ResponsiveBuilderCallback = Function(
+typedef ResponsiveBuilderCallback = Widget Function(
   BuildContext context,
   ResponsiveSizingInfo sizingInfo,
-  ResponsiveBreakpoints breakpoints,
+  ResponsivWidthBreakpoints breakpoints,
 );

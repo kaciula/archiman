@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
 
-import '../atoms/circular_progress.dart';
-
-class ModalProgressHUD extends StatelessWidget {
-  const ModalProgressHUD({
+class GenericModalProgressHUD extends StatelessWidget {
+  const GenericModalProgressHUD({
     Key? key,
     required this.inAsyncCall,
-    this.opacity = 0.3,
-    this.color = Colors.grey,
-    this.progressIndicator = const CircularProgress(),
-    this.dismissible = false,
+    required this.color,
+    required this.progressIndicator,
+    required this.opacity,
     required this.child,
   }) : super(key: key);
 
   final bool inAsyncCall;
-  final double opacity;
   final Color color;
   final Widget progressIndicator;
-  final bool dismissible;
+  final double opacity;
   final Widget child;
 
   @override
@@ -33,7 +29,7 @@ class ModalProgressHUD extends StatelessWidget {
             bottom: 0,
             child: Opacity(
               opacity: opacity,
-              child: ModalBarrier(dismissible: dismissible, color: color),
+              child: ModalBarrier(dismissible: false, color: color),
             ),
           ),
           Positioned(

@@ -1,7 +1,7 @@
 import 'package:archiman/app/resources/resources.dart';
-import 'package:archiman/features/common/widgets/molecules/universal_animation.dart';
-import 'package:archiman/features/common/widgets/molecules/universal_image.dart';
-import 'package:archiman/features/common/widgets/templates/refresh_container.dart';
+import 'package:archiman/features/common/widgets/custom/molecules/misc/universal_image.dart';
+import 'package:archiman/features/common/widgets/custom/molecules/universal_animation.dart';
+import 'package:archiman/features/common/widgets/custom/templates/refresh_container.dart';
 import 'package:archiman/features/main/models/stack_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
