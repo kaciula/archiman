@@ -7,6 +7,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   connectivity_plus
   flutter_secure_storage_windows
   geolocator_windows
+  maps_launcher
   network_info_plus_windows
   pdfx
   permission_handler_windows
