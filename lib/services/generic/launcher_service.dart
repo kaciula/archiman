@@ -1,6 +1,7 @@
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:flutter_social_content_share/flutter_social_content_share.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:logging/logging.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:share_plus/share_plus.dart';
@@ -84,7 +85,8 @@ class LauncherService {
     }
   }
 
-  Future<void> shareOnTwitter({required String text, String? url}) async {
+  Future<void> shareOnTwitter(
+      {required String text, required String url}) async {
     await SocialSharePlugin.shareToTwitterLink(text: text, url: url);
   }
 
@@ -97,7 +99,7 @@ class LauncherService {
   }
 
   Future<void> shareFile({required String filePath}) async {
-    await Share.shareFiles(<String>[filePath]);
+    await Share.shareXFiles(<XFile>[XFile(filePath)]);
   }
 
   Future<void> launchWhatsApp({required String phoneNumber}) async {

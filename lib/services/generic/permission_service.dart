@@ -175,6 +175,8 @@ class PermissionService {
         return PermissionStatus.denied;
       case permissions.PermissionStatus.granted:
         return PermissionStatus.granted;
+      case permissions.PermissionStatus.provisional:
+        return PermissionStatus.granted;
       case permissions.PermissionStatus.restricted:
         return PermissionStatus.deniedForever;
       case permissions.PermissionStatus.limited:

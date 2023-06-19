@@ -44,7 +44,6 @@ class ThisAppState extends State<ThisApp> {
               bloc: _appCubit,
               builder: (BuildContext context, AppState state) {
                 return MaterialApp(
-                  useInheritedMediaQuery: true,
                   locale: DevicePreview.locale(context),
                   debugShowCheckedModeBanner: false,
                   title: 'Archiman',

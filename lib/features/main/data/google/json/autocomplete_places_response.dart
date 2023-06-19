@@ -1,5 +1,6 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kt_dart/collection.dart';
+
 import '../models/google_search_suggestion.dart';
 
 part 'autocomplete_places_response.g.dart';
@@ -12,20 +13,20 @@ class AutocompletePlacesResponse {
       _$AutocompletePlacesResponseFromJson(json);
 
   late String status;
-  late List<_PredictionResponse> predictions;
+  late List<PredictionResponse> predictions;
 
   KtList<GoogleSearchSuggestion> map() {
     return predictions
-        .map((_PredictionResponse response) => response.map())
+        .map((PredictionResponse response) => response.map())
         .toImmutableList();
   }
 }
 
 @JsonSerializable()
-class _PredictionResponse {
-  _PredictionResponse();
+class PredictionResponse {
+  PredictionResponse();
 
-  factory _PredictionResponse.fromJson(Map<String, dynamic> json) =>
+  factory PredictionResponse.fromJson(Map<String, dynamic> json) =>
       _$PredictionResponseFromJson(json);
 
   @JsonKey(name: 'place_id')

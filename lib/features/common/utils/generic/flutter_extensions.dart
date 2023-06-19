@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 extension ThemeExt on BuildContext {
   Color get primaryColor => Theme.of(this).primaryColor;
 
-  Color get errorColor => Theme.of(this).errorColor;
+  Color get errorColor => Theme.of(this).colorScheme.error;
 
   TextTheme get textTheme => Theme.of(this).textTheme;
 }

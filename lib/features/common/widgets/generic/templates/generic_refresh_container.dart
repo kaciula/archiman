@@ -56,7 +56,7 @@ class GenericRefreshContainer extends StatelessWidget {
           children: <Widget>[
             Text(
               errorTitle,
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 16),
             Text(

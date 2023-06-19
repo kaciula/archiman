@@ -1,4 +1,4 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../models/google_place.dart';
 
@@ -14,7 +14,7 @@ class PlaceResponse {
   @JsonKey(name: 'place_id')
   late String placeId;
   late String name;
-  late _GeometryResponse geometry;
+  late GeometryResponse geometry;
 
   GooglePlace map() {
     return GooglePlace(
@@ -26,13 +26,13 @@ class PlaceResponse {
 }
 
 @JsonSerializable()
-class _GeometryResponse {
-  _GeometryResponse();
+class GeometryResponse {
+  GeometryResponse();
 
-  factory _GeometryResponse.fromJson(Map<String, dynamic> json) =>
+  factory GeometryResponse.fromJson(Map<String, dynamic> json) =>
       _$GeometryResponseFromJson(json);
 
-  late _LocationResponse location;
+  late LocationResponse location;
 
   LocationPoint map() {
     return LocationPoint(lat: location.lat, lng: location.lng);
@@ -40,10 +40,10 @@ class _GeometryResponse {
 }
 
 @JsonSerializable()
-class _LocationResponse {
-  _LocationResponse();
+class LocationResponse {
+  LocationResponse();
 
-  factory _LocationResponse.fromJson(Map<String, dynamic> json) =>
+  factory LocationResponse.fromJson(Map<String, dynamic> json) =>
       _$LocationResponseFromJson(json);
 
   late double lat;

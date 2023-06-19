@@ -1,4 +1,4 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kt_dart/collection.dart';
 
 import '../models/wiki_place.dart';
@@ -12,7 +12,7 @@ class PlacesResponse {
   factory PlacesResponse.fromJson(Map<String, dynamic> json) =>
       _$PlacesResponseFromJson(json);
 
-  late _QueryResponse query;
+  late QueryResponse query;
 
   KtList<WikiPlace> map() {
     return query.geosearch
@@ -22,10 +22,10 @@ class PlacesResponse {
 }
 
 @JsonSerializable()
-class _QueryResponse {
-  _QueryResponse();
+class QueryResponse {
+  QueryResponse();
 
-  factory _QueryResponse.fromJson(Map<String, dynamic> json) =>
+  factory QueryResponse.fromJson(Map<String, dynamic> json) =>
       _$QueryResponseFromJson(json);
 
   late List<PlaceResponse> geosearch;
