@@ -6,35 +6,58 @@ import 'package:logging/logging.dart';
 import 'package:rxdart/rxdart.dart';
 
 class OnlineService {
+  late OnlineStatus _status;
+  StreamSubscription<OnlineStatus>? _sub;
+
+  bool get isInternetConnected => _status.isInternetConnected;
+
+  Future<void> init() async {
+    _status = OnlineStatus(
+      isInternetConnected: true,
+      isMobileDataConnection: false,
+    );
+
+    final ConnectivityResult result = await Connectivity().checkConnectivity();
+    _status = await _buildStatus(result);
+
+    _sub = statusChanged().listen((OnlineStatus status) {
+      _status = status;
+    });
+  }
+
+  void dispose() {
+    _sub?.cancel();
+  }
+
   Stream<OnlineStatus> statusChanged() {
     return Connectivity().onConnectivityChanged.asyncMap(
-      (ConnectivityResult result) async {
+      (ConnectivityResult result) {
         _logger.fine('connectivity change $result');
-        final bool isMobileDataConnection = result == ConnectivityResult.mobile;
-        bool isInternetConnected = result != ConnectivityResult.none;
-        if (result != ConnectivityResult.none) {
-          isInternetConnected = await InternetConnectionChecker().hasConnection;
-        }
-
-        return OnlineStatus(
-          isInternetConnected: isInternetConnected || !_enabledFeature,
-          isMobileDataConnection: isMobileDataConnection,
-        );
+        return _buildStatus(result);
       },
     ).debounceTime(Duration(milliseconds: 400));
   }
 
-  Future<bool> isInternetConnected() async {
-    final ConnectivityResult result = await Connectivity().checkConnectivity();
+  Future<OnlineStatus> _buildStatus(ConnectivityResult result) async {
+    final bool isMobileDataConnection = result == ConnectivityResult.mobile;
     bool isInternetConnected = result != ConnectivityResult.none;
     if (result != ConnectivityResult.none) {
       isInternetConnected = await InternetConnectionChecker().hasConnection;
     }
-    return isInternetConnected || !_enabledFeature;
+
+    return OnlineStatus(
+      isInternetConnected: isInternetConnected,
+      isMobileDataConnection: isMobileDataConnection,
+    );
+  }
+
+  Future<bool> isInternetConnectedNow() async {
+    final ConnectivityResult result = await Connectivity().checkConnectivity();
+    final OnlineStatus status = await _buildStatus(result);
+    _status = status;
+    return status.isInternetConnected;
   }
 }
-
-const bool _enabledFeature = true;
 
 class OnlineStatus {
   OnlineStatus({
@@ -45,9 +68,6 @@ class OnlineStatus {
   final bool isInternetConnected;
   final bool isMobileDataConnection;
 }
-
-typedef OnlineCallback = void Function(
-    {required bool isInternetConnected, required bool isMobileDataConnection});
 
 // ignore: unused_element
 final Logger _logger = Logger('OnlineService');

@@ -16,11 +16,14 @@ class CrashService {
       };
     } else {
       _uncaughtErrorHandler = UncaughtErrorHandlerDebug();
+      FlutterError.onError = (FlutterErrorDetails details) async {
+        await _uncaughtErrorHandler.handleFlutterError(details);
+      };
       await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
     }
   }
 
-  Future<void> handleZonedError(dynamic exception, dynamic stack) async {
+  Future<void> handleZonedError(dynamic exception, dynamic stack) {
     return _uncaughtErrorHandler.handleZonedError(exception, stack);
   }
 

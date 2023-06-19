@@ -12,13 +12,16 @@ class CropImageService {
     required ImageType imageType,
   }) async {
     img.Image? image = img.decodeImage(bytes);
-    image = img.copyCrop(image!, cropRect.left.toInt(), cropRect.top.toInt(),
-        cropRect.width.toInt(), cropRect.height.toInt());
+    image = img.copyCrop(image!,
+        x: cropRect.left.toInt(),
+        y: cropRect.top.toInt(),
+        width: cropRect.width.toInt(),
+        height: cropRect.height.toInt());
     switch (imageType) {
       case ImageType.png:
-        return img.encodePng(image) as Uint8List;
+        return img.encodePng(image);
       case ImageType.jpg:
-        return img.encodeJpg(image) as Uint8List;
+        return img.encodeJpg(image);
     }
   }
 }

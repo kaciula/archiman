@@ -5,13 +5,24 @@ import 'package:logging/logging.dart';
 
 class AnalyticsService {
   List<NavigatorObserver> navigatorObservers() {
-    return kReleaseMode
+    return _isEnabled
         ? <NavigatorObserver>[
             FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance),
           ]
         : [];
   }
+
+  Future<void> logScreen(String screenName) async {
+    if (_isEnabled) {
+      await FirebaseAnalytics.instance.setCurrentScreen(
+        screenName: screenName,
+        screenClassOverride: 'Name of the app', // FIXME: Put app name here
+      );
+    }
+  }
 }
+
+const bool _isEnabled = kReleaseMode;
 
 // ignore: unused_element
 final Logger _logger = Logger('Analytics');

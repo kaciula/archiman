@@ -1,4 +1,5 @@
 import 'package:file_picker/file_picker.dart';
+import 'package:file_picker_writable/file_picker_writable.dart';
 import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,7 +16,9 @@ class PickerService {
     PickerImageVideoSource? imageVideoSource,
     double imageMaxWidth = 1200,
     double imageMaxHeight = 1200,
-    double maxFileSizeInMB = double.infinity,
+    double maxFileSizeInMB = 4,
+    String? fileName,
+    FileWriterCallback? fileWriter,
   }) async {
     if (fileType == PickerFileType.video || fileType == PickerFileType.image) {
       try {
@@ -40,11 +43,9 @@ class PickerService {
         if (pickedFile != null) {
           final int fileSizeInBytes = await pickedFile.length();
           final double fileSizeInMB = fileSizeInBytes / (1024 * 1024);
-          if (fileSizeInMB <= maxFileSizeInMB) {
-            return PickSuccess(File(pickedFile.path));
-          } else {
-            return PickTooLargeFile(fileSizeInMB: fileSizeInMB);
-          }
+          return fileSizeInMB <= maxFileSizeInMB
+              ? PickSuccess(File(pickedFile.path))
+              : PickTooLargeFile(fileSizeInMB: fileSizeInMB);
         }
       } catch (error) {
         _logger.warning(error);
@@ -67,11 +68,17 @@ class PickerService {
         final PlatformFile pickedFile = result.files.single;
         final int fileSizeInBytes = pickedFile.size;
         final double fileSizeInMB = fileSizeInBytes / (1024 * 1024);
-        if (fileSizeInMB <= maxFileSizeInMB) {
-          return PickSuccess(File(pickedFile.path!));
-        } else {
-          return PickTooLargeFile(fileSizeInMB: fileSizeInMB);
-        }
+        return fileSizeInMB <= maxFileSizeInMB
+            ? PickSuccess(File(pickedFile.path!))
+            : PickTooLargeFile(fileSizeInMB: fileSizeInMB);
+      }
+    } else if (fileType == PickerFileType.directory) {
+      final FileInfo? fileInfo = await FilePickerWritable().openFileForCreate(
+        fileName: fileName!,
+        writer: fileWriter!,
+      );
+      if (fileInfo != null) {
+        return PickSuccessSave();
       }
     }
 
@@ -79,12 +86,17 @@ class PickerService {
   }
 }
 
-enum PickerFileType { image, video, pdf }
+enum PickerFileType { image, video, pdf, directory }
+
 enum PickerImageVideoSource { camera, gallery }
+
+typedef FileWriterCallback = Future<void> Function(File file);
 
 @freezed
 class PickResult with _$PickResult {
   factory PickResult.success(File file) = PickSuccess;
+
+  factory PickResult.successSave() = PickSuccessSave;
 
   factory PickResult.galleryPermissionDeniedFailure() =
       PickGalleryPermissionDeniedFailure;

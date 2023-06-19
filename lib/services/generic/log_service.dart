@@ -50,8 +50,9 @@ class LogService {
   }
 
   void log(LogRecord record) {
+    final DateTime time = record.time;
     final String msg =
-        '${record.time.hour}:${record.time.minute}:${record.time.second}.${record.time.millisecond} ${record.loggerName}: ${record.message}';
+        '${time.hour}:${time.minute}:${time.second}.${time.millisecond} ${record.loggerName}: ${record.message}';
     if (kReleaseMode) {
       crashService.log(msg);
     } else {
@@ -79,14 +80,14 @@ class LogService {
       }
 
       final String shortMessage =
-          record.message.substring(0, min(2400, record.message.length));
+          record.message.substring(0, min(4800, record.message.length));
       final String message =
-          '$lightGrey${record.time.hour}:${record.time.minute}:${record.time.second}:$end$start $shortMessage$end';
+          '$lightGrey${time.hour}:${time.minute}:${time.second}:$end$start $shortMessage$end';
       developer.log(
         message,
         name: record.loggerName.padRight(25),
         level: record.level.value,
-        time: record.time,
+        time: time,
       );
     }
 

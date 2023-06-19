@@ -1,11 +1,15 @@
 import 'package:universal_io/io.dart';
 
-extension FileSystemEntityExt on FileSystemEntity {
-  String get name {
-    return path.split('/').last;
+extension FileExt on File {
+  String get fileName => path.split('/').last;
+
+  String get fileNameWithoutExtension {
+    final List<String> splits = fileName.split('.');
+    return splits.first;
   }
 
-  String get extension {
-    return path.split('.').last;
+  String? get fileExtension {
+    final List<String> splits = fileName.split('.');
+    return splits.length > 1 ? splits.last : null;
   }
 }

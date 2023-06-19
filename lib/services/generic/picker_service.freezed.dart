@@ -19,6 +19,7 @@ mixin _$PickResult {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(File file) success,
+    required TResult Function() successSave,
     required TResult Function() galleryPermissionDeniedFailure,
     required TResult Function() cameraPermissionDeniedFailure,
     required TResult Function(double fileSizeInMB) tooLargeFile,
@@ -29,6 +30,7 @@ mixin _$PickResult {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(File file)? success,
+    TResult? Function()? successSave,
     TResult? Function()? galleryPermissionDeniedFailure,
     TResult? Function()? cameraPermissionDeniedFailure,
     TResult? Function(double fileSizeInMB)? tooLargeFile,
@@ -39,6 +41,7 @@ mixin _$PickResult {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(File file)? success,
+    TResult Function()? successSave,
     TResult Function()? galleryPermissionDeniedFailure,
     TResult Function()? cameraPermissionDeniedFailure,
     TResult Function(double fileSizeInMB)? tooLargeFile,
@@ -50,6 +53,7 @@ mixin _$PickResult {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PickSuccess value) success,
+    required TResult Function(PickSuccessSave value) successSave,
     required TResult Function(PickGalleryPermissionDeniedFailure value)
         galleryPermissionDeniedFailure,
     required TResult Function(PickCameraPermissionDeniedFailure value)
@@ -62,6 +66,7 @@ mixin _$PickResult {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PickSuccess value)? success,
+    TResult? Function(PickSuccessSave value)? successSave,
     TResult? Function(PickGalleryPermissionDeniedFailure value)?
         galleryPermissionDeniedFailure,
     TResult? Function(PickCameraPermissionDeniedFailure value)?
@@ -74,6 +79,7 @@ mixin _$PickResult {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PickSuccess value)? success,
+    TResult Function(PickSuccessSave value)? successSave,
     TResult Function(PickGalleryPermissionDeniedFailure value)?
         galleryPermissionDeniedFailure,
     TResult Function(PickCameraPermissionDeniedFailure value)?
@@ -169,6 +175,7 @@ class _$PickSuccess implements PickSuccess {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(File file) success,
+    required TResult Function() successSave,
     required TResult Function() galleryPermissionDeniedFailure,
     required TResult Function() cameraPermissionDeniedFailure,
     required TResult Function(double fileSizeInMB) tooLargeFile,
@@ -182,6 +189,7 @@ class _$PickSuccess implements PickSuccess {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(File file)? success,
+    TResult? Function()? successSave,
     TResult? Function()? galleryPermissionDeniedFailure,
     TResult? Function()? cameraPermissionDeniedFailure,
     TResult? Function(double fileSizeInMB)? tooLargeFile,
@@ -195,6 +203,7 @@ class _$PickSuccess implements PickSuccess {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(File file)? success,
+    TResult Function()? successSave,
     TResult Function()? galleryPermissionDeniedFailure,
     TResult Function()? cameraPermissionDeniedFailure,
     TResult Function(double fileSizeInMB)? tooLargeFile,
@@ -212,6 +221,7 @@ class _$PickSuccess implements PickSuccess {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PickSuccess value) success,
+    required TResult Function(PickSuccessSave value) successSave,
     required TResult Function(PickGalleryPermissionDeniedFailure value)
         galleryPermissionDeniedFailure,
     required TResult Function(PickCameraPermissionDeniedFailure value)
@@ -227,6 +237,7 @@ class _$PickSuccess implements PickSuccess {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PickSuccess value)? success,
+    TResult? Function(PickSuccessSave value)? successSave,
     TResult? Function(PickGalleryPermissionDeniedFailure value)?
         galleryPermissionDeniedFailure,
     TResult? Function(PickCameraPermissionDeniedFailure value)?
@@ -242,6 +253,7 @@ class _$PickSuccess implements PickSuccess {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PickSuccess value)? success,
+    TResult Function(PickSuccessSave value)? successSave,
     TResult Function(PickGalleryPermissionDeniedFailure value)?
         galleryPermissionDeniedFailure,
     TResult Function(PickCameraPermissionDeniedFailure value)?
@@ -265,6 +277,144 @@ abstract class PickSuccess implements PickResult {
   @JsonKey(ignore: true)
   _$$PickSuccessCopyWith<_$PickSuccess> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PickSuccessSaveCopyWith<$Res> {
+  factory _$$PickSuccessSaveCopyWith(
+          _$PickSuccessSave value, $Res Function(_$PickSuccessSave) then) =
+      __$$PickSuccessSaveCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$PickSuccessSaveCopyWithImpl<$Res>
+    extends _$PickResultCopyWithImpl<$Res, _$PickSuccessSave>
+    implements _$$PickSuccessSaveCopyWith<$Res> {
+  __$$PickSuccessSaveCopyWithImpl(
+      _$PickSuccessSave _value, $Res Function(_$PickSuccessSave) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$PickSuccessSave implements PickSuccessSave {
+  _$PickSuccessSave();
+
+  @override
+  String toString() {
+    return 'PickResult.successSave()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$PickSuccessSave);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(File file) success,
+    required TResult Function() successSave,
+    required TResult Function() galleryPermissionDeniedFailure,
+    required TResult Function() cameraPermissionDeniedFailure,
+    required TResult Function(double fileSizeInMB) tooLargeFile,
+    required TResult Function() cancelled,
+    required TResult Function(String? errorDetails) failure,
+  }) {
+    return successSave();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(File file)? success,
+    TResult? Function()? successSave,
+    TResult? Function()? galleryPermissionDeniedFailure,
+    TResult? Function()? cameraPermissionDeniedFailure,
+    TResult? Function(double fileSizeInMB)? tooLargeFile,
+    TResult? Function()? cancelled,
+    TResult? Function(String? errorDetails)? failure,
+  }) {
+    return successSave?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(File file)? success,
+    TResult Function()? successSave,
+    TResult Function()? galleryPermissionDeniedFailure,
+    TResult Function()? cameraPermissionDeniedFailure,
+    TResult Function(double fileSizeInMB)? tooLargeFile,
+    TResult Function()? cancelled,
+    TResult Function(String? errorDetails)? failure,
+    required TResult orElse(),
+  }) {
+    if (successSave != null) {
+      return successSave();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PickSuccess value) success,
+    required TResult Function(PickSuccessSave value) successSave,
+    required TResult Function(PickGalleryPermissionDeniedFailure value)
+        galleryPermissionDeniedFailure,
+    required TResult Function(PickCameraPermissionDeniedFailure value)
+        cameraPermissionDeniedFailure,
+    required TResult Function(PickTooLargeFile value) tooLargeFile,
+    required TResult Function(PickCancelled value) cancelled,
+    required TResult Function(PickFailure value) failure,
+  }) {
+    return successSave(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PickSuccess value)? success,
+    TResult? Function(PickSuccessSave value)? successSave,
+    TResult? Function(PickGalleryPermissionDeniedFailure value)?
+        galleryPermissionDeniedFailure,
+    TResult? Function(PickCameraPermissionDeniedFailure value)?
+        cameraPermissionDeniedFailure,
+    TResult? Function(PickTooLargeFile value)? tooLargeFile,
+    TResult? Function(PickCancelled value)? cancelled,
+    TResult? Function(PickFailure value)? failure,
+  }) {
+    return successSave?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PickSuccess value)? success,
+    TResult Function(PickSuccessSave value)? successSave,
+    TResult Function(PickGalleryPermissionDeniedFailure value)?
+        galleryPermissionDeniedFailure,
+    TResult Function(PickCameraPermissionDeniedFailure value)?
+        cameraPermissionDeniedFailure,
+    TResult Function(PickTooLargeFile value)? tooLargeFile,
+    TResult Function(PickCancelled value)? cancelled,
+    TResult Function(PickFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (successSave != null) {
+      return successSave(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PickSuccessSave implements PickResult {
+  factory PickSuccessSave() = _$PickSuccessSave;
 }
 
 /// @nodoc
@@ -310,6 +460,7 @@ class _$PickGalleryPermissionDeniedFailure
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(File file) success,
+    required TResult Function() successSave,
     required TResult Function() galleryPermissionDeniedFailure,
     required TResult Function() cameraPermissionDeniedFailure,
     required TResult Function(double fileSizeInMB) tooLargeFile,
@@ -323,6 +474,7 @@ class _$PickGalleryPermissionDeniedFailure
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(File file)? success,
+    TResult? Function()? successSave,
     TResult? Function()? galleryPermissionDeniedFailure,
     TResult? Function()? cameraPermissionDeniedFailure,
     TResult? Function(double fileSizeInMB)? tooLargeFile,
@@ -336,6 +488,7 @@ class _$PickGalleryPermissionDeniedFailure
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(File file)? success,
+    TResult Function()? successSave,
     TResult Function()? galleryPermissionDeniedFailure,
     TResult Function()? cameraPermissionDeniedFailure,
     TResult Function(double fileSizeInMB)? tooLargeFile,
@@ -353,6 +506,7 @@ class _$PickGalleryPermissionDeniedFailure
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PickSuccess value) success,
+    required TResult Function(PickSuccessSave value) successSave,
     required TResult Function(PickGalleryPermissionDeniedFailure value)
         galleryPermissionDeniedFailure,
     required TResult Function(PickCameraPermissionDeniedFailure value)
@@ -368,6 +522,7 @@ class _$PickGalleryPermissionDeniedFailure
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PickSuccess value)? success,
+    TResult? Function(PickSuccessSave value)? successSave,
     TResult? Function(PickGalleryPermissionDeniedFailure value)?
         galleryPermissionDeniedFailure,
     TResult? Function(PickCameraPermissionDeniedFailure value)?
@@ -383,6 +538,7 @@ class _$PickGalleryPermissionDeniedFailure
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PickSuccess value)? success,
+    TResult Function(PickSuccessSave value)? successSave,
     TResult Function(PickGalleryPermissionDeniedFailure value)?
         galleryPermissionDeniedFailure,
     TResult Function(PickCameraPermissionDeniedFailure value)?
@@ -447,6 +603,7 @@ class _$PickCameraPermissionDeniedFailure
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(File file) success,
+    required TResult Function() successSave,
     required TResult Function() galleryPermissionDeniedFailure,
     required TResult Function() cameraPermissionDeniedFailure,
     required TResult Function(double fileSizeInMB) tooLargeFile,
@@ -460,6 +617,7 @@ class _$PickCameraPermissionDeniedFailure
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(File file)? success,
+    TResult? Function()? successSave,
     TResult? Function()? galleryPermissionDeniedFailure,
     TResult? Function()? cameraPermissionDeniedFailure,
     TResult? Function(double fileSizeInMB)? tooLargeFile,
@@ -473,6 +631,7 @@ class _$PickCameraPermissionDeniedFailure
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(File file)? success,
+    TResult Function()? successSave,
     TResult Function()? galleryPermissionDeniedFailure,
     TResult Function()? cameraPermissionDeniedFailure,
     TResult Function(double fileSizeInMB)? tooLargeFile,
@@ -490,6 +649,7 @@ class _$PickCameraPermissionDeniedFailure
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PickSuccess value) success,
+    required TResult Function(PickSuccessSave value) successSave,
     required TResult Function(PickGalleryPermissionDeniedFailure value)
         galleryPermissionDeniedFailure,
     required TResult Function(PickCameraPermissionDeniedFailure value)
@@ -505,6 +665,7 @@ class _$PickCameraPermissionDeniedFailure
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PickSuccess value)? success,
+    TResult? Function(PickSuccessSave value)? successSave,
     TResult? Function(PickGalleryPermissionDeniedFailure value)?
         galleryPermissionDeniedFailure,
     TResult? Function(PickCameraPermissionDeniedFailure value)?
@@ -520,6 +681,7 @@ class _$PickCameraPermissionDeniedFailure
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PickSuccess value)? success,
+    TResult Function(PickSuccessSave value)? successSave,
     TResult Function(PickGalleryPermissionDeniedFailure value)?
         galleryPermissionDeniedFailure,
     TResult Function(PickCameraPermissionDeniedFailure value)?
@@ -607,6 +769,7 @@ class _$PickTooLargeFile implements PickTooLargeFile {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(File file) success,
+    required TResult Function() successSave,
     required TResult Function() galleryPermissionDeniedFailure,
     required TResult Function() cameraPermissionDeniedFailure,
     required TResult Function(double fileSizeInMB) tooLargeFile,
@@ -620,6 +783,7 @@ class _$PickTooLargeFile implements PickTooLargeFile {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(File file)? success,
+    TResult? Function()? successSave,
     TResult? Function()? galleryPermissionDeniedFailure,
     TResult? Function()? cameraPermissionDeniedFailure,
     TResult? Function(double fileSizeInMB)? tooLargeFile,
@@ -633,6 +797,7 @@ class _$PickTooLargeFile implements PickTooLargeFile {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(File file)? success,
+    TResult Function()? successSave,
     TResult Function()? galleryPermissionDeniedFailure,
     TResult Function()? cameraPermissionDeniedFailure,
     TResult Function(double fileSizeInMB)? tooLargeFile,
@@ -650,6 +815,7 @@ class _$PickTooLargeFile implements PickTooLargeFile {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PickSuccess value) success,
+    required TResult Function(PickSuccessSave value) successSave,
     required TResult Function(PickGalleryPermissionDeniedFailure value)
         galleryPermissionDeniedFailure,
     required TResult Function(PickCameraPermissionDeniedFailure value)
@@ -665,6 +831,7 @@ class _$PickTooLargeFile implements PickTooLargeFile {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PickSuccess value)? success,
+    TResult? Function(PickSuccessSave value)? successSave,
     TResult? Function(PickGalleryPermissionDeniedFailure value)?
         galleryPermissionDeniedFailure,
     TResult? Function(PickCameraPermissionDeniedFailure value)?
@@ -680,6 +847,7 @@ class _$PickTooLargeFile implements PickTooLargeFile {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PickSuccess value)? success,
+    TResult Function(PickSuccessSave value)? successSave,
     TResult Function(PickGalleryPermissionDeniedFailure value)?
         galleryPermissionDeniedFailure,
     TResult Function(PickCameraPermissionDeniedFailure value)?
@@ -745,6 +913,7 @@ class _$PickCancelled implements PickCancelled {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(File file) success,
+    required TResult Function() successSave,
     required TResult Function() galleryPermissionDeniedFailure,
     required TResult Function() cameraPermissionDeniedFailure,
     required TResult Function(double fileSizeInMB) tooLargeFile,
@@ -758,6 +927,7 @@ class _$PickCancelled implements PickCancelled {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(File file)? success,
+    TResult? Function()? successSave,
     TResult? Function()? galleryPermissionDeniedFailure,
     TResult? Function()? cameraPermissionDeniedFailure,
     TResult? Function(double fileSizeInMB)? tooLargeFile,
@@ -771,6 +941,7 @@ class _$PickCancelled implements PickCancelled {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(File file)? success,
+    TResult Function()? successSave,
     TResult Function()? galleryPermissionDeniedFailure,
     TResult Function()? cameraPermissionDeniedFailure,
     TResult Function(double fileSizeInMB)? tooLargeFile,
@@ -788,6 +959,7 @@ class _$PickCancelled implements PickCancelled {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PickSuccess value) success,
+    required TResult Function(PickSuccessSave value) successSave,
     required TResult Function(PickGalleryPermissionDeniedFailure value)
         galleryPermissionDeniedFailure,
     required TResult Function(PickCameraPermissionDeniedFailure value)
@@ -803,6 +975,7 @@ class _$PickCancelled implements PickCancelled {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PickSuccess value)? success,
+    TResult? Function(PickSuccessSave value)? successSave,
     TResult? Function(PickGalleryPermissionDeniedFailure value)?
         galleryPermissionDeniedFailure,
     TResult? Function(PickCameraPermissionDeniedFailure value)?
@@ -818,6 +991,7 @@ class _$PickCancelled implements PickCancelled {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PickSuccess value)? success,
+    TResult Function(PickSuccessSave value)? successSave,
     TResult Function(PickGalleryPermissionDeniedFailure value)?
         galleryPermissionDeniedFailure,
     TResult Function(PickCameraPermissionDeniedFailure value)?
@@ -904,6 +1078,7 @@ class _$PickFailure implements PickFailure {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(File file) success,
+    required TResult Function() successSave,
     required TResult Function() galleryPermissionDeniedFailure,
     required TResult Function() cameraPermissionDeniedFailure,
     required TResult Function(double fileSizeInMB) tooLargeFile,
@@ -917,6 +1092,7 @@ class _$PickFailure implements PickFailure {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(File file)? success,
+    TResult? Function()? successSave,
     TResult? Function()? galleryPermissionDeniedFailure,
     TResult? Function()? cameraPermissionDeniedFailure,
     TResult? Function(double fileSizeInMB)? tooLargeFile,
@@ -930,6 +1106,7 @@ class _$PickFailure implements PickFailure {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(File file)? success,
+    TResult Function()? successSave,
     TResult Function()? galleryPermissionDeniedFailure,
     TResult Function()? cameraPermissionDeniedFailure,
     TResult Function(double fileSizeInMB)? tooLargeFile,
@@ -947,6 +1124,7 @@ class _$PickFailure implements PickFailure {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PickSuccess value) success,
+    required TResult Function(PickSuccessSave value) successSave,
     required TResult Function(PickGalleryPermissionDeniedFailure value)
         galleryPermissionDeniedFailure,
     required TResult Function(PickCameraPermissionDeniedFailure value)
@@ -962,6 +1140,7 @@ class _$PickFailure implements PickFailure {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PickSuccess value)? success,
+    TResult? Function(PickSuccessSave value)? successSave,
     TResult? Function(PickGalleryPermissionDeniedFailure value)?
         galleryPermissionDeniedFailure,
     TResult? Function(PickCameraPermissionDeniedFailure value)?
@@ -977,6 +1156,7 @@ class _$PickFailure implements PickFailure {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PickSuccess value)? success,
+    TResult Function(PickSuccessSave value)? successSave,
     TResult Function(PickGalleryPermissionDeniedFailure value)?
         galleryPermissionDeniedFailure,
     TResult Function(PickCameraPermissionDeniedFailure value)?
