@@ -24,7 +24,7 @@ class GoogleConnector {
         );
       } else {
         // This is probably due to cancelling the sign in (going back)
-        return GoogleSignInFailure();
+        return GoogleSignInCancel();
       }
     } catch (e, stackTrace) {
       _logger.warning(e);
@@ -50,6 +50,8 @@ class GoogleSignInResult with _$GoogleSignInResult {
     required String fullName,
     required String idToken,
   }) = GoogleSignInSuccess;
+
+  factory GoogleSignInResult.cancel() = GoogleSignInCancel;
 
   factory GoogleSignInResult.failure({
     String? errorMsg,

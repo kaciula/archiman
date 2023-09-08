@@ -8,20 +8,20 @@ part of 'places_response.dart';
 
 PlacesResponse _$PlacesResponseFromJson(Map<String, dynamic> json) =>
     PlacesResponse()
-      ..query = _QueryResponse.fromJson(json['query'] as Map<String, dynamic>);
+      ..query = QueryResponse.fromJson(json['query'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$PlacesResponseToJson(PlacesResponse instance) =>
     <String, dynamic>{
       'query': instance.query,
     };
 
-_QueryResponse _$QueryResponseFromJson(Map<String, dynamic> json) =>
-    _QueryResponse()
+QueryResponse _$QueryResponseFromJson(Map<String, dynamic> json) =>
+    QueryResponse()
       ..geosearch = (json['geosearch'] as List<dynamic>)
           .map((e) => PlaceResponse.fromJson(e as Map<String, dynamic>))
           .toList();
 
-Map<String, dynamic> _$QueryResponseToJson(_QueryResponse instance) =>
+Map<String, dynamic> _$QueryResponseToJson(QueryResponse instance) =>
     <String, dynamic>{
       'geosearch': instance.geosearch,
     };

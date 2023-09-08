@@ -10,7 +10,7 @@ PlaceSummaryResponse _$PlaceSummaryResponseFromJson(
         Map<String, dynamic> json) =>
     PlaceSummaryResponse()
       ..extract = json['extract'] as String
-      ..contentUrls = _ContentUrlsResponse.fromJson(
+      ..contentUrls = ContentUrlsResponse.fromJson(
           json['content_urls'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$PlaceSummaryResponseToJson(
@@ -20,21 +20,21 @@ Map<String, dynamic> _$PlaceSummaryResponseToJson(
       'content_urls': instance.contentUrls,
     };
 
-_ContentUrlsResponse _$ContentUrlsResponseFromJson(Map<String, dynamic> json) =>
-    _ContentUrlsResponse()
+ContentUrlsResponse _$ContentUrlsResponseFromJson(Map<String, dynamic> json) =>
+    ContentUrlsResponse()
       ..mobile =
-          _MobileResponse.fromJson(json['mobile'] as Map<String, dynamic>);
+          MobileResponse.fromJson(json['mobile'] as Map<String, dynamic>);
 
 Map<String, dynamic> _$ContentUrlsResponseToJson(
-        _ContentUrlsResponse instance) =>
+        ContentUrlsResponse instance) =>
     <String, dynamic>{
       'mobile': instance.mobile,
     };
 
-_MobileResponse _$MobileResponseFromJson(Map<String, dynamic> json) =>
-    _MobileResponse()..page = json['page'] as String;
+MobileResponse _$MobileResponseFromJson(Map<String, dynamic> json) =>
+    MobileResponse()..page = json['page'] as String;
 
-Map<String, dynamic> _$MobileResponseToJson(_MobileResponse instance) =>
+Map<String, dynamic> _$MobileResponseToJson(MobileResponse instance) =>
     <String, dynamic>{
       'page': instance.page,
     };

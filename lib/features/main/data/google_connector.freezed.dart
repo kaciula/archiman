@@ -21,6 +21,7 @@ mixin _$GoogleSignInResult {
     required TResult Function(
             String emailAddress, String fullName, String idToken)
         success,
+    required TResult Function() cancel,
     required TResult Function(String? errorMsg, String? errorDetails) failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,6 +29,7 @@ mixin _$GoogleSignInResult {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String emailAddress, String fullName, String idToken)?
         success,
+    TResult? Function()? cancel,
     TResult? Function(String? errorMsg, String? errorDetails)? failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -35,6 +37,7 @@ mixin _$GoogleSignInResult {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String emailAddress, String fullName, String idToken)?
         success,
+    TResult Function()? cancel,
     TResult Function(String? errorMsg, String? errorDetails)? failure,
     required TResult orElse(),
   }) =>
@@ -42,18 +45,21 @@ mixin _$GoogleSignInResult {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GoogleSignInSuccess value) success,
+    required TResult Function(GoogleSignInCancel value) cancel,
     required TResult Function(GoogleSignInFailure value) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GoogleSignInSuccess value)? success,
+    TResult? Function(GoogleSignInCancel value)? cancel,
     TResult? Function(GoogleSignInFailure value)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GoogleSignInSuccess value)? success,
+    TResult Function(GoogleSignInCancel value)? cancel,
     TResult Function(GoogleSignInFailure value)? failure,
     required TResult orElse(),
   }) =>
@@ -167,6 +173,7 @@ class _$GoogleSignInSuccess implements GoogleSignInSuccess {
     required TResult Function(
             String emailAddress, String fullName, String idToken)
         success,
+    required TResult Function() cancel,
     required TResult Function(String? errorMsg, String? errorDetails) failure,
   }) {
     return success(emailAddress, fullName, idToken);
@@ -177,6 +184,7 @@ class _$GoogleSignInSuccess implements GoogleSignInSuccess {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String emailAddress, String fullName, String idToken)?
         success,
+    TResult? Function()? cancel,
     TResult? Function(String? errorMsg, String? errorDetails)? failure,
   }) {
     return success?.call(emailAddress, fullName, idToken);
@@ -187,6 +195,7 @@ class _$GoogleSignInSuccess implements GoogleSignInSuccess {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String emailAddress, String fullName, String idToken)?
         success,
+    TResult Function()? cancel,
     TResult Function(String? errorMsg, String? errorDetails)? failure,
     required TResult orElse(),
   }) {
@@ -200,6 +209,7 @@ class _$GoogleSignInSuccess implements GoogleSignInSuccess {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GoogleSignInSuccess value) success,
+    required TResult Function(GoogleSignInCancel value) cancel,
     required TResult Function(GoogleSignInFailure value) failure,
   }) {
     return success(this);
@@ -209,6 +219,7 @@ class _$GoogleSignInSuccess implements GoogleSignInSuccess {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GoogleSignInSuccess value)? success,
+    TResult? Function(GoogleSignInCancel value)? cancel,
     TResult? Function(GoogleSignInFailure value)? failure,
   }) {
     return success?.call(this);
@@ -218,6 +229,7 @@ class _$GoogleSignInSuccess implements GoogleSignInSuccess {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GoogleSignInSuccess value)? success,
+    TResult Function(GoogleSignInCancel value)? cancel,
     TResult Function(GoogleSignInFailure value)? failure,
     required TResult orElse(),
   }) {
@@ -240,6 +252,118 @@ abstract class GoogleSignInSuccess implements GoogleSignInResult {
   @JsonKey(ignore: true)
   _$$GoogleSignInSuccessCopyWith<_$GoogleSignInSuccess> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GoogleSignInCancelCopyWith<$Res> {
+  factory _$$GoogleSignInCancelCopyWith(_$GoogleSignInCancel value,
+          $Res Function(_$GoogleSignInCancel) then) =
+      __$$GoogleSignInCancelCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GoogleSignInCancelCopyWithImpl<$Res>
+    extends _$GoogleSignInResultCopyWithImpl<$Res, _$GoogleSignInCancel>
+    implements _$$GoogleSignInCancelCopyWith<$Res> {
+  __$$GoogleSignInCancelCopyWithImpl(
+      _$GoogleSignInCancel _value, $Res Function(_$GoogleSignInCancel) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$GoogleSignInCancel implements GoogleSignInCancel {
+  _$GoogleSignInCancel();
+
+  @override
+  String toString() {
+    return 'GoogleSignInResult.cancel()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$GoogleSignInCancel);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String emailAddress, String fullName, String idToken)
+        success,
+    required TResult Function() cancel,
+    required TResult Function(String? errorMsg, String? errorDetails) failure,
+  }) {
+    return cancel();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String emailAddress, String fullName, String idToken)?
+        success,
+    TResult? Function()? cancel,
+    TResult? Function(String? errorMsg, String? errorDetails)? failure,
+  }) {
+    return cancel?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String emailAddress, String fullName, String idToken)?
+        success,
+    TResult Function()? cancel,
+    TResult Function(String? errorMsg, String? errorDetails)? failure,
+    required TResult orElse(),
+  }) {
+    if (cancel != null) {
+      return cancel();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GoogleSignInSuccess value) success,
+    required TResult Function(GoogleSignInCancel value) cancel,
+    required TResult Function(GoogleSignInFailure value) failure,
+  }) {
+    return cancel(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GoogleSignInSuccess value)? success,
+    TResult? Function(GoogleSignInCancel value)? cancel,
+    TResult? Function(GoogleSignInFailure value)? failure,
+  }) {
+    return cancel?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GoogleSignInSuccess value)? success,
+    TResult Function(GoogleSignInCancel value)? cancel,
+    TResult Function(GoogleSignInFailure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (cancel != null) {
+      return cancel(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GoogleSignInCancel implements GoogleSignInResult {
+  factory GoogleSignInCancel() = _$GoogleSignInCancel;
 }
 
 /// @nodoc
@@ -320,6 +444,7 @@ class _$GoogleSignInFailure implements GoogleSignInFailure {
     required TResult Function(
             String emailAddress, String fullName, String idToken)
         success,
+    required TResult Function() cancel,
     required TResult Function(String? errorMsg, String? errorDetails) failure,
   }) {
     return failure(errorMsg, errorDetails);
@@ -330,6 +455,7 @@ class _$GoogleSignInFailure implements GoogleSignInFailure {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String emailAddress, String fullName, String idToken)?
         success,
+    TResult? Function()? cancel,
     TResult? Function(String? errorMsg, String? errorDetails)? failure,
   }) {
     return failure?.call(errorMsg, errorDetails);
@@ -340,6 +466,7 @@ class _$GoogleSignInFailure implements GoogleSignInFailure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String emailAddress, String fullName, String idToken)?
         success,
+    TResult Function()? cancel,
     TResult Function(String? errorMsg, String? errorDetails)? failure,
     required TResult orElse(),
   }) {
@@ -353,6 +480,7 @@ class _$GoogleSignInFailure implements GoogleSignInFailure {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GoogleSignInSuccess value) success,
+    required TResult Function(GoogleSignInCancel value) cancel,
     required TResult Function(GoogleSignInFailure value) failure,
   }) {
     return failure(this);
@@ -362,6 +490,7 @@ class _$GoogleSignInFailure implements GoogleSignInFailure {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GoogleSignInSuccess value)? success,
+    TResult? Function(GoogleSignInCancel value)? cancel,
     TResult? Function(GoogleSignInFailure value)? failure,
   }) {
     return failure?.call(this);
@@ -371,6 +500,7 @@ class _$GoogleSignInFailure implements GoogleSignInFailure {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GoogleSignInSuccess value)? success,
+    TResult Function(GoogleSignInCancel value)? cancel,
     TResult Function(GoogleSignInFailure value)? failure,
     required TResult orElse(),
   }) {

@@ -11,7 +11,7 @@ AutocompletePlacesResponse _$AutocompletePlacesResponseFromJson(
     AutocompletePlacesResponse()
       ..status = json['status'] as String
       ..predictions = (json['predictions'] as List<dynamic>)
-          .map((e) => _PredictionResponse.fromJson(e as Map<String, dynamic>))
+          .map((e) => PredictionResponse.fromJson(e as Map<String, dynamic>))
           .toList();
 
 Map<String, dynamic> _$AutocompletePlacesResponseToJson(
@@ -21,12 +21,12 @@ Map<String, dynamic> _$AutocompletePlacesResponseToJson(
       'predictions': instance.predictions,
     };
 
-_PredictionResponse _$PredictionResponseFromJson(Map<String, dynamic> json) =>
-    _PredictionResponse()
+PredictionResponse _$PredictionResponseFromJson(Map<String, dynamic> json) =>
+    PredictionResponse()
       ..placeId = json['place_id'] as String
       ..description = json['description'] as String;
 
-Map<String, dynamic> _$PredictionResponseToJson(_PredictionResponse instance) =>
+Map<String, dynamic> _$PredictionResponseToJson(PredictionResponse instance) =>
     <String, dynamic>{
       'place_id': instance.placeId,
       'description': instance.description,
